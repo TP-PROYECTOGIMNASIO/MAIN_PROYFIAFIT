@@ -211,10 +211,10 @@ function CardSede({ sede }) {
 }
 
 
-function Modal({ isOpen, onClose, openError, asignarMsj,onRegisterSuccess  }) {
+function Modal({ isOpen, onClose, openError, asignarMsj, onRegisterSuccess }) {
     const [sede, setSede] = useState('');
     const [ubicacion, setUbicacion] = useState('');
-    const [imagen, setImagen] = useState('');
+    const [imagen, setImagen] = useState(null); // Cambiado para aceptar archivos
 
     if (!isOpen) return null;
 
@@ -224,26 +224,21 @@ function Modal({ isOpen, onClose, openError, asignarMsj,onRegisterSuccess  }) {
             return;
         }
 
-        const data = {
-            name: sede,
-            photo: imagen,
-            address: ubicacion
-        };
+        const formData = new FormData();
+        formData.append('name', sede);
+        formData.append('photo', imagen); // Agregar archivo de imagen
+        formData.append('address', ubicacion);
 
         fetch('https://irgzydz99c.execute-api.us-east-2.amazonaws.com/register/', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            body: formData,
         })
         .then(response => {
             if (!response.ok) {
-                // Verificar si el código de estado es 409
                 if (response.status === 409) {
-                    ejecutarError();
+                    throw new Error('Conflict: El recurso ya existe.');
                 } else {
-                    ejecutarError();
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
             }
             return response.json();
@@ -253,7 +248,7 @@ function Modal({ isOpen, onClose, openError, asignarMsj,onRegisterSuccess  }) {
             
             setSede('');  // Limpiar el campo "sede"
             setUbicacion('');  // Limpiar el campo "ubicacion"
-            setImagen('');  // Limpiar el campo "imagen"
+            setImagen(null);  // Limpiar el campo "imagen"
             onClose();  // Cerrar el modal
             onRegisterSuccess();
         })
@@ -286,7 +281,7 @@ function Modal({ isOpen, onClose, openError, asignarMsj,onRegisterSuccess  }) {
                     <div className="flex flex-row justify-between">
                         <label className="text-black" htmlFor="sede">Sede:</label>
                         <input 
-                            className="text-white bg-black p-1 text-center" 
+                            className="text-white bg-black p-1 text-center max-w-[180px]" 
                             type="text" 
                             placeholder="sede"
                             value={sede}
@@ -296,7 +291,7 @@ function Modal({ isOpen, onClose, openError, asignarMsj,onRegisterSuccess  }) {
                     <div className="flex flex-row justify-between">
                         <label className="text-black" htmlFor="ubicacion">Ubicación:</label>
                         <input 
-                            className="text-white bg-black p-1 text-center" 
+                            className="text-white bg-black p-1 text-center max-w-[180px]" 
                             type="text" 
                             placeholder="ubicación"
                             value={ubicacion}
@@ -306,11 +301,10 @@ function Modal({ isOpen, onClose, openError, asignarMsj,onRegisterSuccess  }) {
                     <div className="flex flex-row justify-between">
                         <label className="text-black" htmlFor="imagen">Imagen:</label>
                         <input 
-                            className="text-white bg-black p-1 text-center" 
-                            type="text" 
-                            placeholder="imagen"
-                            value={imagen}
-                            onChange={(e) => setImagen(e.target.value)}
+                            className="text-white bg-black p-1 text-center max-w-[180px]" 
+                            type="file" // Cambiado a "file"
+                            accept="image/png" // Acepta solo PNG
+                            onChange={(e) => setImagen(e.target.files[0])} // Guardar el archivo seleccionado
                         />
                     </div>
                     <div className="flex justify-center" onClick={ejercutarModal}>
