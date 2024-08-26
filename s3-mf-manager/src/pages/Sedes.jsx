@@ -112,7 +112,25 @@ function CardSede({ sede }) {
 
     const handleConfirm = () => {
         // Make the API call to update the status
-
+        fetch('https://smecstc9rd.execute-api.us-east-2.amazonaws.com/actualizar/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: selectBgColor === '#4B4F57' ? 'disable' : 'enable',
+                id: sede.id
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            handleCloseModal();
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            handleCloseModal();
+        });
     };
 
     return (
