@@ -13,3 +13,5 @@ npx tailwindcss init -p
 
 npm install react-router-dom
    
+s3-mf-principal -> REACT NATIVE
+OTROS -> REACT + VITE
