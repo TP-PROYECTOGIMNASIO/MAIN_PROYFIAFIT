@@ -1,43 +1,50 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function Sedes(){
-
+export default function Sedes() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [isModalErrorOpen, setModalErrorOpen] = useState(false);
-    const [msjError,setMsjError] = useState("");
-    const [sedes, setSedes] = useState([]); // Estado para almacenar las sedes
+    const [msjError, setMsjError] = useState("");
+    const [sedes, setSedes] = useState([]);
+    const [filter, setFilter] = useState('all'); // Estado para manejar el filtro
 
     const handleOpenModal = () => setModalOpen(true);
     const handleCloseModal = () => setModalOpen(false);
-
-
-
     const handleOpenModalError = () => setModalErrorOpen(true);
     const handleCloseModalError = () => setModalErrorOpen(false);
 
-    useEffect(() => {
+    const fetchSedes = () => {
         fetch("https://lwxfkitc10.execute-api.us-east-2.amazonaws.com/listar/")
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Error al obtener las sedes");
                 }
-                console.log(response)
                 return response.json();
             })
             .then(data => {
-                const datatotal=JSON.parse(data.body)
-                console.log(datatotal.locations);  // Imprime los datos obtenidos
-                setSedes(datatotal.locations); // Almacena las sedes en el estado
+                const datatotal = JSON.parse(data.body);
+                setSedes(datatotal.locations);
+                console.log(datatotal.locations)
             })
             .catch(error => {
                 console.error("Error:", error);
                 setMsjError("Error al cargar las sedes");
-                setModalErrorOpen(true); // Muestra el modal de error si falla la solicitud
+                setModalErrorOpen(true);
             });
+    };
+
+    useEffect(() => {
+        fetchSedes();
     }, []);
-    return(
-        <main className="min-h-[84vh] flex flex-col gap-4" style={{backgroundColor:"#F3F4F7"}}>
+
+    // Filtra las sedes basado en el filtro seleccionado
+    const filteredSedes = sedes.filter(sede => {
+        if (filter === 'all') return true;
+        return sede.status === filter;
+    });
+
+    return (
+        <main className="min-h-[84vh] flex flex-col gap-4" style={{ backgroundColor: "#F3F4F7" }}>
             <div className="flex justify-between pt-4">
                 <Link className="ml-4 flex items-center justify-center gap-1 text-black" to={"/home"}>
                     <strong className="h-full flex items-center text-center text-[24px] font-bold">&lt;</strong>
@@ -46,40 +53,46 @@ export default function Sedes(){
                 <button 
                     onClick={handleOpenModal} 
                     className="mr-4 p-2 pr-8 pl-4 flex items-center"
-                    style={{backgroundColor:"#B5121C",borderRadius:"5px"}}
+                    style={{ backgroundColor: "#B5121C", borderRadius: "5px" }}
                 >
                     <strong className="font-extrabold text-[30px]">+</strong>
                     <span className="mt-1">Registrar Nueva Sede</span>
                 </button>
             </div>
             <div className="pb-4">
-                <button className="ml-4 p-2 text-black font-semibold" style={{backgroundColor:"#B5121C",borderRadius:"5px"}}>
-                    <span>
-                        Ordernar por
-                    </span>
-                </button>
-                <select className="ml-4 mt-2 p-2 border bg-white text-black min-w-[150px] font-semibold" style={{borderRadius:"5px"}}>
-                    <option value="activas">Activas</option>
-                    <option value="inactivas">Inactivas</option>
+                <label className="ml-4 p-2 text-black font-semibold" style={{ backgroundColor: "#B5121C", borderRadius: "5px" }}>
+                    <span>Ordenar por</span>
+                </label>
+                <select 
+                    className="ml-4 mt-2 p-2 border bg-white text-black min-w-[150px] font-semibold" 
+                    style={{ borderRadius: "5px" }}
+                    value={filter} // Establece el valor del filtro en el select
+                    onChange={(e) => setFilter(e.target.value)} // Actualiza el filtro cuando cambia el select
+                >
+                    <option value="all">Todos</option>
+                    <option value="active">Activo</option>
+                    <option value="inactive">Inactivo</option>
                 </select>
             </div>
             <div className="flex min-h-[60vh] justify-center items-center">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
-                    {sedes && sedes.length > 0 ? (
-                        sedes.map((sede, index) => (
-                            <CardSede key={index} sede={sede} /> // Pasa cada sede a CardSede
+                    {filteredSedes && filteredSedes.length > 0 ? (
+                        filteredSedes.map((sede) => (
+                            <CardSede key={sede.id} sede={sede} />
                         ))
                     ) : (
                         <p className="text-center col-span-full text-gray-500">No se encontraron sedes.</p>
                     )}
                 </div>
             </div>
-            <Modal isOpen={isModalOpen} onClose={handleCloseModal} openError={handleOpenModalError} asignarMsj={setMsjError} />
-            <ModalError isOpen={isModalErrorOpen} onClose={handleCloseModalError} msj={msjError} asignarMsj={setMsjError}/>
-
+            <Modal 
+            isOpen={isModalOpen} onClose={handleCloseModal} openError={handleOpenModalError} 
+            asignarMsj={setMsjError} 
+            onRegisterSuccess={fetchSedes} // Pasa la función fetchSedes como prop
+            />
+            <ModalError isOpen={isModalErrorOpen} onClose={handleCloseModalError} msj={msjError} asignarMsj={setMsjError} />
         </main>
-
-    )
+    );
 }
 /*
 https://smecstc9rd.execute-api.us-east-2.amazonaws.com/actualizar/
@@ -94,42 +107,52 @@ function CardSede({ sede }) {
     const [selectBgColor, setSelectBgColor] = useState(sede.status === 'inactive' ? '#4B4F57' : '#B5121C');
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
+    const [pendingStatus, setPendingStatus] = useState(sede.status);
+    const [prevStatus, setPrevStatus] = useState(sede.status);
 
     const handleStatusChange = (event) => {
         const newStatus = event.target.value;
+        setPrevStatus(pendingStatus); // Guardar el estado anterior
+        setPendingStatus(newStatus); // Guardar el estado pendiente para confirmación
+
         const newColor = newStatus === 'inactive' ? '#4B4F57' : '#B5121C';
         setSelectBgColor(newColor);
 
-        // Set the message for the modal based on the new status
         const action = newStatus === 'inactive' ? 'deshabilitar' : 'habilitar';
         setModalMessage(`¿Desea ${action} esta sede?`);
         setModalOpen(true);
     };
 
     const handleCloseModal = () => {
+        setSelectBgColor(prevStatus === 'inactive' ? '#4B4F57' : '#B5121C'); // Restaurar color anterior
+        setPendingStatus(prevStatus); // Restaurar estado anterior
         setModalOpen(false);
     };
 
     const handleConfirm = () => {
-        // Make the API call to update the status
+        // Hacer la llamada a la API para actualizar el estado
         fetch('https://smecstc9rd.execute-api.us-east-2.amazonaws.com/actualizar/', {
-            method: 'POST',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                action: selectBgColor === '#4B4F57' ? 'disable' : 'enable',
+                action: pendingStatus === 'inactive' ? 'disable' : 'enable',
                 id: sede.id
             }),
         })
         .then(response => response.json())
         .then(data => {
             console.log('Success:', data);
-            handleCloseModal();
+            setPrevStatus(pendingStatus); // Confirmar el nuevo estado como anterior
+            setSelectBgColor(pendingStatus === 'inactive' ? '#4B4F57' : '#B5121C'); // Cambiar color basado en el nuevo estado
+            setModalOpen(false); // Cerrar el modal
         })
         .catch((error) => {
             console.error('Error:', error);
-            handleCloseModal();
+            setSelectBgColor(prevStatus === 'inactive' ? '#4B4F57' : '#B5121C'); // Restaurar color anterior
+            setPendingStatus(prevStatus); // Restaurar estado anterior
+            setModalOpen(false); // Cerrar el modal
         });
     };
 
@@ -143,7 +166,7 @@ function CardSede({ sede }) {
             <h2 className="font-extrabold text-[24px]">{sede.name}</h2>
             <p className="text-center text-gray-700">{sede.address}</p>
             <select
-                defaultValue={sede.status}
+                value={pendingStatus}
                 onChange={handleStatusChange}
                 className="p-2 border min-w-[150px] font-extrabold"
                 style={{ backgroundColor: selectBgColor, borderRadius: "5px" }}
@@ -186,7 +209,9 @@ function CardSede({ sede }) {
         </div>
     );
 }
-function Modal({ isOpen, onClose, openError, asignarMsj }) {
+
+
+function Modal({ isOpen, onClose, openError, asignarMsj,onRegisterSuccess  }) {
     const [sede, setSede] = useState('');
     const [ubicacion, setUbicacion] = useState('');
     const [imagen, setImagen] = useState('');
@@ -204,7 +229,7 @@ function Modal({ isOpen, onClose, openError, asignarMsj }) {
             photo: imagen,
             address: ubicacion
         };
-        console.log(data);
+
         fetch('https://irgzydz99c.execute-api.us-east-2.amazonaws.com/register/', {
             method: 'POST',
             headers: {
@@ -212,14 +237,28 @@ function Modal({ isOpen, onClose, openError, asignarMsj }) {
             },
             body: JSON.stringify(data),
         })
-        .then(response =>response.json())
-            
+        .then(response => {
+            if (!response.ok) {
+                // Verificar si el código de estado es 409
+                if (response.status === 409) {
+                    ejecutarError();
+                } else {
+                    ejecutarError();
+                }
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Success:', data);
-            onClose();  // Cierra el modal después de la respuesta exitosa
+            
+            setSede('');  // Limpiar el campo "sede"
+            setUbicacion('');  // Limpiar el campo "ubicacion"
+            setImagen('');  // Limpiar el campo "imagen"
+            onClose();  // Cerrar el modal
+            onRegisterSuccess();
         })
         .catch((error) => {
-            console.error('Error:', error);
+            console.error('Error:', error.message);
             ejecutarError();
         });
     };
@@ -284,6 +323,8 @@ function Modal({ isOpen, onClose, openError, asignarMsj }) {
         </div>
     );
 }
+
+
 function ModalError({ isOpen, onClose,msj,asignarMsj}) {
     if (!isOpen) return null;
 
