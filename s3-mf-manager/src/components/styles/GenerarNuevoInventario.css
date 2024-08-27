@@ -1,0 +1,73 @@
+.modal-container {
+    background-color: #ffffff; /* Ajusta el color de fondo si es necesario */
+}
+
+.modal-header {
+    position: relative;
+}
+
+.text-primary {
+    color: #c41717; /* Ajusta el color del texto si es necesario */
+}
+
+.bg-red-600 {
+    background-color: #c41717; /* Rojo para el fondo del botón */
+}
+
+.bg-red-700 {
+    background-color: #c41717; /* Color más oscuro del botón en hover */
+}
+
+.text-white {
+    color: #ffffff; /* Letras blancas para el botón */
+}
+
+.border-border {
+    border-color: #dee2e6; /* Ajusta el color del borde si es necesario */
+}
+
+.text-muted-foreground {
+    color: #6c757d; /* Ajusta el color del texto si es necesario */
+}
+
+.placeholder-custom::placeholder {
+    color: #6c757d; /* Color del texto del placeholder (plomo) */
+    background-color: #f8f9fa; /* Color de fondo del placeholder (plomo) */
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header .text-xl {
+    font-size: 1.5rem; /* Ajusta el tamaño de la "X" */
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+    color: black; /* Color de la "X" en negro */
+}
+
+.mb-4 {
+    margin-bottom: 1rem; /* Ajusta el margen inferior si es necesario */
+}
+
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+button {
+    margin-top: 1rem; /* Ajusta el margen superior si es necesario */
+    align-self: center; /* Centra el botón horizontalmente */
+}
