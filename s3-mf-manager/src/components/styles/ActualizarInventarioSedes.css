@@ -1,0 +1,68 @@
+.product-selection-container {
+    padding: 24px;
+    background-color: #f9f9f9; /* Cambia el color si es necesario */
+  }
+  
+  .back-link-container {
+    text-align: left; /* Alineación del contenedor a la izquierda */
+  }
+  
+  .back-link {
+    color: #000000; /* Letras negras */
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: block;
+    text-align: left;
+  }
+  
+  .main-title {
+    color: #c41717;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  
+  .product-card {
+    background-color: #BFB6B8; /* Fondo plomo para los botones */
+    color: #000000; /* Texto blanco */
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .full-width {
+    grid-column: span 4; /* Ocupa toda la fila */
+  }
+  
+  .product-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .product-button {
+    display: inline-block;
+    background-color: #B5121C; /* Fondo para los botones */
+    color: #ffffff; /* Texto blanco */
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .product-button:hover {
+    background-color: #23272b; /* Fondo oscuro */
+  }
+  
