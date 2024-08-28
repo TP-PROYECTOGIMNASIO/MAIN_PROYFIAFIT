@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './styles/ActualizarInventarioSedes.css'; 
+import './styles/ActualizarInventarioSedes.css';
 import Modal from './Modal';
 import GenerarNuevoInventario from './GenerarNuevoInventario'; // Asegúrate de que la ruta sea correcta
 
@@ -20,13 +20,16 @@ const ActualizarInventarioSedes = () => {
         <div className="inventory-container">
             <div className="header-container">
                 <a href="#" className="back-link">⟵ Regresar</a>
-                <div className="title-container">
+                <div className="titles-container">
                     <h1 className="main-title">Registra las últimas actualizaciones</h1>
-                    <h1 className="main-title-2">de los inventarios de tus sedes!</h1>
+                    <h1 className="main-title">de los inventarios de tus sedes!</h1>
                 </div>
-                <div className="action-buttons">
-                    <button className="button-class" onClick={handleRegisterNewInventory}>+ Registrar Nuevo Inventario</button>
-                    <input type="text" placeholder="Buscar" className="input-class" />
+                <button className="button-class" onClick={handleRegisterNewInventory}>+ Registrar Nuevo Inventario</button>
+            </div>
+            <div className="subheader-container">
+                <div className="search-bar">
+                    <label htmlFor="search-input" className="search-label">Buscar:</label>
+                    <input id="search-input" type="text" placeholder=" " className="input-class" />
                 </div>
             </div>
             <table className="inventory-table">
@@ -40,34 +43,7 @@ const ActualizarInventarioSedes = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="table-row">
-                        <td className="cell-class"><input type="checkbox" /></td>
-                        <td className="cell-class"><img src="https://placehold.co/50x50" alt="Mancuernas 3kg" /></td>
-                        <td className="cell-class">Mancuernas 3kg</td>
-                        <td className="cell-class">2</td>
-                        <td className="cell-class">40 soles</td>
-                    </tr>
-                    <tr className="table-row">
-                        <td className="cell-class"><input type="checkbox" /></td>
-                        <td className="cell-class"><img src="https://placehold.co/50x50" alt="Mancuerna 20kg" /></td>
-                        <td className="cell-class">Mancuerna 20kg</td>
-                        <td className="cell-class">3</td>
-                        <td className="cell-class">80 soles</td>
-                    </tr>
-                    <tr className="table-row">
-                        <td className="cell-class"><input type="checkbox" /></td>
-                        <td className="cell-class"><img src="https://placehold.co/50x50" alt="Pack gimnasio en casa" /></td>
-                        <td className="cell-class">Pack gimnasio en casa</td>
-                        <td className="cell-class">5</td>
-                        <td className="cell-class">135 soles</td>
-                    </tr>
-                    <tr className="table-row">
-                        <td className="cell-class"><input type="checkbox" /></td>
-                        <td className="cell-class"><img src="https://placehold.co/50x50" alt="Rueda abdominal" /></td>
-                        <td className="cell-class">Rueda abdominal</td>
-                        <td className="cell-class">8</td>
-                        <td className="cell-class">25 soles</td>
-                    </tr>
+                    {/* Aquí va el contenido de la tabla */}
                 </tbody>
             </table>
             <Modal isOpen={isModalOpen} onClose={handleCloseModal}>

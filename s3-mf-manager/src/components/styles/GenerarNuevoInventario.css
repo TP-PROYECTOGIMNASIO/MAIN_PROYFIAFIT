@@ -1,13 +1,18 @@
 .modal-container {
-    background-color: #ffffff; /* Ajusta el color de fondo si es necesario */
+    background-color: #ffffff; /* Color de fondo del modal */
 }
 
 .modal-header {
     position: relative;
+    background-color: transparent; /* Sin color de fondo */
 }
 
 .text-primary {
-    color: #c41717; /* Ajusta el color del texto si es necesario */
+    color: #c41717; /* Color del texto del título */
+}
+
+.text-center {
+    text-align: center; /* Centra el texto dentro del contenedor */
 }
 
 .bg-red-600 {
@@ -19,20 +24,19 @@
 }
 
 .text-white {
-    color: #ffffff; /* Letras blancas para el botón */
+    color: #ffffff; /* Color blanco para el texto del botón */
 }
 
 .border-border {
-    border-color: #dee2e6; /* Ajusta el color del borde si es necesario */
+    border-color: #dee2e6; /* Color del borde de los inputs */
 }
 
 .text-muted-foreground {
-    color: #6c757d; /* Ajusta el color del texto si es necesario */
+    color: #6c757d; /* Color del texto de las etiquetas */
 }
 
 .placeholder-custom::placeholder {
-    color: #6c757d; /* Color del texto del placeholder (plomo) */
-    background-color: #f8f9fa; /* Color de fondo del placeholder (plomo) */
+    color: #ffffff; /* Color blanco para el placeholder */
 }
 
 .form-grid {
@@ -47,16 +51,17 @@
 }
 
 .modal-header .text-xl {
-    font-size: 1.5rem; /* Ajusta el tamaño de la "X" */
+    font-size: 2.5rem; /* Tamaño de la "X" */
     position: absolute;
     top: 0;
     right: 0;
     cursor: pointer;
-    color: black; /* Color de la "X" en negro */
+    color: black; /* Color de la "X" */
+    
 }
 
 .mb-4 {
-    margin-bottom: 1rem; /* Ajusta el margen inferior si es necesario */
+    margin-bottom: 1rem; /* Margen inferior */
 }
 
 .flex {
@@ -67,7 +72,21 @@
     flex-direction: column;
 }
 
-button {
-    margin-top: 1rem; /* Ajusta el margen superior si es necesario */
-    align-self: center; /* Centra el botón horizontalmente */
+input, select {
+    background-color: #DFE0E1; /* Color plomo para los inputs */
+    color: #000000; /* Color blanco para el texto dentro de los inputs */
+    height: 2.5rem; /* Altura de los inputs */
+    border: 1px solid #DFE0E1; /* Borde de los inputs */
 }
+
+button {
+    margin-top: 2rem; /* Margen superior del botón */
+    align-self: center; /* Centrar el botón horizontalmente */
+
+    font-size: 1.25rem; /* Aumenta el tamaño de la fuente del botón */
+    line-height: 1.5rem; /* Ajusta la altura de la línea para una mejor apariencia */
+    padding: 1rem 2rem; /* Aumenta el relleno interno del botón */
+    border-radius: 0.5rem; /* Ajusta el radio del borde del botón */
+}
+
+

@@ -1,24 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header'; // Asegúrate de que la ruta sea correcta
-import Footer from './components/Footer'; // Asegúrate de que la ruta sea correcta
-import Tipodeproducto from './components/Tipodeproducto'; // Asegúrate de que la ruta sea correcta
-import ActualizarInventarioSedes from './components/ActualizarInventarioSedes'; // Asegúrate de que la ruta sea correcta
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Tipodeproducto from './components/Tipodeproducto';
+import ActualizarInventarioSedes from './components/ActualizarInventarioSedes';
 import GenerarNuevoInventario from './components/GenerarNuevoInventario';
-import './App.css'; // Asegúrate de que la ruta sea correcta
 
 const App = () => {
   return (
     <Router>
-      <>
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
         <Header />
-        <Routes>
-          <Route path="/GenerarInventario" element={<Tipodeproducto />} />
-          <Route path="/ActualizarInventarioSedes" element={<ActualizarInventarioSedes />} />
-          <Route path="/GenerarNuevoInventario" element={<GenerarNuevoInventario />} />
-        </Routes>
+        <div style={{ flex: 1 }}>
+          <Routes>
+            <Route path="/GenerarInventario" element={<Tipodeproducto />} />
+            <Route path="/ActualizarInventarioSedes" element={<ActualizarInventarioSedes />} />
+            <Route path="/GenerarNuevoInventario" element={<GenerarNuevoInventario />} />
+          </Routes>
+        </div>
         <Footer />
-      </>
+      </div>
     </Router>
   );
 };

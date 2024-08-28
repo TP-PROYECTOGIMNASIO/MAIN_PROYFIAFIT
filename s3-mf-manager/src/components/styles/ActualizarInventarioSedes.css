@@ -1,88 +1,92 @@
-
-.inventory-table {
-    width: 100%; /* Ocupa todo el ancho disponible */
-    border-collapse: collapse;
-    border: 1px solid #dee2e6;
+.inventory-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    height: 100vh;
 }
 
 .header-container {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    margin-bottom: 16px;
+    align-items: center;
+    width: 100%;
 }
 
 .back-link {
-    color: #000000; /* Letras negras */
     font-size: 18px;
-    font-weight: 600;
+    color: rgb(88, 88, 88);
     text-decoration: none;
-    margin-right: 1cm; /* Espacio a la derecha del botón Regresar */
+    margin-right: auto;
 }
 
-.title-container {
+.titles-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     flex-grow: 1;
     text-align: center;
-    margin: 0 1cm; /* Espacio a la izquierda y derecha del título */
 }
 
 .main-title {
     font-size: 24px;
-    color: #c41717;
     font-weight: bold;
     margin: 0;
-}
-
-.main-title-2 {
-    font-size: 24px;
-    color: #c41717;
-    font-weight: bold;
-    margin-top: 0; /* Ajusta si es necesario */
-}
-
-.action-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-left: 1cm; /* Espacio a la izquierda del botón y campo de búsqueda */
+    color: #AF171C;
 }
 
 .button-class {
-    background-color: #6c757d;
-    color: #ffffff;
+    background-color: #AF171C;
+    color: white;
     padding: 10px 20px;
-    border-radius: 8px;
+    font-size: 16px;
+    border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 1cm; /* Espacio debajo del botón */
 }
 
-.button-class:hover {
-    background-color: #5a6268;
+.subheader-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    justify-content: flex-end;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+}
+
+.search-label {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #fff; /* Color blanco para el texto de la etiqueta */
 }
 
 .input-class {
-    border: 1px solid #6c757d;
-    border-radius: 8px;
     padding: 8px;
-    width: 200px; /* Ajusta el tamaño si es necesario */
+    font-size: 16px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #808080; /* Color plomo para el recuadro */
+    color: #fff; /* Texto blanco dentro del recuadro */
+    margin-left: 10px;
+}
+
+.inventory-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
 }
 
 .table-header {
-    background-color: #e9ecef;
+    background-color: #d1d1d1;
 }
 
 .cell-class {
-    border: 1px solid #dee2e6;
-    padding: 8px;
-    text-align: center;
-}
-
-.table-row {
-    border-bottom: 1px solid #dee2e6;
-}
-
-.inventory-table img {
-    max-width: 100%; /* Asegura que la imagen no exceda el tamaño de la celda */
-    height: auto; /* Mantiene la proporción de la imagen */
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
