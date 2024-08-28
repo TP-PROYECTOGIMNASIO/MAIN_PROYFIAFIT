@@ -21,6 +21,9 @@ export const ComprasPage = () => {
     <>
     <h1 style={{color:"#FF0000"}} >Catálogo de productos</h1>
     <hr />
+    <hr />
+    <hr />
+    
 
     {productos.map(producto => (
         <Card 

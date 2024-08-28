@@ -1,16 +1,22 @@
-import { Badge } from "@mui/material"
-import { ShoppingCart } from "@mui/icons-material"
-import { NavLink } from "react-router-dom"
-import { useContext } from "react"
-import { CarritoContext } from "../context/CarritoContext"
+import { Badge } from "@mui/material";
+import { ShoppingCart } from "@mui/icons-material";
+import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { CarritoContext } from "../context/CarritoContext";
+import '../styles/navbar.css';
 
+// Importar la imagen
+import logo from '../images/logo.png';
 
 export const NavBar = () => {
-    const { listaCompras } = useContext(CarritoContext)
+    const { listaCompras } = useContext(CarritoContext);
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
-                <NavLink to='/' className="navbar-brand" href="#" style={{color:"#B5121C"}}>LimaFIT</NavLink>
+                <NavLink to='/' className="navbar-brand" href="#">
+                    <img src={logo} alt="LimaFIT Logo" className="navbar-logo" />
+                </NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -28,5 +34,5 @@ export const NavBar = () => {
                 </div>
             </div>
         </nav>
-    )
+    );
 }

@@ -1,72 +1,80 @@
-/* Estilos para la tarjeta */
+/* Contenedor de la tarjeta */
 .tarjeta {
-    display: inline-block;
-    border: 1px solid #ccc;
-    background-color: #BFB6B8;
-    border-radius: 4px;
-    padding: 10px;
-    margin-bottom: 10px;
-    width: 350px;
-    height: 400px;
-    align-items: center;
-    text-align: justify;
-  }
-  
-  .tarjeta-imagen {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-right: 10px;
-  }
-  
-  .tarjeta-contenido {
-    flex: 1;
-  }
-  
-  .tarjeta-titulo {
-    margin: 0;
-  }
-  
-  .tarjeta-descripcion {
-    margin: 0;
-    margin-bottom: 10px;
-  }
-  
-  .tarjeta-precio {
-    margin: 0;
-    font-weight: bold;
-  }
-  
-  .boton-agregar {
-    background-color: #f00;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .boton-agregar:hover {
-    background-color: #45a049;
-  }
-  .boton-quitar {
-    background-color: #af4c4c;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .boton-quitar:hover {
-    background-color: #a04545;
-  }
-  
-  /* Estilos para el carrito */
-  .carrito {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
+  background-color: #BFB6B8;
+  border: 1px solid #BFB6B8;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+  display: grid;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  margin: 15px;
+  width: 300px;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+}
+
+/* Imagen de la tarjeta */
+.tarjeta-imagen {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 15px;
+}
+
+/* Contenido de la tarjeta */
+.tarjeta-contenido {
+  padding: 10px;
+}
+
+/* Título de la tarjeta */
+.tarjeta-titulo {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #4B4F57;
+  margin-bottom: 10px;
+}
+
+/* Precio de la tarjeta */
+.tarjeta-precio {
+  font-size: 1.2em;
+  color: #4B4F57;
+  margin-bottom: 15px;
+}
+
+/* Botones */
+.boton-agregar,
+.boton-quitar {
+  background-color: #B5121C;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.boton-quitar {
+  background-color: #218838;
+}
+
+.boton-agregar:hover {
+  background-color: #218838;
+}
+
+.boton-quitar:hover {
+  background-color: #c82333;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
