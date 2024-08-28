@@ -14,7 +14,7 @@ export default function Sedes() {
     const handleCloseModalError = () => setModalErrorOpen(false);
 
     const fetchSedes = () => {
-        fetch("https://lwxfkitc10.execute-api.us-east-2.amazonaws.com/listar/")
+        fetch("https://cxdt2lrhdb.execute-api.us-east-2.amazonaws.com/desarrollo/sedes")
             .then(response => {
                 if (!response.ok) {
                     throw new Error("Error al obtener las sedes");
@@ -131,7 +131,7 @@ function CardSede({ sede }) {
 
     const handleConfirm = () => {
         // Hacer la llamada a la API para actualizar el estado
-        fetch('https://smecstc9rd.execute-api.us-east-2.amazonaws.com/actualizar/', {
+        fetch('https://cxdt2lrhdb.execute-api.us-east-2.amazonaws.com/desarrollo/sedes', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -229,7 +229,7 @@ function Modal({ isOpen, onClose, openError, asignarMsj, onRegisterSuccess }) {
         formData.append('photo', imagen); // Agregar archivo de imagen
         formData.append('address', ubicacion);
 
-        fetch('https://irgzydz99c.execute-api.us-east-2.amazonaws.com/register/', {
+        fetch('https://cxdt2lrhdb.execute-api.us-east-2.amazonaws.com/desarrollo/sedes', {
             method: 'POST',
             body: formData,
         })
