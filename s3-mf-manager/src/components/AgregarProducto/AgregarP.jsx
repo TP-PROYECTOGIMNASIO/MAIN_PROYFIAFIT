@@ -1,6 +1,8 @@
-import "../App.css";
-import { useState } from "react";
-import ListaCompras from "./ListaCompras";
+import '../../App.css'
+import  {  useState } from "react";
+import ListaCompras from "../ListaCompras/ListaCompras";
+
+
 
 export default function AgregarP() {
   const [imagenProducto, setImagenProducto] = useState("");
@@ -65,6 +67,9 @@ export default function AgregarP() {
   };
 
   return (
+    
+    <div className="containerGenerar">
+    
     <div className="app">
       {vista ? (
         <ListaCompras
@@ -75,6 +80,7 @@ export default function AgregarP() {
         />
       ) : (
         <div className="form-container">
+
           <h2>Agregar Producto</h2>
           <div className="form-group">
             <div className="row">
@@ -94,9 +100,9 @@ export default function AgregarP() {
                   onChange={handleTipoChange}
                 >
                   <option value="">Selecciona un tipo</option>
-                  <option value="Alimento">Alimento</option>
-                  <option value="Electronico">Electrónico</option>
-                  <option value="Hogar">Hogar</option>
+                  <option value="Pesas">Pesas</option>
+                  <option value="Maquina">Maquina</option>
+                  <option value="Vestimenta">Vestimenta</option>
                   <option value="Otro">Otro</option>
                 </select>
               </div>
@@ -173,11 +179,13 @@ export default function AgregarP() {
             </div>
           </div>
 
-          <button type="button" className="btn" onClick={handleGuardar}>
+          <button type="button" className="btnAgregarP" onClick={handleGuardar}>
             Guardar
           </button>
         </div>
       )}
     </div>
+    </div>
+    
   );
 }

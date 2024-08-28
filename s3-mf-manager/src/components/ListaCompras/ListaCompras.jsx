@@ -1,4 +1,4 @@
-import "../ListaC.css";
+import "./ListaC.css";
 
 export default function ListaCompras(props) {
   const { vista, setVista, productData, setProductData } = props;
@@ -16,7 +16,7 @@ export default function ListaCompras(props) {
   };
 
   return (
-    <div >
+    <div className="containerListaC" >
       <h3 className="title">Lista de Compras</h3>
       <div className="d-flex justify-content-end">
       <button className="btn btn-secondary" onClick={resetVista}>
@@ -44,15 +44,15 @@ export default function ListaCompras(props) {
               <td>Otro</td>
               <td>Banda Elastica</td>
               <td>5</td>
-              <td>150</td>
-              {/* <td>
+              <td>150 soles</td>
+              <td>
        <button className="btn btn-primary btn-sm" onClick={handleEdit}>
          Editar
        </button>
        <button className="btn btn-danger btn-sm" onClick={handleDelete}>
          Eliminar
        </button>
-     </td>*/}
+     </td>
             </tr>
             <tr>
               <td>2</td>
@@ -60,15 +60,15 @@ export default function ListaCompras(props) {
               <td>Otro</td>
               <td>Tomatodo</td>
               <td>1</td>
-              <td>45</td>
-              {/* <td>
+              <td>45 soles</td>
+              <td>
        <button className="btn btn-primary btn-sm" onClick={handleEdit}>
          Editar
        </button>
        <button className="btn btn-danger btn-sm" onClick={handleDelete}>
          Eliminar
        </button>
-     </td>*/}
+     </td>
             </tr>
             <tr>
               <td>3</td>
@@ -76,39 +76,39 @@ export default function ListaCompras(props) {
               <td>Otro</td>
               <td>Polo</td>
               <td>1</td>
-              <td>55</td>
-              {/* <td>
+              <td>55 soles</td>
+              <td>
        <button className="btn btn-primary btn-sm" onClick={handleEdit}>
          Editar
        </button>
        <button className="btn btn-danger btn-sm" onClick={handleDelete}>
          Eliminar
        </button>
-     </td>*/}
+     </td>
             </tr><tr>
                 <td>4</td>
                 <td>{productData.fechaCompra}</td>
                 <td>{productData.tipoProducto}</td>
                 <td>{productData.nombreProducto}</td>
                 <td>{productData.cantidadComprada}</td>
-                <td>{productData.precioTotal}</td>
-                {/* <td>
+                <td>{productData.precioTotal} soles</td>
+                <td>
        <button className="btn btn-primary btn-sm" onClick={handleEdit}>
          Editar
        </button>
        <button className="btn btn-danger btn-sm" onClick={handleDelete}>
          Eliminar
        </button>
-     </td>*/}
+     </td>
               </tr></>
           )}
         </tbody>
       </table>
       <br></br>
-      <div className="d-flex justify-content-end">
+      <div className="d-flex">
         
         <button className="btn btn-secondary">
-          Guardar
+          Guardar Informe
         </button>
       </div>
     </div>

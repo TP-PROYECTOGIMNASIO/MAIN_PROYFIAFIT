@@ -8,13 +8,19 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   }
-  h3{
+
+  .containerListaC{
+    width: 100%;
+  }
+  
+  .containerListaC h3{
     font-size: 50px;
-    font-weight: bold;
+   
   }
 
   .title {
     text-align: center;
+    margin-top: 0px;
     margin-bottom: 20px;
     color: #333;
   }
@@ -63,12 +69,18 @@
   }
   
   .btn-secondary {
-    background-color: #6c757d;
+    background-color: #dc3545;
     color: #fff;
+    height: 70px;
+    width: 300px;
+    font-size: 20px;
+
   }
   
   .d-flex {
     display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .justify-content-end {

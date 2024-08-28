@@ -3,6 +3,16 @@
   margin: 0 auto;
   width: 100%;
   text-align: center;
+  font-family: inherit;
+}
+.body{
+  font-family: inherit;
+}
+.containerGenerar{
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
 }
 
 .form-container {
@@ -13,8 +23,18 @@ h2{
   font-size: 50px;
   color: #cc0000;
   margin-top: 0;
-  font-family: 'Montserrat', sans-serif;
 }
+  .btnAgregarP {
+    
+      background-color: #dc3545;
+      color: #fff;
+      height: 50px;
+      width: 200px  ;
+      font-size: 20px;
+      margin-top: 10px;
+  
+  }
+
 .containerAgregarP{
   align-items: center;
 }
@@ -23,12 +43,12 @@ h2{
   flex-direction: column;
   align-items: center;
   justify-content: center;
- 
-  padding: 5rem;
+ width: 70%;
+  padding: 3rem;
   background-color: #fff;
   border-radius: 8px;
   color: #000;
-  font-family: Arial, sans-serif;
+  
 }
 
 .form-group {
@@ -37,6 +57,7 @@ h2{
   margin-bottom: 1.5rem;
   width: 100%;
   align-items: center;
+  height: 90px;
  
 }
 
@@ -57,6 +78,7 @@ h2{
   font-size: 1rem;
   width: 300px;
     max-width: 400px;
+    font-family: inherit;
 }
 
 .form-group input:focus,

@@ -1,6 +1,6 @@
-import '../Header.css';
-import logo from '../assets/3.png';
-import profile from '../assets/profile.png';
+import './Header.css';
+import logo from '../img/logo.png'
+import profile from '../img/profile.png';
 
 export default function Header()  {
   return (

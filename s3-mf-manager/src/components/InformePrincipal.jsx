@@ -1,20 +1,14 @@
-
-import '../App.css'
-
-import AgregarP from '../components/AgregarP'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
+import "../App.css";
+import Header from "../components/Header/Header";
+import Footer from "./Footer/Footer";
+import VisualizarInforme from "./VisualizarInforme/VisualizarInforme";
 
 export default function InformePrincipal() {
- 
-
   return (
-        <>
-            <Header />
-           <AgregarP />
-           <Footer/>
-           </>
-  )
+    <>
+      <Header />
+      <VisualizarInforme />
+      <Footer />
+    </>
+  );
 }
-
-
