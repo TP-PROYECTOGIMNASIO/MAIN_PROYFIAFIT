@@ -22,9 +22,10 @@ export default function Sedes() {
                 return response.json();
             })
             .then(data => {
-                const datatotal = JSON.parse(data.body);
-                setSedes(datatotal.locations);
-                console.log(datatotal.locations)
+                console.log(data)
+     
+                setSedes(data.locations);
+ 
             })
             .catch(error => {
                 console.error("Error:", error);
