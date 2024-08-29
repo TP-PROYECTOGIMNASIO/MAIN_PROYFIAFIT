@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import './App.css'
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 import Home from './pages/Home'
@@ -8,9 +9,20 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 
 function App() {
+=======
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Tipodeproducto from './components/Tipodeproducto';
+import ActualizarInventarioSedes from './components/ActualizarInventarioSedes';
+import GenerarNuevoInventario from './components/GenerarNuevoInventario';
+>>>>>>> origin/s3-mf-manager/HU-TP-67
 
+const App = () => {
   return (
     <Router>
+<<<<<<< HEAD
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sedes" element={
@@ -94,4 +106,21 @@ function App() {
 }
 
 >>>>>>> origin/s3-mf-manager/HU-TP-61
+=======
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+        <Header />
+        <div style={{ flex: 1 }}>
+          <Routes>
+            <Route path="/GenerarInventario" element={<Tipodeproducto />} />
+            <Route path="/ActualizarInventarioSedes" element={<ActualizarInventarioSedes />} />
+            <Route path="/GenerarNuevoInventario" element={<GenerarNuevoInventario />} />
+          </Routes>
+        </div>
+        <Footer />
+      </div>
+    </Router>
+  );
+};
+
+>>>>>>> origin/s3-mf-manager/HU-TP-67
 export default App;

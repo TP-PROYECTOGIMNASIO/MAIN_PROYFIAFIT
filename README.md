@@ -6,7 +6,7 @@ npm create vite@latest
 
 git config user.name "Tu Nombre" git config user.email "tuemail@example.com"
 
-
+##Para usar tailwind
 npm install -D tailwindcss postcss autoprefixer
 
 npx tailwindcss init -p  

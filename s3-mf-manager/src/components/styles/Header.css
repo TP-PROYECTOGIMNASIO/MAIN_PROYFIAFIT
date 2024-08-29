@@ -1,0 +1,37 @@
+/* Header.css */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #ffffff; /* Background color for the header */
+  border-bottom: 1px solid #e0e0e0; /* Border color for the bottom border */
+}
+
+.header-logo .logo-image {
+  height: 40px; /* Adjust size as needed */
+}
+
+.header-space {
+  flex-grow: 1; /* Creates the empty space between the logo and the button */
+}
+
+.header-button {
+  margin-right: 10px; /* Adjust spacing from the right as needed */
+}
+
+.logout-button {
+  background-color: #f0f0f0; /* Button background color */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.header-profile .profile-image {
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  border-radius: 50%; /* Makes the image circular */
+}
