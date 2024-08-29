@@ -54,7 +54,8 @@ button:hover {
 }
 
 th {
-    background-color: #e0e0e0;
+    background-color: #DFE0E1;
+    color: #4B4F57;
     padding: 20px;
     height: 30px;
 }
@@ -63,6 +64,8 @@ td {
     padding: 20px;
     border-bottom: 1px solid #ddd;
     height: 30px;
+    background-color: white;
+    color: #929292;
 }
 
 .buttonHead{
@@ -72,14 +75,11 @@ td {
             padding: 10px; /* Opcional: agregar algo de espacio dentro del div */
            
 }
-.buttonHead .add-button, .back-button{
 
-}
 .add-button{
     width: 350px;
     height: 50px;
-    font-weight: bold; /* Hace el texto en negrita */
-  font-size: 20px;   /* Cambia el tamaño del texto */
+    font-size: 21px;   /* Cambia el tamaño del texto */
 }
 
 .view-button {

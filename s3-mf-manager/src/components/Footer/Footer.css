@@ -64,12 +64,6 @@
   z-index: 1;
 }
 
-.icon-youtube1 {
-  position: absolute;
-  margin: 0 !important;
-  right: 21.3px;
-  bottom: 13.2px;
-}
 .bot1 {
   align-self: stretch;
   background-color: var(--color-black);

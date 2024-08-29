@@ -1,28 +1,21 @@
-.container {
-    max-width: 800px;
+.containerDetalleI {
+   
     color: #333;
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  }
-
-  .containerListaC{
     width: 100%;
-  }
-  
-  .containerListaC h3{
-    font-size: 50px;
-   
+
   }
 
-  .title {
+    .containerDetalleI .title {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 20px;
-    color: #333;
+    color: #B5121C;
+    font-size: 50px;
   }
   
   .table {
@@ -51,7 +44,7 @@
     background-color: white;
   }
   
-  .btn {
+  .containerDetalleI .btn {
     display: inline-block;
     padding: 6px 12px;
     margin-right: 8px;
@@ -61,41 +54,29 @@
     font-size: 14px;
   }
   
-  .btn-primary , .btn-danger {
+  .btn-prm {
     background-color:white  ;
+    height: 20px;
     color: #fff;
-  }
-  .btn-primary:hover{
+  } 
+  .btn-prm:hover{
     background-color: white  ; /* Cambia el color de fondo al hacer hover */
   }
-  .btn-danger:hover{
-    background-color: white  ; /* Cambia el color de fondo al hacer hover */
-  }
-  .btn-danger img{
-    color: #fff;
-    transition: filter 0.3s; /* Transición suave para el filtro */
-  }
-  .btn-primary img{
+  
+
+  .btn-prm img{
     
     color: #fff;
     transition: filter 0.3s; /* Transición suave para el filtro */
   }
-  .btn-primary:hover img {
+  .btn-prm:hover img {
     filter: brightness(0.85) saturate(100%) invert(70%); /* Cambia a gris */ /* Cambia el color de la imagen */
 }
-  .btn-danger:hover img{
-    filter: brightness(0.85) saturate(100%) invert(70%); /* Cambia el color de la imagen */
-  }
-  
-  .btn-secondary {
-    background-color: #dc3545;
-    color: #fff;
-    height: 70px;
-    width: 300px;
-    font-size: 20px;
-
-  }
-  
+.montoTotal p{
+  font-size: 30px;
+  font-weight: normal;
+}
+     
   .d-flex {
     display: flex;
     align-items: center;

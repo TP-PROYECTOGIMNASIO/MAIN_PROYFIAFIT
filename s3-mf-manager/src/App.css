@@ -31,7 +31,7 @@ h2{
       height: 50px;
       width: 200px  ;
       font-size: 20px;
-      margin-top: 10px;
+      margin-top: 25px;
   
   }
 
@@ -43,9 +43,8 @@ h2{
   flex-direction: column;
   align-items: center;
   justify-content: center;
- width: 70%;
   padding: 3rem;
-  background-color: #fff;
+  
   border-radius: 8px;
   color: #000;
   
@@ -143,7 +142,10 @@ h2{
 .column {
   display: flex;
   flex-direction: column;
-  align-items: center;
   margin-bottom: 10px;
   padding: 20px;
+}
+.column label{
+   font-size: 25px;
+   font-weight: normal;
 }

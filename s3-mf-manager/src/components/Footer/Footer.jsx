@@ -2,9 +2,9 @@ import "./Footer.css";
 
 export default function Footer() {
   return (
-    <footer className="bot1">
+    <footer className="bot1">   
         <div className="bot-item" />
-        <h2 className="link1">Copyright © Gimnasio 2024</h2>
+        <h2 className="link1">Copyright © Gimnasio 2024</h2>
         <div className="social-media-icons-wrapper">
           <div className="social-media-icons">
             <img
@@ -31,14 +31,15 @@ export default function Footer() {
               alt=""
               src="/icon--linkedin1.svg"
             />
-          </div>
-        </div>
-        <img
+            <img
           className="icon-youtube1"
           loading="lazy"
           alt=""
           src="/icon--youtube1.svg"
         />
+          </div>
+        </div>
+        
       </footer>
   );
 }

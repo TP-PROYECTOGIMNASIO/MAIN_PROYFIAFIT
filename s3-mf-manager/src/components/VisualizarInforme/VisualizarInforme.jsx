@@ -2,9 +2,11 @@ import "./VisualizarI.css";
 import { useState } from "react";
 import Modal from "../Modal/Modal";
 import AgregarP from "../AgregarProducto/AgregarP";
+import DetalleInforme from "../DetalleInforme/DetalleInforme";
 
 export default function VisualizarInforme() {
   const [showModal, setShowModal] = useState(false);
+  const [showModalV, setShowModalV] = useState(false);
 
   const handleAddEmployeeClick = () => {
     setShowModal(true);
@@ -14,11 +16,25 @@ export default function VisualizarInforme() {
     setShowModal(false);
   };
 
+  const handleOpenModalV = () => {
+    setShowModalV(true);
+  };
+
+  const handleCloseModalV = () => {
+    setShowModalV(false);
+  };
+  
+
   return (
     <div className="containerVI">
         {showModal && (
         <Modal onClose={handleCloseModal}>
           <AgregarP />
+        </Modal>
+      )}
+      {showModalV && (
+        <Modal onClose={handleCloseModalV}>
+          <DetalleInforme />
         </Modal>
       )}
       <header>
@@ -56,9 +72,9 @@ export default function VisualizarInforme() {
             <tr>
               <td>Informe xxxx</td>
               <td>10/08/2024</td>
-              <td>350 soles</td>
+              <td>250 soles</td>
               <td>
-                <button className="view-button">Visualizar</button>
+                <button className="view-button" onClick={handleOpenModalV}>Visualizar</button>
               </td>
             </tr>
             <tr>
