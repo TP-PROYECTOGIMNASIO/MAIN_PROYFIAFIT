@@ -1,18 +1,178 @@
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+=======
+@import url("https://fonts.googleapis.com/css2?family=Alegreya:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anybody:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Arimo:wght@700&display=swap");
+>>>>>>> origin/s3-mf-manager/HU-TP-61
 
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-inter: Inter;
+  --font-alegreya: Alegreya;
+  --font-anybody: Anybody;
+  --font-arimo: Arimo;
+  font-family: var(--font-anybody);
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #242424;  
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+<<<<<<< HEAD
+=======
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  font-family: inherit;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button{
+  font-family: var(--font-anybody); 
+}
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+:root {
+  /* fonts */
+  --font-inter: Inter;
+  --font-alegreya: Alegreya;
+  --font-anybody: Anybody;
+  --font-arimo: Arimo;
+
+  /* font sizes */
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-xl: 20px;
+  --font-size-xs: 12px;
+  --font-size-17xl: 36px;
+  --font-size-3xl: 22px;
+  --font-size-10xl: 29px;
+  --font-size-5xl: 24px;
+  --font-size-mini: 15px;
+  --font-size-lg: 18px;
+  --font-size-21xl: 40px;
+  --font-size-13xl: 32px;
+
+  /* Colors */
+  --color-white: #fff;
+  --color-black: #000;
+  --color-mintcream: #f7fffb;
+  --color-gray-100: #fafafa;
+  --color-gray-200: #929292;
+  --color-gray-300: #121212;
+  --color-firebrick-100: #ac1919;
+  --color-firebrick-200: #b5121c;
+  --color-firebrick: #b60707;
+  --color-mistyrose: #e6d0d0;
+  --color-dimgray: #6f6a6a;
+  --color-dimgray-100: #4b4f57;
+  --color-steelblue-100: #408fd4;
+  --color-steelblue-200: #196aac;
+  --color-lightgray: #d0d0d0;
+  --color-gainsboro-100: #dfe0e1;
+  --color-gainsboro: #d8dadb;
+  --color-whitesmoke: #f3f4f7;
+  --color-crimson: #db3842;
+  --color-silver: #bfb6b8;
+
+  /* Gaps */
+  --gap-xl: 20px;
+  --gap-xs: 12px;
+  --gap-mini: 15px;
+  --gap-2xl: 21px;
+  --gap-smi: 13px;
+  --gap-12xs: 1px;
+  --gap-lg: 18px;
+  --gap-base: 16px;
+  --gap-5xl: 24px;
+  --gap-3xl: 22px;
+  --gap-8xs-3: 4.3px;
+  --gap-21xl: 40px;
+  --gap-8xs: 5px;
+
+  /* Paddings */
+  --padding-mini: 15px;
+  --padding-2xl: 21px;
+  --padding-12xs: 1px;
+  --padding-4xs: 9px;
+  --padding-smi: 13px;
+  --padding-2xs: 11px;
+  --padding-8xs: 5px;
+  --padding-6xs: 7px;
+  --padding-5xl: 24px;
+  --padding-5xs: 8px;
+  --padding-9xs: 4px;
+  --padding-xl: 20px;
+  --padding-7xl: 26px;
+  --padding-65xl: 84px;
+  --padding-xs: 12px;
+  --padding-11xs: 2px;
+  --padding-7xs: 6px;
+  --padding-59xl: 78px;
+  --padding-10xs: 3px;
+  --padding-48xl: 67px;
+  --padding-14xl: 33px;
+  --padding-9xl: 28px;
+  --padding-15xl: 34px;
+  --padding-17xl: 36px;
+  --padding-8xl: 27px;
+  --padding-44xl: 63px;
+  --padding-11xl: 30px;
+  --padding-base: 16px;
+  --padding-lg: 18px;
+  --padding-sm: 14px;
+  --padding-6xl: 25px;
+  --padding-lgi: 19px;
+  --padding-mid: 17px;
+  --padding-61xl: 80px;
+  --padding-21xl: 40px;
+
+  /* Border radiuses */
+  --br-8xs: 5px;
+  --br-5xs: 8px;
+}
+>>>>>>> origin/s3-mf-manager/HU-TP-61

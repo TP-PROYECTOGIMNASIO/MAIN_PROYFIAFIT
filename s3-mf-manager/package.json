@@ -6,6 +6,10 @@
 <<<<<<< HEAD
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+<<<<<<< HEAD
+=======
+    "react-modal": "^3.16.1",
+>>>>>>> origin/s3-mf-manager/HU-TP-61
     "react-router-dom": "^6.26.1"
   },
   "devDependencies": {

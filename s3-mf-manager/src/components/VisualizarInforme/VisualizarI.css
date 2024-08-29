@@ -1,0 +1,96 @@
+.containerVI {
+    background: white;
+    padding: 20px;
+    font-weight: bold; /* Hace el texto en negrita */
+    font-size: 20px;   /* Cambia el tamaño del texto */
+   
+    color: black;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.back-button {
+    color: #c00;
+    text-decoration: none;
+}
+
+.order-options, .gasto-buttons {
+    margin: 10px 0;
+}
+
+button {
+    background-color: #c00;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button:hover {
+    background-color: #a00;
+}
+.cTabla{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.cTabla table {
+    margin: 0 auto;
+    width: 90%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #DFE0E1;
+    color: #4B4F57;
+    padding: 20px;
+    height: 30px;
+}
+
+td {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    height: 30px;
+    background-color: white;
+    color: #929292;
+}
+
+.buttonHead{
+    width: 100%;
+    display: flex; /* Usar flexbox para alinear los elementos */
+            justify-content: space-between; /* Separar elementos hacia los extremos */
+            padding: 10px; /* Opcional: agregar algo de espacio dentro del div */
+           
+}
+
+.add-button{
+    width: 350px;
+    height: 50px;
+    font-size: 21px;   /* Cambia el tamaño del texto */
+}
+
+.view-button {
+    background-color: #c00;
+    color: white;
+    border: none;
+    width: 80%;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.view-button:hover {
+    background-color: #a00;
+}

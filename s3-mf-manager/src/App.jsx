@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import './App.css'
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom'
 import Home from './pages/Home'
@@ -75,4 +76,22 @@ function App() {
   );
 >>>>>>> origin/s3-mf-clientes/HU-TP-17
 }
+=======
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+
+import InformePrincipal from "./components/InformePrincipal";
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/Informe-Compra" element={<InformePrincipal />} />
+      </Routes>
+    </Router>
+  );
+}
+
+>>>>>>> origin/s3-mf-manager/HU-TP-61
 export default App;
