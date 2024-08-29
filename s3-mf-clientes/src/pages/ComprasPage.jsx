@@ -12,28 +12,29 @@ export const ComprasPage = () => {
     const handleAgregar = (compra) =>{
       agregarCompra(compra)
     }
-    const handleQuitar = (id) =>{
-      eliminarCompra(id)
+    const handleQuitar = (product_type_id) =>{
+      eliminarCompra(product_type_id)
     }
    
 
   return (
     <>
-    <h1 style={{color:"#FF0000"}} >Catálogo de productos</h1>
-    <hr />
-    <hr />
-    <hr />
+    <h1></h1>
+    <h1 style={{color:"#FF0000" } } >Catálogo de</h1>
+    <h1 style={{color:"#FF0000"}} >productos</h1>
+    <h1></h1>
+   
     
 
     {productos.map(producto => (
         <Card 
-        key={producto.id}
-        imagen={producto.image}
-        titulo={producto.title}
+        key={producto.product_type_id}
+        imagen={producto.image_url}
+        titulo={producto.product_name}
         descripcion={producto.description}
         precio={producto.price}
         handleAgregar={() => handleAgregar(producto)}
-        handleQuitar={() => handleQuitar(producto.id)}
+        handleQuitar={() => handleQuitar(producto.product_type_id)}
         >
 
         </Card>

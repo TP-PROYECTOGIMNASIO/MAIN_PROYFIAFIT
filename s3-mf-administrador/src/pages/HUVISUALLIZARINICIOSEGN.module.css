@@ -1,0 +1,290 @@
+.navbarChild {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.image56Icon {
+  position: absolute;
+  height: calc(100% - 28px);
+  top: 14px;
+  bottom: 14px;
+  left: 17px;
+  max-height: 100%;
+  width: 325px;
+  object-fit: cover;
+  z-index: 1;
+}
+.icons8UsuarioMasculinoEnC {
+  position: absolute;
+  top: 27px;
+  left: 1175px;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  z-index: 2;
+}
+.inicio,
+.navbar {
+  position: absolute;
+}
+.inicio {
+  margin: 0;
+  top: 38px;
+  left: 1070px;
+  font-size: inherit;
+  line-height: 58px;
+  font-weight: 400;
+  font-family: inherit;
+  display: inline-block;
+  min-width: 91px;
+  z-index: 3;
+}
+.navbar {
+  top: 0;
+  left: 0;
+  background-color: var(--color-white);
+  width: 100%;
+  height: 100%;
+}
+.navbarWrapper {
+  margin-top: -186px;
+  align-self: stretch;
+  height: 137px;
+  position: relative;
+  flex-shrink: 0;
+  text-align: left;
+  font-size: var(--font-size-17xl);
+  color: var(--color-dimgray);
+  font-family: var(--font-anybody);
+}
+.bienvenidoAdmin {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  line-height: 58px;
+  font-weight: 400;
+  font-family: inherit;
+  z-index: 1;
+}
+.adminWelcome,
+.top {
+  align-self: stretch;
+  display: flex;
+  align-items: flex-start;
+}
+.adminWelcome {
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 var(--padding-xl) 12px 247px;
+}
+.top {
+  height: 613px;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 184px 0 0;
+  box-sizing: border-box;
+  gap: 49px;
+  max-width: 100%;
+  text-align: left;
+  font-size: var(--font-size-17xl);
+  color: var(--color-firebrick);
+  font-family: var(--font-anybody);
+}
+.image64Icon {
+  height: 647px;
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  object-fit: cover;
+}
+.image64Wrapper {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 478px;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin-top: -478px;
+}
+.botChild {
+  height: 50px;
+  width: 1280px;
+  position: relative;
+  background-color: var(--color-black);
+  display: none;
+  max-width: 100%;
+  z-index: 0;
+}
+.iconFacebook,
+.link {
+  position: relative;
+  z-index: 1;
+}
+.link {
+  line-height: 160%;
+}
+.iconFacebook {
+  height: 24px;
+  width: 24px;
+  overflow: hidden;
+  flex-shrink: 0;
+  min-height: 24px;
+}
+.socialIcons,
+.socialMediaIcons {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.socialMediaIcons {
+  flex-direction: row;
+  gap: var(--gap-xs);
+}
+.socialIcons {
+  flex-direction: column;
+  padding: var(--padding-12xs) 0 0;
+}
+.iconYoutube {
+  height: 24px;
+  width: 24px;
+  position: absolute;
+  margin: 0 !important;
+  right: 21.3px;
+  bottom: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  z-index: 1;
+}
+.bot,
+.huVisuallizarInicioSegn {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+}
+.bot {
+  align-self: stretch;
+  background-color: var(--color-black);
+  flex-direction: row;
+  justify-content: space-between;
+  padding: var(--padding-mini) var(--padding-39xl) var(--padding-3xs)
+    var(--padding-2xl);
+  box-sizing: border-box;
+  max-width: 100%;
+  gap: var(--gap-xl);
+  margin-top: -478px;
+  text-align: left;
+  font-size: var(--font-size-sm);
+  color: var(--color-mintcream);
+  font-family: var(--font-alegreya);
+}
+.huVisuallizarInicioSegn {
+  width: 100%;
+  background-color: var(--color-white);
+  overflow: hidden;
+  flex-direction: column;
+  justify-content: flex-start;
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media screen and (max-width: 1025px) {
+  .bienvenidoAdmin,
+  .inicio {
+    font-size: var(--font-size-10xl);
+    line-height: 46px;
+  }
+  .top {
+    padding-top: 120px;
+    box-sizing: border-box;
+  }
+  .image64Wrapper {
+    padding-bottom: 311px;
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 750px) {
+  .adminWelcome {
+    padding-left: 123px;
+    box-sizing: border-box;
+  }
+  .top {
+    height: auto;
+    gap: 24px;
+  }
+  .bot {
+    padding-right: var(--padding-10xl);
+    box-sizing: border-box;
+  }
+}
+@media screen and (max-width: 450px) {
+  .bienvenidoAdmin,
+  .inicio {
+    font-size: var(--font-size-3xl);
+    line-height: 35px;
+  }
+  .adminWelcome,
+  .top {
+    box-sizing: border-box;
+  }
+  .adminWelcome {
+    padding-left: var(--padding-xl);
+  }
+  .top {
+    padding-top: 78px;
+  }
+  .image64Wrapper {
+    padding-bottom: 202px;
+    box-sizing: border-box;
+  }
+  .bot {
+    flex-wrap: wrap;
+  }
+}
+/* Ajusta el grosor del navbar */
+.navbarWrapper {
+  width: 400;
+  background-color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 5px; /* Disminuye el padding para reducir el grosor */
+}
+
+/* Estilo para la navbar en sí */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* Alinea todos los elementos a la derecha */
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Estilo para el logo de la navbar */
+.navbarLogo {
+  height: 30px; /* Ajusta la altura del logo */
+  cursor: pointer;
+  margin-right: 20px; /* Espacio entre el logo y el resto de los items */
+}
+
+/* Estilo para el título "Inicio" */
+.inicio {
+  font-size: 18px; /* Ajusta el tamaño de la fuente */
+  color: #333;
+  margin-right: 20px; /* Espacio entre "Inicio" y el icono de usuario */
+}
+
+/* Estilo para el icono del usuario */
+.userIcon {
+  height: 30px; /* Ajusta la altura del icono */
+  cursor: pointer;
+}
+
+/* Opcional: Estilo para la imagen adicional en la navbar */
+.image56Icon {
+  height: 30px; /* Ajusta la altura de la imagen */
+  cursor: pointer;
+  margin-right: 20px; /* Espacio entre la imagen y el texto "Inicio" */
+}

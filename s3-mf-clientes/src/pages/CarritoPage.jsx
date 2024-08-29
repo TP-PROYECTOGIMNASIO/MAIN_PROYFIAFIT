@@ -26,18 +26,18 @@ export const CarritoPage = () => {
                 </thead>
                 <tbody>
                     {listaCompras.map(item => (
-                        <tr key={item.id}>
-                            <th>{item.title}</th>
+                        <tr key={item.product_type_id}>
+                            <th>{item.product_name}</th>
                             <td>{item.price}</td>
                             <td className="d-flex align-items-center justify-content-center">
                                 <button 
                                     className="btn btn-outline-primary btn-sm" 
-                                    onClick={() => disminuirCantidad(item.id)}
+                                    onClick={() => disminuirCantidad(item.product_type_id)}
                                 >-</button>
                                 <span className="mx-3">{item.cantidad}</span>
                                 <button 
                                     className="btn btn-outline-primary btn-sm" 
-                                    onClick={() => aumentarCantidad(item.id)}
+                                    onClick={() => aumentarCantidad(item.product_type_id)}
                                 >+</button>
                             </td>
                             <td>
@@ -45,8 +45,8 @@ export const CarritoPage = () => {
                                     type="button"
                                     className="btn btn-danger btn-sm"
                                     onClick={() => {
-                                        console.log('Eliminar clicked', item.id); // Agrega este log para depuración
-                                        eliminarCompra(item.id);
+                                        console.log('Eliminar clicked', item.product_type_id); // Agrega este log para depuración
+                                        eliminarCompra(item.product_type_id);
                                     }}
                                 >Eliminar</button>
                             </td>
