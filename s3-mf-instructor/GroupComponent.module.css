@@ -1,0 +1,53 @@
+.frameChild {
+  width: 305px;
+  height: 106px;
+  position: relative;
+  background-color: var(--color-white);
+  display: none;
+}
+.misPlanes,
+.ver {
+  position: relative;
+  line-height: 116%;
+  z-index: 1;
+}
+.ver {
+  display: inline-block;
+  min-width: 36px;
+}
+.misPlanes {
+  margin: 0;
+  font-size: var(--font-size-21xl);
+  font-weight: 400;
+  font-family: inherit;
+}
+.rectangleParent {
+  flex: 1;
+  background-color: var(--color-white);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: var(--padding-11xl) var(--padding-8xl) var(--padding-6xs);
+  z-index: 3;
+  text-align: center;
+  font-size: var(--font-size-xl);
+  color: var(--color-firebrick);
+  font-family: var(--font-anybody);
+}
+@media screen and (max-width: 750px) {
+  .misPlanes {
+    font-size: var(--font-size-13xl);
+    line-height: 37px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .ver {
+    font-size: var(--font-size-base);
+    line-height: 19px;
+  }
+  .misPlanes {
+    font-size: var(--font-size-5xl);
+    line-height: 28px;
+  }
+}

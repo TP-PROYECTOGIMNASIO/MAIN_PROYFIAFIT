@@ -1,0 +1,41 @@
+/* Archivo: navbar.css */
+
+/* Estilos generales del navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10 20px;
+    background-color: #333; /* Color de fondo */
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo {
+    height: 80px; /* Ajusta la altura del logo según sea necesario */
+    width: 400%; /* Mantiene la proporción del logo */
+}
+
+/* Estilos para los elementos del navbar */
+.navbar-nav .nav-link {
+    font-size: 30px; /* Tamaño de fuente de los enlaces */
+    color: #B5121C; /* Color del texto */
+}
+
+.navbar-nav .nav-link.active {
+    font-weight: bold; /* Resaltar el enlace activo */
+}
+
+/* Tamaño de fuente para el botón "comprar" y otros botones */
+.navbar-toggler {
+    font-size: 40px; /* Ajusta el tamaño del ícono del botón de menú */
+}
+
+.badge {
+    font-size: 30px; /* Ajusta el tamaño del texto del badge */
+}
+
+/* Estilos adicionales si es necesario */
