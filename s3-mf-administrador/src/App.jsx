@@ -6,6 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import HUVISUALLIZARINICIOSEGN from "./pages/HUVISUALLIZARINICIOSEGN";
+import TipoProductos from "./pages/tipoProductos/tipoProductos";
 
 function App() {
   const action = useNavigationType();
@@ -46,6 +47,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
+      <Route path="/tproductos" element={<TipoProductos />} />
     </Routes>
   );
 }
