@@ -1,6 +1,6 @@
 import "./VisualizarI.css";
 import { useState } from "react";
-import Modal from "../Modal/Modal";
+import Modal from "../Modal/VisualInfo/Modal";
 import AgregarP from "../AgregarProducto/AgregarP";
 import DetalleInforme from "../DetalleInforme/DetalleInforme";
 

@@ -1,6 +1,7 @@
 import RectangleComponent from "./RectangleComponent";
 import PropTypes from "prop-types";
 import styles from "./InventoryTitle.module.css";
+import { Link } from "react-router-dom";
 
 const InventoryTitle = ({ className = "" }) => {
   return (
@@ -13,7 +14,7 @@ const InventoryTitle = ({ className = "" }) => {
           </div>
         </div>
         <div className={styles.dashboardIcons}>
-          <div className={styles.rectangleGroup} >
+          <Link to={"/sedes"} className={styles.rectangleGroup} >
             
             <div className={styles.frameItem} />
             
@@ -25,7 +26,7 @@ const InventoryTitle = ({ className = "" }) => {
                 src="/dashboard-icons-set.svg"
               />
             </div>
-          </div>
+          </Link>
           <div className={styles.rectangleContainer}>
             <div className={styles.frameInner} />
             <div className={styles.inventario}>Inventario</div>
@@ -58,7 +59,7 @@ const InventoryTitle = ({ className = "" }) => {
           </div>
         </div>
         <div className={styles.dashboardIcons}>
-          <div className={styles.rectangleParent2}>
+          <Link to={"/membresias"} className={styles.rectangleParent2}>
             <div className={styles.frameInner} />
             <div className={styles.membresas}>Membresías</div>
             <div className={styles.smileBeam} />
@@ -70,7 +71,7 @@ const InventoryTitle = ({ className = "" }) => {
                 src="/dashboard-icons-set.svg"
               />
             </div>
-          </div>
+          </Link>
           <div className={styles.rectangleParent3}>
             <div className={styles.frameInner} />
             <div className={styles.membresas}>Promociones</div>
@@ -82,7 +83,7 @@ const InventoryTitle = ({ className = "" }) => {
               />
             </div>
           </div>
-          <div className={styles.rectangleParent4}>
+          <Link to={"/empleados"} className={styles.rectangleParent4}>
             <div className={styles.frameInner} />
             <div className={styles.empleados}>Empleados</div>
             <div className={styles.vectorWrapper}>
@@ -92,7 +93,7 @@ const InventoryTitle = ({ className = "" }) => {
                 src="/dashboard-icons-set.svg"
               />
             </div>
-          </div>
+          </Link>
         </div>
       </div>
       <div className={styles.frameParent}>

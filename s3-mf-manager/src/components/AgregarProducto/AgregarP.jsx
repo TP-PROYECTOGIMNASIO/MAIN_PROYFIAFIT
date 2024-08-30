@@ -1,4 +1,4 @@
-import '../../App.css'
+import './AgregarP.css'
 import  {  useState } from "react";
 import ListaCompras from "../ListaCompras/ListaCompras";
 
