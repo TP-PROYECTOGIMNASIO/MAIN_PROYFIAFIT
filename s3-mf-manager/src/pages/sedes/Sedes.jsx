@@ -60,8 +60,8 @@ export default function Sedes() {
                     <span className="mt-1">Registrar Nueva Sede</span>
                 </button>
             </div>
-            <div className="pb-4">
-                <label className="ml-4 p-2 text-black font-semibold" style={{ backgroundColor: "#B5121C", borderRadius: "5px" }}>
+            <div className="pb-4 flex flex-row justify-right max-w-[300px]">
+                <label className="ml-4 p-2 text-black font-semibold flex items-center" style={{ backgroundColor: "#B5121C", borderRadius: "5px" }}>
                     <span>Ordenar por</span>
                 </label>
                 <select 
@@ -335,10 +335,10 @@ function ModalError({ isOpen, onClose,msj,asignarMsj}) {
 
                 <button 
                     onClick={onClose} 
-                    className="absolute top-1 left-1 text-white text-[50px] w-[75px] rounded-full flex items-center justify-center"
-                    style={{backgroundColor:"#B5121C"}}
+                    className="absolute  text-white text-[50px] w-[75px] rounded-full flex items-center justify-center"
+                    
                 >
-                    <span style={{fontWeight:900,textAlign:"center"}}>&times;</span>
+                    <span className="text-black" style={{fontWeight:900,textAlign:"center"}}>&times;</span>
                     
                 </button>
 
