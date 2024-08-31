@@ -18,14 +18,24 @@ const EmployeeList = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   useEffect(() => {
-    // Simulación de carga de empleados desde una API (puedes reemplazar con tu fetch real)
     const fetchEmployees = async () => {
       try {
-        const response = await fetch(''); // Coloca la URL de la API aquí
+        console.log('Fetching employees...');
+        const response = await fetch('https://cxdt2lrhdb.execute-api.us-east-2.amazonaws.com/desarrollo/staff/visualize');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
         const data = await response.json();
-        setEmployees(data);
-        setFilteredEmployees(data);
+        console.log('Employees data:', data);
+
+        if (Array.isArray(data)) {
+          setEmployees(data);
+          setFilteredEmployees(data);
+        } else {
+          throw new Error('Received data is not an array');
+        }
       } catch (error) {
+        console.error('Error al cargar la lista de empleados:', error);
         alert('Error al cargar la lista de empleados.');
       }
     };
@@ -33,16 +43,18 @@ const EmployeeList = () => {
   }, []);
 
   const handleAddEmployeeClick = () => {
+    console.log('Opening employee form modal...');
     setShowModal(true);
   };
 
   const handleCloseModal = () => {
+    console.log('Closing employee form modal...');
     setShowModal(false);
   };
 
   const addEmployee = (newEmployee) => {
-    // Establece el estado inicial como 'Activo' si no está definido
-    const employeeWithDefaultStatus = { ...newEmployee, estado: newEmployee.estado || 'Activo' };
+    console.log('Adding new employee:', newEmployee);
+    const employeeWithDefaultStatus = { ...newEmployee, estado: 'Activo' };
     const updatedEmployees = [...employees, employeeWithDefaultStatus];
     setEmployees(updatedEmployees);
     setFilteredEmployees(updatedEmployees);
@@ -56,23 +68,19 @@ const EmployeeList = () => {
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    const updatedFilters = {
-      ...filters,
-      [name]: value,
-    };
+    const updatedFilters = { ...filters, [name]: value };
     setFilters(updatedFilters);
     filterEmployees(updatedFilters, searchQuery);
   };
 
   const filterEmployees = (filters, searchQuery) => {
     const filtered = employees.filter((employee) => {
-      // Ajustar los nombres de las propiedades según la estructura de tus empleados
-      const matchSede = filters.sede ? employee.sede === filters.sede : true;
-      const matchRol = filters.rol ? employee.rol === filters.rol : true;
+      const matchSede = filters.sede ? employee.location_id === filters.sede : true;
+      const matchRol = filters.rol ? employee.rol_id === filters.rol : true;
       const matchEstado = filters.estado ? employee.estado === filters.estado : true;
       const matchSearch =
-        employee.dni.includes(searchQuery) ||
-        `${employee.nombres} ${employee.primerApellido} ${employee.segundoApellido}`
+        employee.c_document.includes(searchQuery) ||
+        `${employee.c_names} ${employee.father_last_name} ${employee.mother_last_name}`
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
 
@@ -86,16 +94,45 @@ const EmployeeList = () => {
     setSelectedEmployee(employee);
   };
 
-  const confirmToggleStatus = () => {
-    const updatedEmployees = employees.map((emp) =>
-      emp.dni === selectedEmployee.dni
-        ? { ...emp, estado: emp.estado === 'Activo' ? 'Inactivo' : 'Activo' }
-        : emp
-    );
-    setEmployees(updatedEmployees);
-    setFilteredEmployees(updatedEmployees);
-    setShowConfirmPopup(false);
-    setSelectedEmployee(null);
+  const updateEmployeeStatus = async (staffId, newStatus) => {
+    try {
+      const response = await fetch('https://cxdt2lrhdb.execute-api.us-east-2.amazonaws.com/desarrollo/staff/actualizacion', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          staff_id: staffId,
+          status: newStatus,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const result = await response.json();
+      console.log('Update result:', result);
+      return result;
+    } catch (error) {
+      console.error('Error al actualizar el estado del empleado:', error);
+      alert('Error al actualizar el estado del empleado.');
+    }
+  };
+
+  const confirmToggleStatus = async () => {
+    const newStatus = selectedEmployee.estado === 'Activo' ? 'Inactivo' : 'Activo';
+    const updateResult = await updateEmployeeStatus(selectedEmployee.c_document, newStatus);
+    
+    if (updateResult) {
+      const updatedEmployees = employees.map((emp) =>
+        emp.c_document === selectedEmployee.c_document
+          ? { ...emp, estado: newStatus }
+          : emp
+      );
+      setEmployees(updatedEmployees);
+      setFilteredEmployees(updatedEmployees);
+      setShowConfirmPopup(false);
+      setSelectedEmployee(null);
+    }
   };
 
   const closePopup = () => {
@@ -103,8 +140,12 @@ const EmployeeList = () => {
     setSelectedEmployee(null);
   };
 
+  const viewContract = (contractUrl) => {
+    window.open(contractUrl, '_blank'); 
+  };
+
   return (
-    <div className="employee-list-page min-h-[84vh]">
+    <div className="employee-list-page">
       <div className="employee-list-header">
         <button className="back-button">← Regresar</button>
         <h1>Lista de Empleados</h1>
@@ -121,8 +162,8 @@ const EmployeeList = () => {
           onChange={handleFilterChange}
         >
           <option value="">Agrupar por sedes</option>
-          <option value="La Molina">La Molina</option>
-          <option value="San Isidro">San Isidro</option>
+          <option value="1">La Molina</option>
+          <option value="2">San Isidro</option>
         </select>
         <select
           name="rol"
@@ -131,8 +172,8 @@ const EmployeeList = () => {
           onChange={handleFilterChange}
         >
           <option value="">Agrupar por roles</option>
-          <option value="Entrenador">Entrenador</option>
-          <option value="Encargado">Encargado</option>
+          <option value="1">Entrenador</option>
+          <option value="2">Encargado</option>
         </select>
         <select
           name="estado"
@@ -175,19 +216,19 @@ const EmployeeList = () => {
           <tbody>
             {filteredEmployees.map((employee, index) => (
               <tr key={index}>
-                <td>{employee.dni}</td>
+                <td>{employee.c_document}</td>
                 <td>
                   <img
-                    src={employee.foto || 'default-image.jpg'}
+                    src={employee.photo_url || 'default-image.jpg'}
                     alt="Foto del empleado"
                     className="employee-photo"
                   />
                 </td>
-                <td>{`${employee.nombres} ${employee.primerApellido} ${employee.segundoApellido}`}</td>
-                <td>{employee.rol}</td>
-                <td>{employee.sede}</td>
+                <td>{`${employee.c_names} ${employee.father_last_name} ${employee.mother_last_name}`}</td>
+                <td>{employee.rol_id === '1' ? 'Entrenador' : 'Encargado'}</td>
+                <td>{employee.location_id === '1' ? 'La Molina' : 'San Isidro'}</td>
                 <td>
-                  <button className="view-button">Ver</button>
+                  <button className="view-button" onClick={() => viewContract(employee.contract_url)}>Ver</button>
                 </td>
                 <td>
                   <button

@@ -27,10 +27,10 @@ h1 {
 .add-employee-btn {
   background-color: #b40404;
   color: white;
-  padding: 10px; /* Ajustado para que el botón sea cuadrado */
+  padding: 10px 20px;
   font-size: 14px;
   border: none;
-  border-radius: 0; /* Sin redondeo */
+  border-radius: 5px;
   cursor: pointer;
 }
 
@@ -91,9 +91,9 @@ th {
 .view-button, .status-button {
   background-color: #b40404; /* Default red color */
   color: white;
-  padding: 10px; /* Ajustado para que el botón sea cuadrado */
+  padding: 8px 12px;
   border: none;
-  border-radius: 0; /* Sin redondeo */
+  border-radius: 5px;
   cursor: pointer;
 }
 
