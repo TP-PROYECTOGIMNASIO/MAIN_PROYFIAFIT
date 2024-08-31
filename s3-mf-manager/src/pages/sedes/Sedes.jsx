@@ -79,7 +79,7 @@ export default function Sedes() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
                     {filteredSedes && filteredSedes.length > 0 ? (
                         filteredSedes.map((sede) => (
-                            <CardSede key={sede.id} sede={sede} />
+                            <CardSede key={sede.location_id} sede={sede} />
                         ))
                     ) : (
                         <p className="text-center col-span-full text-gray-500">No se encontraron sedes.</p>
@@ -139,7 +139,7 @@ function CardSede({ sede }) {
             },
             body: JSON.stringify({
                 action: pendingStatus === 'inactive' ? 'disable' : 'enable',
-                id: sede.id
+                id: sede.location_id
             }),
         })
         .then(response => response.json())
@@ -160,11 +160,11 @@ function CardSede({ sede }) {
     return (
         <div className="flex flex-col justify-center items-center m-2 p-4 pt-8 pb-8 gap-2 min-w-[200px] max-w-[500px]" style={{ borderRadius: "10px", backgroundColor: "#BFB6B8" }}>
             <img 
-                src={sede.photo} 
-                alt={`Imagen de ${sede.name}`} 
+                src={sede.image_url} 
+                alt={`Imagen de ${sede.c_name}`} 
                 className="min-w-[180px] max-w-[300px] md:max-w-[350px] lg:max-w-[400px] border border-white" 
             />
-            <h2 className="font-extrabold text-[24px]">{sede.name}</h2>
+            <h2 className="font-extrabold text-[24px] text-white">{sede.c_name}</h2>
             <p className="text-center text-gray-700">{sede.address}</p>
             <select
                 value={pendingStatus}
@@ -269,8 +269,8 @@ function Modal({ isOpen, onClose, openError, asignarMsj, onRegisterSuccess }) {
             <div className="p-8 rounded-lg shadow-lg relative">
                 <button 
                     onClick={onClose} 
-                    className="absolute top-1 left-1 text-white text-[50px] w-[75px] rounded-full flex items-center justify-center"
-                    style={{backgroundColor:"#B5121C"}}
+                    className="absolute top-3 left-3 text-black text-[50px] w-[75px] rounded-full flex items-center justify-center"
+            
                 >
                     <span style={{fontWeight:900, textAlign:"center"}}>&times;</span>
                 </button>
