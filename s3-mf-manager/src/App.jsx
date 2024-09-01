@@ -15,7 +15,7 @@ import InformePrincipal from "./pages/visualizarInforme/InformePrincipal";
 import Tipodeproducto from "./pages/inventario/Tipodeproducto"
 import ActualizarInventarioSedes from "./pages/inventario/ActualizarInventarioSedes"
 import GenerarNuevoInventario from "./pages/inventario/GenerarNuevoInventario"
-import MembershipPage from "./pages/membresias/MembershipPage";
+import MembresiaPage from './pages/membresias/MembershipPage'
 
 
 function App() {
@@ -75,7 +75,7 @@ function App() {
       <Route path="/membresias" element={
         <>
           <Navbar />
-          <MembershipPage />
+          <MembresiaPage />
           <Footer/>
         </>
 
