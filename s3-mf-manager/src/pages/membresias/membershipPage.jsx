@@ -4,7 +4,7 @@ import ConfirmPopup from '../../components/Membresias/ConfirmPopup';
 import MembershipDetailPopup from '../../components/Membresias/MembershipDetailPopup';
 import DisableConfirmationPopup from '../../components/Membresias/DisableConfirmationPopup';
 import './MembershipPage.css';
-
+import { Link } from "react-router-dom";
 
 const MembershipPage = () => {
   const [memberships, setMemberships] = useState([]);
@@ -97,7 +97,9 @@ const MembershipPage = () => {
 
       <main className="main-content">
         <div className="top-buttons">
-          <button className="back-button">&larr; Regresar</button>
+        <Link to="/">
+            <button className="back-button">&larr; Regresar</button>
+        </Link>
           <button className="register-button" onClick={handleShowPopup}>
             + Registrar Nueva Membresía
           </button>
