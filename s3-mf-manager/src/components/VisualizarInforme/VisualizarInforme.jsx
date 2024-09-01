@@ -116,7 +116,7 @@ export default function VisualizarInforme() {
   };
 
   return (
-    <div className="containerVI">
+    <div className="containerVI min-h-[90vh]">
       {showModal && (
         <Modal onClose={handleCloseModal}>
           <AgregarP reportId={selectedReport ? selectedReport.report_id : null} />
