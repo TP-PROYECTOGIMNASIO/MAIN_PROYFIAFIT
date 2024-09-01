@@ -12,10 +12,10 @@ import Sedes from "./pages/sedes/Sedes";
 import Footer from "./components/Footer";
 import InformePrincipal from "./pages/visualizarInforme/InformePrincipal";
 
-import Tipodeproducto from "./pages/inventario/Tipodeproducto"
-import ActualizarInventarioSedes from "./pages/inventario/ActualizarInventarioSedes"
-import GenerarNuevoInventario from "./pages/inventario/GenerarNuevoInventario"
-import MembresiaPage from './pages/membresias/MembershipPage'
+import Tipodeproducto from "./pages/inventario/Tipodeproducto";
+import ActualizarInventarioSedes from "./pages/inventario/ActualizarInventarioSedes";
+import GenerarNuevoInventario from "./pages/inventario/GenerarNuevoInventario";
+import MembresiaPage from './pages/membresias/MembershipPage';
 
 
 function App() {
