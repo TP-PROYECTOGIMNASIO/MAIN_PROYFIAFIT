@@ -7,7 +7,7 @@ import './MembershipPage.css';
 import { Link } from "react-router-dom";
 
 
-const MembershipPage = () => {
+const MemberShipPage = () => {
   const [memberships, setMemberships] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
@@ -177,7 +177,7 @@ const MembershipPage = () => {
   );
 };
 
-export default MembershipPage;
+export default MemberShipPage;
 
 
 
