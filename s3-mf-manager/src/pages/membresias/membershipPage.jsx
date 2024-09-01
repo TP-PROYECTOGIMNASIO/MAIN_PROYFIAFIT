@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import NewMembershipForm from '../../components/Membresias/NewMembershipForm'
-import MembershipDetailPopup from '../../components/Membresias/MembershipDetailPopup';
-import DisableConfirmationPopup from '../../components/Membresias/DisableConfirmationPopup';
-import ConfirmPopup from '../../components/Membresias/ConfirmPopup'; 
+import NewMembershipForm from './NewMembershipForm'; 
+import MembershipDetailPopup from './MembershipDetailPopup'; 
+import DisableConfirmationPopup from './DisableConfirmationPopup'; 
+import ConfirmPopup from './ConfirmPopup'; 
 import './MembershipPage.css';
 import { Link } from "react-router-dom";
 
