@@ -11,10 +11,6 @@ export default function LoginScreen() {
   const navigation = useNavigation();
 
   const handleLogin = () => {
-    navigation.navigate('Dashboard');
-
-    
-    /*
     axios.post('https://cxdt2lrhdb.execute-api.us-east-2.amazonaws.com/desarrollo/auth/login', {
       username,
       password,
@@ -50,7 +46,7 @@ export default function LoginScreen() {
         text1: 'Ingreso Fallido',
         text2: 'Ocurrió un error. Por favor, intenta nuevamente.',
       });
-    });*/
+    });
   };
 
   return (
