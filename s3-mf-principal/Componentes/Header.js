@@ -29,7 +29,7 @@ const Header = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           padding: 10,
-          backgroundColor: '#000',
+          backgroundColor: '#fff',
         },
         navbarText: {
           fontSize: 20,

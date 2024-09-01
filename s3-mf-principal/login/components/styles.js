@@ -27,7 +27,7 @@ export default StyleSheet.create({
     width: '85%',  // Aumenta el ancho a un 85% de su sección
     maxWidth: 550, // Incrementa el ancho máximo
     padding: 40,   // Aumenta el padding interno
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    backgroundColor: 'rgba(243, 244, 247, 0.9)',
     borderRadius: 10,
     alignItems: 'center',
     shadowColor: '#000',
@@ -37,14 +37,14 @@ export default StyleSheet.create({
     elevation: 5,
   },
   loginTitle: {
-    fontSize: 20,
+    fontSize: 32,
     fontWeight: 'bold',
     color: '#b5121c',
     marginBottom: 15,
     textAlign: 'center',
   },
   loginTitle2: {
-    fontSize: 16,
+    fontSize: 24,
     color: '#4B4F57',
     marginBottom: 10,
     textAlign: 'center',
@@ -54,14 +54,14 @@ export default StyleSheet.create({
     height: 45,
     backgroundColor: '#DFE0E1',
     color: '#333',
-    borderRadius: 8,
+    borderRadius: 5,
     paddingHorizontal: 10,
     fontSize: 14,
     marginBottom: 10,
   },
   button: {
     backgroundColor: '#b71c1c',
-    borderRadius: 8,
+    borderRadius: 5,
     paddingVertical: 12,
     alignItems: 'center',
     width: '70%', // Ajusta el ancho al 70% del contenedor padre
@@ -69,13 +69,20 @@ export default StyleSheet.create({
   },
   buttonText: {
     color: '#F3F4F7',
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   linkText: {
     color: '#4B4F57',
-    fontSize: 14,
+    fontSize: 20,
     marginTop: 15,
+    
+  },
+  linkText2: {
+    color: '#4B4F57',
+    fontSize: 20,
+    marginTop: 15,
+    textDecorationLine: 'underline',
   },
   registerText: {
     fontWeight: 'bold',

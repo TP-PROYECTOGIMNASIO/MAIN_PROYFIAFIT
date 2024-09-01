@@ -14,16 +14,17 @@ const Footer = () => {
 const styles = StyleSheet.create({
     footer: {
       backgroundColor: '#000',
-      padding: 20,
+      padding: 25,
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       
     },
 
-       copyright: {
+      copyright: {
       color: 'white',
       fontFamily: 'Alegraya',
+      fontSize: 22,
     },
     
   });

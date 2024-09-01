@@ -63,7 +63,7 @@ export default function LoginScreen() {
           <Text style={styles.loginTitle2}>Usuario</Text>
           <TextInput
             style={styles.input}
-            placeholder="Ingrese su usuario"
+           /// placeholder="Ingrese su usuario"
             placeholderTextColor="#888"
             value={username}
             onChangeText={setUsername}
@@ -71,7 +71,7 @@ export default function LoginScreen() {
           <Text style={styles.loginTitle2}>Contraseña</Text>
           <TextInput
             style={styles.input}
-            placeholder="Ingrese su contraseña"
+          //  placeholder="Ingrese su contraseña"
             placeholderTextColor="#888"
             secureTextEntry
             value={password}
@@ -84,7 +84,7 @@ export default function LoginScreen() {
             <Text style={styles.buttonText}>INGRESAR</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('ResetPassword')}>
-            <Text style={styles.linkText}>¿Deseas restablecer la contraseña?</Text>
+            <Text style={styles.linkText2}>¿Deseas restablecer la contraseña?</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text style={styles.linkText}>
