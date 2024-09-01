@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import NewMembershipForm from '../../components/Membresias/newMembershipForm'
-import ConfirmPopup from '../../components/Membresias/ConfirmPopup';
 import MembershipDetailPopup from '../../components/Membresias/MembershipDetailPopup';
 import DisableConfirmationPopup from '../../components/Membresias/DisableConfirmationPopup';
 import './MembershipPage.css';
 import { Link } from "react-router-dom";
+import ConfirmPopup from '../../components/Membresias/ConfirmPopup';
 
 const MembershipPage = () => {
   const [memberships, setMemberships] = useState([]);
