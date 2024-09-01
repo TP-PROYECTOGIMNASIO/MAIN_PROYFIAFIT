@@ -9,7 +9,9 @@ export default function DashboardScreen() {
   const handleNavigateToLogin = () => {
     navigation.navigate('Login');
   };
-
+  const handleNavigateToWeb = () => {
+    navigation.navigate('Microview');
+  };
   return (
     <View style={styles.container}>
       <Text>Pantalla de Dashboard</Text>
@@ -23,6 +25,12 @@ export default function DashboardScreen() {
           onPress={handleNavigateToLogin}
         >
           <Text style={styles.buttonText}>Ir a Login</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleNavigateToWeb}
+        >
+          <Text style={styles.buttonText}>Ir a microfront</Text>
         </TouchableOpacity>
       </ImageBackground>
     </View>
