@@ -3,9 +3,9 @@ import './Modal.css'; // Importa el archivo CSS aquí
 
 const Modal = ({ children, onClose }) => {
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>
+    <div className="modal-overlayM" onClick={onClose}>
+      <div className="modal-contentM" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-closeM" onClick={onClose}>
           X
         </button>
         {children}

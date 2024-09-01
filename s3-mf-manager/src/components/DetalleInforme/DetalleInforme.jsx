@@ -1,82 +1,57 @@
-import './DetalleI.css'
+import React from 'react';
 
-export default function DetalleInforme() {
-    return(
-        <div className="containerDetalleI">
-        <h3 className="title">Informe XXXX</h3>
-       
-        <br></br>
-        <table className="table">
+export default function DetalleInforme({ report }) {
+  // Verifica si se ha seleccionado un informe y si contiene productos
+  if (!report) {
+    return <div>No se ha seleccionado ningún informe.</div>;
+  }
+
+  const { products } = report; // Extrae los productos del informe
+
+  return (
+    <div className="containerDetalleI">
+      <h3 className="titleDI">Detalles del Informe {report.report_id}</h3>
+          
+            
+      {products && products.length > 0 ? (
+        <table>
           <thead>
             <tr>
-              <th>#</th>
-              <th>Fecha</th>
-              <th>Tipo Producto</th>
-              <th>Nombre Producto</th>
-              <th>Cantidad</th>
+              <th>Nombre</th>
+              <th>Fecha de Compra</th>
               <th>Precio Total</th>
-              <th>Boleta</th>
+              <th>Descripción</th>
+              <th>Cantidad</th>
+              <th>Recibo de Compra</th>
             </tr>
           </thead>
           <tbody>
-            
-                <tr>
-                  <td>1</td>
-                  <td>2024-08-20</td>
-                  <td>Otro</td>
-                  <td>Banda Elastica</td>
-                  <td>5</td>
-                  <td>150 soles</td>
-                  <td>
-                    <button
-                      className="btn btn-prm btn-sm"
-                      onClick=""
-                    >
-                       <img src="/detalleInforme.png" alt="boleta" />
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>2024-08-20</td>
-                  <td>Otro</td>
-                  <td>Tomatodo</td>
-                  <td>1</td>
-                  <td>45 soles</td>
-                  <td>
-                    <button
-                      className="btn btn-prm btn-sm"
-                      onClick=""
-                    >
-                      <img src="/detalleInforme.png" alt="boleta" />
-                    </button>
-                 
-                  </td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>2024-08-20</td>
-                  <td>Otro</td>
-                  <td>Polo</td>
-                  <td>1</td>
-                  <td>55 soles</td>
-                  <td>
-                    <button
-                      className="btn btn-prm btn-sm"
-                      onClick=""
-                    >
-                       <img src="/detalleInforme.png" alt="boleta" />
-                    </button>
-                   
-                  </td>
-                </tr>
-                             
+            {products.map((product) => (
+              <tr key={product.report_product_id}>
+                <td>{product.name}</td>
+                <td>{new Date(product.purchase_date).toLocaleDateString()}</td>
+                <td>{product.total_price} soles</td>
+                <td>{product.description}</td>
+                <td>{product.quantity}</td>
+                <td>
+                  <a href={product.purchase_receipt ? `data:image/jpeg;base64,${btoa(
+                    String.fromCharCode(...new Uint8Array(product.purchase_receipt.data))
+                  )}` : '#'} target="_blank" rel="noopener noreferrer">
+                    <img src="/detalleInforme.png" alt="boleta" />
+                  </a>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
-        <br></br>
+        
+      ) : (
+        <p>No hay productos en este informe.</p>
+      )}
+      <br></br>
         <div className='montoTotal'>
-          <p>MONTO TOTAL: S/. 250.00 </p>
+          <p>MONTO TOTAL: S/. {report.importe_total}</p>
         </div>
-      </div>
-    );
+    </div>
+  );
 }

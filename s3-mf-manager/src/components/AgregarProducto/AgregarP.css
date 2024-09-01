@@ -8,18 +8,18 @@
   .body{
     font-family: inherit;
   }
-  .containerGenerar{
+  .containerGenerarAP{
     align-items: center;
     display: flex;
     justify-content: center;
     padding: 20px;
   }
   
-  .form-container {
+  .form-containerAP {
     width: 100%;
     
   }
-  h2{
+  .form-containerAP h2{
     font-size: 50px;
     color: #cc0000;
     margin-top: 0;
@@ -50,7 +50,7 @@
     
   }
   
-  .form-group {
+  .form-groupAP {
     display: flex;
     flex-direction: column;
     margin-bottom: 1.5rem;
@@ -60,15 +60,15 @@
    
   }
   
-  .form-group label {
+  .form-groupAP label {
     text-align: left;
     font-size: 1.1rem;
     margin-bottom: 0.25rem;
   }
   
-  .form-group input,
-  .form-group select,
-  .form-group textarea {
+  .form-groupAP input,
+  .form-groupAP select,
+  .form-groupAP textarea {
     padding: 0.75rem;
     border: none;
     border-radius: 4px;
@@ -78,11 +78,12 @@
     width: 300px;
       max-width: 400px;
       font-family: inherit;
+      height: 50px;
   }
   
-  .form-group input:focus,
-  .form-group select:focus,
-  .form-group textarea:focus {
+  .form-groupAP input:focus,
+  .form-groupAP select:focus,
+  .form-groupAP textarea:focus {
     outline: none;
     box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
   }
@@ -108,13 +109,13 @@
       padding: 1rem;
     }
   
-    .form-group {
+    .form-groupAP {
       margin-bottom: 1rem;
     }
   
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
+    .form-groupAP input,
+    .form-groupAP select,
+    .form-groupAP textarea {
       padding: 0.75rem;
       border: none;
       border-radius: 4px;

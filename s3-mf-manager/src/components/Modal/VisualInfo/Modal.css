@@ -1,4 +1,4 @@
-.modal-overlay {
+.modal-overlayM {
     position: fixed;
     top: 0;
     left: 0;
@@ -11,20 +11,19 @@
     backdrop-filter: blur(5px); /* Ajusta el valor del desenfoque */
   }
   
-  .modal-content {
+  .modal-contentM {
     background-color: #F3F4F7;
-  
     border-radius: 10px;
     position: relative;
     width: auto;
     max-width: auto;
     display: flex;
   }
-  .modal-close{
+  .modal-closeM{
     color: black;
   }
   
-  .modal-close {
+  .modal-closeM {
     position: absolute;
     top: 10px;
     right: 10px;

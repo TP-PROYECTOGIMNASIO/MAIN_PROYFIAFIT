@@ -15,7 +15,7 @@ header {
     padding: 20px;
 }
 
-.back-button {
+.back-buttonVI {
     color: #c00;
     text-decoration: none;
 }
@@ -24,7 +24,7 @@ header {
     margin: 10px 0;
 }
 
-button {
+.containerVI button {
     background-color: #c00;
     color: white;
     border: none;
@@ -34,7 +34,7 @@ button {
     margin-right: 10px;
 }
 
-button:hover {
+.containerVI button:hover {
     background-color: #a00;
 }
 .cTabla{
@@ -68,7 +68,7 @@ td {
     color: #929292;
 }
 
-.buttonHead{
+.containerVI .buttonHead{
     width: 100%;
     display: flex; /* Usar flexbox para alinear los elementos */
             justify-content: space-between; /* Separar elementos hacia los extremos */
@@ -76,7 +76,7 @@ td {
            
 }
 
-.add-button{
+.add-buttonVI{
     width: 350px;
     height: 50px;
     font-size: 21px;   /* Cambia el tamaño del texto */

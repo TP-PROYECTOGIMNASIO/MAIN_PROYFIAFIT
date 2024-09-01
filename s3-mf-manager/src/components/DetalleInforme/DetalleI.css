@@ -10,7 +10,7 @@
 
   }
 
-    .containerDetalleI .title {
+     .titleDI {
     text-align: center;
     margin-top: 0px;
     margin-bottom: 20px;
@@ -54,15 +54,19 @@
     font-size: 14px;
   }
   
-  .btn-prm {
+  .containerDetalleI button{
     background-color:white  ;
-    height: 20px;
+    
     color: #fff;
   } 
-  .btn-prm:hover{
+  .containerDetalleI button:hover{
     background-color: white  ; /* Cambia el color de fondo al hacer hover */
   }
   
+.containerDetalleI img{
+display:flex;
+vertical-align:auto;
+}
 
   .btn-prm img{
     

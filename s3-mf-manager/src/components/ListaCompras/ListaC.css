@@ -61,7 +61,7 @@
     font-size: 14px;
   }
   
-  .btn-primary , .btn-danger {
+  .containerListaC .table button {
     background-color:white  ;
     color: #fff;
   }
