@@ -10,6 +10,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Footer from './Componentes/Footer';
 import Header from './Componentes/Header';
 import Toast from 'react-native-toast-message'; 
+import { MicroviewScreen } from './MicroView';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ export default function App() {
           <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
           <Stack.Screen name="VerificationCode" component={VerificationCodeScreen} options={{ headerShown: false }} />
           <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Microview" component={MicroviewScreen} options={{ headerShown: false }} />        
         </Stack.Navigator>
         <Footer />
         <Toast />

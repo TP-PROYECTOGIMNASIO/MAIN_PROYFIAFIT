@@ -1,35 +1,108 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from "react";
+import {
+  Routes,
+  Route,
+  useNavigationType,
+  useLocation,
+} from "react-router-dom";
+import HUVISUALLIZARINICIOSEGN from "./pages/HUVISUALLIZARINICIOSEGN";
+import EmployeeList from "./components/EmployeeList/EmployeeList";
+import Navbar from "./components/Navbar";
+import Sedes from "./pages/sedes/Sedes";
+import Footer from "./components/Footer";
+import InformePrincipal from "./pages/visualizarInforme/InformePrincipal";
+import MembershipPage from "./pages/membresias/membershipPage";
+import Tipodeproducto from "./pages/inventario/Tipodeproducto"
+import ActualizarInventarioSedes from "./pages/inventario/ActualizarInventarioSedes"
+import GenerarNuevoInventario from "./pages/inventario/GenerarNuevoInventario"
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const action = useNavigationType();
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  useEffect(() => {
+    if (action !== "POP") {
+      window.scrollTo(0, 0);
+    }
+  }, [action, pathname]);
+
+  useEffect(() => {
+    let title = "";
+    let metaDescription = "";
+
+    switch (pathname) {
+      case "/":
+        title = "";
+        metaDescription = "";
+        break;
+    }
+
+    if (title) {
+      document.title = title;
+    }
+
+    if (metaDescription) {
+      const metaDescriptionTag = document.querySelector(
+        'head > meta[name="description"]'
+      );
+      if (metaDescriptionTag) {
+        metaDescriptionTag.content = metaDescription;
+      }
+    }
+  }, [pathname]);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Routes>
+      <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
+      <Route path="/empleados" element={
+        <>
+          <Navbar />
+          <EmployeeList />
+          <Footer/>
+        </>
+      } />
+      <Route path="/sedes" element={
+        <>
+          <Navbar />
+          <Sedes />
+          <Footer/>
+        </>
+      } />
+      <Route path="/Informe-Compra" element={<InformePrincipal />} />
+      <Route path="/membresias" element={
+        <>
+          <Navbar />
+          <MembershipPage />
+          <Footer/>
+        </>
 
-export default App
+      
+      } />
+      <Route path="/GenerarTipoProducto" element={
+        <>
+          <Navbar />
+          <Tipodeproducto />
+          <Footer/>
+        </>
+      } />
+      <Route path="/ActualizarInventarioSedes" element={
+        <>
+          <Navbar />
+          <ActualizarInventarioSedes />
+          <Footer/>
+        </>
+
+        } />
+      <Route path="/GenerarNuevoInventario" element={
+        <>
+          <Navbar />
+            <GenerarNuevoInventario/>
+          <Footer/>
+        </>
+      } />
+    </Routes>
+  );
+}
+export default App;
