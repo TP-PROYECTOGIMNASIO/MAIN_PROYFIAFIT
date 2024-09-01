@@ -9,7 +9,7 @@ export default function Footer(){
     return(
         <footer className="h-[6vh] flex justify-between bg-black">
             <div className="flex items-center ml-4">
-                <h1 className='text-white'>Copiryght © Gimnasio 2024</h1>
+                <h1 className='text-white'>Copyright © Gimnasio 2024</h1>
             </div>
             <div className='flex items-center gap-4 mr-4'>
                 <img src={faceLogo} className="logo facebook" alt="Facebook logo" />

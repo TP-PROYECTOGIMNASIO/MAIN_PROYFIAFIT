@@ -56,8 +56,8 @@ export default function Sedes() {
                     className="mr-4 p-2 pr-8 pl-4 flex items-center"
                     style={{ backgroundColor: "#B5121C", borderRadius: "5px" }}
                 >
-                    <strong className="font-extrabold text-[30px]">+</strong>
-                    <span className="mt-1">Registrar Nueva Sede</span>
+                    <strong className="font-extrabold text-[30px] text-white">+</strong>
+                    <span className="mt-1 text-white">Registrar Nueva Sede</span>
                 </button>
             </div>
             <div className="pb-4 flex flex-row justify-right max-w-[300px]">
@@ -269,20 +269,20 @@ function Modal({ isOpen, onClose, openError, asignarMsj, onRegisterSuccess }) {
             <div className="p-8 rounded-lg shadow-lg relative">
                 <button 
                     onClick={onClose} 
-                    className="absolute top-3 left-3 text-black text-[50px] w-[75px] rounded-full flex items-center justify-center"
+                    className="absolute top-3 right-3 text-black text-[50px] w-[75px] rounded-full flex items-center justify-center"
             
                 >
                     <span style={{fontWeight:900, textAlign:"center"}}>&times;</span>
                 </button>
 
-                <div className="bg-white min-w-[320px] min-h-[300px] p-4 flex flex-col justify-center gap-4"
-                    style={{borderRadius:"10px"}}
+                <div className="min-w-[360px] min-h-[350px] p-4 flex flex-col justify-center gap-4"
+                    style={{borderRadius:"10px",backgroundColor:"#DFE0E1"}}
                 >
-                    <h2 className="text-xl font-bold mb-4 text-black text-center">Registrar Nueva Sede</h2>
+                    <h2 className="text-xl font-extrabold mb-4 text-black text-center" style={{color:"#B5121C"}}>Registrar Nueva Sede</h2>
                     <div className="flex flex-row justify-between">
                         <label className="text-black" htmlFor="sede">Sede:</label>
                         <input 
-                            className="text-white bg-black p-1 text-center max-w-[180px]" 
+                            className="text-white bg-white p-1 text-center max-w-[180px]" 
                             type="text" 
                             placeholder="sede"
                             value={sede}
@@ -292,7 +292,7 @@ function Modal({ isOpen, onClose, openError, asignarMsj, onRegisterSuccess }) {
                     <div className="flex flex-row justify-between">
                         <label className="text-black" htmlFor="ubicacion">Ubicación:</label>
                         <input 
-                            className="text-white bg-black p-1 text-center max-w-[180px]" 
+                            className="text-white bg-white p-1 text-center max-w-[180px]" 
                             type="text" 
                             placeholder="ubicación"
                             value={ubicacion}
@@ -302,7 +302,7 @@ function Modal({ isOpen, onClose, openError, asignarMsj, onRegisterSuccess }) {
                     <div className="flex flex-row justify-between">
                         <label className="text-black" htmlFor="imagen">Imagen:</label>
                         <input 
-                            className="text-white bg-black p-1 text-center max-w-[180px]" 
+                            className="text-white bg-white p-1 text-center max-w-[180px]" 
                             type="file" // Cambiado a "file"
                             accept="image/png" // Acepta solo PNG
                             onChange={(e) => setImagen(e.target.files[0])} // Guardar el archivo seleccionado

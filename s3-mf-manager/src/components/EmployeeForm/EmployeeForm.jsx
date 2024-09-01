@@ -156,10 +156,10 @@ const EmployeeForm = ({ onClose, addEmployee }) => {
   };
 
   return (
-    <div className="modal-container">
-      <div className="modal-content">
+    <div className="modal-container ">
+      <div className="">
         <div className="employee-form-header">
-          <h2>Agregar Empleado</h2>
+          <h2 className='text-white'>Agregar Empleado</h2>
         </div>
         <form className="employee-form" onSubmit={handleSubmit}>
           <div className="dni-search">
@@ -174,7 +174,7 @@ const EmployeeForm = ({ onClose, addEmployee }) => {
               Buscar DNI por RENIEC
             </button>
           </div>
-          <div className="form-grid">
+          <div className="flex flex-row">
             <div className="column">
               <input
                 type="text"

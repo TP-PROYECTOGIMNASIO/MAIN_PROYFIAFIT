@@ -3,6 +3,7 @@ import EmployeeForm from '../EmployeeForm/EmployeeForm';
 import Modal from '../Modal/Modal';
 import ConfirmationPopup from '../Modal/ConfirmationPopup'; // Importa el componente de confirmación
 import './EmployeeList.css';
+import { Link } from 'react-router-dom';
 
 const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
@@ -145,9 +146,9 @@ const EmployeeList = () => {
   };
 
   return (
-    <div className="employee-list-page">
+    <div className="employee-list-page min-h-[90vh]">
       <div className="employee-list-header">
-        <button className="back-button">← Regresar</button>
+        <Link to={"/"} className="back-button">← Regresar</Link>
         <h1>Lista de Empleados</h1>
         <button className="add-employee-btn" onClick={handleAddEmployeeClick}>
           + Registrar Nuevo Empleado
