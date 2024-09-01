@@ -80,7 +80,7 @@ function App() {
 
       
       } />
-      <Route path="/GenerarInventario" element={
+      <Route path="/GenerarTipoProducto" element={
         <>
           <Navbar />
           <Tipodeproducto />

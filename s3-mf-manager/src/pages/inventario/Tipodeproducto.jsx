@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './styles/Tipodeproducto.css';
 
 const Tipodeproducto = () => {
@@ -7,7 +7,7 @@ const Tipodeproducto = () => {
 
   return (
     <div className="product-selection-container h-[100vh]">
-      <a href="#" className="back-link">← Regresar</a>
+      <Link to={"/"}className="back-link">← Regresar</Link>
       <h2 className="main-title">Primero debes seleccionar un Tipo de Producto</h2>
       <div className="product-grid">
         <div className="product-card">

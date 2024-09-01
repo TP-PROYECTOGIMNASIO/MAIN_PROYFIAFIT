@@ -8,7 +8,7 @@ const closeButtonClasses = "text-black cursor-pointer hover:text-gray-700 text-x
 
 const GenerarNuevoInventario = () => {
   return (
-    <div className="flex flex-col modal-container bg-background p-6 rounded-lg shadow-lg max-w relative min-h-[100vh]">
+    <div className="flex flex-col modal-container bg-background p-6 rounded-lg shadow-lg max-w relative max-h-[500px]">
       <div className="modal-header mb-4 flex items-start justify-end">
        
         

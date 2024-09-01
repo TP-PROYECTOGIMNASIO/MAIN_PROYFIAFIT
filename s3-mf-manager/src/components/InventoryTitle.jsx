@@ -27,7 +27,7 @@ const InventoryTitle = ({ className = "" }) => {
               />
             </div>
           </Link>
-          <div className={styles.rectangleContainer}>
+          <Link to={"/Informe-Compra"} className={styles.rectangleContainer}>
             <div className={styles.frameInner} />
             <div className={styles.inventario}>Inventario</div>
             <div className={styles.vectorWrapper}>
@@ -37,7 +37,7 @@ const InventoryTitle = ({ className = "" }) => {
                 src="/dashboard-icons-set.svg"
               />
             </div>
-          </div>
+          </Link>
           <div className={styles.groupDiv}>
             <div className={styles.frameInner} />
             <div className={styles.inventario}>Visitantes</div>

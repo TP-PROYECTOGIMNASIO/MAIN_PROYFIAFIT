@@ -1,6 +1,7 @@
 import GroupComponent1 from "./GroupComponent1";
 import PropTypes from "prop-types";
 import styles from "./Content.module.css";
+import { Link } from "react-router-dom";
 
 const Content = ({ className = "" }) => {
   return (
@@ -62,7 +63,7 @@ const Content = ({ className = "" }) => {
             <div className={styles.administrar3}>Administrar</div>
             <div className={styles.managersTitle}>
               <div className={styles.exerciseTypeTitle}>
-                <a className={styles.tProductos}>T. PRODUCTOS</a>
+                <Link to={"/tproductos"} className={styles.tProductos}>T. PRODUCTOS</Link>
               </div>
               <img className={styles.exercisesIcon} alt="" src="/vector.svg" />
             </div>

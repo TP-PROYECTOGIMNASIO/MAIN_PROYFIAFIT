@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './styles/ActualizarInventarioSedes.css';
 import Modal from './Modal';
 import GenerarNuevoInventario from './GenerarNuevoInventario'; // Asegúrate de que la ruta sea correcta
@@ -19,7 +19,7 @@ const ActualizarInventarioSedes = () => {
     return (
         <div className="inventory-container">
             <div className="header-container">
-                <a href="#" className="back-link">⟵ Regresar</a>
+                <Link to={"/"} className="back-link">⟵ Regresar</Link>
                 <div className="titles-container">
                     <h1 className="main-title">Registra las últimas actualizaciones</h1>
                     <h1 className="main-title">de los inventarios de tus sedes!</h1>

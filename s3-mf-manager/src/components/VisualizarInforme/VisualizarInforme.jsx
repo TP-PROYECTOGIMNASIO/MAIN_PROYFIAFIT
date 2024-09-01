@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Modal from "../Modal/VisualInfo/Modal";
 import AgregarP from "../AgregarProducto/AgregarP";
 import DetalleInforme from "../DetalleInforme/DetalleInforme";
+import { Link } from "react-router-dom";
 
 export default function VisualizarInforme() {
   const [showModal, setShowModal] = useState(false);
@@ -128,9 +129,9 @@ export default function VisualizarInforme() {
       )}
       <header>
         <div className="buttonHead">
-          <a href="#" className="back-buttonVI">
+          <Link to={"/"} href="#" className="back-buttonVI">
              - Regresar
-          </a>
+          </Link>
           <button className="add-buttonVI" onClick={handleAddEmployeeClick}>
             + Registrar Nueva Compra
           </button>
