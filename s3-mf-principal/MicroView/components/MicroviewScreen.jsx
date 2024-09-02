@@ -5,9 +5,9 @@ import {WebView} from 'react-native-webview';
 
 export default function MicroviewScreen() {
   const navigation = useNavigation();
-  const aleatorio=Math.floor(Math.random() * (3 - 0 + 1)) + 0;
-  const navegacion=["clientes","administrador","manager","recepcionista"]
-  const urlNew="https://s3-mf-"+navegacion[aleatorio]
+  const aleatorio=Math.floor(Math.random() * (7 - 0 + 1)) + 0;
+  const navegacion=["administrador","clientes","encargado","entrenador","fisioterapeuta","instructor","manager","nutricionista","recepcionista"]
+  const urlNew="https://s3-mf-"+navegacion[aleatorio]+".netlify.app/"
 
   const handleNavigateToLogin = () => {
     navigation.navigate('Login');
@@ -33,7 +33,6 @@ export default function MicroviewScreen() {
 const styles = StyleSheet.create({
   container: {
       flex: 1,
-      paddingTop: 100,
   },
   text: {
       color: "white",

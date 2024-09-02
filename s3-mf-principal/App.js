@@ -17,20 +17,38 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <Header />
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="VerificationCode" component={VerificationCodeScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Microview" component={MicroviewScreen} options={{ headerShown: false }} />        
-        </Stack.Navigator>
-        <Footer />
-        <Toast />
-      </View>
+      <Stack.Navigator initialRouteName="Login">
+        {/* Stack para pantallas con Header y Footer */}
+        <Stack.Screen 
+          name="Main" 
+          component={MainStack}
+          options={{ headerShown: false }} 
+        />
+        {/* Stack para la pantalla Microview sin Header y Footer */}
+        <Stack.Screen 
+          name="Microview" 
+          component={MicroviewScreen} 
+          options={{ headerShown: false }} 
+        />
+      </Stack.Navigator>
     </NavigationContainer>
+  );
+}
+
+function MainStack() {
+  return (
+    <View style={styles.container}>
+      <Header />
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="VerificationCode" component={VerificationCodeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} options={{ headerShown: false }} />
+      </Stack.Navigator>
+      <Footer />
+      <Toast />
+    </View>
   );
 }
 
