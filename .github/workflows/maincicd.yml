@@ -3,7 +3,7 @@ name: Push to MAIN_FIAFIT
 on:
   push:
     branches:
-      - BACK
+      - FRONT
 
 jobs:
   push_to_dev:
