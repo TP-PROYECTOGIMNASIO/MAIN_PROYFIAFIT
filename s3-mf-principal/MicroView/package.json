@@ -1,9 +1,0 @@
-{
-    "name": "microview",
-    "version": "1.0.0",
-    "main": "./index.js",
-    "dependencies": {
-      "react": "latest",
-      "react-native": "latest"
-    }
-  }
