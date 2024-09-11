@@ -1,0 +1,29 @@
+name: Sync FRONT to DEV
+
+# Este flujo de trabajo se activa cuando hay un push en la rama FRONT
+on:
+  push:
+    branches:
+      - FRONT
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Checkout del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Paso 2: Configura Git para la acción
+      - name: Set up Git
+        run: |
+          git config --global user.name 'gonzalo1998peru'
+          git config --global user.email 'gonzalo_huertas_oliva@outlook.es'
+
+      # Paso 3: Merge FRONT en DEV y push a DEV
+      - name: Merge FRONT into DEV
+        run: |
+          git checkout DEV
+          git merge FRONT --no-ff
+          git push origin DEV
