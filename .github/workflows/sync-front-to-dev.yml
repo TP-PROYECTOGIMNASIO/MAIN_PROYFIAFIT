@@ -1,4 +1,4 @@
-name: Force push FRONT to DEV
+name: Push from FRONT to DEV
 
 on:
   push:
@@ -6,27 +6,31 @@ on:
       - FRONT
 
 jobs:
-  sync:
+  push_to_dev:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Checkout del repositorio con todas las ramas
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Trae todo el historial completo
+    # Checkout the current repository (BACKEND_FIAFIT)
+    - name: Checkout BACKEND_FIAFIT
+      uses: actions/checkout@v2
 
-      # Paso 2: Configura Git con el token personal
-      - name: Set up Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
+    # Configurar Git con las credenciales
+    - name: Set up Git
+      run: |
+        git config --global user.name 'gonzalo1998peru'
+        git config --global user.email 'gonzalo_huertas_oliva@outlook.es'
 
-      # Paso 3: Agregar el token de autenticación a la URL de push
-      - name: Force push to DEV
-        env:
-          TOKEN: ${{ secrets.GH_TOKEN }}  # Aquí usas el secreto que agregaste en GitHub
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git
-          git checkout FRONT
-          git push origin FRONT:DEV --force  # Forzar el push de FRONT a DEV
+    # Clone the MAIN_FIAFIT repository (branch 'BACK') into TEMPORAL_CHANGE directory
+    - name: Clone MAIN_PROYFIAFIT
+      run: |
+        git clone --branch DEV https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git TEMPORAL_CHANGE
+
+      # Copy files from BACKEND_FIAFIT to MAIN_PROYFIAFIT
+    - name: Copy files from FRONT TO DEV
+      run: |
+        rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='TEMPORAL_CHANGE' ./ TEMPORAL_CHANGE/
+        cd TEMPORAL_CHANGE
+        git add .
+        git commit -m "Sync from BACKEND_FIAFIT"
+        git push
+        
