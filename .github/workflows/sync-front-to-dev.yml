@@ -24,6 +24,4 @@ jobs:
       # Paso 3: Merge FRONT en DEV y push a DEV
       - name: Merge FRONT into DEV
         run: |
-          git checkout DEV
-          git merge FRONT --no-ff
-          git push origin DEV
+          git branch -a
