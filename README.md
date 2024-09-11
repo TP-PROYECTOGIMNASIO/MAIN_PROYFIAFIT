@@ -16,3 +16,6 @@ npm install react-router-dom
    
 s3-mf-principal -> REACT NATIVE
 OTROS -> REACT + VITE
+
+
+ESTA ES UNA PRUEBA PRA PUSHEAR A DEV DE MAIN
