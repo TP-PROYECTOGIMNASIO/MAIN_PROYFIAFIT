@@ -27,8 +27,9 @@ jobs:
         run: git branch -a
 
       # Paso 4: Merge FRONT en DEV con --allow-unrelated-histories
-      - name: Merge FRONT into DEV
+      - name: Merge FRONT into DEV using theirs strategy
         run: |
-          git checkout DEV || git checkout -b DEV
-          git merge FRONT --no-ff --allow-unrelated-histories  # Permite el merge de historiales no relacionados
+          git checkout DEV
+          git merge -X theirs FRONT
           git push origin DEV
+
