@@ -31,6 +31,6 @@ jobs:
         rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='TEMPORAL_CHANGE' ./ TEMPORAL_CHANGE/
         cd TEMPORAL_CHANGE
         git add .
-        git commit -m "Sync from MAIN_FIAFIT"
+        git commit -m "Sync from FRONT"
         git push
         
