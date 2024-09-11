@@ -1,4 +1,4 @@
-name: Sync FRONT to DEV
+name: Force push FRONT to DEV
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Trae todas las ramas y commits del historial completo
+          fetch-depth: 0  # Trae todo el historial
 
       # Paso 2: Configura Git
       - name: Set up Git
@@ -22,14 +22,8 @@ jobs:
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
 
-      # Paso 3: Listar las ramas disponibles
-      - name: List branches
-        run: git branch -a
-
-      # Paso 4: Merge FRONT en DEV con --allow-unrelated-histories
-      - name: Merge FRONT into DEV using theirs strategy
+      # Paso 3: Forzar push de FRONT a DEV
+      - name: Force push to DEV
         run: |
-          git checkout DEV
-          git merge -X theirs FRONT
-          git push origin DEV
-
+          git checkout FRONT
+          git push origin FRONT:DEV --force  # Sobrescribe el contenido de DEV con FRONT
