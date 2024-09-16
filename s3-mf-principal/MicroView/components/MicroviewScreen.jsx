@@ -25,8 +25,26 @@ export default function MicroviewScreen() {
 
   }else if(role ==="cliente"){
     urlNew = "https://s3-mf-clientes.netlify.app/";
-  }else if(role==='Entrenador'){
+  }else if(role==='entrenador'){
     urlNew = "https://s3-mf-entrenador.netlify.app/";
+  }else if(role==='cliente_libre'){
+    urlNew = "https://s3-mf-cliente_libre.netlify.app/";
+
+  }else if(role==='instructor'){
+    urlNew = "https://s3-mf-instructor.netlify.app/";
+
+  }else if(role==='manager'){
+    urlNew = "https://s3-mf-manager.netlify.app/";
+
+  }else if(role ==='encargado'){
+    urlNew = "https://s3-mf-encargado.netlify.app/";
+
+  }else if(role==='fisioterapeuta'){
+    urlNew = "https://s3-mf-fisioterapeuta.netlify.app/";
+
+  }else if(role==='nutricionista'){
+    urlNew = "https://s3-mf-nutricionista.netlify.app/";
+
   }
   const handleNavigateToDashboard = () => {
     navigation.navigate('Dashboard', { role: role });
