@@ -6,6 +6,7 @@ import HeroImage from '../../assets/fondo.jpeg';
 const HomePage = () => {
     return (
         <div className="flex flex-col min-h-screen">
+            {/* Imagen a la izquierda */}
             <h1 className='bg-gradient-to-b from-white to-red-100 text-center text-red-600 p-4 text-lg sm:text-xl font-bold'>BIENVENIDO ENTRENADOR</h1>
             <main className="flex flex-col sm:flex-row items-center justify-center p-4 sm:p-6 flex-grow bg-gradient-to-b from-white to-red-100">
                 <section className="flex flex-col items-center sm:w-1/2 mb-8 sm:mb-0 relative sm:mr-4">
@@ -22,11 +23,11 @@ const HomePage = () => {
                 </section>
 
                 <section className="flex flex-col space-y-4 sm:w-1/3 items-center mt-8 sm:mt-0 w-full sm:ml-auto sm:mr-8">
-                    <Link to="/registrar-metricas" className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left">
+                    <Link to="/" className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left">
                         <span className="text-sm font-semibold">VER</span>
                         <span className="text-lg sm:text-xl font-bold">CALCULAR METRICAS</span>
                     </Link>
-                    <Link to="/alumno-checkin" className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left">
+                    <Link to="/" className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left">
                         <span className="text-sm font-semibold">VER</span>
                         <span className="text-lg sm:text-xl font-bold">ALUMNOS CHECKIN</span>
                     </Link>

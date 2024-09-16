@@ -10,7 +10,7 @@ const VisualizarMetricas = () => {
       <div className="flex flex-col items-center w-full min-h-screen p-4 sm:p-6 bg-gray-100">
         <main className="flex flex-col w-full p-6 sm:p-8 bg-white shadow-lg mt-6 max-w-4xl sm:max-w-5xl mx-auto rounded-lg">
           <div className="flex items-center justify-between w-full mb-4 sm:mb-6">
-            <Link to="/Inicio"> {/*solo cambia por el valor que desea regresar, debes de agregar el path que esta en APP.JSX*/}
+            <Link to="/registrar-metricas"> {/*solo cambia por el valor que desea regresar, debes de agregar el path que esta en APP.JSX*/}
               <ArrowLeftIcon className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600" />
             </Link>
             <h1 className="bg-red-600 text-white text-sm sm:text-base px-3 sm:px-4 py-1 sm:py-2 rounded-lg hover:bg-red-700 transition duration-300">MARZO</h1>

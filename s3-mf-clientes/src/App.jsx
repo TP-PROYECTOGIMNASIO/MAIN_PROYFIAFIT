@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/header";
+import Navbar from "./components/Navbar";
 import ProductList from "./components/product-list";
 import CartDetails from "./components/shopping-cart/cartDetails";
 import PlanView from "./components/PlanView";
@@ -10,7 +10,7 @@ function App() {
   return (
     <Router>
       <div className="w-full min-h-screen">
-        <Header />
+        <Navbar />
         {/* Definir las rutas aquí */}
         <Routes>
         <Route path="/" element={<Inicio />} />

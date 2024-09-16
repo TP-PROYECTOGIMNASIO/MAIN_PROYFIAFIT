@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaShoppingCart as CartIcon, FaUser as UserIcon, FaBars as MenuIcon, FaTimes as CloseIcon } from 'react-icons/fa';
 import { useState } from 'react';
-
+import { Link } from "react-router-dom";
 export default function Navbar() {
     const navigate = useNavigate();
     const location = useLocation();
@@ -14,8 +14,10 @@ export default function Navbar() {
     return (
         <nav className="min-h-[10vh] flex flex-col sm:flex-row justify-between items-center p-2 bg-white text-white border-b border-gray-300">
         
-            <img src="/logo-3.png" alt="logo fia fit" className="w-[30vh] h-[10vh] mb-2 sm:mb-0" />
 
+            <Link to="/">
+                <img src={"/logo-3.png"} alt="logo fia fit" className="w-[30vh] h-[10vh]" />
+            </Link>
            
             <button
                 className="text-red-600 text-3xl sm:hidden"
