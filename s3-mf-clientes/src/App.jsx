@@ -4,6 +4,7 @@ import ProductList from "./components/product-list";
 import CartDetails from "./components/shopping-cart/cartDetails";
 import PlanView from "./components/PlanView";
 import DayView from "./components/DayView";
+import Inicio from "./context/inicio";
 import Footer from "./components/Footer";
 function App() {
   return (
@@ -12,8 +13,8 @@ function App() {
         <Header />
         {/* Definir las rutas aquí */}
         <Routes>
-          <Route path="/" element={<ProductList />} />
-          {/* Ruta principal que muestra el listado de productos */}
+        <Route path="/" element={<Inicio />} />
+          <Route path="/productos" element={<ProductList />} />
           <Route path="/cart" element={<CartDetails />} />
           <Route path="/verplan" element={<PlanView />} />
         <Route path="/plan/:dayId" element={<DayView />} />
