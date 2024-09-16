@@ -1,5 +1,6 @@
 
-import React from 'react';
+
+import { Link } from "react-router-dom";
 const ManagerPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-end p-10 relative">
@@ -24,15 +25,19 @@ const ManagerPage = () => {
               Información de Inventarios
             </h2>
             <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
-              <button className="bg-white text-red-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                Sedes →
-              </button>
-              <button className="bg-white text-red-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                Inventario →
-              </button>
-              <button className="bg-white text-red-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                Visitantes →
-              </button>
+         
+                <Link to="/sedes" className="bg-white text-red-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+                  Sedes →
+                </Link>
+              
+                <Link to="/ActualizarInventarioSedes" className="bg-white text-red-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+                  Inventario →
+                </Link>
+             
+                <Link to="/GenerarNuevoInventario" className="bg-white text-red-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+                  Visitantes →
+                </Link>
+          
             </div>
           </div>
 

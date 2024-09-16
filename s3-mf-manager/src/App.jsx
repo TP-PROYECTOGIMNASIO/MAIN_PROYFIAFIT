@@ -56,7 +56,13 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
+      <Route path="/" element={
+        <>
+          <Navbar />
+          <HUVISUALLIZARINICIOSEGN />
+          <Footer/>
+        </>
+      } />
       <Route path="/empleados" element={
         <>
           <Navbar />
