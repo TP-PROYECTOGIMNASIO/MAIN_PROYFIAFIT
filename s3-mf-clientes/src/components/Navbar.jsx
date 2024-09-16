@@ -12,7 +12,12 @@ export default function Navbar(){
             <img src={"/logo-3.png"} alt="logo fia fit" className="w-[30vh] h-[10vh]" />
           </Link>
           <div className="flex flex-row items-center mr-4 gap-20">
-              <h1 className="text-[20px] font-bold" style={{color:"#4B4F57"}}>Inicio</h1>
+              <Link to="/">
+                <h1 className="text-[20px] font-bold" style={{color:"#4B4F57"}}>Inicio</h1>
+              </Link>
+              <Link to="/productos">
+                <h1 className="text-[20px] font-bold" style={{color:"#4B4F57"}}>´Productos</h1>
+              </Link>
               <div className="relative flex items-center">
           <button
             className="hover:bg-slate-200/20 rounded-full p-2 text-white flex items-center gap-1"

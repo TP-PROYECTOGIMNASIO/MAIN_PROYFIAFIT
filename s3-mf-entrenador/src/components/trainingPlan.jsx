@@ -1,13 +1,14 @@
 // src/TrainingPlan.jsx
 import React from 'react';
+import { Link } from 'react-router-dom'; // Importa Link
 import "../styles/stylesH-27.css";  // Actualización de la ruta al CSS
 
 const TrainingPlan = ({ onGeneratePlan }) => {
   return (
     <div className="container">
       <div className="card">
-        {/* Botón de cerrar */}
-        <button className="close-btn">X</button>
+        {/* Botón de cerrar como un Link */}
+        <Link to="/" className="close-btn">X</Link>
 
         {/* Título principal */}
         <h2 className="title">Plan de Entrenamiento</h2>

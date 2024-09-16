@@ -138,7 +138,7 @@ const ListStudents = () => {
             <div className="flex">
               <div className="flex-1 flex flex-col mr-4">
                 <button className="bg-[#b31b20] text-white py-2 px-4 rounded-md mb-2">HORARIO</button>
-                <button className="bg-[#b31b20] text-white py-2 px-4 rounded-md">MÉTRICAS</button>
+                <Link to={'/vista-no-registrado'} className="bg-[#b31b20] text-white py-2 px-4 rounded-md">MÉTRICAS</Link>
               </div>
               <div className="flex-1 flex flex-col">
                 <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN ALIMENTICIO</button>

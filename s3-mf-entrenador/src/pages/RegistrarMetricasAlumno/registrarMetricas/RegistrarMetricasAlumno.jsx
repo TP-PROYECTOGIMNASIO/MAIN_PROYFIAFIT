@@ -7,8 +7,9 @@ const ListaAlumnos = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/listar-alumnos'); 
+        navigate('/visualizar'); 
     };
+
 
 
 
@@ -115,7 +116,7 @@ const ListaAlumnos = () => {
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"
                             placeholder="Ingrese el peso ideal"
                         />
-                    </label>
+                    </label>visualizar
 
                     <button
                         onClick={handleClick}
