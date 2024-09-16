@@ -27,7 +27,7 @@ const HomePage = () => {
                         <span className="text-sm font-semibold">VER</span>
                         <span className="text-lg sm:text-xl font-bold">MIS MÉTRICAS</span>
                     </Link>
-                    <Link to="/compras" className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left">
+                    <Link to="/productos" className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left">
                         <span className="text-sm font-semibold">VER</span>
                         <span className="text-lg sm:text-xl font-bold">MIS COMPRAS</span>
                     </Link>
