@@ -5,6 +5,7 @@ const ListStudents = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(''); // Estado para el campo de búsqueda
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -37,6 +38,11 @@ const ListStudents = () => {
     setSelectedStudent(null);
   };
 
+  // Función para filtrar los estudiantes basados en el término de búsqueda
+  const filteredStudents = students.filter((student) =>
+    student.nombres.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="bg-white shadow-md rounded p-8 m-8">
       <div className="text-center mb-6">
@@ -48,6 +54,8 @@ const ListStudents = () => {
             type="text"
             placeholder="Buscar..."
             className="p-3 pl-10 w-96 bg-gray-200 border border-gray-300 rounded-none text-black"
+            value={searchTerm} // Asociamos el valor del input al estado searchTerm
+            onChange={(e) => setSearchTerm(e.target.value)} // Actualizamos el estado con el valor ingresado
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +87,7 @@ const ListStudents = () => {
             </tr>
           </thead>
           <tbody>
-            {students.map((student, index) => (
+            {filteredStudents.map((student, index) => (
               <tr key={index}>
                 <td className="border-t py-2 px-4 text-black">{student.nombres}</td>
                 <td className="border-t py-2 px-4 text-black">{student.entrenador}</td>
@@ -136,16 +144,19 @@ const ListStudents = () => {
               </div>
             </div>
             <div className="flex">
-              <div className="flex-1 flex flex-col mr-4">
-                <button className="bg-[#b31b20] text-white py-2 px-4 rounded-md mb-2">HORARIO</button>
-                <Link to={'/vista-no-registrado'} className="bg-[#b31b20] text-white py-2 px-4 rounded-md">MÉTRICAS</Link>
-              </div>
-              <div className="flex-1 flex flex-col">
-                <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN ALIMENTICIO</button>
-                <Link to={'/planes'} className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN DE ENTRENAMIENTO</Link>
-                <button className="bg-gray-700 text-white py-2 px-4 rounded-md">REPORTE DE FISIOTERAPEUTA</button>
-              </div>
-            </div>
+  <div className="flex-1 flex flex-col mr-4">
+    <button className="bg-[#b31b20] text-white py-2 px-4 rounded-md mb-2">HORARIO</button>
+    <div className="flex justify-center w-full"> {/* Centrado horizontal con ancho completo */}
+      <Link to={'/vista-no-registrado'} className="bg-[#b31b20] text-white py-2 px-4 rounded-md w-full text-center">MÉTRICAS</Link>
+    </div>
+  </div>
+  <div className="flex-1 flex flex-col">
+    <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN ALIMENTICIO</button>
+    <Link to={'/planes'} className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN DE ENTRENAMIENTO</Link>
+    <button className="bg-gray-700 text-white py-2 px-4 rounded-md">REPORTE DE FISIOTERAPIA</button>
+  </div>
+</div>
+
           </div>
         </div>
       )}
