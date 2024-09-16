@@ -1,5 +1,5 @@
-
 import React from 'react';
+
 const ManagerPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-end p-10 relative">

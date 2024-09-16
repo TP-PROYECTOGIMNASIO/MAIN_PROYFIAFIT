@@ -1,79 +1,55 @@
-import Content from "../components/Content";
-import styles from "./HUVISUALLIZARINICIOSEGN.module.css";
-
 const HUVISUALLIZARINICIOSEGN = () => {
   return (
-    <div className={styles.huVisuallizarInicioSegn}>
-      <main className={styles.top}>
-      <header className={styles.navbarWrapper}>
-  <nav className={styles.navbar}>
-    <img
-      className={styles.navbarLogo}
-      alt="Logo"
-      src="/rectangle-147.svg"
-    />
-    <img
-      className={styles.image56Icon}
-      loading="lazy"
-      alt="Imagen"
-      src="/image-56@2x.png"
-    />
-    <h2 className={styles.inicio}>Inicio</h2>
-    <img
-      className={styles.userIcon}
-      loading="lazy"
-      alt="Usuario"
-      src="/icons8usuariomasculinoencrculo96-1@2x.png"
-    />
-  </nav>
-</header>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-end p-10 relative">
+      {/* Imagen a la izquierda */}
+      <img
+  src="/assets/fondo.png"
+  alt="Imagen de fondo"
+  className="absolute left-0 bottom-0 w-full h-full object-cover"
+/>
 
-        <div className={styles.adminWelcome}>
-          <h2 className={styles.bienvenidoAdmin}>Bienvenido Admin</h2>
-        </div>
-        <Content />
-      </main>
-      <div className={styles.image64Wrapper}>
-        <img className={styles.image64Icon} alt="" src="/image-64@2x.png" />
-      </div>
-      <footer className={styles.bot}>
-        <div className={styles.botChild} />
-        <div className={styles.link}>Copiryght © Gimnasio 2024</div>
-        <div className={styles.socialIcons}>
-          <div className={styles.socialMediaIcons}>
-            <img
-              className={styles.iconFacebook}
-              loading="lazy"
-              alt=""
-              src="/icon--facebook.svg"
-            />
-            <img
-              className={styles.iconFacebook}
-              loading="lazy"
-              alt=""
-              src="/icon--instagram.svg"
-            />
-            <img
-              className={styles.iconFacebook}
-              loading="lazy"
-              alt=""
-              src="/icon--x.svg"
-            />
-            <img
-              className={styles.iconFacebook}
-              loading="lazy"
-              alt=""
-              src="/icon--linkedin.svg"
-            />
+
+
+      <div className="w-full max-w-4xl">
+        <h1 className="text-4xl font-bold mb-12 text-red-600 text-center">
+          Bienvenido Admin!
+        </h1>
+
+        <div className="grid grid-cols-2 gap-12">
+          {/* Columna 1 - Información de Inventarios */}
+          <div className="text-left">
+            
+            <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
+              <button className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+                Administrar EMPLEADOS →
+              </button>
+              <button className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+                Administrar T.PRODUCTOS →
+              </button>
+              <button className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+               
+              </button>
+            </div>
           </div>
+
+          {/* Columna 2 - Información de Compras */}
+          <div className="text-left">
+            
+            <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
+              <button className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+                Administrar CLIENTES →
+              </button>
+              <button className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+              Administrar T.EJERCICIOS →
+              </button>
+              <button className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+               
+              </button>
+            </div>
+          </div>
+
         </div>
-        <img
-          className={styles.iconYoutube}
-          loading="lazy"
-          alt=""
-          src="/icon--youtube.svg"
-        />
-      </footer>
+      </div>
     </div>
   );
 };
