@@ -3,7 +3,8 @@
     "version": "1.0.0",
     "main": "./index.js",
     "dependencies": {
-      "react": "latest",
-      "react-native": "latest"
+        "newpassword": "file:",
+        "react": "latest",
+        "react-native": "latest"
     }
-  }
+}

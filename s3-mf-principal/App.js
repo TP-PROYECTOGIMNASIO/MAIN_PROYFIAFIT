@@ -2,6 +2,12 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { DashboardScreen } from './dashboard';
 import LoginScreen from './login/components/LoginScreen';
+import RegisterScreen from './register/components/RegisterScreen';
+import CodeScreen from './register/components/CodeScreen';
+import TipoClienteScreen from './register/components/TipoClienteScreen';
+import ClienteRegularScreen from './register/components/ClienteRegularScreen'; 
+import ClienteRegular2Screen from './register/components/ClienteRegular2Screen';
+import ClienteLibreScreen from './register/components/ClienteLibreScreen';
 import UserNotScreen from './login/components/UserNotScreen';
 import ResetPasswordScreen from './reset-password/components/ResetPasswordScreen';
 import VerificationCodeScreen from './VerificationCode/components/VerificationCodeScreen';
@@ -13,6 +19,7 @@ import Footer from './Componentes/Footer';
 import Header from './Componentes/Header';
 import Toast from 'react-native-toast-message'; 
 import { MicroviewScreen } from './MicroView';
+
 
 const Stack = createStackNavigator();
 
@@ -42,15 +49,17 @@ function MainStack() {
     <View style={styles.container}>
       <Header />
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
         <Stack.Screen name="VerificationCode" component={VerificationCodeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="UserNotScreen" component={UserNotScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="PassswordCorrectScreen" component={PassswordCorrectScreen} options={{ headerShown: false }} />
-      
-        
+        <Stack.Screen name="NewPasswordScreen" component={NewPasswordScreen} options={{ headerShown: false }} />  
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="CodeScreen" component={CodeScreen} options={{ headerShown: false }} /> 
+        <Stack.Screen name="TipoClienteScreen" component={TipoClienteScreen} options={{ headerShown: false }} /> 
+        <Stack.Screen name="ClienteRegularScreen" component={ClienteRegularScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="ClienteRegular2Screen" component={ClienteRegular2Screen} options={{ headerShown: false }}/>
+        <Stack.Screen name="ClienteLibreScreen" component={ClienteLibreScreen} options={{ headerShown: false }}/>        
       </Stack.Navigator>
       <Footer />
       <Toast />
