@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout the current repository (FRONTEND_FIAFIT)
-    - name: Checkout FRONTEND_FIAFIT
+    # Checkout the current repository (BACKEND_FIAFIT)
+    - name: Checkout BACKEND_FIAFIT
       uses: actions/checkout@v2
 
     # Configurar Git con las credenciales
@@ -25,12 +25,12 @@ jobs:
       run: |
         git clone --branch DEV https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git TEMPORAL_CHANGE
 
-      # Copy files from FRONTEND_FIAFIT to MAIN_PROYFIAFIT
-    - name: Copy files from FRONT TO DEV
+      # Copy files from BACKTEND_FIAFIT to MAIN_PROYFIAFIT
+    - name: Copy files from FROM TO DEV
       run: |
         rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='TEMPORAL_CHANGE' ./ TEMPORAL_CHANGE/
         cd TEMPORAL_CHANGE
         git add .
-        git commit -m "Sync from FRONTEND_FIAFIT"
+        git commit -m "Sync from BACKEND_FIAFIT"
         git push
         
