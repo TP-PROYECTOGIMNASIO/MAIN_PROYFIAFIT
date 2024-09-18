@@ -1,3 +1,21 @@
-#Plataforma de Gestión Unificada para Gimnasios: Optimización y Control #FIAFIT
+Push front prueba
 
-#Rama BUILD
+npx create-expo-app s3-mf-principal --template blank
+
+npm create vite@latest
+
+git config user.name "Tu Nombre" git config user.email "tuemail@example.com"
+
+##Para usar tailwind
+npm install -D tailwindcss postcss autoprefixer
+
+npx tailwindcss init -p  
+
+//Enrutamiento
+npm install react-router-dom
+   
+s3-mf-principal -> REACT NATIVE
+OTROS -> REACT + VITE
+
+
+prueba push en con yaml en front

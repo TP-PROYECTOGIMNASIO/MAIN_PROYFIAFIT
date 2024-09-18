@@ -1,0 +1,10 @@
+{
+    "name": "newpassword",
+    "version": "1.0.0",
+    "main": "./index.js",
+    "dependencies": {
+        "newpassword": "file:",
+        "react": "latest",
+        "react-native": "latest"
+    }
+}
