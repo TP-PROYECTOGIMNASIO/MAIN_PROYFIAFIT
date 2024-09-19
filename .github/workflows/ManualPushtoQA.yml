@@ -1,0 +1,15 @@
+name: Manual Push to QA
+
+# Este workflow se puede activar manualmente
+on:
+  workflow_dispatch:
+
+jobs:
+  run-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Run a sample script
+        run: echo "Hello, this is a manually triggered action!"
