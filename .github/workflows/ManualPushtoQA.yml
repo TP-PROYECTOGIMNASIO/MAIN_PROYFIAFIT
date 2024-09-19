@@ -11,5 +11,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run a sample script
-        run: echo "Hello, this is a manually triggered action!"
+    # Configurar Git con las credenciales
+      - name: Set up Git
+        run: |
+          git config --global user.name 'gonzalo1998peru'
+          git config --global user.email 'gonzalo_huertas_oliva@outlook.es'
+  
+      # Clone the MAIN_FIAFIT repository (branch 'FRONT') into TEMPORAL_CHANGE directory
+      - name: Clone MAIN_PROYFIAFIT
+        run: |
+          git clone --branch QA https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git QA_CLONE
+  
+        # Copy files from FRONTEND_FIAFIT to MAIN_PROYFIAFIT
+      - name: Copy files from FRONTEND_FIAFIT to MAIN_PROYFIAFIT
+        run: |
+          rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='QA_CLONE' ./ QA_CLONE/
+          cd QA_CLONE
+          git add .
+          git commit -m "Sync from BUILD_FIAFIT"
+          git push
