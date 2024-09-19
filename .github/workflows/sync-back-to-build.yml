@@ -31,5 +31,5 @@ jobs:
         rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='CLONE_BUILD' ./ CLONE_BUILD/BACK/
         cd CLONE_BUILD
         git add .
-        git commit -m "Sync from FRONT_BRANCH"
+        git commit -m "Sync from BACK_BRANCH"
         git push
