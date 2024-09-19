@@ -24,6 +24,7 @@ jobs:
     - name: Clone MAIN_PROYFIAFIT
       run: |
         git clone --branch BUILD https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git CLONE_BUILD
+        ls
 
       # Copy files from FRONTEND_FIAFIT to MAIN_PROYFIAFIT
     #- name: Copy files from FRONT TO BUILD
