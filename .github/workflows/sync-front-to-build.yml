@@ -24,16 +24,13 @@ jobs:
     - name: Clone MAIN_PROYFIAFIT
       run: |
         git clone --branch BUILD https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git CLONE_BUILD
-        ls
-        cd CLONE_BUILD
-        ls
 
-      # Copy files from FRONTEND_FIAFIT to MAIN_PROYFIAFIT
-    #- name: Copy files from FRONT TO BUILD
-      #run: |
-        #rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='TEMPORAL_CHANGE' ./ CLONE_BUILD/
-        #cd CLONE_BUILD
-        #git add .
-       # git commit -m "Sync from FRONTEND_FIAFIT"
-        #git push
+    #Copy files from FRONTEND_FIAFIT to MAIN_PROYFIAFIT
+    - name: Copy files from FRONT TO BUILD
+      run: |
+        rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='CLONE_BUILD' ./ CLONE_BUILD/BACK/
+        cd CLONE_BUILD
+        git add .
+        git commit -m "Sync from FRONT_BRANCH"
+        git push
         
