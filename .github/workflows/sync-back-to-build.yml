@@ -3,7 +3,7 @@ name: Push from BACK to BUILD
 on:
   push:
     branches:
-      - FRONT
+      - BACK
 
 jobs:
   push_to_build:
