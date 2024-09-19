@@ -24,7 +24,7 @@ phases:
       - sam package --template-file template.yml --output-template-file packaged.yml --s3-bucket s3-alm-lambda-qa --debug
       - aws cloudformation deploy --template-file packaged.yml --stack-name stack-qa-dso --capabilities CAPABILITY_NAMED_IAM --region us-east-2
       - echo "Deploying Microfront 1"
-      - aws s3 sync ./FRONT/s3-mf-administrador/build s3://s3-mf-microfront1-qa-v100 --delete
+      - aws s3 sync ./FRONT/s3-mf-administrador/build s3://s3-mf-administrador-qa --delete
       - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 
