@@ -27,7 +27,7 @@ Resources:
             Path: /qa
             Method: get
 
-  S3 Buckets for Microfronts
+  # S3 Buckets for Microfronts
   MicrofrontBucket1:
     Type: AWS::S3::Bucket
     Properties:
@@ -60,7 +60,7 @@ Resources:
   MicrofrontBucket1Policy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref s3-mf-administrador-qa
+      Bucket: !Ref MicrofrontBucket1
       PolicyDocument:
         Statement:
           - Action: "s3:GetObject"
