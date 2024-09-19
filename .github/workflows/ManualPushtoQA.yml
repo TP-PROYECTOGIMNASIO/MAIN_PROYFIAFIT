@@ -2,6 +2,7 @@ name: Manual Push to QA
 
 # Este workflow se puede activar manualmente
 on:
+  push: BUILD
   workflow_dispatch:
 
 jobs:
