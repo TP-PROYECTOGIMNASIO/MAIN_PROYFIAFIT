@@ -6,7 +6,7 @@ on:
       - FRONT
 
 jobs:
-  push_to_dev:
+  push_to_build:
     runs-on: ubuntu-latest
 
     steps:
@@ -26,11 +26,11 @@ jobs:
         git clone --branch BUILD https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git CLONE_BUILD
 
       # Copy files from FRONTEND_FIAFIT to MAIN_PROYFIAFIT
-    - name: Copy files from FRONT TO BUILD
-      run: |
-        rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='TEMPORAL_CHANGE' ./ CLONE_BUILD/
-        cd CLONE_BUILD
-        git add .
-        git commit -m "Sync from FRONTEND_FIAFIT"
-        git push
+    #- name: Copy files from FRONT TO BUILD
+      #run: |
+        #rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='TEMPORAL_CHANGE' ./ CLONE_BUILD/
+        #cd CLONE_BUILD
+        #git add .
+       # git commit -m "Sync from FRONTEND_FIAFIT"
+        #git push
         
