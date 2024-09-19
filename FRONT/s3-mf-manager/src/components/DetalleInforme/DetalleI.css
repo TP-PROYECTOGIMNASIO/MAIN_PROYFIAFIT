@@ -1,0 +1,92 @@
+.containerDetalleI {
+   
+    color: #333;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+
+  }
+
+     .titleDI {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: #B5121C;
+    font-size: 50px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: normal;
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #DFE0E1;
+    color: #4B4F57;
+    height: 40px;
+    
+
+  }
+  .table td{
+    background-color: white;
+  }
+  
+  .containerDetalleI .btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .containerDetalleI button{
+    background-color:white  ;
+    
+    color: #fff;
+  } 
+  .containerDetalleI button:hover{
+    background-color: white  ; /* Cambia el color de fondo al hacer hover */
+  }
+  
+.containerDetalleI img{
+display:flex;
+vertical-align:auto;
+}
+
+  .btn-prm img{
+    
+    color: #fff;
+    transition: filter 0.3s; /* Transición suave para el filtro */
+  }
+  .btn-prm:hover img {
+    filter: brightness(0.85) saturate(100%) invert(70%); /* Cambia a gris */ /* Cambia el color de la imagen */
+}
+.montoTotal p{
+  font-size: 30px;
+  font-weight: normal;
+}
+     
+  .d-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .justify-content-end {
+    justify-content: flex-end;
+  }
