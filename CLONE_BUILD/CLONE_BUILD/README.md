@@ -18,4 +18,4 @@ s3-mf-principal -> REACT NATIVE
 OTROS -> REACT + VITE
 
 
-prueba push 2
+prueba push
