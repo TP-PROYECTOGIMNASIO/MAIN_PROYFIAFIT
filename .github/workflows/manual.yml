@@ -1,4 +1,4 @@
-name: Manual push to QA
+name: Manual push to QA v2
 
 on:
   workflow_dispatch:
