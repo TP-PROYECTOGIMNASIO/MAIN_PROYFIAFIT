@@ -60,21 +60,10 @@ Resources:
   MicrofrontBucket1Policy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref MicrofrontBucket1
+      Bucket: !Ref s3-mf-administrador-qa
       PolicyDocument:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
             Resource: !Sub "arn:aws:s3:::s3-mf-administrador-qa/*"
             Principal: "*"
-
-Outputs:
-  # Output for API Gateway URL
-  ApiGatewayUrl:
-    Description: "API Gateway endpoint URL for Prod stage"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/qa/"
-
-  # Outputs for S3 Website URLs
-  Microfront1URL:
-    Description: "URL for Microfront 1"
-    Value: !Sub "http://${MicrofrontBucket1}.s3-website-${AWS::Region}.amazonaws.com/"
