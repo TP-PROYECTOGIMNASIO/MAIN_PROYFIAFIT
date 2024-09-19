@@ -18,4 +18,4 @@ s3-mf-principal -> REACT NATIVE
 OTROS -> REACT + VITE
 
 
-prueba push en con yaml en front
+prueba push
