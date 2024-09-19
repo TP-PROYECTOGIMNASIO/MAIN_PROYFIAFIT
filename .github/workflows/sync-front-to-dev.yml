@@ -11,7 +11,7 @@ jobs:
 
     steps:
     # Checkout the current repository (BACKEND_FIAFIT)
-    - name: Checkout BACKEND_FIAFIT
+    - name: Checkout FRONTEND_FIAFIT
       uses: actions/checkout@v2
 
     # Configurar Git con las credenciales
@@ -23,14 +23,13 @@ jobs:
     # Clone the MAIN_FIAFIT repository (branch 'FRONT') into TEMPORAL_CHANGE directory
     - name: Clone MAIN_PROYFIAFIT
       run: |
-        git clone --branch DEV https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git TEMPORAL_CHANGE
+        git clone --branch DEV https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git DEV_CLONE
 
       # Copy files from BACKTEND_FIAFIT to MAIN_PROYFIAFIT
     - name: Copy files from FROM TO DEV
       run: |
-        rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='TEMPORAL_CHANGE' ./ TEMPORAL_CHANGE/
+        rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='DEV_CLONE' ./ DEV_CLONE/
         cd TEMPORAL_CHANGE
         git add .
-        git commit -m "Sync from BACKEND_FIAFIT"
+        git commit -m "Sync from FRONTEND_FIAFIT"
         git push
-        
