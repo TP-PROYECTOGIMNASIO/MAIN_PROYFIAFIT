@@ -17,5 +17,4 @@ npm install react-router-dom
 s3-mf-principal -> REACT NATIVE
 OTROS -> REACT + VITE
 
-
-prueba push 2
+PRUEBA 2 YAML MAIN FRONT DEV & FRONT
