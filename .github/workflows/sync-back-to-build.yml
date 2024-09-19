@@ -1,1 +1,35 @@
-dsdasdsad
+name: Push from BACK to BUILD
+
+on:
+  push:
+    branches:
+      - FRONT
+
+jobs:
+  push_to_build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the current repository (FRONTEND_FIAFIT)
+    - name: Checkout FRONTEND_FIAFIT
+      uses: actions/checkout@v2
+
+    # Configurar Git con las credenciales
+    - name: Set up Git
+      run: |
+        git config --global user.name 'gonzalo1998peru'
+        git config --global user.email 'gonzalo_huertas_oliva@outlook.es'
+
+    # Clone the MAIN_FIAFIT repository (branch 'FRONT') into TEMPORAL_CHANGE directory
+    - name: Clone MAIN_PROYFIAFIT
+      run: |
+        git clone --branch BUILD https://x-access-token:${{ secrets.access_token_gonzalo }}@github.com/TP-PROYECTOGIMNASIO/MAIN_PROYFIAFIT.git CLONE_BUILD
+
+    #Copy files from FRONTEND_FIAFIT to MAIN_PROYFIAFIT
+    - name: Copy files from BACK TO BUILD
+      run: |
+        rsync -av --exclude='.git' --exclude='.github/workflows' --exclude='CLONE_BUILD' ./ CLONE_BUILD/BACK/
+        cd CLONE_BUILD
+        git add .
+        git commit -m "Sync from FRONT_BRANCH"
+        git push
