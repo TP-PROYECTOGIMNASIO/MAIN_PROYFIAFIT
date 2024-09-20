@@ -32,7 +32,11 @@ phases:
       - cd FRONT/s3-mf-recepcionista
       - npm install && npm run build
       - cd .. && cd ..
-
+      # MF - INSTRUCTOR
+      - cd FRONT/s3-mf-instructor
+      - npm install && npm run build
+      - cd .. && cd ..
+      
   pre_build:
     commands:
 
@@ -51,6 +55,7 @@ phases:
       - aws s3 sync ./FRONT/s3-mf-manager/dist s3://s3-mf-manager-qa --delete
       - aws s3 sync ./FRONT/s3-mf-principal/dist s3://s3-mf-principal-qa --delete
       - aws s3 sync ./FRONT/s3-mf-recepcionista/dist s3://s3-mf-recepcionista-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-instructor/build s3://s3-mf-instructor-qa --delete
       - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 
