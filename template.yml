@@ -10,9 +10,7 @@ Globals:
     Timeout: 3
 
 Resources:
-
-  
-LambdaGestionarCompras:
+LambdaGestionarComprasHU61:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-compras/hu-tp-61/
@@ -42,11 +40,8 @@ LambdaGestionarCompras:
           Path: /qa/lambda-gestionar-compras/hu-tp-61/
           Method: options
 
-
-
-
  # Lambda Gestionar Compras | hu-tp-62
-  LambdaPrueba:
+  LambdaGestionarComprasHU62:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/lambda-gestionar-compras/hu-tp-62/
@@ -55,16 +50,14 @@ LambdaGestionarCompras:
       Architectures:
         - x86_64
       Events:
-        LambdaPrueba:
+        LambdaGestionarComprasHU62:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-compras/hu-tp-62/
             Method: post
 
-
-
 # lambda-gestionar-empleados | hu-tp-73
-LambdaGestionarEmpleados:
+LambdaGestionarEmpleadosHU73:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-empleados/hu-tp-73
@@ -86,7 +79,7 @@ LambdaGestionarEmpleados:
 
 
 # lambda-gestionar-empleados | hu-tp-74
-  LambdaGestionarEmpleados:
+  LambdaGestionarEmpleadosHU74:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/lambda-gestionar-empleados/hu-tp-74
@@ -95,7 +88,7 @@ LambdaGestionarEmpleados:
       Architectures:
         - x86_64
       Events:
-         LambdaGestionarEmpleados:
+         LambdaGestionarEmpleadosHU74:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-empleados/hu-tp-74
@@ -104,7 +97,7 @@ LambdaGestionarEmpleados:
 
 
 # lambda-gestionar-membresias/HU-TP-79
-  LambdaGestionarMembresias:
+  LambdaGestionarMembresiasHU79:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/lambda-gestionar-membresias/HU-TP-79
@@ -113,7 +106,7 @@ LambdaGestionarEmpleados:
       Architectures:
         - x86_64
       Events:
-           LambdaGestionarMembresias:
+           LambdaGestionarMembresiasHU79:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-membresias/HU-TP-79
@@ -122,7 +115,7 @@ LambdaGestionarEmpleados:
 
 
 # lambda-gestionar-metricas-del-alumno/HU-TP-23
-LambdaGestionarMetricasdelAlumno:
+LambdaGestionarMetricasdelAlumnoHU23:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-metricas-del-alumno/HU-TP-23
@@ -151,7 +144,7 @@ LambdaGestionarMetricasdelAlumno:
 
 
 # lambda-gestionar-plan-de-entrenamiento/hu-tp-11					
-  LambdaGestionarPlandeEntrenamiento:
+  LambdaGestionarPlandeEntrenamientoHU11:
     Type: AWS::Serverless::Function								
     Properties:
       CodeUri: BACK/lambda-gestionar-plan-de-entrenamiento/hu-tp-11
@@ -160,7 +153,7 @@ LambdaGestionarMetricasdelAlumno:
       Architectures:
         - x86_64
       Events:
-           LambdaGestionarPlandeEntrenamiento:
+           LambdaGestionarPlandeEntrenamientoHU11:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-plan-de-entrenamiento/hu-tp-11
@@ -168,7 +161,7 @@ LambdaGestionarMetricasdelAlumno:
 
 
 # lambda-gestionar-plan-de-entrenamiento/hu-tp-28
-LambdaGestionarPlandeEntrenamiento:
+LambdaGestionarPlandeEntrenamientoHU28:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-plan-de-entrenamiento/hu-tp-28
@@ -191,7 +184,7 @@ LambdaGestionarPlandeEntrenamiento:
 
 
 # lambda-gestionar-plan-de-entrenamiento/hu-tp-30
-LambdaGestionarPlandeEntrenamiento:
+LambdaGestionarPlandeEntrenamientoHU30:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-plan-de-entrenamiento/hu-tp-30
@@ -218,7 +211,7 @@ LambdaGestionarPlandeEntrenamiento:
 
 
 # lambda-gestionar-productos/HU-TP-17
-LambdaGestionarProductos:
+LambdaGestionarProductosHU17:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-productos/HU-TP-17
@@ -234,7 +227,7 @@ LambdaGestionarProductos:
           Method: get
 
 # lambda-gestionar-productos/HU-TP-67
-LambdaGestionarProductos:
+LambdaGestionarProductosHU67:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-productos/HU-TP-67
@@ -256,7 +249,7 @@ LambdaGestionarProductos:
 
 
 # lambda-gestionar-productos/HU-TP-68
-  LambdaGestionarProductos:
+  LambdaGestionarProductosHU68:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/lambda-gestionar-productos/HU-TP-68
@@ -274,7 +267,7 @@ LambdaGestionarProductos:
 
 
 # lambda-gestionar-productos/hu-tp-84
-  LambdaGestionarProductos:
+  LambdaGestionarProductosHU84:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/lambda-gestionar-productos/hu-tp-84
@@ -291,11 +284,8 @@ LambdaGestionarProductos:
 
 
 
-
-
-
 # lambda-gestionar-sedes/hu-tp-76.v2
-  LambdaGestionarSedes:
+  LambdaGestionarSedesHU76V2:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/lambda-gestionar-sedes/hu-tp-76.v2
@@ -304,14 +294,14 @@ LambdaGestionarProductos:
       Architectures:
         - x86_64
       Events:
-           LambdaGestionarSedes:
+           LambdaGestionarSedesHU76V2:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-sedes/hu-tp-76.v2
             Method: post
 
 # lambda-gestionar-sedes/hu-tp-76
-LambdaGestionarSedes:
+LambdaGestionarSedesHU76:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-sedes/hu-tp-76
@@ -320,7 +310,7 @@ LambdaGestionarSedes:
     Architectures:
       - x86_64
     Events:
-      LambdaGestionarSedesPost:
+      LambdaGestionarSedesPostHU76:
         Type: Api
         Properties:
           Path: /qa/lambda-gestionar-sedes/hu-tp-76
@@ -328,7 +318,7 @@ LambdaGestionarSedes:
 
 
 # lambda-gestionar-sedes/hu-tp-77.v2
-LambdaGestionarSedes:
+LambdaGestionarSedesHU77V2:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-sedes/hu-tp-77.v2
@@ -349,7 +339,7 @@ LambdaGestionarSedes:
           Method: put
 
 # lambda-gestionar-sedes/hu-tp-77
-LambdaGestionarSedes:
+LambdaGestionarSedesHU77:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-sedes/hu-tp-77
@@ -366,7 +356,7 @@ LambdaGestionarSedes:
 
 
 # lambda-gestionar-usuarios/hu-tp-01
-LambdaGestionarUsuarios:
+LambdaGestionarUsuariosHU01:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-usuarios/hu-tp-01
@@ -393,7 +383,7 @@ LambdaGestionarUsuarios:
 
 
 # lambda-gestionar-usuarios/hu-tp-02
-LambdaGestionarUsuarios:
+LambdaGestionarUsuariosHU02:
   Type: AWS::Serverless::Function
   Properties:
     CodeUri: BACK/lambda-gestionar-usuarios/hu-tp-02
@@ -415,7 +405,7 @@ LambdaGestionarUsuarios:
 
 
 # lambda-gestionar-usuarios/hu-tp-75
-  LambdaGestionarUsuarios:
+  LambdaGestionarUsuariosHU75:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/lambda-gestionar-usuarios/hu-tp-75
@@ -432,7 +422,7 @@ LambdaGestionarUsuarios:
 
 
 # lambda-gestionar-ventas/hu-tp-18
-  LambdaGestionarVentas:
+  LambdaGestionarVentasHU18:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/lambda-gestionar-ventas/hu-tp-18
@@ -441,13 +431,11 @@ LambdaGestionarUsuarios:
       Architectures:
         - x86_64
       Events:
-            LambdaGestionarVentas:
+            LambdaGestionarVentasHU18:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-ventas/hu-tp-18
             Method: post
-
-
 
 
 
