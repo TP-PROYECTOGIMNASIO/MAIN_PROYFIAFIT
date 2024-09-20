@@ -146,7 +146,7 @@ Resources:
       WebsiteConfiguration:
         IndexDocument: index.html
 
-  MicrofrontBucket2Policy:
+  MicrofrontBucket3Policy:
     Type: AWS::S3::BucketPolicy
     Properties:
       Bucket: !Ref MicrofrontBucket3
