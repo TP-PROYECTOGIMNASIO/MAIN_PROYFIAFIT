@@ -16,7 +16,6 @@ phases:
       - cd FRONT/s3-mf-clientes
       - npm install && npm run build
       - cd .. && cd ..
-      # MF - ENCARGADO
       # MF - ENTRENADOR
       - cd FRONT/s3-mf-entrenador
       - npm install && npm run build
