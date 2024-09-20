@@ -26,7 +26,7 @@ phases:
       - cd .. && cd ..
       # MF - PRINCIPAL
       - cd FRONT/s3-mf-principal
-      - npm install && npm run build
+      - npm install && npx expo export -p web
       - cd .. && cd ..
       # MF - RECEPCIONISTA
       - cd FRONT/s3-mf-recepcionista
