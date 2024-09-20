@@ -117,7 +117,7 @@ Resources:
             Principal: "*"
             
 # S3 Buckets for s3-mf-encargado-qa
-  MicrofrontBucket2:
+  MicrofrontBucket3:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: s3-mf-encargado-qa
