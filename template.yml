@@ -258,7 +258,7 @@ LambdaGestionarProductosHU67:
       Architectures:
         - x86_64
       Events:
-           LambdaGestionarProductos::
+           LambdaGestionarProductosHU68:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-productos/HU-TP-68
@@ -276,7 +276,7 @@ LambdaGestionarProductosHU67:
       Architectures:
         - x86_64
       Events:
-           LambdaGestionarProductos::
+           LambdaGestionarProductosHU84:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-productos/hu-tp-84
@@ -310,7 +310,7 @@ LambdaGestionarSedesHU76:
     Architectures:
       - x86_64
     Events:
-      LambdaGestionarSedesPostHU76:
+      LambdaGestionarSedesHU76:
         Type: Api
         Properties:
           Path: /qa/lambda-gestionar-sedes/hu-tp-76
@@ -327,12 +327,12 @@ LambdaGestionarSedesHU77V2:
     Architectures:
       - x86_64
     Events:
-      LambdaGestionarSedesGet:
+      LambdaGestionarSedesGetHU77V2:
         Type: Api
         Properties:
           Path: /qa/lambda-gestionar-sedes/hu-tp-77.v2
           Method: get
-      LambdaGestionarSedesPut:
+      LambdaGestionarSedesPutHU77V2:
         Type: Api
         Properties:
           Path: /qa/lambda-gestionar-sedes/hu-tp-77.v2
@@ -348,7 +348,7 @@ LambdaGestionarSedesHU77:
     Architectures:
       - x86_64
     Events:
-      LambdaGestionarSedesPut:
+      LambdaGestionarSedesPutHU77:
         Type: Api
         Properties:
           Path: /qa/lambda-gestionar-sedes/hu-tp-77
@@ -414,7 +414,7 @@ LambdaGestionarUsuariosHU02:
       Architectures:
         - x86_64
       Events:
-           LambdaGestionarUsuarios:
+           LambdaGestionarUsuariosHU75:
           Type: Api
           Properties:
             Path: /qa/lambda-gestionar-sedes/hu-tp-75
