@@ -20,6 +20,18 @@ phases:
       - cd FRONT/s3-mf-entrenador
       - npm install && npm run build
       - cd .. && cd ..
+      # MF - MANAGER
+      - cd FRONT/s3-mf-manager
+      - npm install && npm run build
+      - cd .. && cd ..
+      # MF - PRINCIPAL
+      - cd FRONT/s3-mf-principal
+      - npm install && npm run build
+      - cd .. && cd ..
+      # MF - RECEPCIONISTA
+      - cd FRONT/s3-mf-recepcionista
+      - npm install && npm run build
+      - cd .. && cd ..
 
   pre_build:
     commands:
@@ -36,6 +48,9 @@ phases:
       - aws s3 sync ./FRONT/s3-mf-administrador/build s3://s3-mf-administrador-qa --delete
       - aws s3 sync ./FRONT/s3-mf-clientes/dist s3://s3-mf-clientes-qa --delete
       - aws s3 sync ./FRONT/s3-mf-entrenador/dist s3://s3-mf-entrenador-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-manager/dist s3://s3-mf-manager-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-principal/dist s3://s3-mf-principal-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-recepcionista/dist s3://s3-mf-recepcionista-qa --delete
       - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 
