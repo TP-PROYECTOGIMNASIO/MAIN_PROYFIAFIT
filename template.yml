@@ -11,11 +11,45 @@ Globals:
 
 Resources:
 
-  # Lambda Gestionar Compras | hu-tp-61
+  
+LambdaGestionarCompras:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-compras/hu-tp-61/
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarComprasGet:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-compras/hu-tp-61/
+          Method: get
+      LambdaGestionarComprasPost:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-compras/hu-tp-61/
+          Method: post
+      LambdaGestionarComprasPut:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-compras/hu-tp-61/
+          Method: put
+      LambdaGestionarComprasOptions:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-compras/hu-tp-61/
+          Method: options
+
+
+
+
+ # Lambda Gestionar Compras | hu-tp-62
   LambdaPrueba:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: BACK/lambda-gestionar-compras/hu-tp-61/
+      CodeUri: BACK/lambda-gestionar-compras/hu-tp-62/
       Handler: index.handler
       Runtime: nodejs20.x
       Architectures:
@@ -24,8 +58,396 @@ Resources:
         LambdaPrueba:
           Type: Api
           Properties:
-            Path: /qa
+            Path: /qa/lambda-gestionar-compras/hu-tp-62/
+            Method: post
+
+
+
+# lambda-gestionar-empleados | hu-tp-73
+LambdaGestionarEmpleados:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-empleados/hu-tp-73
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarEmpleadosGet:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-empleados/hu-tp-73
+          Method: get
+      LambdaGestionarEmpleadosPost:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-empleados/hu-tp-73
+          Method: post
+
+
+# lambda-gestionar-empleados | hu-tp-74
+  LambdaGestionarEmpleados:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/lambda-gestionar-empleados/hu-tp-74
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+         LambdaGestionarEmpleados:
+          Type: Api
+          Properties:
+            Path: /qa/lambda-gestionar-empleados/hu-tp-74
             Method: get
+
+
+
+# lambda-gestionar-membresias/HU-TP-79
+  LambdaGestionarMembresias:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/lambda-gestionar-membresias/HU-TP-79
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+           LambdaGestionarMembresias:
+          Type: Api
+          Properties:
+            Path: /qa/lambda-gestionar-membresias/HU-TP-79
+            Method: put
+
+
+
+# lambda-gestionar-metricas-del-alumno/HU-TP-23
+LambdaGestionarMetricasdelAlumno:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-metricas-del-alumno/HU-TP-23
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarMetricasdelAlumnoGetAlumno:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-metricas-del-alumno/HU-TP-23/alumno
+          Method: get
+      LambdaGestionarMetricasdelAlumnoGetDetailsClient:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-metricas-del-alumno/HU-TP-23/detailsClient
+          Method: get
+      LambdaGestionarMetricasdelAlumnoGetBodyMetric:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-metricas-del-alumno/HU-TP-23/bodymetric
+          Method: get
+
+
+
+
+# lambda-gestionar-plan-de-entrenamiento/hu-tp-11					
+  LambdaGestionarPlandeEntrenamiento:
+    Type: AWS::Serverless::Function								
+    Properties:
+      CodeUri: BACK/lambda-gestionar-plan-de-entrenamiento/hu-tp-11
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+           LambdaGestionarPlandeEntrenamiento:
+          Type: Api
+          Properties:
+            Path: /qa/lambda-gestionar-plan-de-entrenamiento/hu-tp-11
+            Method: get
+
+
+# lambda-gestionar-plan-de-entrenamiento/hu-tp-28
+LambdaGestionarPlandeEntrenamiento:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-plan-de-entrenamiento/hu-tp-28
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarPlandeEntrenamientoGet:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-plan-de-entrenamiento/hu-tp-28
+          Method: get
+      LambdaGestionarPlandeEntrenamientoPost:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-plan-de-entrenamiento/hu-tp-28
+          Method: post
+
+
+
+# lambda-gestionar-plan-de-entrenamiento/hu-tp-30
+LambdaGestionarPlandeEntrenamiento:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-plan-de-entrenamiento/hu-tp-30
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarPlandeEntrenamientoGet:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-plan-de-entrenamiento/hu-tp-30
+          Method: get
+      LambdaGestionarPlandeEntrenamientoPost:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-plan-de-entrenamiento/hu-tp-30
+          Method: post
+      LambdaGestionarPlandeEntrenamientoDelete:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-plan-de-entrenamiento/hu-tp-30
+          Method: delete
+
+
+# lambda-gestionar-productos/HU-TP-17
+LambdaGestionarProductos:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-productos/HU-TP-17
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarProductosGet:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-productos/HU-TP-17
+          Method: get
+
+# lambda-gestionar-productos/HU-TP-67
+LambdaGestionarProductos:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-productos/HU-TP-67
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarProductosGet:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-productos/HU-TP-67
+          Method: get
+      LambdaGestionarProductosPut:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-productos/HU-TP-67
+          Method: put
+
+
+# lambda-gestionar-productos/HU-TP-68
+  LambdaGestionarProductos:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/lambda-gestionar-productos/HU-TP-68
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+           LambdaGestionarProductos::
+          Type: Api
+          Properties:
+            Path: /qa/lambda-gestionar-productos/HU-TP-68
+            Method: get
+
+
+
+# lambda-gestionar-productos/hu-tp-84
+  LambdaGestionarProductos:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/lambda-gestionar-productos/hu-tp-84
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+           LambdaGestionarProductos::
+          Type: Api
+          Properties:
+            Path: /qa/lambda-gestionar-productos/hu-tp-84
+            Method: post
+
+
+
+
+
+
+# lambda-gestionar-sedes/hu-tp-76.v2
+  LambdaGestionarSedes:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/lambda-gestionar-sedes/hu-tp-76.v2
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+           LambdaGestionarSedes:
+          Type: Api
+          Properties:
+            Path: /qa/lambda-gestionar-sedes/hu-tp-76.v2
+            Method: post
+
+# lambda-gestionar-sedes/hu-tp-76
+LambdaGestionarSedes:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-sedes/hu-tp-76
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarSedesPost:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-76
+          Method: post
+
+
+# lambda-gestionar-sedes/hu-tp-77.v2
+LambdaGestionarSedes:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-sedes/hu-tp-77.v2
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarSedesGet:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-77.v2
+          Method: get
+      LambdaGestionarSedesPut:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-77.v2
+          Method: put
+
+# lambda-gestionar-sedes/hu-tp-77
+LambdaGestionarSedes:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-sedes/hu-tp-77
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarSedesPut:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-77
+          Method: put
+
+
+# lambda-gestionar-usuarios/hu-tp-01
+LambdaGestionarUsuarios:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-usuarios/hu-tp-01
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarUsuariosGet:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-01
+          Method: get
+      LambdaGestionarUsuariosPut:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-01
+          Method: put
+      LambdaGestionarUsuariosPost:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-01
+          Method: post
+
+
+# lambda-gestionar-usuarios/hu-tp-02
+LambdaGestionarUsuarios:
+  Type: AWS::Serverless::Function
+  Properties:
+    CodeUri: BACK/lambda-gestionar-usuarios/hu-tp-02
+    Handler: index.handler
+    Runtime: nodejs20.x
+    Architectures:
+      - x86_64
+    Events:
+      LambdaGestionarUsuariosPatch:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-02
+          Method: patch
+      LambdaGestionarUsuariosPut:
+        Type: Api
+        Properties:
+          Path: /qa/lambda-gestionar-sedes/hu-tp-02
+          Method: put
+
+
+# lambda-gestionar-usuarios/hu-tp-75
+  LambdaGestionarUsuarios:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/lambda-gestionar-usuarios/hu-tp-75
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+           LambdaGestionarUsuarios:
+          Type: Api
+          Properties:
+            Path: /qa/lambda-gestionar-sedes/hu-tp-75
+            Method: get
+
+
+# lambda-gestionar-ventas/hu-tp-18
+  LambdaGestionarVentas:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/lambda-gestionar-ventas/hu-tp-18
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+            LambdaGestionarVentas:
+          Type: Api
+          Properties:
+            Path: /qa/lambda-gestionar-ventas/hu-tp-18
+            Method: post
+
+
 
 
 
