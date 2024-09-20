@@ -116,12 +116,8 @@ Resources:
             Resource: !Sub "arn:aws:s3:::s3-mf-clientes-qa/*"
             Principal: "*"
 
-# S3 Bucket for s3-mf-encargado-qa
-
-
-
 # S3 Bucket for s3-mf-entrenador-qa
-MicrofrontBucket4:
+MicrofrontBucket3:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: s3-mf-entrenador-qa
@@ -140,7 +136,7 @@ MicrofrontBucket4:
               - HEAD
             AllowedHeaders:
               - "*"
-            Id: MicrofrontBucket4CORS
+            Id: MicrofrontBucket3CORS
             MaxAge: 3000
       PublicAccessBlockConfiguration:
         BlockPublicAcls: false
@@ -150,10 +146,10 @@ MicrofrontBucket4:
       WebsiteConfiguration:
         IndexDocument: index.html
 
-  MicrofrontBucket4Policy:
+  MicrofrontBucket3Policy:
     Type: AWS::S3::BucketPolicy
     Properties:
-      Bucket: !Ref MicrofrontBucket4
+      Bucket: !Ref MicrofrontBucket3
       PolicyDocument:
         Statement:
           - Action: "s3:GetObject"
