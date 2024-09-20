@@ -117,7 +117,7 @@ Resources:
             Principal: "*"
 
 # S3 Bucket for s3-mf-entrenador-qa
-MicrofrontBucket3:
+  MicrofrontBucket3:
     Type: AWS::S3::Bucket
     Properties:
       BucketName: s3-mf-entrenador-qa
