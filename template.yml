@@ -280,3 +280,43 @@ Resources:
             Resource: !Sub "arn:aws:s3:::s3-mf-recepcionista-qa/*"
             Principal: "*"
 
+# S3 Bucket for s3-mf-instructor-qa
+  MicrofrontBucket7:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-instructor-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket7CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket7Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket7
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-instructor-qa/*"
+            Principal: "*"
