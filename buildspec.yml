@@ -8,7 +8,12 @@ phases:
       - npm install
       - pip install --upgrade aws-sam-cli
       - pip show aws-sam-cli  # Verificar la instalación de SAM CLI
+      # MF - ADMINISTRAOR
       - cd FRONT/s3-mf-administrador
+      - npm install && npm run build
+      - cd .. && cd ..
+      # MF - CLIENTES
+      - cd FRONT/s3-mf-clientes
       - npm install && npm run build
       - cd .. && cd ..
 
@@ -25,6 +30,7 @@ phases:
       - aws cloudformation deploy --template-file packaged.yml --stack-name stack-qa-dso --capabilities CAPABILITY_NAMED_IAM --region us-east-2
       - echo "Deploying Microfront 1"
       - aws s3 sync ./FRONT/s3-mf-administrador/build s3://s3-mf-administrador-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-clientes/dist s3://s3-mf-clientes-qa --delete
       - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 
