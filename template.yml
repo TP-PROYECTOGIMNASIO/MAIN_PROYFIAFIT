@@ -157,6 +157,126 @@ Resources:
             Resource: !Sub "arn:aws:s3:::s3-mf-entrenador-qa/*"
             Principal: "*"
 
+# S3 Bucket for s3-mf-manager-qa
+  MicrofrontBucket4:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-manager-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket4CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
 
+  MicrofrontBucket4Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket4
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-manager-qa/*"
+            Principal: "*"
 
+# S3 Bucket for s3-mf-principal-qa
+  MicrofrontBucket5:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-principal-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket5CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket5Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket5
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-principal-qa/*"
+            Principal: "*"
+
+# S3 Bucket for s3-mf-recepcionista-qa
+  MicrofrontBucket6:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-recepcionista-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket6CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket6Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket6
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-recepcionista-qa/*"
+            Principal: "*"
 
