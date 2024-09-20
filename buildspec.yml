@@ -16,6 +16,11 @@ phases:
       - cd FRONT/s3-mf-clientes
       - npm install && npm run build
       - cd .. && cd ..
+      # MF - ENCARGADO
+      - cd FRONT/s3-mf-encargado
+      - npm install && npm run build
+      - cd .. && cd ..
+      
 
   pre_build:
     commands:
@@ -31,6 +36,7 @@ phases:
       - echo "Deploying Microfront 1"
       - aws s3 sync ./FRONT/s3-mf-administrador/build s3://s3-mf-administrador-qa --delete
       - aws s3 sync ./FRONT/s3-mf-clientes/dist s3://s3-mf-clientes-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-encargado/dist s3://s3-mf-encargado-qa --delete
       - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 
