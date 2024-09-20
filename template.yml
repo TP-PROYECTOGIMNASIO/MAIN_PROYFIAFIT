@@ -115,3 +115,44 @@ Resources:
             Effect: Allow
             Resource: !Sub "arn:aws:s3:::s3-mf-clientes-qa/*"
             Principal: "*"
+            
+# S3 Buckets for s3-mf-encargado-qa
+  MicrofrontBucket3:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-encargado-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket3CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket3Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket3
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-encargado-qa/*"
+            Principal: "*"
