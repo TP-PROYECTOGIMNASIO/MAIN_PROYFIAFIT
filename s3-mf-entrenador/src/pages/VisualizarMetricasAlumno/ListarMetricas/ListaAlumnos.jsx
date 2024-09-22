@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useEffect } from 'react';
+import React, { useState  } from 'react';
 import { FaArrowLeft as ArrowLeftIcon, FaSearch as SearchIcon, FaChevronDown as ChevronDownIcon, FaUser as UserIcon, FaInfoCircle as InfoIcon, FaSave as SaveIcon, FaTrash as TrashIcon, FaPrint as PrintIcon } from 'react-icons/fa';
 
 const ListaAlumnos = () => {
@@ -6,7 +7,10 @@ const ListaAlumnos = () => {
     const [expandedIndex, setExpandedIndex] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [selectedAlumno, setSelectedAlumno] = useState(null);
+    
 
+
+    
     // Dummy data for demonstration
     const alumnos = [
         { nombre: "Juan Pérez", entrenador: "Carlos López", sede: "Sede A", membresia: "Platinum", rango: "Gold" },
@@ -29,6 +33,24 @@ const ListaAlumnos = () => {
         setSelectedAlumno(null);
     };
 
+
+            // Fetch data from API
+            useEffect(() => {
+                
+                const fetchAlumnos = async () => {
+                    try {
+                        const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/metricas-alumno/hu-tp-23/alumno?staff_id=3");
+                        const data = await response.json();
+                        setAlumnos(data);
+                    } catch (error) {
+                        console.error("Error fetching alumnos:", error);
+                    }
+                };
+        
+                fetchAlumnos();
+            }, []);
+
+            
     return (
         <div className="flex flex-col items-center w-full min-h-screen p-4 bg-gray-100">
             <main className="flex flex-col items-center w-full p-4 bg-white shadow-md mt-4">
@@ -90,7 +112,7 @@ const ListaAlumnos = () => {
             </main>
 
             {/* Modal */}
-            // Modal
+
             {showModal && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-4">
                     <div className="bg-white rounded-lg shadow-lg w-full max-w-sm md:max-w-md lg:max-w-lg p-4 relative">
@@ -115,7 +137,7 @@ const ListaAlumnos = () => {
                         <div className="flex flex-col md:flex-row gap-4">
                             <div className="flex-1 flex flex-col gap-2 mb-4 md:mb-0">
                                 <button className="bg-red-600 text-white px-4 py-2 rounded text-sm">Horario</button>
-                                <button className="bg-red-600 text-white px-4 py-2 rounded text-sm">Métricas</button>
+                                <button className="bg-red-600 text-white px-4 py-2 rounded text-sm"><a href='http://localhost:5173/alumno-checkin'> Métricas</a></button>
                             </div>
                             <div className="flex-1 flex flex-col gap-2">
                                 <button className="bg-gray-700 text-white px-4 py-2 rounded text-sm">PLAN ALIMENTICIO</button>
