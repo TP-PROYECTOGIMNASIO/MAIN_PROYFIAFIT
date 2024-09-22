@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ListStudents = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(''); // Estado para el campo de búsqueda
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -22,15 +23,9 @@ const ListStudents = () => {
     fetchStudents();
   }, []);
 
-  const openModal = async (student) => {
-    try {
-      const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/alumnos?client_id=${student.client_id}`);
-      const studentData = await response.json();
-      setSelectedStudent(studentData);
-      setIsModalOpen(true);
-    } catch (error) {
-      console.error('Error fetching student details:', error);
-    }
+  const openModal = (student) => {
+    setSelectedStudent(student);
+    setIsModalOpen(true);
   };
 
   const closeModal = () => {
@@ -38,7 +33,30 @@ const ListStudents = () => {
     setSelectedStudent(null);
   };
 
-  // Función para filtrar los estudiantes basados en el término de búsqueda
+  // Función que llama a la API de plan de entrenamiento cuando se hace clic en el botón "Plan de Entrenamiento"
+  const handlePlanEntrenamientoClick = async () => {
+    try {
+      const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-27?client_id=${selectedStudent.client_id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ client_id: selectedStudent.client_id })
+      });
+
+      const trainingPlanData = await response.json();
+      
+      if (trainingPlanData.training_plan) {
+        console.log('Plan de entrenamiento encontrado:', trainingPlanData);
+        navigate(`/TrainingPlanOk?client_id=${selectedStudent.client_id}`);
+      } else {
+        navigate(`/Trainingplan?client_id=${selectedStudent.client_id}`); // Redirigir si no hay plan de entrenamiento
+      }
+    } catch (error) {
+      console.error('Error fetching training plan:', error);
+    }
+  };
+
   const filteredStudents = students.filter((student) =>
     student.nombres.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -152,7 +170,7 @@ const ListStudents = () => {
   </div>
   <div className="flex-1 flex flex-col">
     <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN ALIMENTICIO</button>
-    <Link to={'/planes'} className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN DE ENTRENAMIENTO</Link>
+    <button  className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2 " onClick={handlePlanEntrenamientoClick}> PLAN DE ENTRENAMIENTO</button>
     <button className="bg-gray-700 text-white py-2 px-4 rounded-md">REPORTE DE FISIOTERAPIA</button>
   </div>
 </div>
