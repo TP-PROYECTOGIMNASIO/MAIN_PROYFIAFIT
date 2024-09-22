@@ -21,20 +21,20 @@ export default function MicroviewScreen() {
   ];
   var urlNew =""
   if(role === "admin"){
-    urlNew = "https://s3-mf-administrador.netlify.app/";
+    urlNew = "https://d9cbdrt9qxc6x.cloudfront.net";
 
   }else if(role ==="cliente"){
-    urlNew = "https://s3-mf-clientes.netlify.app/";
+    urlNew = "https://d28sl9jcsu2dh.cloudfront.net/";
   }else if(role==='entrenador'){
-    urlNew = "https://s3-mf-entrenador.netlify.app/";
+    urlNew = "https://dvnm61x8t41e0.cloudfront.net/";
   }else if(role==='cliente_libre'){
-    urlNew = "https://s3-mf-cliente_libre.netlify.app/";
+    urlNew = "https://d28sl9jcsu2dh.cloudfront.net/";
 
   }else if(role==='instructor'){
-    urlNew = "https://s3-mf-instructor.netlify.app/";
+    urlNew = "https://d3matswszdb8p0.cloudfront.net/";
 
   }else if(role==='manager'){
-    urlNew = "https://s3-mf-manager.netlify.app/";
+    urlNew = "https://dlfxmk04c8l4u.cloudfront.net";
 
   }else if(role ==='encargado'){
     urlNew = "https://s3-mf-encargado.netlify.app/";
