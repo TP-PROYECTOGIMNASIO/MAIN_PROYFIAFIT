@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import TrainingPlan from "../components/TrainingPlan";  // Asegúrate de que los nombres de archivo coincidan con el sistema operativo (TrainingPlan.jsx)
+import TrainingPlan from "./PlanEntrenamientoDia/TrainingPlan";  // Asegúrate de que los nombres de archivo coincidan con el sistema operativo (TrainingPlan.jsx)
 
 import "../styles/index.css";  
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import TrainingPlanSelection from '../components/trainingPlanSelection';
+
+import PlanEntrenamientoDia from '../pages/PlanEntrenamientoDia/PlanEntrenamientoDia';
 
 function Planes() {
   const [step, setStep] = useState('initial');
@@ -21,7 +20,7 @@ function Planes() {
     <div>
       <main className="flex justify-center items-center h-[84vh]">
         {step === 'initial' && <TrainingPlan onGeneratePlan={handleGeneratePlan} />}
-        {step === 'selection' && <TrainingPlanSelection onBack={handleBack} />}
+        {step === 'selection' && <PlanEntrenamientoDia onBack={handleBack} />}
       </main>
       
     </div>
