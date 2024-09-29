@@ -18,8 +18,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Footer from './Componentes/Footer';
 import Header from './Componentes/Header';
+
 import Toast from 'react-native-toast-message'; 
 import { MicroviewScreen } from './MicroView';
+import Dashboard from './Componentes/inicio';
 
 const Stack = createStackNavigator();
 
