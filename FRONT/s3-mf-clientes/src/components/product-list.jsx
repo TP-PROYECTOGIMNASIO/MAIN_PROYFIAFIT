@@ -9,8 +9,8 @@ export default function ProductList() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
-
-  const categories = ["Todas", "Entrenamiento de Fuerza", "Entrenamiento Funcional", "Accesorios Deportivos"]; // Añade aquí las categorías disponibles
+  const [searchTerm, setSearchTerm] = useState(""); 
+  const [categories, setCategories] = useState([]);
 
   const checkAvailableToAddCart = (productId) => {
     return Boolean(
@@ -37,6 +37,13 @@ export default function ProductList() {
         const data = await response.json();
         setDataProducts(data);
         setLoading(false);
+
+        const uniqueCategories = [
+          "Todas",
+          ...new Set(data.map((product) => product.category)),
+        ];
+        setCategories(uniqueCategories);
+
       } catch (error) {
         console.error("Error fetching products:", error);
         setLoading(false);
@@ -46,9 +53,11 @@ export default function ProductList() {
     fetchProducts();
   }, []);
 
-  const filteredProducts = selectedCategory === "Todas"
-    ? dataProducts
-    : dataProducts.filter(product => product.category === selectedCategory);
+  const filteredProducts = dataProducts
+    .filter(product =>
+      (selectedCategory === "Todas" || product.category === selectedCategory) &&
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   if (loading) {
     return <p>Cargando productos...</p>;
@@ -75,10 +84,26 @@ export default function ProductList() {
             </li>
           ))}
         </ul>
+
+        {/* Filtro por Nombre */}
+        <div className="mt-4">
+          <input
+            type="text"
+            placeholder="Buscar por nombre"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-lg"
+          />
+        </div>
       </div>
 
       {/* Lista de Productos */}
       <div className="lg:col-span-3 grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {/* Título "Catálogo de productos" */}
+        <h1 className="lg:col-span-3 text-3xl font-bold text-red-600 mb-6">
+          Catálogo de productos
+        </h1>
+
         {filteredProducts.map((product) => (
           <div
             key={product.product_type_id}
@@ -112,3 +137,4 @@ export default function ProductList() {
     </div>
   );
 }
+

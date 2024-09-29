@@ -1,8 +1,9 @@
-import { useShoppingCart } from "../../hooks"; // Asegúrate de que la ruta sea correcta
+import { useShoppingCart } from "../../hooks";
+import { useEffect, useState } from "react";
 
 const CartDetails = () => {
-  const { products, totalAmount, removeProduct, addProduct } =
-    useShoppingCart();
+  const { products, totalAmount, removeProduct, addProduct } = useShoppingCart();
+  const [culqiLoaded, setCulqiLoaded] = useState(false); // Estado para rastrear si Culqi está cargado
 
   const updateQuantity = (productId, quantity) => {
     if (quantity <= 0) {
@@ -17,16 +18,64 @@ const CartDetails = () => {
     }
   };
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.culqi.com/js/v4';
+    script.async = true;
+
+    script.onload = () => {
+      if (window.Culqi) {
+        window.Culqi.publicKey = 'pk_test_1e3464ded7850f8c'; // Llave pública
+        setCulqiLoaded(true); // Indicar que el script de Culqi se ha cargado
+      } else {
+        console.error("Culqi no está definido después de cargar el script.");
+      }
+    };
+
+    script.onerror = () => {
+      console.error('Error al cargar el script de Culqi');
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const handleCheckout = () => {
+    if (culqiLoaded && window.Culqi) {
+      window.Culqi.settings({
+        title: 'Mi Tienda',
+        currency: 'PEN',
+        description: 'Pago por productos',
+        amount: totalAmount * 100, // El monto se pasa en céntimos
+      });
+
+      window.Culqi.open(); // Abrir el modal de Culqi
+
+      window.addEventListener('culqi.token', (event) => {
+        const { token } = event.detail;
+        if (token) {
+          console.log('Se ha generado el Token:', token.id);
+          // Aquí podrías enviar el token al backend para procesar el pago
+        } else {
+          console.error('No se generó ningún token.');
+        }
+      });
+    } else {
+      console.error('Culqi no está cargado correctamente o no está definido.');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-8">
       <div className="container mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="md:flex">
-          {/* Contenedor de productos */}
           <div className="md:w-3/5 p-5">
             {products.length === 0 ? (
               <p>No hay productos en el carrito.</p>
             ) : (
-              
               products.map((item) => (
                 <div
                   key={item.product_type_id}
@@ -100,7 +149,6 @@ const CartDetails = () => {
             )}
           </div>
 
-          {/* Contenedor de resumen */}
           <div className="md:w-2/5 bg-gray-200 p-5">
             <div className="p-5">
               <h3 className="text-xl font-bold border-b pb-2">Resumen</h3>
@@ -112,36 +160,10 @@ const CartDetails = () => {
                 <span>Total:</span>
                 <span>S/. {totalAmount.toFixed(2)}</span>
               </div>
-              <div className="mt-8">
-                <label className="block text-sm font-medium text-gray-700">
-                  Tipo de comprobante:
-                </label>
-                <div className="mt-2">
-                  <div>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="radio"
-                        name="document"
-                        value="boleto"
-                        className="form-radio"
-                      />
-                      <span className="ml-2">Boleta</span>
-                    </label>
-                  </div>
-                  <div>
-                    <label className="inline-flex items-center">
-                      <input
-                        type="radio"
-                        name="document"
-                        value="factura"
-                        className="form-radio"
-                      />
-                      <span className="ml-2">Factura</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <button className="w-full py-3 mt-6 bg-red-600 hover:bg-red-700 rounded text-white text-xs font-semibold">
+              <button
+                onClick={handleCheckout}
+                className="w-full py-3 mt-6 bg-red-600 hover:bg-red-700 rounded text-white text-xs font-semibold"
+              >
                 PAGAR
               </button>
             </div>
