@@ -14,7 +14,7 @@ const ListaAlumnos = () => {
             try {
                 const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/metricas-alumno/hu-tp-23/alumno?staff_id=11");
                 const data = await response.json();
-                setAlumnos(data);
+                setAlumnos(data.alumnos || []); // Ajusta 'alumnos' según la estructura real de la respuesta
             } catch (error) {
                 console.error("Error fetching alumnos:", error);
             }
