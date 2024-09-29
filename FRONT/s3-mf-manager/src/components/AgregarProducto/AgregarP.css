@@ -43,7 +43,10 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
     
     border-radius: 8px;
     color: #000;
@@ -59,8 +62,18 @@
     height: 90px;
    
   }
+  .form-groupAS {
+    display:block;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    align-items: center;
+    height: 90px;
+   
+  }
   
-  .form-groupAP label {
+  .form-groupAP label ,
+  .form-groupAS label {
     text-align: left;
     font-size: 1.1rem;
     margin-bottom: 0.25rem;
@@ -68,7 +81,10 @@
   
   .form-groupAP input,
   .form-groupAP select,
-  .form-groupAP textarea {
+  .form-groupAP textarea,
+  .form-groupAS input,
+  .form-groupAS select,
+  .form-groupAS textarea  {
     padding: 0.75rem;
     border: none;
     border-radius: 4px;
