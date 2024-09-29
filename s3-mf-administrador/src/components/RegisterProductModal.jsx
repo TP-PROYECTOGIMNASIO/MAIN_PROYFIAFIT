@@ -17,7 +17,7 @@ const RegisterProductModal = ({ isOpen, onClose, onSave }) => {
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-red-700 text-xl font-bold">REGISTRAR TIPO DE PRODUCTO</h2>
           <button onClick={onClose} className="text-black">
-            <i className="fas fa-times"></i>
+            <i className="fas fa-times">x</i>
           </button>
         </div>
         <form onSubmit={handleSubmit}>
