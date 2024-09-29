@@ -11,7 +11,7 @@ Globals:
 
 Resources:
 
-  hu-tp-01-001: 
+  HuTp01001: 
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: BACK/hu-tp-01-001
