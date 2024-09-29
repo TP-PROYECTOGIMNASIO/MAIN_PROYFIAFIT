@@ -1,0 +1,26 @@
+/* Estilo para el contenedor del botón de eliminar */
+.borderMuted {
+  border: 1px solid #ccc;
+}
+
+/* Estilo para el botón de eliminar */
+.destructiveButton {
+  background-color: red;
+  color: white;
+}
+
+/* Estilo para el botón */
+.button {
+  padding: 8px;
+  border-radius: 4px;
+}
+
+/* Estilo para texto desactivado */
+.textMuted {
+  color: #999;
+}
+
+/* Estilo para texto primario */
+.textPrimary {
+  color: #007bff;
+}

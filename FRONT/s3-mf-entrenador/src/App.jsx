@@ -11,6 +11,13 @@ import VistaNoRegisrado from "./pages/RegistrarMetricasAlumno/VistaNoRegistradoM
 import ListStudents from "./pages/listStudents/ListStudents";
 import AsignarAlumno2 from "./pages/asignaralumno/AsignarAlumno2";
 import Planes from "./pages/Planes";
+import PlanEntrenamientoDia from "./pages/PlanEntrenamientoDia/PlanEntrenamientoDia.jsx"
+import RegistrarEntrenamientoDia from "./pages/RegistrarEntrenamientoDia/RegistrarEntrenamientoDia.jsx";
+import RegistroEntrenamiento from "./pages/RegistroEntrenamiento/RegistroEntrenamiento.jsx";
+import TrainingPlan from "./pages/PlanEntrenamientoDia/TrainingPlan.jsx";
+import TrainingPlanOk from "./pages/PlanEntrenamientoDia/TrainingPlanOk.jsx";
+import AsignarAlumno3 from "./pages/asignaralumno/AsignarAlumno3";
+
 
 function App() {
   const action = useNavigationType();
@@ -63,9 +70,13 @@ function App() {
         <Route path="/registrar-metricas" element={<RegistrarMetricas />} />
         <Route path="/alumno-checkin" element={<AlumnoCheckin />} />
         <Route path="/vista-no-registrado" element={<VistaNoRegisrado />} />
-        <Route path="/asignar-alumno" element={<AsignarAlumno2 />} />
+        <Route path="/asignar-alumno" element={<AsignarAlumno3 />} />
         <Route path="/planes" element={<Planes />} />
-
+        <Route path="/PlanEntrenamientoDia" element={<PlanEntrenamientoDia />} />
+        <Route path="/registrar-entrenamiento" element={<RegistrarEntrenamientoDia />} />
+        <Route path="/registro-entrenamiento" element={<RegistroEntrenamiento />} />
+        <Route path="/Trainingplan" element={<TrainingPlan />} />
+        <Route path="/TrainingPlanOk" element={<TrainingPlanOk />} />
         {/* Agrega otras rutas aquí */}
       </Routes>
       <Footer />

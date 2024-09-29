@@ -5,79 +5,30 @@ export default function ListaC({ vista, setVista, productData, setProductData })
   const [reportId, setReportId] = useState(15);
 
   useEffect(() => {
-    // Cualquier inicialización necesaria para productData se puede hacer aquí.
-  }, [productData]);
+    // Llamar a la API para obtener los productos temporalmente almacenados
+    fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/compras/hu-tp-61', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'fetchProductsByReport',
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.products) {
+          setProductData(data.products); // Actualiza la lista de productos
+        } else {
+          console.log("No hay productos temporales.");
+          setProductData([]); // Si no hay productos, limpiar la lista
+        }
+      })
+      .catch((error) => console.error('Error al obtener productos temporales:', error));
+  }, [setProductData]);
 
   const resetVista = () => {
     setVista(false);
-  };
-
-  const handleEdit = (product) => {
-    // Aquí debes crear una interfaz para editar los detalles del producto
-    const updatedProduct = { ...product, name: "Producto Actualizado" }; // Modificar según sea necesario
-
-    fetch('https://p48s3kepwc.execute-api.us-east-2.amazonaws.com/default/GENERAR_INFORME_COMPRA', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: 'updateProductInReport',
-        report_product_id: product.report_product_id,
-        image: updatedProduct.image,
-        name: updatedProduct.name,
-        purchaseDate: updatedProduct.purchaseDate,
-        totalPrice: updatedProduct.totalPrice,
-        product_type_id: updatedProduct.product_type_id,
-        description: updatedProduct.description,
-        quantity: updatedProduct.quantity,
-        purchaseReceipt: updatedProduct.purchaseReceipt,
-      }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Producto actualizado:', data);
-      setProductData(productData.map(p => p.report_product_id === product.report_product_id ? updatedProduct : p));
-    })
-    .catch(error => console.error('Error al actualizar producto:', error));
-  };
-
-  const handleDelete = (product) => {
-    fetch('https://p48s3kepwc.execute-api.us-east-2.amazonaws.com/default/GENERAR_INFORME_COMPRA', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: 'deleteProductFromReport',
-        report_product_id: product.report_product_id,
-      }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Producto eliminado:', data);
-      setProductData(productData.filter(p => p.report_product_id !== product.report_product_id));
-    })
-    .catch(error => console.error('Error al eliminar producto:', error));
-  };
-
-  const handleSaveReport = () => {
-    fetch('https://p48s3kepwc.execute-api.us-east-2.amazonaws.com/default/GENERAR_INFORME_COMPRA', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        action: 'finalizeReport',
-        reportId: reportId,
-      }),
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Informe finalizado:', data);
-      alert('Informe finalizado exitosamente');
-    })
-    .catch(error => console.error('Error al finalizar informe:', error));
   };
 
   return (
@@ -98,7 +49,6 @@ export default function ListaC({ vista, setVista, productData, setProductData })
             <th>Nombre Producto</th>
             <th>Cantidad</th>
             <th>Precio Venta</th>
-            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -110,30 +60,10 @@ export default function ListaC({ vista, setVista, productData, setProductData })
               <td>{product.name}</td>
               <td>{product.quantity}</td>
               <td>{product.totalPrice} soles</td>
-              <td>
-                <button
-                  className="btn btn-primary btn-sm"
-                  onClick={() => handleEdit(product)}
-                >
-                  <img src="/vector-2.svg" alt="Editar" />
-                </button>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => handleDelete(product)}
-                >
-                  <img src="/vector-3.svg" alt="Eliminar" />
-                </button>
-              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <br />
-      <div className="d-flex">
-        <button className="btn btn-secondary" onClick={handleSaveReport}>
-          Guardar Informe
-        </button>
-      </div>
     </div>
   );
 }

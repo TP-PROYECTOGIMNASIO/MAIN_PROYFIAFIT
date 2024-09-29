@@ -7,6 +7,9 @@ import {
 } from "react-router-dom";
 import HUVISUALLIZARINICIOSEGN from "./pages/HUVISUALLIZARINICIOSEGN";
 import TipoProductos from "./pages/tipoProductos/tipoProductos";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import TipoEjercicios from "./pages/tipoEjercicios/tipoEjercicios";
 
 function App() {
   const action = useNavigationType();
@@ -45,10 +48,18 @@ function App() {
   }, [pathname]);
 
   return (
+    <>
+      <Navbar/>
     <Routes>
+
       <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
       <Route path="/tproductos" element={<TipoProductos />} />
+      <Route path="/tejercicios" element={<TipoEjercicios />} />
+
+
     </Routes>
+    <Footer/>
+    </>
   );
 }
 export default App;
