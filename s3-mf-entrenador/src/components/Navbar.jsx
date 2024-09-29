@@ -51,7 +51,7 @@ export default function Navbar() {
                     <>
                         <div
                             className="flex flex-col text-center cursor-pointer text-red-600"
-                            onClick={() => navigate('/alumno-checkin')}
+                            onClick={() => navigate('/')}
                         >
                             <h1 className="text-[20px] font-bold">Alumnos</h1>
                             <h1 className="text-[20px] font-bold">Check - in</h1>

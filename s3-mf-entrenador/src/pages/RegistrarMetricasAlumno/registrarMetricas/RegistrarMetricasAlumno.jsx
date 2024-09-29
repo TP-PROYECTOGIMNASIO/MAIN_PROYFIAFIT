@@ -7,7 +7,7 @@ const ListaAlumnos = () => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/visualizar'); 
+        //navigate('/visualizar'); 
     };
 
 
