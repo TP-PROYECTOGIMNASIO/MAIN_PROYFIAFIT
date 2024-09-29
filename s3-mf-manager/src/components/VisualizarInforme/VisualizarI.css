@@ -6,6 +6,27 @@
    
     color: black;
 }
+.containerVI h6{
+
+        font-size: 30px;
+        color: #cc0000;
+        margin-top: 0;
+      
+}
+.informeCompraB {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .informeCompraB h6 {
+    margin: 0 auto;
+    padding-left: 50px;
+  }
+  
+  .informeCompraB input {
+    margin-left: auto;
+  }
 
 header {
     display: flex;

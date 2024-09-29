@@ -32,8 +32,10 @@ export default function AsignarAlumno() {
       if (response.ok) {
         setClienteData(data); // Almacenar los datos del cliente
         setView("cliente"); // Cambiar a la vista de cliente
+        console.log("Respuesta de la API:", data);
       } else {
         alert("Cliente no encontrado.");
+        setClienteData(null); // Limpiar el estado si no se encuentra el cliente
       }
     } catch (error) {
       alert("Error al buscar el cliente: " + error.message);
