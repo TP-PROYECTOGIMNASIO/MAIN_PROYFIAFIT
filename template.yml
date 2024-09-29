@@ -23,13 +23,94 @@ Resources:
         ApiPost:
           Type: Api
           Properties:
-            Path: /hu-tp-01
+            Path: /auth/hu-tp-01
             Method: post
         ApiPut:
           Type: Api
           Properties:
-            Path: /hu-tp-01
+            Path: /auth/hu-tp-01
             Method: put
+
+  HuTp02001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-02-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPatch:
+          Type: Api
+          Properties:
+            Path: /aut/hu-tp-02
+            Method: patch
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /auth/hu-tp-02
+            Method: put
+
+  HuTp04001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-04
+            Method: post
+
+  HuTp04002:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-002
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-04
+            Method: get
+        ApiPatch:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-04
+            Method: patch
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-04
+            Method: post
+
+  HuTp04003:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-003
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /clientes/HU-04-003
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /clientes/HU-04-003
+            Method: post
+          
 
 
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
