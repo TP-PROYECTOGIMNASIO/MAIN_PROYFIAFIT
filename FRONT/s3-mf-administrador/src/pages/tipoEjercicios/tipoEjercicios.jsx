@@ -10,10 +10,6 @@ import ExerciseList from "../../components/ProductTableEjerSidebar";
 export default function TipoEjercicios() {
   return (
     <div className={`app-container ${styles.appContainer}`}>
-      <header className={styles.header}>
-        <img src={logo} alt="FIA Fit Logo" className={styles.logo} />
-        <a href="#" className={styles.homeLink}>INICIO</a>
-      </header>
 
       <div className={`${styles.mainContent} main-content flex`}>
         <div className={styles.sidebar}>
@@ -30,9 +26,6 @@ export default function TipoEjercicios() {
         </div>
       </div>
 
-      <footer className={styles.footer}>
-        Copyright © Gimnasio 2024
-      </footer>
     </div>
   );
 }
