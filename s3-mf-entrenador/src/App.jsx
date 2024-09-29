@@ -16,6 +16,7 @@ import RegistrarEntrenamientoDia from "./pages/RegistrarEntrenamientoDia/Registr
 import RegistroEntrenamiento from "./pages/RegistroEntrenamiento/RegistroEntrenamiento.jsx";
 import TrainingPlan from "./pages/PlanEntrenamientoDia/TrainingPlan.jsx";
 import TrainingPlanOk from "./pages/PlanEntrenamientoDia/TrainingPlanOk.jsx";
+import AsignarAlumno3 from "./pages/asignaralumno/AsignarAlumno3";
 
 
 function App() {
@@ -69,7 +70,7 @@ function App() {
         <Route path="/registrar-metricas" element={<RegistrarMetricas />} />
         <Route path="/alumno-checkin" element={<AlumnoCheckin />} />
         <Route path="/vista-no-registrado" element={<VistaNoRegisrado />} />
-        <Route path="/asignar-alumno" element={<AsignarAlumno2 />} />
+        <Route path="/asignar-alumno" element={<AsignarAlumno3 />} />
         <Route path="/planes" element={<Planes />} />
         <Route path="/PlanEntrenamientoDia" element={<PlanEntrenamientoDia />} />
         <Route path="/registrar-entrenamiento" element={<RegistrarEntrenamientoDia />} />
