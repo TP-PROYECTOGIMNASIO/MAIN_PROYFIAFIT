@@ -16,7 +16,7 @@ export default function Navbar(){
                 <h1 className="text-[20px] font-bold" style={{color:"#4B4F57"}}>Inicio</h1>
               </Link>
               <Link to="/productos">
-                <h1 className="text-[20px] font-bold" style={{color:"#4B4F57"}}>´Productos</h1>
+                <h1 className="text-[20px] font-bold" style={{color:"#4B4F57"}}>Productos</h1>
               </Link>
               <div className="relative flex items-center">
           <button
