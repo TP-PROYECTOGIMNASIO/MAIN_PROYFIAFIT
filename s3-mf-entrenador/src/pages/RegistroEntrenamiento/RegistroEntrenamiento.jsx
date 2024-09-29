@@ -26,7 +26,7 @@ const RegistroEntrenamiento = () => {
       day: parseInt(NdiaSeleccionado, 10),  
       focus: focus,
       exercises: ejercicios.map(ejercicio => ({
-        day_exercise_id: ejercicio.id || null,  
+        day_exercise_id: diaSeleccionado || null,  
         plan_day_id: NdiaSeleccionado,
         exercise_id: ejercicio.id,  
         sets: ejercicio.series,  
@@ -61,6 +61,12 @@ const RegistroEntrenamiento = () => {
 
   const handleRegresar = () => {
     navigate(-1);
+  };
+
+  const eliminarEjercicio = (index) => {
+    const nuevosEjercicios = ejercicios.filter((_, i) => i !== index);
+    setEjercicios(nuevosEjercicios);
+    localStorage.setItem('ejercicios', JSON.stringify(nuevosEjercicios));
   };
 
   return (
@@ -125,7 +131,10 @@ const RegistroEntrenamiento = () => {
                 </td>
                 <td className="p-2">
                   <div className="bg-white h-16 flex justify-center items-center p-2 rounded-lg">
-                    <button className="text-red-600 hover:text-red-800">
+                    <button
+                      className="text-red-600 hover:text-red-800"
+                      onClick={() => eliminarEjercicio(index)}
+                    >
                       🗑️
                     </button>
                   </div>

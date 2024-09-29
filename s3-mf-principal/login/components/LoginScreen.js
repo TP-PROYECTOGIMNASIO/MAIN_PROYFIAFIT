@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import styles from './styles';
+import { Linking } from 'react-native';
 
 // Función para decodificar base64url
 function base64UrlDecode(base64Url) {
@@ -55,7 +56,14 @@ export default function LoginScreen() {
           const userRole = decodedPayload['custom:role']; 
           console.log('User Role:', userRole);
 
-          navigation.navigate('Dashboard', { role: userRole });
+
+           if (userRole === 'cliente') {
+            navigation.navigate('Dashboard', { role: userRole, username:username });
+            //Linking.openURL('https://s3-mf-clientes.netlify.app/');
+        } else {
+          navigation.navigate('Dashboard', { role: userRole, username:username });
+          navigation.navigate('UpdatePassword', { role: userRole, username:username });
+        }
 
         } catch (error) {
           console.error('Error al decodificar el token:', error.message);

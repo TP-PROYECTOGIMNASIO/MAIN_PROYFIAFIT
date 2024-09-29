@@ -28,29 +28,34 @@ export default function DashboardScreen() {
   const handleNavigateToWeb = () => {
     navigation.navigate('Microview', { role: role });
   };
-  const handleNavigateToLogin = () => {
+  /*const handleNavigateToLogin = () => {
     navigation.navigate('Login');
+  };*/
+
+    // Nueva función para navegar a UpdatePassword
+  const handleNavigateToUpdatePassword = () => {
+      navigation.navigate('UpdatePassword', { role }); // Asegúrate de que la ruta esté definida en tu navegación
   };
   return (
     <View style={styles.container}>
-      <ImageBackground
-        source={require('../assets/background.png')}
-        style={styles.backgroundImage}
+    <ImageBackground
+      source={require('../assets/background.png')}
+      style={styles.backgroundImage}
+    >
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleNavigateToWeb}
       >
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleNavigateToWeb}
-        >
-          <Text style={styles.buttonText}>Ir a {role}</Text>
-        </TouchableOpacity>
+        <Text style={styles.buttonText}>Ir a {role}</Text>
+      </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleNavigateToLogin}
-        >
-          <Text style={styles.buttonText}>Cerrar Sesión</Text>
-        </TouchableOpacity>
-      </ImageBackground>
-    </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={handleNavigateToUpdatePassword} // Cambiado para navegar a UpdatePassword
+      >
+        <Text style={styles.buttonText}>Ver Perfil {role} </Text>
+      </TouchableOpacity>
+    </ImageBackground>
+  </View>
   );
 }
