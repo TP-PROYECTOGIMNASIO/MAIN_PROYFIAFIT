@@ -1,0 +1,77 @@
+/* Estilo para el contenedor principal de la aplicación */
+.appContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f5f5f5; /* Color de fondo */
+}
+
+/* Estilo para el header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff; /* Fondo blanco para el header */
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd; /* Línea divisoria inferior */
+}
+
+.logo {
+  height: 50px; /* Ajusta el tamaño del logo según sea necesario */
+}
+
+.homeLink {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+/* Estilo para el contenido principal */
+.mainContent {
+  display: flex;
+  flex: 1;
+  gap: 1rem; /* Espacio entre el sidebar y el contenido principal */
+}
+
+/* Estilo para el sidebar */
+.sidebar {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-right: 1px solid #ddd; /* Línea divisoria derecha */
+}
+
+/* Estilo para el footer */
+.footer {
+  background-color: #fff;
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #ddd; /* Línea divisoria superior */
+  font-size: 14px;
+  color: #666;
+}
+
+/* Estilo para el botón de regresar y otros botones superiores */
+.top-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem; /* Espacio inferior */
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+.add-ejercicio-button {
+  background-color: #c8102e;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
