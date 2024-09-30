@@ -294,8 +294,162 @@ Resources:
           Properties:
             Path: /plan-de-entrenamiento/hu-tp-27
             Method: post
+  HuTp28001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-28-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-28
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-28
+            Method: post
 
+  HuTp30001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-30-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-30
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-30
+            Method: post
+        ApiDelete:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-30
+            Method: delete
 
+  HuTp61001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-61-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /compras/hu-tp-61
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /compras/hu-tp-61
+            Method: post
+
+  HuTp62001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-62-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /compras/hu-tp-62
+            Method: post 
+
+  HuTp67001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-67-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGetFindById:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/findById
+            Method: get
+        ApiGetFindProduct:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/findproduct
+            Method: get
+        ApiGetLocations:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/locations
+            Method: get
+        ApiGetWithoutLocations:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/withoutlocations
+            Method: get
+        ApiGetTypeProduct:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/typeproduct
+            Method: get
+        ApiPutAssignLocation:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/asgnlocation
+            Method: put
+
+  HuTp68001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-68-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGetViewDetails:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-68/viewdetails
+            Method: get
+
+  HuTp73001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-73-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-73
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-73
+            Method: post
+
+            
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   # S3 Buckets for s3-mf-administrador-qa
