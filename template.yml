@@ -257,7 +257,7 @@ Resources:
         ApiGet:
           Type: Api
           Properties:
-            Path: /empleados/hu-tp-26
+            Path: /alumnos
             Method: get
       
   HuTp27001:
@@ -498,7 +498,125 @@ Resources:
           Properties:
             Path: /planilla-por-sedes/hu-tp-77
             Method: put
+  HuTp78001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-78-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-78
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-78
+            Method: post
 
+  HuTp79001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-79-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-79
+            Method: get
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-79
+            Method: put
+
+  HuTp84001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-84-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-84
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-84
+            Method: post
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-84
+            Method: put
+        ApiDelete:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-84
+            Method: delete        
+
+  HuTp87001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-87-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /articulos/hu-tp-87
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /articulos/hu-tp-87
+            Method: post
+        ApiPatch:
+          Type: Api
+          Properties:
+            Path: /articulos/hu-tp-87
+            Method: patch
+        ApiDelete:
+          Type: Api
+          Properties:
+            Path: /articulos/hu-tp-87
+            Method: delete
+
+  HuTp88001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-88-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /auth/HU-TP-88
+            Method: post
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /auth/HU-TP-88
+            Method: put
             
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
