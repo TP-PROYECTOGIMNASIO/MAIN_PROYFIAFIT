@@ -95,11 +95,6 @@ Resources:
           Properties:
             Path: /clientes/hu-tp-04
             Method: post
-        ApiGetDetalle:
-          Type: Api
-          Properties:
-            Path: /clientes/detalle
-            Method: get
 
   HuTp04003:
     Type: AWS::Serverless::Function
@@ -145,7 +140,7 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        ApiGet:
+        ApiGetDetalle:
           Type: Api
           Properties:
             Path: /clientes/detalle
