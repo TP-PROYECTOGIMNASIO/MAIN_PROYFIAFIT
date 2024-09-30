@@ -60,15 +60,15 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        ApiPostClienteLibre:
+        ApiGet:
           Type: Api
           Properties:
-            Path: /clientes/cliente-libre
-            Method: post
-        ApiPostClienteRegular:
+            Path: /clientes/hu-tp-04
+            Method: get
+        ApiPost:
           Type: Api
           Properties:
-            Path: /clientes/cliente-regular
+            Path: /clientes/hu-tp-04
             Method: post
 
   HuTp04002:
@@ -80,21 +80,11 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        ApiGet:
-          Type: Api
-          Properties:
-            Path: /clientes/hu-tp-04
-            Method: get
         ApiPatch:
           Type: Api
           Properties:
             Path: /clientes/hu-tp-04
             Method: patch
-        ApiPost:
-          Type: Api
-          Properties:
-            Path: /clientes/hu-tp-04
-            Method: post
 
   HuTp04003:
     Type: AWS::Serverless::Function
@@ -105,12 +95,7 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        ApiGet:
-          Type: Api
-          Properties:
-            Path: /clientes/HU-04-003
-            Method: get
-        ApiPost:
+        ApiPostHU04003:
           Type: Api
           Properties:
             Path: /clientes/HU-04-003
@@ -125,10 +110,10 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        ApiPost:
+        ApiPostLibre:
           Type: Api
           Properties:
-            Path: /clientes/hu-tp-04-004
+            Path: /clientes/cliente-libre
             Method: post
 
   HuTp04005:
@@ -448,6 +433,71 @@ Resources:
           Properties:
             Path: /empleados/hu-tp-73
             Method: post
+  
+  HuTp74001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-74-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-74
+            Method: get
+
+  HuTp75001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-75-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-75
+            Method: put
+
+  HuTp76001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-76-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /planilla-por-sedes/hu-tp-76
+            Method: post
+
+  HuTp77001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-77-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /planilla-por-sedes/hu-tp-77
+            Method: get
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /planilla-por-sedes/hu-tp-77
+            Method: put
 
             
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
