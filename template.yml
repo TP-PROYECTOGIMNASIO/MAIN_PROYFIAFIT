@@ -175,6 +175,21 @@ Resources:
             Path: /productos/hu-tp-17
             Method: get
 
+  HuTp18001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-18-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /ventas/hu-tp-18
+            Method: post          
+
   HuTp22001:
     Type: AWS::Serverless::Function
     Properties:
