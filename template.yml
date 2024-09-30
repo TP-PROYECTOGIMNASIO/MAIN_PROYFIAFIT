@@ -60,10 +60,15 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        ApiPost:
+        ApiPostClienteLibre:
           Type: Api
           Properties:
-            Path: /clientes/hu-tp-04
+            Path: /clientes/cliente-libre
+            Method: post
+        ApiPostClienteRegular:
+          Type: Api
+          Properties:
+            Path: /clientes/cliente-regular
             Method: post
 
   HuTp04002:
@@ -90,6 +95,11 @@ Resources:
           Properties:
             Path: /clientes/hu-tp-04
             Method: post
+        ApiGetDetalle:
+          Type: Api
+          Properties:
+            Path: /clientes/detalle
+            Method: get
 
   HuTp04003:
     Type: AWS::Serverless::Function
@@ -110,6 +120,37 @@ Resources:
           Properties:
             Path: /clientes/HU-04-003
             Method: post
+
+  HuTp04004:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-004
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-04-004
+            Method: post
+
+  HuTp04005:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-005
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-05
+            Method: get
+
           
 
 
