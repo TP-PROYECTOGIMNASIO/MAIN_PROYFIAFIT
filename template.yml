@@ -259,9 +259,42 @@ Resources:
           Properties:
             Path: /empleados/hu-tp-25
             Method: patch
-
-        
   
+  HuTp26001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-26-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-26
+            Method: get
+      
+  HuTp27001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-27-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-27
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-27
+            Method: post
+
 
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
