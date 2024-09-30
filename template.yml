@@ -148,7 +148,7 @@ Resources:
         ApiGet:
           Type: Api
           Properties:
-            Path: /clientes/hu-tp-05
+            Path: /clientes/detalle
             Method: get
 
   HuTp11001:
@@ -195,9 +195,78 @@ Resources:
             Path: /productos/hu-tp-17
             Method: get
 
- 
-        
+  HuTp22001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-22-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-22
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-22
+            Method: post
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-22
+            Method: put
+            
+  HuTp23001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-23-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGetAlumno:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-23/alumno
+            Method: get
+        ApiGetBodyMetric:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-23/bodymetric
+            Method: get
+        ApiGetDetailsClient:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-23/detailsClient
+            Method: get
+            
+  HuTp25001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-25-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-25
+            Method: get
+        ApiPatch:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-25
+            Method: patch
 
+        
+  
 
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
