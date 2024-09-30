@@ -151,7 +151,68 @@ Resources:
             Path: /clientes/hu-tp-05
             Method: get
 
-          
+  HuTp11001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-11-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-11
+            Method: get
+  HuTp14001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-14-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-14
+            Method: get
+
+  HuTp17001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-17-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-17
+            Method: get
+
+  HuTp18001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-18-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          SENDGRID_API_KEY: '{{resolve:secretsmanager:SENDGRID_API_KEY}}'
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /ventas/hu-tp-18
+            Method: post
+        
 
 
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
