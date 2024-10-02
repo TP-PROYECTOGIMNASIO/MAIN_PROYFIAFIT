@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import "./DetalleI.css";
 
 export default function DetalleInforme({ report }) {
   const [productos, setProductos] = useState([]);
@@ -15,7 +16,7 @@ export default function DetalleInforme({ report }) {
 
   // Verifica si se han recibido productos
   if (productos.length === 0) {
-    return <div>No hay productos en este informe.</div>;
+    return <div className="containerDetalleI"> <h4 className="nHProductos">No hay productos en este informe.</h4></div>;
   }
 
   return (
