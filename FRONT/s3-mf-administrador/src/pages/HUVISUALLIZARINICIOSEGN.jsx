@@ -27,7 +27,7 @@ const HUVISUALLIZARINICIOSEGN = () => {
                   T.PRODUCTOS →
                 </h1>
               </Link>
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+              <Link to={"/Lista_Productos"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
                 <h3 className="text-lg text-center">Administrar</h3>
                 <h1 className="text-3xl text-center">PRODUCTOS →</h1>
               </Link>

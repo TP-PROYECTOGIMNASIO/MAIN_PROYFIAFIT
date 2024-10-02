@@ -17,7 +17,7 @@ export default function ListaC({ vista, setVista, productData, setProductData })
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.products) {
+        if (data.products && Array.isArray(data.products)) {
           setProductData(data.products); // Actualiza la lista de productos
         } else {
           console.log("No hay productos temporales.");
@@ -29,6 +29,23 @@ export default function ListaC({ vista, setVista, productData, setProductData })
 
   const resetVista = () => {
     setVista(false);
+  };
+
+  const handleSaveProducts = () => {
+    fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/compras/hu-tp-61', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        action: 'guardarInforme',
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        alert(result.message); // Mostrar mensaje de confirmación
+      })
+      .catch((error) => console.error('Error al guardar productos:', error));
   };
 
   return (
@@ -52,18 +69,29 @@ export default function ListaC({ vista, setVista, productData, setProductData })
           </tr>
         </thead>
         <tbody>
-          {productData.map((product, index) => (
-            <tr key={product.report_product_id}>
-              <td>{index + 1}</td>
-              <td>{product.purchaseDate}</td>
-              <td>{product.product_type_id}</td>
-              <td>{product.name}</td>
-              <td>{product.quantity}</td>
-              <td>{product.totalPrice} soles</td>
+          {productData.length > 0 ? (
+            productData.map((product, index) => (
+              <tr key={product.report_product_id}>
+                <td>{index + 1}</td>
+                <td>{product.purchase_date}</td> {/* Verifica que esta propiedad exista */}
+                <td>{product.product_type_id}</td> {/* Verifica que esta propiedad exista */}
+                <td>{product.name}</td> {/* Verifica que esta propiedad exista */}
+                <td>{product.purchase_quantity}</td> {/* Verifica que esta propiedad exista */}
+                <td>{product.total_price} soles</td> {/* Verifica que esta propiedad exista */}
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="6" className="text-center">No hay productos registrados.</td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
+      <div className="d-flex justify-content-end">
+        <button className="btn btn-primary" onClick={handleSaveProducts}>
+          Guardar Productos
+        </button>
+      </div>
     </div>
   );
 }

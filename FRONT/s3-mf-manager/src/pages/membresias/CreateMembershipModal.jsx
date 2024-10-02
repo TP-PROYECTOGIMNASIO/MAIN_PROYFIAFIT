@@ -3,13 +3,13 @@ import ConfirmModal from './ConfirmModal';
 
 const CreateMembershipModal = ({ onClose, onAddMembership }) => {
   const [name, setName] = useState('');
-  const [detail, setDetail] = useState('');
+  const [description , setDescription ] = useState('');
   const [price, setPrice] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleAddClick = () => {
-    if (!name || !detail || !price) {
+    if (!name || !description || !price) {
       setErrorMessage('Todos los campos son obligatorios.');
       return;
     }
@@ -21,8 +21,8 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
     const newMembership = {
       id: Date.now(),
       name,
-      detail,
       price,
+      description, // te falta tomar la membresia, tienes que obtenerla  del formualrio sno esta defininda
       isEnabled: true,
     };
 
@@ -33,7 +33,7 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
 
   const resetFields = () => {
     setName('');
-    setDetail('');
+    setDescription('');
     setPrice('');
     setErrorMessage('');
     setShowConfirmation(false); // Cerrar el modal de confirmación
@@ -64,8 +64,8 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
           <label className="block text-sm font-bold mb-2">Detalle</label>
           <textarea
             className="w-full p-2 border rounded"
-            value={detail}
-            onChange={(e) => setDetail(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
         </div>
 
@@ -99,5 +99,4 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
 };
 
 export default CreateMembershipModal;
-
 

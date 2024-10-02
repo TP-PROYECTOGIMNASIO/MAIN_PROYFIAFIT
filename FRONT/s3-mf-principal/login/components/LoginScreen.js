@@ -3,14 +3,13 @@ import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import styles from './styles';
-import { Linking } from 'react-native';
 
 // Función para decodificar base64url
 function base64UrlDecode(base64Url) {
   const base64 = base64Url
     .replace(/-/g, '+')
     .replace(/_/g, '/');
-  
+
   const binary = atob(base64);
   return decodeURIComponent(escape(binary));
 }
@@ -21,10 +20,10 @@ function parseJwt(token) {
   if (parts.length !== 3) {
     throw new Error('Invalid JWT token');
   }
-  
+
   const payload = parts[1];
   const decodedPayload = base64UrlDecode(payload);
-  
+
   return JSON.parse(decodedPayload);
 }
 
@@ -53,17 +52,26 @@ export default function LoginScreen() {
           const decodedPayload = parseJwt(token);
           console.log('Decoded Payload:', decodedPayload);
 
-          const userRole = decodedPayload['custom:role']; 
+          // Verifica el rol del usuario
+          const userRole = decodedPayload['custom:role'];
           console.log('User Role:', userRole);
 
+          // Verifica si el usuario necesita cambiar la contraseña
+          const forcePasswordChange = decodedPayload['custom:forcePasswordChange'];
+          console.log('Force Password Change:', forcePasswordChange);
 
-           if (userRole === 'cliente') {
-            navigation.navigate('Dashboard', { role: userRole, username:username });
-            //Linking.openURL('https://s3-mf-clientes.netlify.app/');
-        } else {
-          navigation.navigate('Dashboard', { role: userRole, username:username });
-          navigation.navigate('UpdatePassword', { role: userRole, username:username });
-        }
+          // Si el usuario tiene el rol de 'cliente' o 'cliente_libre', siempre redirige al Dashboard
+          if (userRole === 'cliente' || userRole === 'cliente_libre') {
+            navigation.navigate('Dashboard', { role: userRole, username: username });
+          }
+          // Si el rol es diferente y necesita cambiar la contraseña
+          else if (forcePasswordChange !== '1') {
+            navigation.navigate('UpdatePassword', { role: userRole, username: username });
+          }
+          // Si no necesita cambiar la contraseña
+          else {
+            navigation.navigate('Dashboard', { role: userRole, username: username });
+          }
 
         } catch (error) {
           console.error('Error al decodificar el token:', error.message);
