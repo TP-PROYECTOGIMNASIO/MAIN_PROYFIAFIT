@@ -11,6 +11,7 @@ import Navbar from "./components/Navbar";
 import Sedes from "./pages/sedes/Sedes";
 import Footer from "./components/Footer";
 import InformePrincipal from "./pages/visualizarInforme/InformePrincipal";
+import RegistrarCompra from "./components/RegistrarCompra/RegistrarCompra";
 
 import Tipodeproducto from "./pages/inventario/Tipodeproducto";
 import ActualizarInventarioSedes from "./pages/inventario/ActualizarInventarioSedes";
@@ -80,6 +81,7 @@ function App() {
         
       } />
       <Route path="/Informe-Compra" element={<InformePrincipal />} />
+      <Route path="/Informe-Compra/Registrar-Compra" element={<RegistrarCompra />} />
       <Route path="/membresias" element={
         <>
           <Navbar />
