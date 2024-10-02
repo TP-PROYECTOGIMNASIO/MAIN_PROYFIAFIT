@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom"; // Importar el hook para la nave
 const AsignarAlumno3 = ({ isOpen, title }) => {
   const [view, setView] = useState("asignar");
   const [dni, setDni] = useState(""); // Para almacenar el DNI ingresado
-  const [clienteData, setClienteData] = useState(null); // Para almacenar los datos del cliente
+  const [clienteData, setClienteData] = useState([]); // Inicializar como array
   const [modalVisible, setModalVisible] = useState(isOpen); // Control interno del modal
+  const [clientId, setClientId] = useState(null); // Almacenar el ID del cliente
+  const [staffId] = useState(4); // ID del personal, puedes cambiarlo según corresponda
   const navigate = useNavigate(); // Hook para la navegación
 
   // Abrir el modal automáticamente cuando se carga el componente
@@ -30,20 +32,48 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
       const data = await response.json();
 
       if (response.ok) {
-        setClienteData(data); // Almacenar los datos del cliente
+        setClienteData(Array.isArray(data) ? data : [data]); // Asegurarse de que sea un array
+        setClientId(data[0].client_id); // Suponiendo que el ID del cliente está en data[0].id
         setView("cliente"); // Cambiar a la vista de cliente
         console.log("Respuesta de la API:", data);
       } else {
         alert("Cliente no encontrado.");
-        setClienteData(null); // Limpiar el estado si no se encuentra el cliente
+        setClienteData([]); // Limpiar el estado si no se encuentra el cliente
       }
     } catch (error) {
       alert("Error al buscar el cliente: " + error.message);
     }
   };
 
-  const handleAssign = () => {
-    setView("terminada");
+  const handleAssign = async () => {
+    if (!clientId) {
+      alert("No se ha encontrado un cliente para asignar.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-25`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_id: clientId,
+          staff_id: staffId,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.body.message); // Mensaje de éxito
+        setView("terminada"); // Cambiar a la vista de terminada
+      } else {
+        alert(result.body.message); // Mensaje de error
+      }
+    } catch (error) {
+      alert("Error al asignar el cliente: " + error.message);
+    }
   };
 
   if (!modalVisible) {
@@ -88,36 +118,38 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
                 </button>
               </div>
             </div>
-          ) : view === "cliente" && clienteData ? (
+          ) : view === "cliente" && clienteData.length > 0 ? ( // Verificar que haya clientes
             <div className="bg-white p-8 rounded shadow-md">
               <div className="flex justify-center mb-4">
-                <h3 className="text-3xl font-bold text-red-600">Cliente</h3>
+                <h3 className="text-3xl font-bold text-red-600">Clientes</h3>
               </div>
-              <div className="flex justify-between">
-                <div className="w-1/2 pr-6">
-                  <div className="flex flex-col space-y-2">
-                    <p className="text-gray-700">DNI:</p>
-                    <p className="text-gray-700 font-semibold">{clienteData.document}</p>
-                    <p className="text-gray-700">Nombre:</p>
-                    <p className="text-gray-700 font-semibold">{clienteData.names}</p>
-                    <p className="text-gray-700">Apellido Paterno:</p>
-                    <p className="text-gray-700 font-semibold">{clienteData.father_last_name}</p>
-                    <p className="text-gray-700">Apellido Materno:</p>
-                    <p className="text-gray-700 font-semibold">{clienteData.mother_last_name}</p>
+              {clienteData.map((cliente) => (
+                <div key={cliente.document} className="flex justify-between mb-4">
+                  <div className="w-1/2 pr-6">
+                    <div className="flex flex-col space-y-2">
+                      <p className="text-gray-700">DNI:</p>
+                      <p className="text-gray-700 font-semibold">{cliente.document}</p>
+                      <p className="text-gray-700">Nombre:</p>
+                      <p className="text-gray-700 font-semibold">{cliente.names}</p>
+                      <p className="text-gray-700">Apellido Paterno:</p>
+                      <p className="text-gray-700 font-semibold">{cliente.father_last_name}</p>
+                      <p className="text-gray-700">Apellido Materno:</p>
+                      <p className="text-gray-700 font-semibold">{cliente.mother_last_name}</p>
+                    </div>
+                  </div>
+                  <div className="w-1/2 pl-6 flex justify-center">
+                    <img
+                      src="/iconoP8.png" // Ruta correcta para imágenes estáticas
+                      alt="Logo"
+                      className="h-48 w-48 object-contain"
+                    />
                   </div>
                 </div>
-                <div className="w-1/2 pl-6 flex justify-center">
-                  <img
-                    src="/iconoP8.png" // Ruta correcta para imágenes estáticas
-                    alt="Logo"
-                    className="h-48 w-48 object-contain"
-                  />
-                </div>
-              </div>
+              ))}
               <div className="flex justify-center mt-6">
                 <button
                   className="bg-red-600 text-white px-8 py-3 rounded"
-                  onClick={handleAssign}
+                  onClick={handleAssign} // Llamar a la función de asignación
                 >
                   ASIGNAR
                 </button>
