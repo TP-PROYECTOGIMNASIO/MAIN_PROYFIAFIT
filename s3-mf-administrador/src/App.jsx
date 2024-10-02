@@ -10,6 +10,7 @@ import TipoProductos from "./pages/tipoProductos/tipoProductos";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import TipoEjercicios from "./pages/tipoEjercicios/tipoEjercicios";
+import Lista_Productos from "../pages/Mantener_Productos/Lista_Productos";
 
 function App() {
   const action = useNavigationType();
@@ -55,7 +56,7 @@ function App() {
       <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
       <Route path="/tproductos" element={<TipoProductos />} />
       <Route path="/tejercicios" element={<TipoEjercicios />} />
-
+      <Route path="/Lista_Productos" element={<Lista_Productos />} />
 
     </Routes>
     <Footer/>
