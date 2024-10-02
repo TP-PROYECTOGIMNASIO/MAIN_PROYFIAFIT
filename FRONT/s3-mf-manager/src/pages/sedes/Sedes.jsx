@@ -39,10 +39,10 @@ export default function Sedes() {
     // Filtra las sedes basado en el filtro seleccionado
     const filteredSedes = sedes.filter(sede => {
         if (filter === 'all') return true;
-        if (filter === 'active') return sede.active; // Filtra las sedes activas
-        if (filter === 'inactive') return !sede.active; // Filtra las sedes inactivas
+        if (filter === 'active') return sede.status === true; // Filtra las sedes activas
+        if (filter === 'inactive') return sede.status === false; // Filtra las sedes inactivas
     });
-
+    
     return (
         <main className="min-h-[84vh] flex flex-col gap-4" style={{ backgroundColor: "#F3F4F7" }}>
             <div className="flex justify-between pt-4">
@@ -60,12 +60,12 @@ export default function Sedes() {
                 </button>
             </div>
             <div className="pb-4 flex flex-row justify-right max-w-[300px]">
-                <label className="ml-4 p-2 text-black font-semibold flex items-center" style={{ backgroundColor: "#B5121C", borderRadius: "5px" }}>
+                <label className="ml-4 p-2 text-black font-semibold flex items-center" style={{ backgroundColor: "#DFE0E1", borderRadius: "5px" }}>
                     <span>Ordenar por</span>
                 </label>
                 <select 
                     className="ml-4 mt-2 p-2 border bg-white text-black min-w-[150px] font-semibold" 
-                    style={{ borderRadius: "5px" }}
+                    style={{ borderRadius: "5px", backgroundColor: "#DFE0E1"}}
                     value={filter} // Establece el valor del filtro en el select
                     onChange={(e) => setFilter(e.target.value)} // Actualiza el filtro cuando cambia el select
                 >
@@ -78,7 +78,7 @@ export default function Sedes() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center">
                     {filteredSedes && filteredSedes.length > 0 ? (
                         filteredSedes.map((sede) => (
-                            <CardSede key={sede.location_id} sede={sede} />
+                            <CardSede key={sede.location_id} sede={sede} getSedes={fetchSedes} />
                         ))
                     ) : (
                         <p className="text-center col-span-full text-gray-500">No se encontraron sedes.</p>
@@ -94,19 +94,19 @@ export default function Sedes() {
         </main>
     );
 }
-function CardSede({ sede }) {
-    const [selectBgColor, setSelectBgColor] = useState(sede.active ? '#B5121C' : '#4B4F57');
+function CardSede({ sede,getSedes }) {
+    const [selectBgColor, setSelectBgColor] = useState(sede.status ? '#B5121C' : '#4B4F57'); // Rojo si está activo
     const [isModalOpen, setModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-    const [pendingStatus, setPendingStatus] = useState(sede.active ? 'active' : 'inactive');
-    const [prevStatus, setPrevStatus] = useState(sede.active ? 'active' : 'inactive');
-
+    const [pendingStatus, setPendingStatus] = useState(sede.status ? 'active' : 'inactive');
+    const [prevStatus, setPrevStatus] = useState(sede.status ? 'active' : 'inactive');
+    
     const handleStatusChange = (event) => {
         const newStatus = event.target.value;
         setPrevStatus(pendingStatus); // Guardar el estado anterior
         setPendingStatus(newStatus); // Guardar el estado pendiente para confirmación
 
-        const newColor = newStatus === 'inactive' ? '#4B4F57' : '#B5121C';
+        const newColor = newStatus === 'inactive' ? '#4B4F57' : '#B5121C'; // Actualizar el color según el estado
         setSelectBgColor(newColor);
 
         const action = newStatus === 'inactive' ? 'deshabilitar' : 'habilitar';
@@ -121,7 +121,7 @@ function CardSede({ sede }) {
     };
 
     const handleConfirm = () => {
-        // Hacer la llamada a la API para actualizar el estado
+        // Llamada a la API para actualizar el estado
         fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/planilla-por-sedes/hu-tp-77', {
             method: 'PUT',
             headers: {
@@ -137,6 +137,7 @@ function CardSede({ sede }) {
             console.log('Success:', data);
             setPrevStatus(pendingStatus); // Confirmar el nuevo estado como anterior
             setSelectBgColor(pendingStatus === 'inactive' ? '#4B4F57' : '#B5121C'); // Cambiar color basado en el nuevo estado
+            getSedes()
             setModalOpen(false); // Cerrar el modal
         })
         .catch((error) => {
@@ -148,19 +149,18 @@ function CardSede({ sede }) {
     };
 
     return (
-        <div className="flex flex-col justify-center items-center m-2 p-4 pt-8 pb-8 gap-2 min-w-[200px] max-w-[500px]" style={{ borderRadius: "10px", backgroundColor: "#BFB6B8" }}>
+        <div className="flex flex-col justify-center items-center pb-6 gap-2 min-w-[200px] max-w-[500px]" style={{ borderRadius: "0px", backgroundColor: "#DFE0E1" }}>
             <img 
                 src={sede.image_url} 
                 alt={`Imagen de ${sede.name}`} 
                 className="min-w-[180px] max-w-[300px] md:max-w-[350px] lg:max-w-[400px] border border-white" 
             />
-            <h2 className="font-extrabold text-[24px] text-white">{sede.name}</h2>
-            <p className="text-center text-gray-700">{sede.address}</p>
+            <h2 className="font-semibold text-[24px]" style={{color:'#62060B'}}>Sede: {sede.name}</h2>
             <select
                 value={pendingStatus}
                 onChange={handleStatusChange}
-                className="p-2 border min-w-[150px] font-extrabold"
-                style={{ backgroundColor: selectBgColor, borderRadius: "5px" }}
+                className="p-2 border min-w-[150px] font-bold"
+                style={{ backgroundColor: selectBgColor, borderRadius: "5px",color:'white' }}
             >
                 <option value="active">Activo</option>
                 <option value="inactive">Inactivo</option>
@@ -169,7 +169,7 @@ function CardSede({ sede }) {
             {/* Modal Component */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
-                    <div className="bg-white p-6 rounded-lg shadow-lg relative">
+                    <div className="p-6 rounded-lg shadow-lg relative" style={{backgroundColor:'#F3F4F7'}}>
                         <button 
                             onClick={handleCloseModal} 
                             className="absolute top-1 right-2 text-black text-[24px] rounded-full flex items-center justify-center"
@@ -177,7 +177,7 @@ function CardSede({ sede }) {
                         >
                             &times;
                         </button>
-                        <h3 className="text-lg font-bold mb-4" style={{ color: "#B5121C" }}>{modalMessage}</h3>
+                        <h3 className="text-lg font-bold mb-4" style={{ color: "#8C1C13" }}>{modalMessage}</h3>
                         <div className="flex justify-center gap-4">
                             <button 
                                 onClick={handleConfirm} 
@@ -276,33 +276,36 @@ function Modal({ isOpen, onClose, openError, asignarMsj, onRegisterSuccess }) {
                 </button>
 
                 <div className="min-w-[360px] min-h-[350px] p-4 flex flex-col justify-center gap-4"
-                    style={{ borderRadius: "10px", backgroundColor: "#DFE0E1" }}
+                    style={{ borderRadius: "10px", backgroundColor: "#F3F4F7" }}
                 >
-                    <h2 className="text-xl font-extrabold mb-4 text-black text-center" style={{ color: "#B5121C" }}>Registrar Nueva Sede</h2>
-                    <div className="flex flex-row justify-between">
+                    <h2 className="text-2xl font-semibold mb-4 text-black text-center" style={{ color: "#8C1C13" }}>Registrar Nueva Sede</h2>
+                    <div className="flex flex-col items-center justify-center">
                         <label className="text-black" htmlFor="sede">Sede:</label>
                         <input 
-                            className="text-black bg-white p-1 text-center max-w-[180px]" 
+                            className="text-black p-1 text-center max-w-[250px]" 
+                            style={{backgroundColor:'#D9D9D9'}}
                             type="text" 
                             placeholder="sede"
                             value={sede}
                             onChange={(e) => setSede(e.target.value)}
                         />
                     </div>
-                    <div className="flex flex-row justify-between">
+                    <div className="flex flex-col items-center justify-center">
                         <label className="text-black" htmlFor="ubicacion">Ubicación:</label>
                         <input 
-                            className="text-black bg-white p-1 text-center max-w-[180px]" 
+                            className="text-black p-1 text-center max-w-[250px]" 
+                            style={{backgroundColor:'#D9D9D9'}}
                             type="text" 
                             placeholder="ubicación"
                             value={ubicacion}
                             onChange={(e) => setUbicacion(e.target.value)}
                         />
                     </div>
-                    <div className="flex flex-row justify-between">
+                    <div className="flex flex-col items-center justify-center">
                         <label className="text-black" htmlFor="imagen">Imagen:</label>
                         <input 
-                            className="text-black bg-white p-1 text-center max-w-[180px]" 
+                            className="text-blackp-1 text-center max-w-[200px]" 
+                            style={{backgroundColor:'#D9D9D9'}}
                             type="file" // Cambiado a "file"
                             accept="image/jpeg" // Acepta solo JPEG
                             onChange={(e) => setImagen(e.target.files[0])} // Guardar el archivo seleccionado
