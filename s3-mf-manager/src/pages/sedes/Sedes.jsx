@@ -100,7 +100,9 @@ function CardSede({ sede,getSedes }) {
     const [modalMessage, setModalMessage] = useState('');
     const [pendingStatus, setPendingStatus] = useState(sede.status ? 'active' : 'inactive');
     const [prevStatus, setPrevStatus] = useState(sede.status ? 'active' : 'inactive');
-    
+    const [isSuccessModalOpen, setSuccessModalOpen] = useState(false); // Estado para el modal de confirmación
+
+
     const handleStatusChange = (event) => {
         const newStatus = event.target.value;
         setPrevStatus(pendingStatus); // Guardar el estado anterior
@@ -139,6 +141,8 @@ function CardSede({ sede,getSedes }) {
             setSelectBgColor(pendingStatus === 'inactive' ? '#4B4F57' : '#B5121C'); // Cambiar color basado en el nuevo estado
             getSedes()
             setModalOpen(false); // Cerrar el modal
+            setSuccessModalOpen(true); // Mostrar el modal de éxito
+
         })
         .catch((error) => {
             console.error('Error:', error);
@@ -147,7 +151,9 @@ function CardSede({ sede,getSedes }) {
             setModalOpen(false); // Cerrar el modal
         });
     };
-
+    const handleCloseSuccessModal = () => {
+        setSuccessModalOpen(false);
+    };
     return (
         <div className="flex flex-col justify-center items-center pb-6 gap-2 min-w-[200px] max-w-[500px]" style={{ borderRadius: "0px", backgroundColor: "#DFE0E1" }}>
             <img 
@@ -197,6 +203,45 @@ function CardSede({ sede,getSedes }) {
                     </div>
                 </div>
             )}
+            {isSuccessModalOpen  && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-40">
+                    <div className="p-6 rounded-lg shadow-lg relative" style={{backgroundColor:'#F3F4F7'}}>
+
+                        <h3 className="text-lg font-bold mb-4" style={{ color: "#8C1C13" }}>
+                            El estado de la sede se ha actualizado con éxito.
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <button 
+                                onClick={handleCloseSuccessModal} 
+                                className="p-2 px-4 text-white rounded"
+                                style={{ backgroundColor: "#B5121C" }}
+                            >
+                                Cerrar
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+}
+
+function UpdateSuccessModal({ isOpen, onClose }) {
+    if (!isOpen) return null;
+
+    return (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="p-6 rounded-lg shadow-lg bg-white">
+                <h2 className="text-lg font-bold mb-4">Actualización Exitosa</h2>
+                <p>La sede se ha actualizado correctamente.</p>
+                <button 
+                    onClick={onClose} 
+                    className="mt-4 p-2 px-4 text-white bg-green-500 rounded"
+                >
+                    Cerrar
+                </button>
+            </div>
         </div>
     );
 }
