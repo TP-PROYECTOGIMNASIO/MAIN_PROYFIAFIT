@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MembershipDetailModal from './MembershipDetailModal';
 
-const MembershipTable = ({ memberships, setMemberships }) => {
+const MembershipTable = ({ memberships, setMemberships, onDisableMembership }) => {
   const [selectedMembership, setSelectedMembership] = useState(null);
   const [isDetailModalOpen, setDetailModalOpen] = useState(false);
 
@@ -33,6 +33,7 @@ const MembershipTable = ({ memberships, setMemberships }) => {
         onClose={() => setDetailModalOpen(false)}
         membership={selectedMembership}
         setMemberships={setMemberships}
+        onDisableMembership={onDisableMembership}
       />
     </>
   );

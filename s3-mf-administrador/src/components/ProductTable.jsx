@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import RegisterProductModal from './RegisterProductModal';
 import EditProductModal from './EditProductModal';
-import { Link } from 'react-router-dom';
 
 const ProductTypes = () => {
   // Estado para almacenar productos
@@ -47,9 +46,9 @@ const ProductTypes = () => {
     <div className="p-6 bg-gray-50 min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center mb-6">
-        <Link to={"/"} className="text-gray-500 hover:text-gray-700 flex items-center">
-          <i className="fas fa-arrow-left mr-2"></i>← Regresar
-        </Link>
+        <button className="text-gray-500 hover:text-gray-700 flex items-center">
+          <i className="fas fa-arrow-left mr-2"></i> Regresar
+        </button>
         <h1 className="text-3xl font-bold text-red-700">TIPOS DE PRODUCTOS</h1>
         <button
           className="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-800 flex items-center"
