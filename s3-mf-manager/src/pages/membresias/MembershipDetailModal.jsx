@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const MembershipDetailModal = ({ isOpen, onClose, membership, setMemberships }) => {
+const MembershipDetailModal = ({ isOpen, onClose, membership, onDisableMembership }) => {
   const [detail, setDetail] = useState(membership ? membership.detail : '');
   const [price, setPrice] = useState(membership ? membership.price : '');
   const [isEnabled, setIsEnabled] = useState(membership ? membership.isEnabled : true);
@@ -14,7 +14,8 @@ const MembershipDetailModal = ({ isOpen, onClose, membership, setMemberships }) 
 
   const handleConfirmToggle = () => {
     const updatedMembership = { ...membership, isEnabled: false }; // Marca como inactiva
-    setMemberships((prev) => prev.map(m => m.id === membership.id ? updatedMembership : m));
+    console.log(membership.membership_id, membership.active)
+    onDisableMembership(membership.membership_id, membership.active);
     setShowConfirmation(false);
     onClose(); // Cierra el modal
   };
