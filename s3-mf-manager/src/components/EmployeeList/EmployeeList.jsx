@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importa useNavigate
 import EmployeeForm from '../EmployeeForm/EmployeeForm';
 import Modal from '../Modal/Modal';
 import ConfirmationPopup from '../Modal/ConfirmationPopup'; // Importa el componente de confirmación
@@ -16,6 +17,8 @@ const EmployeeList = () => {
   });
   const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
+
+  const navigate = useNavigate(); // Inicializa useNavigate
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -132,10 +135,14 @@ const EmployeeList = () => {
     window.open(contractUrl, '_blank'); 
   };
 
+  const handleBackClick = () => {
+    navigate('/manager-page'); // Redirige a ManagerPage
+  };
+
   return (
     <div className="employee-list-page">
       <div className="employee-list-header">
-        <button className="back-button">← Regresar</button>
+        <button className="back-button" onClick={handleBackClick}>← Regresar</button>
         <h1>Lista de Empleados</h1>
         <button className="add-employee-btn" onClick={handleAddEmployeeClick}>
           + Registrar Nuevo Empleado
