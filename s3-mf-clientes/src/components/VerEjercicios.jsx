@@ -1,16 +1,25 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 
 const VerEjercicios = () => {
   const { diaId } = useParams();
   const [ejercicios, setEjercicios] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-11?diaId=${diaId}`)
-      .then((response) => setEjercicios(response.data))
-      .catch((error) => console.error(error));
+    const fetchEjercicios = async () => {
+      try {
+        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-11?diaId=${diaId}');
+        if (!response.ok) {
+          throw new Error('Error al obtener los ejercicios');
+        }
+        const data = await response.json();
+        setEjercicios(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchEjercicios();
   }, [diaId]);
 
   // Función para retroceder a la página anterior
