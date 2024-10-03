@@ -1,21 +1,19 @@
-import React from 'react';
-import styles from './ProductTableEjercicios.module.css'; // Asegúrate de crear este archivo CSS
+import React from "react";
 
-const Sidebar = () => {
+const Modal = ({ onClose, children }) => {
   return (
-    <nav className="w-1/4 bg-gray-100 p-4">
-      <h2 className="font-semibold text-gray-600 mb-4">SELECCIONAR</h2>
-      <ul className="space-y-2">
-        <li className={styles.textMuted}>CUADRICEPS</li>
-        <li className={styles.textMuted}>GLÚTEOS</li>
-        <li className={styles.textPrimary}>ESPALDA</li>
-        <li className={styles.textMuted}>PECTORALES</li>
-        <li className={styles.textMuted}>HOMBROS</li>
-        <li className={styles.textMuted}>TRICEPS</li>
-        <li className={styles.textMuted}>BICEPS</li>
-      </ul>
-    </nav>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+      <div className="bg-white p-6 rounded shadow-lg w-1/2">
+        <button
+          className="text-red-500 font-bold float-right"
+          onClick={onClose}
+        >
+          X
+        </button>
+        {children}
+      </div>
+    </div>
   );
 };
 
-export default Sidebar;
+export default Modal;
