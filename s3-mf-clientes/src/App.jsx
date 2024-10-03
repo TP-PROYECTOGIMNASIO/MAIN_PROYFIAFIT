@@ -2,10 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProductList from "./components/product-list";
 import CartDetails from "./components/shopping-cart/cartDetails";
-import PlanView from "./components/PlanView";
-import DayView from "./components/DayView";
 import Inicio from "./context/inicio";
 import Footer from "./components/Footer";
+import PlanesEntrenamiento from "./components/PlanesEntrenamiento";
+import VerPlan from "./components/VerPlan";
+import VerEjercicios from "./components/VerEjercicios";
 function App() {
   return (
     <Router>
@@ -16,8 +17,9 @@ function App() {
         <Route path="/" element={<Inicio />} />
           <Route path="/productos" element={<ProductList />} />
           <Route path="/cart" element={<CartDetails />} />
-          <Route path="/verplan" element={<PlanView />} />
-        <Route path="/plan/:dayId" element={<DayView />} />
+          <Route path="/ver-planes" element={<PlanesEntrenamiento />} />
+        <Route path="/ver-plan/:planId" element={<VerPlan />} />
+        <Route path="/ver-ejercicios/:diaId" element={<VerEjercicios />} />
         </Routes>
         <Footer/>
       </div>
