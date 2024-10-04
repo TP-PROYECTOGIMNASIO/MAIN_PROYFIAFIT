@@ -81,7 +81,12 @@ function App() {
         
       } />
       <Route path="/Informe-Compra" element={<InformePrincipal />} />
-      <Route path="/Informe-Compra/Registrar-Compra" element={<RegistrarCompra />} />
+      <Route path="/Informe-Compra/Registrar-Compra" element={
+        <>
+        <Navbar />
+        <RegistrarCompra />
+        <Footer/>
+        </>} />
       <Route path="/membresias" element={
         <>
           <Navbar />

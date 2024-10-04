@@ -76,9 +76,12 @@ export default function VisualizarInforme() {
                     <Link to={"/"} href="#" className="back-buttonVI">
                         - Regresar
                     </Link>
-                    <button className="add-buttonVI" onClick={handleAddEmployeeClick}>
+                    <Link to="/Informe-Compra/Registrar-Compra">
+                    <button className="add-buttonVI" >
                         + Registrar Nueva Compra
                     </button>
+                    </Link>
+
                 </div>
                 <div className="order-options">
                     <span>Ordenar por </span>
