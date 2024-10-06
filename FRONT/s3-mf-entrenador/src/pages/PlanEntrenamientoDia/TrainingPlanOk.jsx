@@ -5,7 +5,8 @@ const TrainingPlanOk = () => {
   const navigate = useNavigate();
   const [selectedMonth, setSelectedMonth] = useState('');
   const [trainingPlan, setTrainingPlan] = useState(null);
-  const [clientId, setClientId] = useState(null); // Agrega un estado para el clientId
+  const [clientId, setClientId] = useState(null);
+  const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
 
   // Función para hacer fetch de los datos
   const fetchData = async (url) => {
@@ -43,7 +44,13 @@ const TrainingPlanOk = () => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('client_id');
-    setClientId(id); 
+    setClientId(id);
+    
+    // Recuperar el nombre del alumno desde localStorage
+    const storedStudentName = localStorage.getItem('selectedStudentName');
+    if (storedStudentName) {
+      setStudentName(storedStudentName);
+    }
   }, []);
 
   const months = [
@@ -65,13 +72,15 @@ const TrainingPlanOk = () => {
           Plan de Entrenamiento
         </h2>
 
+        {/* Mostrar el nombre del alumno almacenado */}
         <p className="text-lg text-gray-600 mb-4 text-center">
-          Nombre del Alumno
+          {studentName || 'Nombre del Alumno'}
         </p>
 
-        <div className="flex justify-end">
-          <select className="border rounded px-2 py-1" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
-            <option value="">Seleccionar mes</option>
+        {/* Espacio adicional entre el combo box y el contenedor */}
+        <div className="flex justify-end mb-4 ">
+          <select className=" rounded px-2 py-1 bg-gray-100 text-center" value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
+            <option value="">Mes</option>
             {months.map((month) => (
               <option key={month} value={month}>
                 {month}
@@ -80,15 +89,22 @@ const TrainingPlanOk = () => {
           </select>
         </div>
 
+        {/* Contenedor que muestra el plan de entrenamiento y el botón en la misma línea */}
         <div className="flex justify-between items-center text-gray-600 bg-gray-100 p-4 rounded-lg mb-6">
-          <p>Plan de Entrenamiento</p>
+          <div className="flex flex-col">
+            <p>Plan de Entrenamiento</p>
+            {/* Fecha colocada debajo del plan de entrenamiento */}
+            <p className='text-left mt-2'>Fecha</p>
+          </div>
+          {/* Botón "Visualizar Ejercicios" a la misma altura */}
           <button 
-            className="bg-gray-400 text-white px-4 py-2 rounded" 
-            onClick={() => fetchTrainingPlan(clientId)} // Usa el clientId almacenado
-          >
-            Visualizar Ejercicios
-          </button>
-          <p className='text-left'>Fecha</p>
+    style={{ backgroundColor: '#3c4862' }} // Estilo en línea para aplicar el color
+    className="text-white px-4 py-2 rounded ml-4" 
+    onClick={() => fetchTrainingPlan(clientId)} // Usa el clientId almacenado
+>
+    Visualizar Ejercicios
+</button>
+
         </div>
 
         <button

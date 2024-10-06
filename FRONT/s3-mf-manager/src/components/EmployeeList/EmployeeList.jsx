@@ -136,7 +136,7 @@ const EmployeeList = () => {
   };
 
   const handleBackClick = () => {
-    navigate('/manager-page'); // Redirige a ManagerPage
+    navigate('/'); // Redirige a ManagerPage
   };
 
   return (
