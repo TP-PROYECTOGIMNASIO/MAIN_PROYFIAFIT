@@ -8,15 +8,21 @@ export default function RegistroEntrenamientoDia() {
     const [ejercicios, setEjercicios] = useState([]);
     const [diaSeleccionado, setDiaSeleccionado] = useState('');
     const [NdiaSeleccionado, NsetDiaSeleccionado] = useState('');
+    const [NombreMuscular, setNombreMusuclar] = useState('');
+    const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
 
     useEffect(() => {
         const NdiaGuardado = localStorage.getItem('NdiaSeleccionado');
         const diaGuardado = localStorage.getItem('diaSeleccionado');
+        const storedStudentName = localStorage.getItem('selectedStudentName'); // Recuperar el nombre del alumno
         if (NdiaGuardado) {
             NsetDiaSeleccionado(NdiaGuardado);
         }
         if (diaGuardado) {
             setDiaSeleccionado(diaGuardado);
+        }
+        if (storedStudentName) {
+            setStudentName(storedStudentName); // Asignar el nombre del alumno
         }
     }, []);
 
@@ -57,22 +63,37 @@ export default function RegistroEntrenamientoDia() {
     };
 
     const handleGuardar = () => {
-        localStorage.setItem('ejercicios', JSON.stringify(ejercicios));
-        localStorage.setItem('NdiaSeleccionado', NdiaSeleccionado);
-        localStorage.setItem('diaSeleccionado', diaSeleccionado);
-        navigate('/registro-entrenamiento');
+        const ejerciciosFiltrados = ejercicios.filter(ejercicio => ejercicio.repeticiones > 0 && ejercicio.series > 0);
+        
+        if (ejerciciosFiltrados.length > 0) {
+            localStorage.setItem('ejercicios', JSON.stringify(ejerciciosFiltrados));
+            localStorage.setItem('NdiaSeleccionado', NdiaSeleccionado);
+            localStorage.setItem('diaSeleccionado', diaSeleccionado);
+            localStorage.setItem('gruposMusculares', NombreMuscular);
+            console.log("llegue ", NombreMuscular);
+            navigate('/registro-entrenamiento');
+        } else {
+            alert('Por favor, asegúrate de ingresar repeticiones y series mayores a cero.');
+        }
     };
 
     const handleGrupoMuscular = (e) => {
         const grupoId = e.target.value;
-        obtenerEjerciciosPorGrupoMuscular(grupoId);
+        const grupoSeleccionado = gruposMusculares.find(grupo => grupo.exercise_type_id === parseInt(grupoId, 10));
+        
+        if (grupoSeleccionado) {
+            localStorage.setItem('gruposMusculares', grupoSeleccionado.name);
+            setNombreMusuclar(grupoSeleccionado.name);
+            console.log(`Grupo muscular seleccionado: ${grupoSeleccionado.name}`);
+            obtenerEjerciciosPorGrupoMuscular(grupoId);
+        }
     };
 
-    const updateEjercicio = (index, tipo, cambio) => {
+    const updateEjercicio = (index, tipo, cambio) => { 
         setEjercicios(prevEjercicios =>
             prevEjercicios.map((ejercicio, i) =>
                 i === index
-                    ? { ...ejercicio, [tipo]: Math.max(1, ejercicio[tipo] + cambio) }
+                    ? { ...ejercicio, [tipo]: Math.max(0, ejercicio[tipo] + cambio) }
                     : ejercicio
             )
         );
@@ -119,7 +140,7 @@ export default function RegistroEntrenamientoDia() {
 
             <div className="w-full max-w-3xl mx-auto mt-[-20px]">
                 <h3 className="text-lg text-center text-gray-700 mb-2">
-                    Nombre del Alumno
+                    {studentName} {/* Mostrar el nombre del alumno */}
                 </h3>
                 <p className="text-center text-red-700 font-bold mb-4">
                     {diaSeleccionado}
@@ -127,14 +148,16 @@ export default function RegistroEntrenamientoDia() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                {Array.isArray(ejercicios) && ejercicios.map((ejercicio,index) => (
+                {Array.isArray(ejercicios) && ejercicios.map((ejercicio, index) => (
                     <div key={index} className="border p-4 rounded-lg bg-white shadow-md">
                         <div className="flex flex-col items-center">
                             <img
                                 src={ejercicio.image_url}
                                 alt={ejercicio.name}
-                                className="w-full h-auto object-cover rounded mb-4"
+                                className="w-full h-36 rounded mb-4"
                             />
+
+
                             <h4 className="text-lg font-bold text-red-700 mb-2">
                                 {ejercicio.name}
                             </h4>

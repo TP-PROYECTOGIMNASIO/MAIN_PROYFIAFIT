@@ -33,6 +33,7 @@ export default function PlanEntrenamientoDia() {
     const { clientId, trainingPlan } = location.state || {};
     const [diaSeleccionado, setDiaSeleccionado] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
+    const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
     const navigate = useNavigate();
 
     const handleRegistrar = () => {
@@ -45,7 +46,9 @@ export default function PlanEntrenamientoDia() {
 
     useEffect(() => {
         const diaGuardado = localStorage.getItem('diaSeleccionado');
+        const storedStudentName = localStorage.getItem('selectedStudentName'); // Recuperar el nombre del alumno
         setDiaSeleccionado(diaGuardado || '');
+        setStudentName(storedStudentName || 'Nombre del Alumno'); // Asignar el nombre del alumno
     }, []);
 
     const dias = [
@@ -91,7 +94,7 @@ export default function PlanEntrenamientoDia() {
                     Eligiendo Plan de Entrenamiento
                 </h2>
                 <h3 className="text-lg text-center text-gray-700 mb-6">
-                    Nombre del Alumno
+                    {studentName} {/* Mostrar el nombre del alumno */}
                 </h3>
                 <p className="text-left text-gray-700 mb-6">
                     Seleccionar los días y rutinas

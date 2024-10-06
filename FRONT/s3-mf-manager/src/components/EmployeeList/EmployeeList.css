@@ -64,7 +64,10 @@ h1 {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  min-height: 618px; /* Esto hará que el contenedor sea más largo */
+  overflow-y: auto; /* Agrega un scroll si hay más empleados que el tamaño del contenedor */
 }
+
 
 table {
   width: 100%;
