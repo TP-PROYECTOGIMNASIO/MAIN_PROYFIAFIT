@@ -1,5 +1,4 @@
 import React from "react";
-
 const ExerciseSidebar = ({ onSelectType }) => {
   const types = [
     { id: 1, name: "CUÁDRICEPS" },
@@ -13,7 +12,7 @@ const ExerciseSidebar = ({ onSelectType }) => {
 
   return (
     <nav className="w-1/4 bg-gray-100 p-4">
-      <h2 className="font-semibold text-gray-600 mb-4">Seleccionar Tipo</h2>
+
       <div className="space-y-4">
         {types.map((type) => (
           <div key={type.id} className="flex items-center">

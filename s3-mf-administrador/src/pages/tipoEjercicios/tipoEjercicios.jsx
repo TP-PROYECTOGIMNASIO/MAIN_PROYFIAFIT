@@ -8,12 +8,12 @@ export default function TipoEjercicios() {
 
   return (
     <div className="flex">
-      <ExerciseSidebar onSelectType={setSelectedType} />
       <div className="flex-1 p-4">
-        <h1 className="text-xl font-bold mb-4">TIPOS DE EJERCICIOS</h1>
-        <Link to="/add-ejercicio" className="bg-red-500 text-white py-2 px-4 rounded mb-4 inline-block">
-          + Registrar Nuevo Ejercicio
+      <Link to="/" className="bg-[#aa1f1d] text-white py-2 px-4 rounded mb-4 inline-block">
+          Regresar
         </Link>
+        <h1 className="text-xl font-bold mb-4">SELECCIONAR</h1>
+
         <ExerciseList selectedType={selectedType} />
       </div>
     </div>

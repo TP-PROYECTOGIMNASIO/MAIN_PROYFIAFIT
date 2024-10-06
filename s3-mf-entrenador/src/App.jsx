@@ -4,12 +4,12 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Inicio from "./pages/Inicio/Inicio";
 import Visualizar from "./pages/VisualizarMetricasAlumno/VisualizarMetricasAlumno";
-import ListarAlumnos from "./pages/VisualizarMetricasAlumno/ListarMetricas/ListaAlumnos";
+//import ListarAlumnos from "./pages/VisualizarMetricasAlumno/ListarMetricas/ListaAlumnos";
 import RegistrarMetricas from "./pages/RegistrarMetricasAlumno/registrarMetricas/RegistrarMetricasAlumno";
 import AlumnoCheckin from "./pages/VisualizarMetricasAlumno/Checking-Metricas/AlumnoCheckin";
 import VistaNoRegisrado from "./pages/RegistrarMetricasAlumno/VistaNoRegistradoMetricas/Ir-Registrar-Metrica";
 import ListStudents from "./pages/listStudents/ListStudents";
-import AsignarAlumno2 from "./pages/asignaralumno/AsignarAlumno2";
+//import AsignarAlumno2 from "./pages/asignaralumno/AsignarAlumno2";
 import Planes from "./pages/Planes";
 import PlanEntrenamientoDia from "./pages/PlanEntrenamientoDia/PlanEntrenamientoDia.jsx"
 import RegistrarEntrenamientoDia from "./pages/RegistrarEntrenamientoDia/RegistrarEntrenamientoDia.jsx";

@@ -4,36 +4,57 @@ import { useNavigate } from 'react-router-dom';
 const RegistroEntrenamiento = () => {
   const [ejercicios, setEjercicios] = useState([]);
   const [NdiaSeleccionado, setDiaSeleccionado] = useState('');
-  const [diaSeleccionado, DiasetDiaSeleccionado] = useState('');
+  const [diaSeleccionado, setDiaSeleccionadoState] = useState('');
+  const [grupoSeleccionadoNombre, setGrupoSeleccionadoNombre] = useState(''); // Cambia el estado para el nombre del grupo muscular
+  const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
   const navigate = useNavigate();
-
+  
   useEffect(() => {
-    const diaGuardado = localStorage.getItem('NdiaSeleccionado');
-    setDiaSeleccionado(diaGuardado);
-    const diaSeleccionado = localStorage.getItem('diaSeleccionado');
-    DiasetDiaSeleccionado(diaSeleccionado);
-    const storedEjercicios = JSON.parse(localStorage.getItem('ejercicios')) || [];
-    setEjercicios(storedEjercicios);
+    try {
+        const diaGuardado = localStorage.getItem('NdiaSeleccionado');
+        setDiaSeleccionado(diaGuardado);
+
+        const diaSeleccionado = localStorage.getItem('diaSeleccionado');
+        setDiaSeleccionadoState(diaSeleccionado);
+
+        const storedEjercicios = localStorage.getItem('ejercicios');
+        if (storedEjercicios) {
+            setEjercicios(JSON.parse(storedEjercicios));  
+        }
+        
+        // Recuperar el grupo muscular
+        const storedGrupoMuscular = localStorage.getItem('gruposMusculares');
+        if (storedGrupoMuscular) {
+            setGrupoSeleccionadoNombre(storedGrupoMuscular); // Aquí se establece como cadena
+        }
+
+        // Recuperar el nombre del alumno
+        const storedStudentName = localStorage.getItem('selectedStudentName'); // Recuperar el nombre del alumno
+        if (storedStudentName) {
+            setStudentName(storedStudentName); // Asignar el nombre del alumno
+        }
+    } catch (error) {
+        console.error('Error parsing JSON data from localStorage:', error);
+    }
   }, []);
 
-  const trainingPlanId = 11;  
-  const focus = "Espalda";  
+  const trainingPlanId = 11; // ID del plan de entrenamiento
+  const focus = grupoSeleccionadoNombre || 'Sin grupo muscular'; // Manejo de grupo muscular
 
   const handleSave = async () => {
     const payload = {
-      plan_day_id: NdiaSeleccionado,
       training_plan_id: trainingPlanId,
-      day: parseInt(NdiaSeleccionado, 10),  
+      day: parseInt(NdiaSeleccionado, 10), 
       focus: focus,
       exercises: ejercicios.map(ejercicio => ({
-        day_exercise_id: diaSeleccionado || null,  
-        plan_day_id: NdiaSeleccionado,
-        exercise_id: ejercicio.id,  
-        sets: ejercicio.series,  
-        reps: ejercicio.repeticiones  
+        exercise_id: ejercicio.exercise_id,          
+        sets: ejercicio.series,             
+        reps: ejercicio.repeticiones        
       }))
     };
-   
+    
+    console.log('Ejercicios:', payload);
+    
     try {
       const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-28', {
         method: 'POST',
@@ -71,7 +92,6 @@ const RegistroEntrenamiento = () => {
 
   return (
     <div className="bg-gray-100 min-h-screen flex flex-col items-center relative">
-      {/* Contenedor flex para alinear los botones en el mismo nivel */}
       <div className="w-full flex justify-between items-center p-4">
         <button
           onClick={handleRegresar}
@@ -89,15 +109,16 @@ const RegistroEntrenamiento = () => {
       </div>
 
       <h1 className="text-red-600 text-xl font-bold mt-8">Registro de Entrenamiento</h1>
-      <h2 className="text-gray-700 text-lg mb-4">Nombre del Alumno</h2>
-     
+      
+      <h2 className="text-gray-700 text-lg mb-4">{studentName || 'Nombre del Alumno'}</h2> {/* Mostrar el nombre del alumno */}
+
       <h3 className="text-red-600 text-lg font-semibold">{diaSeleccionado}</h3>
 
       <div className="w-full max-w-4xl bg-gray-400 shadow-md rounded-lg p-4 mt-4">
         <table className="w-full text-center text-white">
           <thead>
             <tr>
-              <th className="p-2 text-gray-600">Espalda</th>
+              <th className="p-2 text-gray-600">{focus}</th>
               <th className="p-2 text-gray-600">Ejercicio</th>
               <th className="p-2 text-gray-600">Repeticiones</th>
               <th className="p-2 text-gray-600">Series</th>
