@@ -7,7 +7,9 @@ export default function Navbar(){
                 <img src={"/logo-3.png"} alt="logo fia fit" className="w-[30vh] h-[10vh]" />
             </Link>
             <div className="flex flex-row items-center mr-4 gap-20">
-                <h1 className="text-[20px] font-bold" style={{color:"#4B4F57"}}>Inicio</h1>
+                <Link to="/">
+                    <h1 className="text-[20px] font-bold" style={{color:"#4B4F57"}}>Inicio</h1>
+                </Link>
                 <img src={"/icono-user.png"} alt="icono usuario" className="border border-white rounded-full w-[8vh] h-[6vh]"/>
             </div>
         </nav>

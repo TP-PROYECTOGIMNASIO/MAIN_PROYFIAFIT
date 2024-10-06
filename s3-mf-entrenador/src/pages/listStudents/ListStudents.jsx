@@ -26,6 +26,8 @@ const ListStudents = () => {
   const openModal = (student) => {
     setSelectedStudent(student);
     setIsModalOpen(true);
+    // Guardar el nombre del alumno en localStorage
+    localStorage.setItem('selectedStudentName', student.nombres);
   };
 
   const closeModal = () => {
@@ -33,7 +35,6 @@ const ListStudents = () => {
     setSelectedStudent(null);
   };
 
-  // Función que llama a la API de plan de entrenamiento cuando se hace clic en el botón "Plan de Entrenamiento"
   const handlePlanEntrenamientoClick = async () => {
     try {
       const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-27?client_id=${selectedStudent.client_id}`, {
@@ -50,7 +51,7 @@ const ListStudents = () => {
         console.log('Plan de entrenamiento encontrado:', trainingPlanData);
         navigate(`/TrainingPlanOk?client_id=${selectedStudent.client_id}`);
       } else {
-        navigate(`/Trainingplan?client_id=${selectedStudent.client_id}`); // Redirigir si no hay plan de entrenamiento
+        navigate(`/Trainingplan?client_id=${selectedStudent.client_id}`); 
       }
     } catch (error) {
       console.error('Error fetching training plan:', error);
@@ -72,8 +73,8 @@ const ListStudents = () => {
             type="text"
             placeholder="Buscar..."
             className="p-3 pl-10 w-96 bg-gray-200 border border-gray-300 rounded-none text-black"
-            value={searchTerm} // Asociamos el valor del input al estado searchTerm
-            onChange={(e) => setSearchTerm(e.target.value)} // Actualizamos el estado con el valor ingresado
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -162,19 +163,18 @@ const ListStudents = () => {
               </div>
             </div>
             <div className="flex">
-  <div className="flex-1 flex flex-col mr-4">
-    <button className="bg-[#b31b20] text-white py-2 px-4 rounded-md mb-2">HORARIO</button>
-    <div className="flex justify-center w-full"> {/* Centrado horizontal con ancho completo */}
-      <Link to={'/vista-no-registrado'} className="bg-[#b31b20] text-white py-2 px-4 rounded-md w-full text-center">MÉTRICAS</Link>
-    </div>
-  </div>
-  <div className="flex-1 flex flex-col">
-    <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN ALIMENTICIO</button>
-    <button  className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2 " onClick={handlePlanEntrenamientoClick}> PLAN DE ENTRENAMIENTO</button>
-    <button className="bg-gray-700 text-white py-2 px-4 rounded-md">REPORTE DE FISIOTERAPIA</button>
-  </div>
-</div>
-
+              <div className="flex-1 flex flex-col mr-4">
+                <button className="bg-[#b31b20] text-white py-2 px-4 rounded-md mb-2">HORARIO</button>
+                <div className="flex justify-center w-full">
+                  <Link to={'/vista-no-registrado'} className="bg-[#b31b20] text-white py-2 px-4 rounded-md w-full text-center">MÉTRICAS</Link>
+                </div>
+              </div>
+              <div className="flex-1 flex flex-col">
+                <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN ALIMENTICIO</button>
+                <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2" onClick={handlePlanEntrenamientoClick}>PLAN DE ENTRENAMIENTO</button>
+                <button className="bg-gray-700 text-white py-2 px-4 rounded-md">REPORTE DE FISIOTERAPIA</button>
+              </div>
+            </div>
           </div>
         </div>
       )}
