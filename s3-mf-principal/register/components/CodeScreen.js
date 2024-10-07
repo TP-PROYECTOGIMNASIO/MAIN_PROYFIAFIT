@@ -11,21 +11,23 @@ const CodeScreen = () => {
 
 
   const {username, password} = route.params;
-
+  console.log('Username:', username);
+  console.log('Password:', password);
   const handleButtonClick = () => {
     const codeString = confirmationCode.join('');
     
     
     axios.patch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/auth/hu-tp-02', {
-      username,
+      username: username,
       confirmationCode: codeString,
-      newPassword: password,
+      newPassword: password,   
+      
     })
     .then(response => {
       console.log('Respuesta completa de la API:', response);
       console.log('Datos de la API:', response.data);
       
-      if (response.data.message === 'Código de confirmación válido.') {
+      if (response.data.message === 'Código de verificación enviado para restablecer la contraseña.') {
         
         navigation.navigate('TipoClienteScreen');
       } else {
@@ -38,7 +40,7 @@ const CodeScreen = () => {
       Alert.alert('Error', 'Ocurrió un error. Por favor, intenta nuevamente.');
     });
     //estp permite seguir a la siguiente sin validar
-    navigation.navigate('TipoClienteScreen');
+    //navigation.navigate('TipoClienteScreen');
   };
   return (
     <View style={styles.container}>

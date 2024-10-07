@@ -4,7 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import PasarellaPago from './PaymentMethods'; 
 
 const ClienteRegular2Screen = ({ route, navigation }) => {
-  const { plan, detalle, inscripcion, precio, total } = route.params || {};
+  const { plan, detalle, inscripcion, precio } = route.params || {};
   const [showPasarellaPago, setShowPasarellaPago] = useState(false);
   const [Tipo, setTipo] = useState();
   const [FormaPago, setFormaPago] = useState();
@@ -24,7 +24,7 @@ const ClienteRegular2Screen = ({ route, navigation }) => {
   };
 
   const redirectToPage = () => {
-    window.location.href = '/aa.html?precio=' + total + '&descripcion='+plan ; 
+    window.location.href = '/aa.html'; 
   };
 
   const handleClosePayment = () => {
@@ -58,9 +58,9 @@ const ClienteRegular2Screen = ({ route, navigation }) => {
               open={TipoOpen}
               setOpen={setTipoOpen}
               items={[
-                /* { label: 'Seleccione', value: 0 },
+                { label: 'Seleccione', value: 0 },
                 { label: 'Membresía Básica', value: 6 },
-                { label: 'Membresía Pro', value: 7 }, */
+                { label: 'Membresía Pro', value: 7 },
               ]}
               value={Tipo}
               setValue={setTipo}
@@ -99,8 +99,8 @@ const ClienteRegular2Screen = ({ route, navigation }) => {
               setOpen={setSedeOpen}
               items={[
                 { label: 'Sede 1', value: 'sede1' },
-                /* { label: 'Sede 2', value: 'sede2' },
-                { label: 'Sede 3', value: 'sede3' }, */
+                { label: 'Sede 2', value: 'sede2' },
+                { label: 'Sede 3', value: 'sede3' },
               ]}
               value={Sede}
               setValue={setSede}
@@ -244,7 +244,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     position:'absolute',
     top:'100%',
-    //zIndex:1000,
+    zIndex:1000,
   },
   dropDownArrow: {
     color: '#B71C1C',
