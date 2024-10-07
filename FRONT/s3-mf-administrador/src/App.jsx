@@ -10,7 +10,7 @@ import TipoProductos from "./pages/tipoProductos/tipoProductos";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import TipoEjercicios from "./pages/tipoEjercicios/TipoEjercicios";
+import TipoEjercicios from "./pages/tipoEjercicios/tipoEjercicios";
 import Lista_Productos from "../pages/Mantener_Productos/Lista_Productos";
 
 function App() {
