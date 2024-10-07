@@ -3,7 +3,7 @@ import { View, Text, TextInput, StyleSheet, ScrollView, TouchableOpacity } from 
 import DropDownPicker from 'react-native-dropdown-picker';
 import styles from './registerStyles'; 
 import axios from 'axios';
-
+import Toast from 'react-native-toast-message';
 
 const RegisterScreen = ({ navigation }) => {
 
@@ -25,68 +25,72 @@ const RegisterScreen = ({ navigation }) => {
   const [country, setCountry] = useState('');
   const [postal_code, setPostalCode] = useState('');
 
-
   const [generoOpen, setGeneroOpen] = useState(false);
   const [relacionOpen, setRelacionOpen] = useState(false);
   
+  const [usuario, setUsername] = useState('');
 
+  
   const handleRegister = () => {
-
-    const username = nombre.charAt(0).toUpperCase() + apellidoPaterno.toUpperCase();
-
-    axios.post('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/clientes/hu-tp-04', {
-      document,
-      mail,
-      phone,
-      password,
-      photo,
-      gender_id,
-      code: 'ABC123',
-      city:'Lima',
-      address,
-      country:'Perú',
-      postal_code:'15001',
-      emergecy_contact,
-      emergency_contact_phone_number
+    const formData = new FormData();
+  
+    formData.append('document', document);
+    formData.append('mail', mail);
+    formData.append('phone', phone);
+    formData.append('password', password);
+    formData.append('photo', photo);
+    formData.append('gender_id', gender_id);
+    formData.append('code', 'ABC123');
+    formData.append('city', 'Lima');
+    formData.append('address', address);
+    formData.append('country', 'Perú');
+    formData.append('postal_code', '15001');
+    formData.append('emergecy_contact', emergecy_contact);
+    formData.append('emergency_contact_phone_number', emergency_contact_phone_number);
+  
+    axios.post('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/clientes/hu-tp-04', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
     })
-    .then(response => {
-      console.log('Respuesta completa de la API:', response);
-      console.log('Datos de la API:', response.data);
-
-      if (response.data.message === 'Registro exitoso.') {
-        const decoded = decodeJWT(response.data.idToken);
-        console.log(decoded);
-        Toast.show({
-          type: 'success',
-          position: 'top',
-          text1: 'Registro Exitoso',
-          text2: 'Redirigiendo a codescreen...',
-        });
-        setTimeout(() => {
-          navigation.navigate('login');
-        }, 2000);
-        navigation.navigate('CodeScreen',{username, password}); // Navega a la pantalla CodeScreen
-      } else {
+      .then(response => {
+        console.log('Respuesta completa de la API:', response);
+        console.log('Datos de la API:', response.data);
+  
+        if (response.data.message === 'Usuario creado exitosamente') {
+          /* const decoded = decodeJWT(response.data.idToken);
+          console.log(decoded); */
+          Toast.show({
+            type: 'success',
+            position: 'top',
+            text1: 'Registro Exitoso',
+            text2: `Usuario creado: ${response.data.username}`,
+          });
+          setTimeout(() => {
+            // La navegación debe estar aquí, dentro del bloque 'then'
+            navigation.navigate('CodeScreen', {username: response.data.username, password: password});
+          }, 2000);
+        } else {
+          Toast.show({
+            type: 'error',
+            position: 'top',
+            text1: 'Registro Fallido',
+            text2: response.data.message || 'Error de validación',
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error en la API:', error.response ? error.response.data : error.message);
         Toast.show({
           type: 'error',
           position: 'top',
-          text1: 'Registro Fallido',
-          text2: response.data.message || 'Error de validación',
+          text1: 'Registrado',
+          text2: 'Ocurrió un error. Por favor, intenta nuevamente.',
         });
-      }
-    })
-    .catch(error => {
-      console.error('Error en la API:', error.response ? error.response.data : error.message);
-      Toast.show({
-        type: 'error',
-        position: 'top',
-        text1: 'Registro Fallido',
-        text2: 'Ocurrió un error. Por favor, intenta nuevamente.',
       });
-    });
-      //no hace la validacion
-      navigation.navigate('CodeScreen',{username, password}); // Navega a la pantalla CodeScreen
   };
+  
+
 
   return (
     <ScrollView contentContainerStyle={styles.contentContainer}>
@@ -215,9 +219,9 @@ const RegisterScreen = ({ navigation }) => {
               setOpen={setRelacionOpen}
               items={[
                 { label: 'Seleccione tipo de relación', value: '' },
-                { label: 'Familiar', value: 'familiar' },
-                { label: 'Amigo', value: 'amigo' },
-                { label: 'Comercial', value: 'comercial' },
+                { label: 'Familiar', value: 1 },
+                { label: 'Amigo', value: 2 },
+                { label: 'Comercial', value: 3 },
               ]}
               value={relacion}
               setValue={setRelacion}
