@@ -58,6 +58,15 @@ phases:
       - aws s3 sync ./FRONT/s3-mf-instructor/build s3://s3-mf-instructor-qa --delete
       - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
+      # Invalidar distribuciones de CloudFront
+      - echo "Invalidando CloudFront distributions..."
+      - aws cloudfront create-invalidation --distribution-id E387W3KVBFISMC --paths "/*"  # ADMINISTRADOR
+      - aws cloudfront create-invalidation --distribution-id E12PKWQMR513DS --paths "/*"  # INSTRUCTOR
+      - aws cloudfront create-invalidation --distribution-id E1AV69YSSPL4OH --paths "/*"  # RECEPCIONISTA
+      - aws cloudfront create-invalidation --distribution-id E1N5D5HMR6IN3L --paths "/*"  # PRINCIPAL
+      - aws cloudfront create-invalidation --distribution-id E3TJLWWXEQ165V --paths "/*"  # MANAGER
+      - aws cloudfront create-invalidation --distribution-id E1PRP0CC8NOI6J --paths "/*"  # ENTRENADOR
+      - aws cloudfront create-invalidation --distribution-id E6399C0179BQG --paths "/*"  # CLIENTES
 
 artifacts:
   files:
