@@ -14,7 +14,7 @@ const TrainingPlan = () => {
   }, []);
 
   const handleGeneratePlan = () => {
-    navigate('/TrainingPlanOk');
+    navigate('/PlanEntrenamientoDia');
   };
 
   return (

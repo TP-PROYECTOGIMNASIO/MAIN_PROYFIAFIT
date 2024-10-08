@@ -26,8 +26,12 @@ const ListStudents = () => {
   const openModal = (student) => {
     setSelectedStudent(student);
     setIsModalOpen(true);
+    
     // Guardar el nombre del alumno en localStorage
     localStorage.setItem('selectedStudentName', student.nombres);
+    
+    // Guardar el client_id en localStorage
+    localStorage.setItem('selectedClientId', student.client_id);
   };
 
   const closeModal = () => {
@@ -49,6 +53,10 @@ const ListStudents = () => {
       
       if (trainingPlanData.training_plan) {
         console.log('Plan de entrenamiento encontrado:', trainingPlanData);
+
+        // Guardar el training_plan_id en localStorage si existe
+        localStorage.setItem('trainingPlanId', trainingPlanData.training_plan.training_plan_id);
+        console.log('Plan ID:', trainingPlanData.training_plan.training_plan_id);
         navigate(`/TrainingPlanOk?client_id=${selectedStudent.client_id}`);
       } else {
         navigate(`/Trainingplan?client_id=${selectedStudent.client_id}`); 
