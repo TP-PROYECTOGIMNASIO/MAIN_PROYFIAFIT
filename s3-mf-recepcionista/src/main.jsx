@@ -8,6 +8,8 @@ import ClienteLibre from './clientelibre.jsx';
 import ClienteRegular from './clienteregular.jsx';
 import ClienteRegular2 from './clienteregular2.jsx';
 import './css/index.css'
+import './index.css'
+
 createRoot(document.getElementById('root')).render(
 <Router>
     <Routes>
