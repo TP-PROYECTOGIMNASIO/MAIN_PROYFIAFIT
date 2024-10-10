@@ -5,16 +5,23 @@ import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
 import './index.css'
 
 import HUVISUALLIZARINICIOSEGN from './pages/HUVISUALLIZARINICIOSEGN';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
 
   return (
     <>
       <Router>
+        <>
+        <Navbar/>
         <Routes>
           <Route  path="/" element={<HUVISUALLIZARINICIOSEGN />} />
 
         </Routes>
+        <Footer/>
+        </>
+
       </Router>
 
     </>
