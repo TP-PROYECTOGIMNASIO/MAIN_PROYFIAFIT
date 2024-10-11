@@ -1,56 +1,31 @@
-import { useEffect } from "react";
-import {
-  Routes,
-  Route,
-  useNavigationType,
-  useLocation,
-} from "react-router-dom";
-import HU01INICIARSESINPRINCIPA from "./pages/HU01INICIARSESINPRINCIPA";
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
+import './index.css'
+
+import HUVISUALLIZARINICIOSEGN from './pages/HUVISUALLIZARINICIOSEGN';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 function App() {
 
-
-  const action = useNavigationType();
-  const location = useLocation();
-  const pathname = location.pathname;
-
-
-  
-  useEffect(() => {
-    if (action !== "POP") {
-      window.scrollTo(0, 0);
-    }
-  }, [action, pathname]);
-
-  useEffect(() => {
-    let title = "";
-    let metaDescription = "";
-
-    switch (pathname) {
-      case "/":
-        title = "";
-        metaDescription = "";
-        break;
-    }
-
-    if (title) {
-      document.title = title;
-    }
-
-    if (metaDescription) {
-      const metaDescriptionTag = document.querySelector(
-        'head > meta[name="description"]'
-      );
-      if (metaDescriptionTag) {
-        metaDescriptionTag.content = metaDescription;
-      }
-    }
-  }, [pathname]);
-
   return (
-    <Routes>
-      <Route path="/" element={<HU01INICIARSESINPRINCIPA />} />
-    </Routes>
-  );
+    <>
+      <Router>
+        <>
+        <Navbar/>
+        <Routes>
+          <Route  path="/" element={<HUVISUALLIZARINICIOSEGN />} />
+
+        </Routes>
+        <Footer/>
+        </>
+
+      </Router>
+
+    </>
+  )
 }
-export default App;
+
+export default App

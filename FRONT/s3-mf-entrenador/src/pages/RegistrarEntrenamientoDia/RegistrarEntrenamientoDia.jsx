@@ -154,7 +154,9 @@ export default function RegistroEntrenamientoDia() {
                             <img
                                 src={ejercicio.image_url}
                                 alt={ejercicio.name}
-                                className="w-full h-36 rounded mb-4"
+                                className="w-full h-36 object-cover rounded mb-4"
+
+                                /*className="w-full h-auto object-cover rounded mb-4"*/
                             />
 
 
