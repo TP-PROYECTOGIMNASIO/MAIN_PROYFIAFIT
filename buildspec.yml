@@ -36,7 +36,10 @@ phases:
       - cd FRONT/s3-mf-instructor
       - npm install && npm run build
       - cd .. && cd ..
-
+      # MF - FISIOTERAPEUTA
+      - cd FRONT/s3-mf-fisioterapeuta
+      - npm install && npm run build
+      - cd .. && cd ..
       
   pre_build:
     commands:
@@ -59,6 +62,7 @@ phases:
       - aws s3 sync ./FRONT/s3-mf-principal/dist s3://s3-mf-principal-qa --delete
       - aws s3 sync ./FRONT/s3-mf-recepcionista/dist s3://s3-mf-recepcionista-qa --delete
       - aws s3 sync ./FRONT/s3-mf-instructor/dist s3://s3-mf-instructor-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-fisioterapeuta/dist s3://s3-mf-fisioterapeuta-qa --delete
 
 artifacts:
   files:
