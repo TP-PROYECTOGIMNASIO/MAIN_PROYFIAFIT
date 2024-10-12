@@ -51,7 +51,9 @@ phases:
       
   pre_build:
     commands:
-
+      - aws s3api create-bucket --bucket s3-mf-fisioterapeuta-qa --region us-east-2 || echo "Bucket s3-mf-fisioterapeuta-qa ya existe"
+      - aws s3api create-bucket --bucket s3-mf-nutricionista-qa --region us-east-2 || echo "Bucket s3-mf-nutricionista-qa ya existe"
+      
   build:
     commands:
       - sam build --debug || { echo "SAM build failed"; exit 1; }
