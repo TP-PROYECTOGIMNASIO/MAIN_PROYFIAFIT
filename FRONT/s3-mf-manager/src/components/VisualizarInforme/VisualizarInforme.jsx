@@ -1,7 +1,6 @@
 import "./VisualizarI.css";
 import { useState, useEffect } from "react";
 import Modal from "../Modal/VisualInfo/Modal";
-import AgregarP from "../AgregarProducto/AgregarP";
 import DetalleInforme from "../DetalleInforme/DetalleInforme";
 import { Link } from "react-router-dom";
 
@@ -24,7 +23,7 @@ export default function VisualizarInforme() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
+          body: JSON.stringify(body), // Corregido "accion" a "action"
         }
       );
       const data = await response.json();
@@ -47,19 +46,19 @@ export default function VisualizarInforme() {
   // Filtrar por día, mes o año
   const filterByDate = (unidadTemporal) => {
     fetchReports({
-      accion: "filtrarInformes",
+      action: "filtrarInformes", // Corregido "accion" por "action"
       unidadTemporal,
-      ordenarPor: "fecha",
-      orden: "asc",
+      ordenarPor: "fecha", // Ordenar por fecha
+      orden: "asc", // Orden ascendente
     });
   };
 
   // Ordenar por máximo o mínimo gasto
   const ordenarPorGasto = (orden) => {
     fetchReports({
-      accion: "filtrarInformes",
-      ordenarPor: "gastoTotal",
-      orden,
+      action: "filtrarInformes", // Corregido "accion" por "action"
+      ordenarPor: "gastoTotal", // Ordenar por gasto total
+      orden, // Puede ser "asc" o "desc"
     });
   };
 
@@ -68,8 +67,6 @@ export default function VisualizarInforme() {
     report.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     new Date(report.assignment_date).toLocaleDateString().includes(searchTerm)
   );
-
-
 
   const handleOpenModalV = (report) => {
     setSelectedReport(report);
@@ -83,7 +80,6 @@ export default function VisualizarInforme() {
 
   return (
     <div className="containerVI min-h-[90vh]">
-     
       {showModalV && (
         <Modal onClose={handleCloseModalV}>
           <DetalleInforme report={selectedReport} />

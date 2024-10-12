@@ -12,7 +12,8 @@ import Sedes from "./pages/sedes/Sedes";
 import Footer from "./components/Footer";
 import InformePrincipal from "./pages/visualizarInforme/InformePrincipal";
 import RegistrarCompra from "./components/RegistrarCompra/RegistrarCompra";
-
+import InventarioSedeP from "./pages/inventario/InventarioSedeP";
+import ProductoSedeI from "./components/InventarioSede/ProductoSedeI";
 import Tipodeproducto from "./pages/inventario/Tipodeproducto";
 import ActualizarInventarioSedes from "./pages/inventario/ActualizarInventarioSedes";
 import GenerarNuevoInventario from "./pages/inventario/GenerarNuevoInventario";
@@ -80,6 +81,13 @@ function App() {
 
         
       } />
+      <Route path="/Inventario-Sede" element={<InventarioSedeP />} />
+      <Route path="/Inventario-Sede/Producto-Sede" element={
+         <>
+         <Navbar />
+         <ProductoSedeI />
+         <Footer/>
+         </>} />
       <Route path="/Informe-Compra" element={<InformePrincipal />} />
       <Route path="/Informe-Compra/Registrar-Compra" element={
         <>
