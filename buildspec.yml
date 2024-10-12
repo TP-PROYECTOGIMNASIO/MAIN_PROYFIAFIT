@@ -68,9 +68,9 @@ phases:
       - aws s3 sync ./FRONT/s3-mf-principal/dist s3://s3-mf-principal-qa --delete
       - aws s3 sync ./FRONT/s3-mf-recepcionista/dist s3://s3-mf-recepcionista-qa --delete
       - aws s3 sync ./FRONT/s3-mf-instructor/build s3://s3-mf-instructor-qa --delete
-      - aws s3 sync ./FRONT/s3-mf-nutricionista/dist s3://s3-mf-instructor-qa --delete
-      - aws s3 sync ./FRONT/s3-mf-encargado/dist s3://s3-mf-instructor-qa --delete
-      - aws s3 sync ./FRONT/s3-mf-fisioterapeuta/dist s3://s3-mf-instructor-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-nutricionista/dist s3://s3-mf-nutricionista-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-encargado/dist s3://s3-mf-encargado-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-fisioterapeuta/dist s3://s3-mf-fisioterapeuta-qa --delete
       - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 
