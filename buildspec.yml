@@ -60,6 +60,7 @@ phases:
     commands:
       - sam package --template-file template.yml --output-template-file packaged.yml --s3-bucket s3-alm-lambda-qa --debug
       - aws cloudformation deploy --template-file packaged.yml --stack-name stack-qa-dso --capabilities CAPABILITY_NAMED_IAM --region us-east-2
+      - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - echo "Deploying Microfront 1"
       - aws s3 sync ./FRONT/s3-mf-administrador/build s3://s3-mf-administrador-qa --delete
       - aws s3 sync ./FRONT/s3-mf-clientes/dist s3://s3-mf-clientes-qa --delete
@@ -67,11 +68,10 @@ phases:
       - aws s3 sync ./FRONT/s3-mf-manager/dist s3://s3-mf-manager-qa --delete
       - aws s3 sync ./FRONT/s3-mf-principal/dist s3://s3-mf-principal-qa --delete
       - aws s3 sync ./FRONT/s3-mf-recepcionista/dist s3://s3-mf-recepcionista-qa --delete
-      - aws s3 sync ./FRONT/s3-mf-instructor/build s3://s3-mf-instructor-qa --delete
+      - aws s3 sync ./FRONT/s3-mf-instructor/dist s3://s3-mf-instructor-qa --delete
       - aws s3 sync ./FRONT/s3-mf-nutricionista/dist s3://s3-mf-nutricionista-qa --delete
       - aws s3 sync ./FRONT/s3-mf-encargado/dist s3://s3-mf-encargado-qa --delete
       - aws s3 sync ./FRONT/s3-mf-fisioterapeuta/dist s3://s3-mf-fisioterapeuta-qa --delete
-      - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 
 artifacts:
