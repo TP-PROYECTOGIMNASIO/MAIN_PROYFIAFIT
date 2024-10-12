@@ -51,7 +51,9 @@ phases:
       
   pre_build:
     commands:
-
+      - aws s3api create-bucket --bucket s3-mf-fisioterapeuta-qa --region us-east-2 || echo "Bucket s3-mf-fisioterapeuta-qa ya existe"
+      - aws s3api create-bucket --bucket s3-mf-nutricionista-qa --region us-east-2 || echo "Bucket s3-mf-nutricionista-qa ya existe"
+      
   build:
     commands:
       - sam build --debug || { echo "SAM build failed"; exit 1; }
@@ -71,7 +73,6 @@ phases:
       - aws s3 sync ./FRONT/s3-mf-nutricionista/dist s3://s3-mf-instructor-qa --delete
       - aws s3 sync ./FRONT/s3-mf-encargado/dist s3://s3-mf-instructor-qa --delete
       - aws s3 sync ./FRONT/s3-mf-fisioterapeuta/dist s3://s3-mf-instructor-qa --delete
-      
       - aws cloudformation describe-stack-events --stack-name stack-qa-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 

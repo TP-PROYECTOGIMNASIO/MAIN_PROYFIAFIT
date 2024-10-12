@@ -17,10 +17,10 @@ const ManagerPage = () => {
 
         <div className="grid grid-cols-3 gap-12">
           {/* Columna 1 - Información de Inventarios */}
-          <div className="text-left">
-            <h2 className="text-xl font-semibold bg-red-600 text-white py-2 px-4 rounded-t-lg">
+          <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
+          <Link to="/Inventario-Sede" className="text-xl font-semibold bg-red-600 text-white py-2 px-4 rounded-t-lg">
               Información de Inventarios
-            </h2>
+              </Link>
             <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
               <Link to="/sedes" className="bg-white text-red-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
                 Sedes →
