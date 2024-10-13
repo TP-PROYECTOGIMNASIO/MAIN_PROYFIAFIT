@@ -40,6 +40,7 @@ phases:
       - cd FRONT/s3-mf-fisioterapeuta
       - npm install && npm run build
       - cd .. && cd ..
+      #
       
   pre_build:
     commands:
