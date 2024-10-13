@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 
 const PlanForm = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,6 +14,12 @@ const PlanForm = () => {
   const [proteinGr, setProteinGr] = useState('');
   const [carbohydratesGr, setCarbohydratesGr] = useState('');
   const [dailyCaloriesKcal, setDailyCaloriesKcal] = useState('');
+
+  /*CODIGO PARA OBTENER EL ID DEL CLIENTE DE LA URL*/ 
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const clientId = params.get('client_id');
   
   const [dayData, setDayData] = useState({
     breakfast: '',
@@ -40,6 +48,11 @@ const PlanForm = () => {
   };
 
   const handleSubmit = async () => {
+    if (!clientId) {
+      alert("No se encontró el ID del cliente en la URL.");
+      return;
+    }
+
     const allRegistered = Object.keys(registeredDays).length === 5;
 
     if (allRegistered) {
@@ -52,7 +65,7 @@ const PlanForm = () => {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              client_id: 1, //cambiar el id seleccionando el alumno
+              client_id: clientId, // Usar el clientId obtenido de la URL
               name_plan: namePlan,
               start_date: startDate,
               end_date: endDate,
@@ -107,7 +120,7 @@ const PlanForm = () => {
   return (
     <div className="min-h-[82.25vh] bg-gray-100 flex flex-col items-center justify-center py-4 relative">
       {/* Botón Regresar */}
-      <button className="absolute top-4 left-4 text-gray-600 text-2xl hover:text-black">
+      <button onClick={() => window.history.back()} className="absolute top-4 left-4 text-gray-600 text-2xl hover:text-black">
         <span>&lt; Regresar</span>
       </button>
 
