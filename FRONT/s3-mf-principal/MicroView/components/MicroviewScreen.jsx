@@ -37,13 +37,13 @@ export default function MicroviewScreen() {
     urlNew = "https://dlfxmk04c8l4u.cloudfront.net";
 
   }else if(role ==='encargado'){
-    urlNew = "https://s3-mf-encargado.netlify.app/";
+    urlNew = "https://d33a2p3oofplz1.cloudfront.net/";
 
   }else if(role==='fisioterapeuta'){
-    urlNew = "https://s3-mf-fisioterapeuta.netlify.app/";
+    urlNew = "https://d1f9oglz3r6l8a.cloudfront.net/";
 
   }else if(role==='nutricionista'){
-    urlNew = "https://s3-mf-nutricionista.netlify.app/";
+    urlNew = "https://d27br7ner8n8n5.cloudfront.net/";
 
   }
   const handleNavigateToDashboard = () => {

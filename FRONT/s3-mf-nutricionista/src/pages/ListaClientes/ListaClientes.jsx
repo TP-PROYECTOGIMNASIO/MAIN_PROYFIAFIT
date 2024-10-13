@@ -66,10 +66,13 @@ const ListaClientes = () => {
   };
 
   const handlePlanAlimenticio = () => {
-    if (selectedClient) {
-      navigate(`/PlanAlimenticio?client_id=${selectedClient.client_id}`);
+    if (selectedClient && selectedClient.client_id) {
+      console.log("Client ID:", selectedClient.client_id); // Verifica el valor aquí
+      navigate(`/Plan-Nutricion?client_id=${selectedClient.client_id}`);
     }
   };
+  
+  
 
   const getBackgroundColor = (estadoPlan) => {
     switch (estadoPlan) {
@@ -100,8 +103,16 @@ const ListaClientes = () => {
 
   return (
     <div className="bg-white shadow-md rounded p-8 m-8">
+      
       <div className="mb-6 text-center">
         <h2 className="text-4xl font-semibold" style={{ color: '#834044' }}>Lista de Clientes</h2>
+        <button
+            onClick={() => window.history.back()}
+            className="absolute top-32 left-5 text-gray-600 text-2xl hover:text-black"
+            >
+          <span>&lt; Regresar</span>
+        </button>
+
       </div>
       <div className="flex mb-6 items-center">
         <label 
