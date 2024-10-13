@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import { BrowserRouter as Router, Routes,Route } from "react-router-dom";
 import './index.css'
 import DietPlanDetail from './pages/DietPlanDetail.jsx';
@@ -10,6 +9,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PlanNutricion from './pages/PlanNutricion/PlanNutricion';
 import PlanForm from './pages/PlanForm/PlanForm.jsx';
+import ListaClientes from "./pages/ListaClientes/ListaClientes";
 
 function App() {
 
@@ -24,9 +24,10 @@ function App() {
 
           <Route  path="/Plan-Form" element={<PlanForm />} />
           <Route path="/plan" element={<DietPlanList />} />
-        <Route path="/plan/:dietPlanId" element={<DietPlanDetail />} />  
+          <Route path="/plan/:dietPlanId" element={<DietPlanDetail />} />  
 
           <Route  path="/Plan-Form" element={<PlanForm />} />  
+          <Route path="/listar-clientes" element={<ListaClientes />} />
 
         </Routes>
         <Footer/>
