@@ -14,7 +14,7 @@ const PlanNutricion = () => {
   const clientId = params.get('client_id');
 
   // Configura la fecha de prueba
-  const manualDate = new Date('2024-10-14'); // Cambia esta fecha a la deseada, para hacer las pruebas puse esta fecha y comente el return de la niea 40 
+  //const manualDate = new Date('2024-10-14'); // Cambia esta fecha a la deseada, para hacer las pruebas puse esta fecha y comente el return de la niea 40 
 
   useEffect(() => {
     if (clientId) {
@@ -37,16 +37,16 @@ const PlanNutricion = () => {
           const activePlan = clientPlans.find(plan => {
             const startDate = new Date(plan.start_date);
             const endDate = new Date(plan.end_date);
-            /*return (
+            return (
               startDate.toDateString() === today.toDateString() && // Inicio en el día actual
               startDate <= today && 
               endDate >= today
-            );*/
-            return (
+            );
+            /*return (
               startDate.toDateString() === manualDate.toDateString() && 
               startDate <= manualDate && 
               endDate >= manualDate
-            );
+            );*/
           });
           setCurrentDietPlan(activePlan);
         })
