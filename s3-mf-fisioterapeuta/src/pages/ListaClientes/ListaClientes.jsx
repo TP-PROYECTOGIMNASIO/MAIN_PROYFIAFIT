@@ -209,7 +209,7 @@ const ListaClientes = () => {
                 <div className="flex justify-around items-center mt-2 space-x-2">
 
                   <p><strong>Género:</strong> {selectedClient.genero}</p>
-                  <p><strong>Edad:</strong> {selectedClient.genero}</p>
+                 
                 </div>
          
                 <div className="flex justify-center mt-6">
