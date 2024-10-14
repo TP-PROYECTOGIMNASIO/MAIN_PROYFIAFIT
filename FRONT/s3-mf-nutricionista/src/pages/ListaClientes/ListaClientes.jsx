@@ -228,16 +228,14 @@ const ListaClientes = () => {
                 <div className="flex justify-around items-center mt-2 space-x-2">
 
                   <p><strong>Género:</strong> {selectedClient.genero}</p>
-                  <p><strong>Edad:</strong> {selectedClient.genero}</p>
+                  <p><strong>Peso:</strong> {selectedClient.body_metrics.weight} kg</p>
                 </div>
                 <div className="flex justify-around items-center mt-2 space-x-2">
+                <p><strong>Objetivos Nutricionales:</strong> {selectedClient.body_metrics.goal}</p>
 
-                  <p><strong>Peso:</strong> {selectedClient.body_metrics.weight} kg</p>
                   <p><strong>Altura:</strong> {selectedClient.body_metrics.height} m</p>
                 </div>
                 <div className="flex justify-around items-center mt-2 space-x-2">
-
-                  <p><strong>Objetivos Nutricionales:</strong> {selectedClient.body_metrics.goal}</p>
                   <p><strong>IMC:</strong> {selectedClient.body_metrics.imc}</p>
                 </div>
                 <div className="flex justify-center mt-6">
