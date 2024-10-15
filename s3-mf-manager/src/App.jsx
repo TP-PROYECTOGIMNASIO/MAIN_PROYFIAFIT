@@ -1,14 +1,10 @@
 import { useEffect } from "react";
-import {
-  Routes,
-  Route,
-  useNavigationType,
-  useLocation,
-} from "react-router-dom";
+import { Routes, Route, useNavigationType, useLocation } from "react-router-dom";
 import HUVISUALLIZARINICIOSEGN from "./pages/HUVISUALLIZARINICIOSEGN";
 import EmployeeList from "./components/EmployeeList/EmployeeList";
 import Navbar from "./components/Navbar";
 import Sedes from "./pages/sedes/Sedes";
+import RegistrarSedes from "./pages/sedes/RegistrarSedes";
 import Footer from "./components/Footer";
 import InformePrincipal from "./pages/visualizarInforme/InformePrincipal";
 import RegistrarCompra from "./components/RegistrarCompra/RegistrarCompra";
@@ -19,114 +15,74 @@ import ActualizarInventarioSedes from "./pages/inventario/ActualizarInventarioSe
 import GenerarNuevoInventario from "./pages/inventario/GenerarNuevoInventario";
 import MemberPage from "./pages/membresias/MembershipPage";
 
+function Layout({ children }) {
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
+  );
+}
 
 function App() {
   const action = useNavigationType();
   const location = useLocation();
-  const pathname = location.pathname;
+  const { pathname } = location;
 
   useEffect(() => {
     if (action !== "POP") {
       window.scrollTo(0, 0);
     }
-  }, [action, pathname]);
+  }, [action]);
 
   useEffect(() => {
-    let title = "";
-    let metaDescription = "";
+    const titles = {
+      "/": "Inicio",
+      "/empleados": "Lista de Empleados",
+      "/sedes": "Sedes",
+      "/membresias": "Membresías",
+      "/GenerarTipoProducto": "Tipo de Producto",
+      "/ActualizarInventarioSedes": "Actualizar Inventario",
+      "/GenerarNuevoInventario": "Nuevo Inventario",
+    };
 
-    switch (pathname) {
-      case "/":
-        title = "";
-        metaDescription = "";
-        break;
-    }
+    const metaDescriptions = {
+      "/": "Descripción de la página de inicio",
+      "/empleados": "Lista de empleados de la empresa",
+      "/sedes": "Información sobre las sedes",
+      "/membresias": "Página de membresías",
+      "/GenerarTipoProducto": "Página para generar un nuevo tipo de producto",
+      "/ActualizarInventarioSedes": "Actualizar inventarios por sedes",
+      "/GenerarNuevoInventario": "Generar un nuevo inventario",
+    };
 
-    if (title) {
-      document.title = title;
-    }
+    const title = titles[pathname] || "App";
+    const metaDescription = metaDescriptions[pathname] || "Descripción por defecto";
 
-    if (metaDescription) {
-      const metaDescriptionTag = document.querySelector(
-        'head > meta[name="description"]'
-      );
-      if (metaDescriptionTag) {
-        metaDescriptionTag.content = metaDescription;
-      }
+    document.title = title;
+    const metaDescriptionTag = document.querySelector('meta[name="description"]');
+    if (metaDescriptionTag) {
+      metaDescriptionTag.content = metaDescription;
     }
   }, [pathname]);
 
   return (
     <Routes>
-      <Route path="/" element={
-        <>
-          <Navbar />
-          <HUVISUALLIZARINICIOSEGN />
-          <Footer/>
-        </>
-      } />
-      <Route path="/empleados" element={
-        <>
-          <Navbar />
-          <EmployeeList />
-          <Footer/>
-        </>
-      } />
-      <Route path="/sedes" element={
-        <>
-          <Navbar />
-          <Sedes />
-          <Footer/>
-        </>
-
-        
-      } />
-      <Route path="/Inventario-Sede" element={<InventarioSedeP />} />
-      <Route path="/Inventario-Sede/Producto-Sede" element={
-         <>
-         <Navbar />
-         <ProductoSedeI />
-         <Footer/>
-         </>} />
-      <Route path="/Informe-Compra" element={<InformePrincipal />} />
-      <Route path="/Informe-Compra/Registrar-Compra" element={
-        <>
-        <Navbar />
-        <RegistrarCompra />
-        <Footer/>
-        </>} />
-      <Route path="/membresias" element={
-        <>
-          <Navbar />
-          <MemberPage />
-          <Footer/>
-        </>
-
-      
-      } />
-      <Route path="/GenerarTipoProducto" element={
-        <>
-          <Navbar />
-          <Tipodeproducto />
-          <Footer/>
-        </>
-      } />
-      <Route path="/ActualizarInventarioSedes" element={
-        <>
-          <Navbar />
-          <ActualizarInventarioSedes />
-          <Footer/>
-        </>
-
-        } />
-      <Route path="/GenerarNuevoInventario" element={
-        <>
-          <Navbar />
-            <GenerarNuevoInventario/>
-          <Footer/>
-        </>
-      } />
+      <Route path="/" element={<Layout><HUVISUALLIZARINICIOSEGN /></Layout>} />
+      <Route path="/empleados" element={<Layout><EmployeeList /></Layout>} />
+      <Route path="/sedes" element={<Layout><Sedes /></Layout>} />
+      <Route path="/registrar-sedes" element={<Layout><RegistrarSedes /></Layout>} />
+      <Route path="/membresias" element={<Layout><MemberPage /></Layout>} />
+      <Route path="/GenerarTipoProducto" element={<Layout><Tipodeproducto /></Layout>} />
+      <Route path="/ActualizarInventarioSedes" element={<Layout><ActualizarInventarioSedes /></Layout>} />
+      <Route path="/GenerarNuevoInventario" element={<Layout><GenerarNuevoInventario /></Layout>} />
+      <Route path="/Inventario-Sede" element={<Layout><InventarioSedeP /></Layout>} />
+      <Route path="/Inventario-Sede/Producto-Sede" element={<Layout><ProductoSedeI /></Layout>} />
+      <Route path="/Informe-Compra" element={<Layout><InformePrincipal /></Layout>} />
+      <Route path="/Informe-Compra/Registrar-Compra" element={<Layout><RegistrarCompra /></Layout>} />
     </Routes>
   );
 }
+
 export default App;
