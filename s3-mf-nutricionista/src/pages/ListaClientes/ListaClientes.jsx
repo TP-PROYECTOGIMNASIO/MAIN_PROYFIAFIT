@@ -7,6 +7,14 @@ const ListaClientes = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMembership, setSelectedMembership] = useState('');
+  const [isRegisterMetricsModalOpen, setIsRegisterMetricsModalOpen] = useState(false);
+  const [metrics, setMetrics] = useState({
+    weight: '',
+    height: '',
+    goals: '',
+    imc: ''
+  });
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,6 +72,56 @@ const ListaClientes = () => {
     setIsModalOpen(false);
     setSelectedClient(null);
   };
+
+  const openRegisterMetricsModal = () => {
+    setIsRegisterMetricsModalOpen(true);
+  };
+
+  const closeRegisterMetricsModal = () => {
+    setIsRegisterMetricsModalOpen(false);
+    setMetrics({ weight: '', height: '', goals: '', imc: '' });
+  };
+
+  // Handle metric input changes
+  const handleMetricsChange = (e) => {
+    const { name, value } = e.target;
+    setMetrics(prevMetrics => ({ ...prevMetrics, [name]: value }));
+  };
+
+  // Función para validar los campos
+const validateMetrics = () => {
+  const { weight, height, goals, imc } = metrics;
+  if (!weight || isNaN(weight)) {
+    alert("Por favor, ingrese un peso válido.");
+    return false;
+  }
+  if (!height || isNaN(height)) {
+    alert("Por favor, ingrese una altura válida.");
+    return false;
+  }
+  if (!goals) {
+    alert("Por favor, ingrese sus objetivos nutricionales.");
+    return false;
+  }
+  if (!imc || isNaN(imc)) {
+    alert("Por favor, ingrese un IMC válido.");
+    return false;
+  }
+  return true;
+};
+
+// Actualizar la función de guardado de métricas
+const saveMetrics = () => {
+  // Validar los campos antes de guardar
+  if (!validateMetrics()) {
+    return;
+  }
+  
+  // Aquí colocas la lógica para guardar las métricas
+  console.log("Métricas guardadas correctamente:", metrics);
+  // Cierra el modal después de guardar
+  closeRegisterMetricsModal();
+};
 
   const handlePlanAlimenticio = () => {
     if (selectedClient && selectedClient.client_id) {
@@ -223,34 +281,156 @@ const ListaClientes = () => {
                 </div>
               </div>
 
+
+
               <div className="text-center w-full">
-                <p><strong>Nombre Completo:</strong> {selectedClient.nombres}</p>
-                <div className="flex justify-around items-center mt-2 space-x-2">
+  <p><strong>Nombre Completo:</strong> {selectedClient.names} {selectedClient.father_last_name} {selectedClient.mother_last_name}</p>
 
-                  <p><strong>Género:</strong> {selectedClient.genero}</p>
-                  <p><strong>Peso:</strong> {selectedClient.body_metrics.weight} kg</p>
-                </div>
-                <div className="flex justify-around items-center mt-2 space-x-2">
-                <p><strong>Objetivos Nutricionales:</strong> {selectedClient.body_metrics.goal}</p>
+  {/* Verificación de métricas corporales */}
+  {typeof selectedClient.body_metrics === "object" ? (
+    <>
+      <div className="flex justify-around items-center mt-2 space-x-2">
+        <p><strong>Género:</strong> {selectedClient.gender}</p>
+        <p><strong>Peso:</strong> {selectedClient.body_metrics.weight} kg</p>
+      </div>
+      <div className="flex justify-around items-center mt-2 space-x-2">
+        <p><strong>Objetivos Nutricionales:</strong> {selectedClient.body_metrics.goals}</p>
+        <p><strong>Altura:</strong> {selectedClient.body_metrics.height} cm</p>
+      </div>
+      <div className="flex justify-around items-center mt-2 space-x-2">
+        <p><strong>IMC:</strong> {selectedClient.body_metrics.imc}</p>
+      </div>
+      <div className="flex justify-center mt-6">
+        <button 
+          className="bg-red-600 text-white py-2 px-6 rounded-md"
+          onClick={handlePlanAlimenticio}
+        >
+          PLAN ALIMENTICIO
+        </button>
+      </div>
+    </>
+  ) : (
+    <>
+      {/*<p className="mt-4 text-gray-600">{selectedClient.body_metrics}</p>*/}
+       {/* Mensaje alternativo si no hay métricas */}
+       <p className="mt-4 text-gray-600">Aun no cuenta con métricas registradas</p>
+      <div className="flex justify-center mt-6">
+      <button 
+                      className="bg-red-600 text-white py-2 px-6 rounded-md"
+                      onClick={openRegisterMetricsModal}
+                    >
+                      REGISTRAR MÉTRICAS
+                    </button>
+      </div>
+    </>
+  )}
+</div>
 
-                  <p><strong>Altura:</strong> {selectedClient.body_metrics.height} m</p>
-                </div>
-                <div className="flex justify-around items-center mt-2 space-x-2">
-                  <p><strong>IMC:</strong> {selectedClient.body_metrics.imc}</p>
-                </div>
-                <div className="flex justify-center mt-6">
-                  <button 
-                    className="bg-red-600 text-white py-2 px-6 rounded-md"
-                    onClick={handlePlanAlimenticio}
-                  >
-                    PLAN ALIMENTICIO
-                  </button>
-                </div>
-              </div>
+
+
             </div>
           </div>
         </div>
       )}
+
+{/* Modal para registrar métricas */}
+{isRegisterMetricsModalOpen && (
+  <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
+    <div className="bg-white rounded-lg w-[600px] h-auto p-6 relative flex flex-col">
+      <button
+        className="absolute top-2 right-4 text-black text-2xl"
+        style={{ backgroundColor: 'transparent', border: 'none' }}
+        onClick={closeRegisterMetricsModal}
+      >
+        &times;
+      </button>
+      <h2 className="text-red-700 text-xl font-bold text-center">REGISTRAR MÉTRICAS</h2>
+      <div className="flex items-center justify-center mt-2 mb-4">
+                <div className="w-32 h-32 bg-white flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-32 h-32 text-red-600"
+                    fill="none"
+                    viewBox="0 0 32 24"
+                  >
+                    <circle cx="16" cy="10" r="6" stroke="currentColor" strokeWidth="2" />
+                    <path d="M6 26a10 10 0 0 1 20 0" stroke="currentColor" strokeWidth="2" fill="none" />
+                  </svg>
+                </div>
+              </div>
+      <div className="flex flex-col gap-4">
+      <p><strong>Nombre Completo:</strong> {selectedClient.names} {selectedClient.father_last_name} {selectedClient.mother_last_name}</p>
+      <p><strong>Género:</strong> {selectedClient.gender}</p>
+
+        
+        {/* Fila para Peso y Altura */}
+        <div className="flex gap-4">
+          <div className="flex items-center flex-1">
+            <label className="font-medium w-1/3">Peso (kg):</label>
+            <input
+              type="text"
+              name="weight"
+              value={metrics.weight}
+              onChange={handleMetricsChange}
+              placeholder="Peso"
+              className="p-2 border border-gray-300 rounded flex-1" 
+            />
+          </div>
+          <div className="flex items-center flex-1">
+            <label className="font-medium w-1/3">Altura (cm):</label>
+            <input
+              type="text"
+              name="height"
+              value={metrics.height}
+              onChange={handleMetricsChange}
+              placeholder="Altura"
+              className="p-2 border border-gray-300 rounded flex-1" 
+            />
+          </div>
+        </div>
+        
+        {/* Fila para Objetivos Nutricionales y IMC */}
+        <div className="flex gap-4">
+          <div className="flex items-center flex-1">
+            <label className="font-medium w-1/3">Objetivos Nutricionales:</label>
+            <input
+              type="text"
+              name="goals"
+              value={metrics.goals}
+              onChange={handleMetricsChange}
+              placeholder="Objetivos"
+              className="p-2 border border-gray-300 rounded flex-1" 
+            />
+          </div>
+          <div className="flex items-center flex-1">
+            <label className="font-medium w-1/3">IMC:</label>
+            <input
+              type="text"
+              name="imc"
+              value={metrics.imc}
+              onChange={handleMetricsChange}
+              placeholder="IMC"
+              className="p-2 border border-gray-300 rounded flex-1" 
+            />
+          </div>
+        </div>
+        <div className="flex justify-center mt-6">
+          {/* Botón para registrar métricas */}
+          <button
+            className="bg-red-600 text-white py-2 px-6 rounded-md"
+            onClick={saveMetrics}
+          >
+            REGISTRAR MÉTRICAS
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+
+
+
     </div>
   );
 };
