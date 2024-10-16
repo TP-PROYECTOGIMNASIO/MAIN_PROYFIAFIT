@@ -12,12 +12,12 @@ const MembershipTable = ({ memberships, setMemberships, onDisableMembership }) =
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4">
-        {memberships.length > 0 ? (
+      <div className="flex flex-col items-center gap-2"> {/* Flex column para centrar y espaciar */}
+      {memberships.length > 0 ? (
           memberships.map((membership) => (
             <button
               key={membership.id}
-              className="bg-red-600 text-white py-4 rounded text-xl font-bold"
+              className="bg-red-600 text-white py-2 px-8 rounded text-sm font-bold w-80 hover:bg-red-500 transition duration-200"
               onClick={() => handleMembershipClick(membership)}
             >
               {membership.name}

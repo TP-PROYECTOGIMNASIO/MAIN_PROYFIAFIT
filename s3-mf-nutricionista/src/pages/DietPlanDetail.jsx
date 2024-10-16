@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation  } from 'react-router-dom';
 
 // Función para convertir el número de día en nombre de día
 const getDayName = (dayNumber) => {
@@ -10,7 +10,10 @@ const getDayName = (dayNumber) => {
 };
 
 const DietPlanDetail = () => {
-  const { dietPlanId } = useParams();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const dietPlanId = queryParams.get('plan_id'); // Extrae dietPlanId de la query
+  const clientId = queryParams.get('client_id');
   const [dietPlan, setDietPlan] = useState(null);
   const navigate = useNavigate(); // Para manejar la navegación del botón "Regresar"
 

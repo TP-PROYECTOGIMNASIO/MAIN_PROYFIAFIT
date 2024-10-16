@@ -92,19 +92,19 @@ export default function Sedes() {
                         filteredSedes.map((sede, index) => (
                             <div key={index} className="border rounded-lg shadow-lg w-80 bg-gray-200">
                                 <img
-                                    src={sede.imgSrc || 'https://via.placeholder.com/300'} // Imagen predeterminada si no existe
-                                    alt={`Sede ${sede.sede}`}
+                                    src={sede.image_url || 'https://via.placeholder.com/300'} // Imagen predeterminada si no existe
+                                    alt={`Sede ${sede.name}`}
                                     className="w-full h-48 object-cover rounded-t-lg"
                                 />
                                 <div className="p-4 text-center">
                                     <h2 className="text-[24px] font-semibold text-[#62060b]">
-                                        Sede: {sede.sede}
+                                        Sede: {sede.name}
                                     </h2>
                                     {/* Combo box para el estado */}
                                     <div className="mt-4 flex justify-center relative">
                                         <select
                                             className="block w-32 px-4 py-1 pr-8 rounded bg-[#b5121c] text-white text-center appearance-none"
-                                            defaultValue={sede.estado}
+                                            defaultValue={sede.status}
                                         >
                                             <option value="Activo" className="text-center">Activo</option>
                                             <option value="Inactivo" className="text-center">Inactivo</option>
