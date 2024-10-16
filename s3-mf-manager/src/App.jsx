@@ -78,7 +78,7 @@ function App() {
       <Route path="/ActualizarInventarioSedes" element={<Layout><ActualizarInventarioSedes /></Layout>} />
       <Route path="/GenerarNuevoInventario" element={<Layout><GenerarNuevoInventario /></Layout>} />
       <Route path="/Inventario-Sede" element={<Layout><InventarioSedeP /></Layout>} />
-      <Route path="/Inventario-Sede/Producto-Sede" element={<Layout><ProductoSedeI /></Layout>} />
+      <Route path="/Inventario-Sede/Producto-Sede/:locationId" element={<Layout><ProductoSedeI /></Layout>} />
       <Route path="/Informe-Compra" element={<Layout><InformePrincipal /></Layout>} />
       <Route path="/Informe-Compra/Registrar-Compra" element={<Layout><RegistrarCompra /></Layout>} />
     </Routes>

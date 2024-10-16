@@ -8,6 +8,8 @@ const ListaClientes = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMembership, setSelectedMembership] = useState('');
   const [isRegisterMetricsModalOpen, setIsRegisterMetricsModalOpen] = useState(false);
+  const [metricsRegistered, setmetricsRegistered] = useState(false); // Estado para manejar el mensaje de éxito
+
   const [metrics, setMetrics] = useState({
     weight: '',
     height: '',
@@ -74,12 +76,15 @@ const ListaClientes = () => {
   };
 
   const openRegisterMetricsModal = () => {
+    setMetrics({ weight: '', height: '', goals: '', imc: '' }); // Resetea las métricas al abrir el modal
     setIsRegisterMetricsModalOpen(true);
+    setmetricsRegistered(false); // Reinicia el estado de éxito
   };
 
   const closeRegisterMetricsModal = () => {
     setIsRegisterMetricsModalOpen(false);
     setMetrics({ weight: '', height: '', goals: '', imc: '' });
+    setmetricsRegistered(false); // Reinicia el estado de éxito al cerrar el modal
   };
 
   // Handle metric input changes
@@ -111,17 +116,72 @@ const validateMetrics = () => {
 };
 
 // Actualizar la función de guardado de métricas
-const saveMetrics = () => {
-  // Validar los campos antes de guardar
+const registerMetrics = async () => {
+  // Validar los campos antes de enviar
   if (!validateMetrics()) {
+    return; // Salir si la validación falla
+  }
+
+  // Crea el objeto de datos para enviar
+  const metricData = {
+    weight: parseFloat(metrics.weight), // Peso convertido a número
+    height: parseFloat(metrics.height), // Altura convertida a número
+    name: metrics.goals, // Objetivos del cliente
+    imc: parseFloat(metrics.imc) // IMC convertido a número
+  };
+
+  // ID DEL CLIENTE
+  const bm_client = selectedClient.client_id // ID del cliente
+
+   // Verifica que bm_client no sea undefined o null
+   if (!bm_client) {
+    console.error("El bm_client es obligatorio y no se está enviando.");
+    alert("El bm_client es obligatorio y no se está enviando.");
     return;
   }
-  
-  // Aquí colocas la lógica para guardar las métricas
-  console.log("Métricas guardadas correctamente:", metrics);
-  // Cierra el modal después de guardar
-  closeRegisterMetricsModal();
+
+  try {
+    const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/metricas-alumno/hu-tp-89?client_id=${selectedClient.client_id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ ...metricData, bm_client }), // Envía metricData y bm_client como parte del JSON
+    });
+
+    if (!response.ok) {
+      const errorDetails = await response.text(); // Captura el error detallado
+      throw new Error(`Error al registrar métricas: ${response.status} - ${errorDetails}`);
+    }
+
+    const result = await response.json(); // Obtener la respuesta en formato JSON
+    console.log("Métricas registradas:", result);
+    
+    // Actualiza el estado para mostrar el mensaje de éxito
+    setmetricsRegistered(true); 
+
+    // Cerrar el modal y limpiar los datos después de registrar las métricas
+    closeRegisterMetricsModal(); // Cerrar modal
+    alert('Métricas registradas con éxito'); // Mensaje de éxito
+
+    // Actualizar el cliente seleccionado en el estado (opcional)
+    const updatedClient = {
+      ...selectedClient,
+      weight: metricData.weight,
+      height: metricData.height,
+      imc: metricData.imc,
+      goals: metricData.name,
+      hasMetrics: true, // Indica que el cliente tiene métricas registradas
+    };
+
+    setSelectedClient(updatedClient); // Actualiza el cliente seleccionado
+  } catch (error) {
+    console.error('Error al registrar métricas:', error); // Muestra el error en consola
+    alert('Hubo un problema al registrar las métricas.'); // Mensaje de error
+  }
 };
+
+
 
   const handlePlanAlimenticio = () => {
     if (selectedClient && selectedClient.client_id) {
@@ -262,8 +322,7 @@ const saveMetrics = () => {
             <button
               className="absolute top-2 right-4 text-black text-2xl"
               style={{ backgroundColor: 'transparent', border: 'none' }}
-              onClick={closeModal}
-            >
+              onClick={closeModal} >
               &times;
             </button>
             <div className="flex flex-col items-center mb-4">
@@ -368,7 +427,8 @@ const saveMetrics = () => {
           <div className="flex items-center flex-1">
             <label className="font-medium w-1/3">Peso (kg):</label>
             <input
-              type="text"
+              type="number"
+              id="weight"
               name="weight"
               value={metrics.weight}
               onChange={handleMetricsChange}
@@ -379,9 +439,11 @@ const saveMetrics = () => {
           <div className="flex items-center flex-1">
             <label className="font-medium w-1/3">Altura (cm):</label>
             <input
-              type="text"
+              type="number"
+              id="height"
               name="height"
               value={metrics.height}
+              step="0.01"
               onChange={handleMetricsChange}
               placeholder="Altura"
               className="p-2 border border-gray-300 rounded flex-1" 
@@ -395,8 +457,10 @@ const saveMetrics = () => {
             <label className="font-medium w-1/3">Objetivos Nutricionales:</label>
             <input
               type="text"
+              id="goals"
               name="goals"
               value={metrics.goals}
+              step="0.01"
               onChange={handleMetricsChange}
               placeholder="Objetivos"
               className="p-2 border border-gray-300 rounded flex-1" 
@@ -405,9 +469,11 @@ const saveMetrics = () => {
           <div className="flex items-center flex-1">
             <label className="font-medium w-1/3">IMC:</label>
             <input
-              type="text"
+              type="number"
+              id="imc"
               name="imc"
               value={metrics.imc}
+              step="0.01"
               onChange={handleMetricsChange}
               placeholder="IMC"
               className="p-2 border border-gray-300 rounded flex-1" 
@@ -418,7 +484,7 @@ const saveMetrics = () => {
           {/* Botón para registrar métricas */}
           <button
             className="bg-red-600 text-white py-2 px-6 rounded-md"
-            onClick={saveMetrics}
+            onClick={registerMetrics}
           >
             REGISTRAR MÉTRICAS
           </button>
@@ -427,6 +493,18 @@ const saveMetrics = () => {
     </div>
   </div>
 )}
+
+          {metricsRegistered && (
+              <div className="mt-4 text-center">
+                <p className="text-green-600 font-bold">Métricas registradas correctamente</p>
+                <button 
+                  className="bg-blue-600 text-white py-2 px-6 rounded-md mt-4"
+                  onClick={closeModal}
+                >
+                  OK
+                </button>
+              </div>
+            )}
 
 
 
