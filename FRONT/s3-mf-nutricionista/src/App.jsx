@@ -24,7 +24,7 @@ function App() {
 
           <Route  path="/Plan-Form" element={<PlanForm />} />
           <Route path="/plan" element={<DietPlanList />} />
-          <Route path="/plan/:dietPlanId" element={<DietPlanDetail />} />  
+          <Route path="/visualizar-plan" element={<DietPlanDetail />} />  
 
           <Route path="/listar-clientes" element={<ListaClientes />} />
 

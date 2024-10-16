@@ -26,6 +26,11 @@ PRUEBA 2 YAML MAIN FRONT DEV & FRONT 33333
 
 ## solo en los microfronts de REACT + VITE SE USA TAILWINDCSS, EN EL MICROFRONT PRINCIPAL NO SE USA 
 
+En el principal instale estas dos librerias el dia 16/10/2024
+
+npm install react-native-modal
+
+expo install expo-location
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
