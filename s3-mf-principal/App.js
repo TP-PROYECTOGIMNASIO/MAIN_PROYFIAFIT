@@ -71,7 +71,9 @@ function MainStack() {
         <Stack.Screen name="ClienteRegularScreen" component={ClienteRegularScreen} options={{ headerShown: false }}/>
         <Stack.Screen name="ClienteRegular2Screen" component={ClienteRegular2Screen} options={{ headerShown: false }}/>
         <Stack.Screen name="ClienteLibreScreen" component={ClienteLibreScreen} options={{ headerShown: false }}/>  
-        <Stack.Screen name="UpdatePassword" component={UpdatePassword} options={{ headerShown: false }} />      
+        <Stack.Screen name="UpdatePassword" component={UpdatePassword} options={{ headerShown: false }} />     
+        <Stack.Screen name="CheckIn" component={CheckInScreen} options={{ headerShown: false }} />
+ 
       </Stack.Navigator>
       <Footer />
       <Toast />
