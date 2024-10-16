@@ -1,125 +1,86 @@
-import { StyleSheet } from "react-native-web";
+// styles.js
+import { StyleSheet } from 'react-native';
+
 export default StyleSheet.create({
+  scrollContainer: {
+    flexGrow: 1, // Permite que el contenido se expanda
+    alignItems: 'center', // Centra los elementos horizontalmente
+    paddingBottom: 20, // Espacio inferior para el desplazamiento
+  },
   container: {
     flex: 1,
-  
-  },
-  navbar: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: 10,
-    backgroundColor: '#000000',
-  },
-  navbarText: {
-    fontSize: 20,
-    color: '#fff',
-  },
-  //Tamaño logo FIA FIT
-  logo: {
-    width: 300,
-   height: 110,
-   resizeMode: 'contain',
-  },
-  
-  //Estilo fondo inicio de sesion
-  backgroundImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
     justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10, 
+    marginTop: 10, 
+    backgroundColor: '#f0f0f0',
   },
-
-  // Cuadro que envuelve el inicio de sesion
-  loginBox: {
-  alignSelf: 'center',
-  margin: ' auto',
-  position: 'absolute',
-  top: '70px',
-  left: '41%',
-  borderRadius: 10,
-  backgroundColor: 'rgba(243, 244, 247, 0.8)',
-  maxWidth: '100%',  
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  padding: 50,
-  boxSizing: 'border-box',
-  gap: 'var(--gap-8xl)',
-  zIndex: 50
-  
-    
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'flex-start', // Asegúrate de que el contenido esté al principio
+    width: '100%',
   },
-  //Estilo Tituos de iniciar sesion
-  loginTitle: {
-    fontSize: 16,
-    marginBottom: 20,
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
     textAlign: 'center',
-    fontWeight: 'bold', // Negrita
-    fontFamily: 'Times New Roman, Times, serif', // Fuente Times New Roman
-    color: '#8c1c13', // Color de la letra (negro en este caso)
+    marginBottom: 0, // Mantener un espacio pequeño
+    marginTop: 50,
+    color: '#333',
   },
+  cardContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center', // Centra las tarjetas horizontalmente
 
-  loginTitle2: {
-    fontSize: 12,
-    marginBottom: 5,
-    textAlign: 'center',
-    fontWeight: 'bold', // Negrita
-    fontFamily: 'Times New Roman, Times, serif' // Fuente Times New Roman
+    width: '100%',
+    marginTop: 50, // Añadir margen superior para separar del título
   },
-
-  input: {
-    height: 40,
-    backgroundColor: '#2f2e2e', 
-    borderColor: '#ddd',
-    borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 8,
-    borderRadius: 5,
-    color: '#fff', 
+  card: {
+    height: 400, // Mantén el tamaño uniforme para todas las tarjetas
+    backgroundColor: '#d3d3d3',
+    width: '30%',
+    borderRadius: 8,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'flex-start', // Alinea el contenido verticalmente al inicio
+    paddingVertical: 10,
+    paddingHorizontal: 10, // Agrega un poco de padding horizontal
   },
-  button: {
-    margin: 8,
+  cardHeader: {
+    height: 60,
+    width: '100%',
     backgroundColor: '#B5121C',
-    padding: 10,
-    borderRadius: 5,
-    
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  cardImage: {
+    width: '100%', // Ajusta el ancho de la imagen al 100%
+    height: 200, // Ajusta la altura de la imagen
+    resizeMode: 'cover',
+    marginBottom: 10, // Espacio entre la imagen y el título
+  },
+  
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginVertical: 0, // Establecer margen vertical en 0
+    marginTop: 10, // Agrega un poco de margen superior para el título
+    textAlign: 'center',
+    color: '#333', // Color del texto del título
+  },
+  
+  cardButton: {
+    backgroundColor: '#B5121C',
+    borderRadius: 4,
+    paddingVertical: 8, // Ajustar el padding vertical
+    paddingHorizontal: 20,
+    marginTop: 10, // Espaciado entre el botón y el título
   },
   buttonText: {
-    
     color: '#fff',
+    fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 20,
-    
-  },
-  linkText: {
-    color: '#000',
-    textAlign: 'center',
-    marginTop: 10,
-    fontWeight: 'bold', // Negrita
-    fontFamily: 'Times New Roman, Times, serif' // Fuente Times New Roman
-  },
-  registerText: {
-    color: '#ff0000', 
-    fontWeight: 'bold', // Negrita
-    fontFamily: 'Times New Roman, Times, serif' // Fuente Times New Roman
-  },
-
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: 'black',
-    padding: 10,
-  },
-  copyright: {
-    color: 'white',
-    fontSize: 14,
-  },
-  socialIcons: {
-    flexDirection: 'row',
-  },
-  icon: {
-    marginLeft: 15, // Espacio entre los iconos
   },
 });
