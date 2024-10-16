@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Importar el hook para la navegación
+import { useNavigate } from "react-router-dom"; // Import for navigation
 
 const AsignarAlumno3 = ({ isOpen, title }) => {
   const [view, setView] = useState("asignar");
-  const [dni, setDni] = useState(""); // Para almacenar el DNI ingresado
-  const [clienteData, setClienteData] = useState([]); // Inicializar como array
-  const [modalVisible, setModalVisible] = useState(isOpen); // Control interno del modal
-  const [clientId, setClientId] = useState(null); // Almacenar el ID del cliente
-  const [staffId] = useState(4); // ID del personal, puedes cambiarlo según corresponda
-  const navigate = useNavigate(); // Hook para la navegación
+  const [dni, setDni] = useState(""); // Store the entered DNI
+  const [clienteData, setClienteData] = useState([]); // Initialize as an array
+  const [modalVisible, setModalVisible] = useState(isOpen); // Internal control of the modal
+  const [clientId, setClientId] = useState(null); // Store the client ID
+  const [staffId] = useState(4); // Staff ID, you can change it as needed
+  const navigate = useNavigate(); // Hook for navigation
 
-  // Abrir el modal automáticamente cuando se carga el componente
+  // Open the modal automatically when the component loads
   useEffect(() => {
-    setModalVisible(true); // Mostrar el modal cuando el componente se monta
+    setModalVisible(true); // Show the modal when the component mounts
   }, []);
 
-  // Manejar el cierre del modal y redirigir a "/"
+  // Handle modal closing and redirect to "/"
   const handleClose = () => {
-    setModalVisible(false); // Cerrar el modal
-    navigate("/"); // Redirigir a la página principal
+    setModalVisible(false); // Close the modal
+    navigate("/"); // Redirect to the main page
   };
 
   const handleSearch = async () => {
@@ -28,17 +28,19 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
     }
 
     try {
-      const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-25?document=${dni}`);
+      const response = await fetch(
+        `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-25?document=${dni}`
+      );
       const data = await response.json();
 
       if (response.ok) {
-        setClienteData(Array.isArray(data) ? data : [data]); // Asegurarse de que sea un array
-        setClientId(data[0].client_id); // Suponiendo que el ID del cliente está en data[0].id
-        setView("cliente"); // Cambiar a la vista de cliente
-        console.log("Respuesta de la API:", data);
+        setClienteData(Array.isArray(data) ? data : [data]); // Ensure it's an array
+        setClientId(data[0].client_id); // Assuming client ID is in data[0].client_id
+        setView("cliente"); // Change to the client view
+        console.log("API Response:", data);
       } else {
         alert("Cliente no encontrado.");
-        setClienteData([]); // Limpiar el estado si no se encuentra el cliente
+        setClienteData([]); // Clear the state if the client is not found
       }
     } catch (error) {
       alert("Error al buscar el cliente: " + error.message);
@@ -52,24 +54,27 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
     }
 
     try {
-      const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-25`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          client_id: clientId,
-          staff_id: staffId,
-        }),
-      });
+      const response = await fetch(
+        `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-25`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            client_id: clientId,
+            staff_id: staffId,
+          }),
+        }
+      );
 
       const result = await response.json();
 
       if (response.ok) {
-        alert(result.body.message); // Mensaje de éxito
-        setView("terminada"); // Cambiar a la vista de terminada
+        alert(result.body.message); // Success message
+        setView("terminada"); // Change to the "completed" view
       } else {
-        alert(result.body.message); // Mensaje de error
+        alert(result.body.message); // Error message
       }
     } catch (error) {
       alert("Error al asignar el cliente: " + error.message);
@@ -77,7 +82,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
   };
 
   if (!modalVisible) {
-    return null; // No renderizar nada si el modal no está visible
+    return null; // Don't render anything if the modal is not visible
   }
 
   return (
@@ -88,7 +93,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
           <h2 className="text-2xl font-semibold">{title}</h2>
           <button
             className="text-gray-500 hover:text-gray-700 focus:outline-none"
-            onClick={handleClose} // Cerrar y redirigir al presionar "X"
+            onClick={handleClose} // Close and redirect when "X" is clicked
           >
             ✖
           </button>
@@ -118,7 +123,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
                 </button>
               </div>
             </div>
-          ) : view === "cliente" && clienteData.length > 0 ? ( // Verificar que haya clientes
+          ) : view === "cliente" && clienteData.length > 0 ? (
             <div className="bg-white p-8 rounded shadow-md">
               <div className="flex justify-center mb-4">
                 <h3 className="text-3xl font-bold text-red-600">Clientes</h3>
@@ -139,7 +144,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
                   </div>
                   <div className="w-1/2 pl-6 flex justify-center">
                     <img
-                      src="/iconoP8.png" // Ruta correcta para imágenes estáticas
+                      src="/iconoP8.png"
                       alt="Logo"
                       className="h-48 w-48 object-contain"
                     />
@@ -149,7 +154,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
               <div className="flex justify-center mt-6">
                 <button
                   className="bg-red-600 text-white px-8 py-3 rounded"
-                  onClick={handleAssign} // Llamar a la función de asignación
+                  onClick={handleAssign}
                 >
                   ASIGNAR
                 </button>
@@ -162,14 +167,14 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
               </h3>
               <div className="flex justify-center">
                 <img
-                  src="/CheckLogo.png" // Ruta correcta para imágenes estáticas
+                  src="/CheckLogo.png"
                   alt="Logo"
                   className="h-19 w-auto"
                 />
               </div>
               <button
                 className="bg-red-600 text-white px-4 py-2 rounded mt-4"
-                onClick={handleClose} // Cerrar el modal cuando termina y redirigir
+                onClick={handleClose}
               >
                 Ok
               </button>
