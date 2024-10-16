@@ -12,10 +12,9 @@ export default function ProductList() {
   const [searchTerm, setSearchTerm] = useState(""); 
   const [categories, setCategories] = useState([]);
 
+  // Función para verificar si un producto ya está en el carrito
   const checkAvailableToAddCart = (productId) => {
-    return Boolean(
-      products.find((product) => product.product_type_id === productId)
-    );
+    return Boolean(products.find((product) => product.product_id === productId));
   };
 
   const openModal = (product) => {
@@ -43,7 +42,6 @@ export default function ProductList() {
           ...new Set(data.map((product) => product.category)),
         ];
         setCategories(uniqueCategories);
-
       } catch (error) {
         console.error("Error fetching products:", error);
         setLoading(false);
@@ -53,8 +51,9 @@ export default function ProductList() {
     fetchProducts();
   }, []);
 
+  // Filtrar productos según la categoría seleccionada y el término de búsqueda
   const filteredProducts = dataProducts
-    .filter(product =>
+    .filter((product) =>
       (selectedCategory === "Todas" || product.category === selectedCategory) &&
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -105,30 +104,34 @@ export default function ProductList() {
         </h1>
 
         {filteredProducts.map((product) => (
-          <div
-            key={product.product_type_id}
-            className="rounded-lg border bg-gray-400/10 flex flex-col h-full"
-          >
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="w-full h-48 object-contain bg-white mx-auto cursor-pointer"
-              onClick={() => openModal(product)}
-            />
-            <div className="flex flex-col flex-grow gap-y-4 px-4 py-6">
-              <h1 className="font-medium">{product.name}</h1>
-              <p className="text-sm line-clamp-3">{product.description}</p>
-              <span className="font-medium">$ {product.price}</span>
-              <button
-                className="bg-red-700 hover:bg-green-800 text-slate-200 mt-auto font-medium border rounded-lg px-4 py-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-200"
-                onClick={() => addProduct(product)}
-                disabled={checkAvailableToAddCart(product.product_type_id)}
-              >
-                Agregar al carrito
-              </button>
-            </div>
-          </div>
-        ))}
+  <div
+    key={product.product_id} // Cambiado a product_id para ser único
+    className="rounded-lg border bg-gray-400/10 flex flex-col h-full"
+  >
+    <img
+      src={product.image_url}
+      alt={product.name}
+      className="w-full h-48 object-contain bg-white mx-auto cursor-pointer"
+      onClick={() => openModal(product)}
+    />
+    <div className="flex flex-col flex-grow gap-y-4 px-4 py-6">
+      <h1 className="font-medium">{product.name}</h1>
+      <p className="text-sm line-clamp-3">{product.description}</p>
+      <span className="font-medium">$ {product.price}</span>
+      <button
+        className="bg-red-700 hover:bg-green-800 text-slate-200 mt-auto font-medium border rounded-lg px-4 py-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-200"
+        onClick={() => {
+      if (!checkAvailableToAddCart(product.product_id)) {
+      addProduct(product);
+      }
+    }}
+  disabled={checkAvailableToAddCart(product.product_id)}
+>
+  Agregar al carrito
+</button>
+    </div>
+  </div>
+))}
       </div>
 
       {isModalOpen && (
@@ -137,4 +140,3 @@ export default function ProductList() {
     </div>
   );
 }
-
