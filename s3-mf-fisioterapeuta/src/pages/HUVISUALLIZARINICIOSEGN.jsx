@@ -51,14 +51,14 @@ const HUVISUALLIZARINICIOSEGN = () => {
           <div className="text-left"></div>
           <div className="text-left">
             <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
-              <button 
+<button 
                 onClick={handlePlanClick}
                 className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg"
               >
                 <h3 className="text-lg text-center">EMPEZAR PLAN</h3>
                 <h1 className="text-3xl text-center">TRATAMIENTO →</h1>
               </button>
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+              <Link to={"/ListaEjercicios"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
                 <h3 className="text-lg text-center">REGISTRAR</h3>
                 <h1 className="text-3xl text-center">EJERCICIOS →</h1>
               </Link>
