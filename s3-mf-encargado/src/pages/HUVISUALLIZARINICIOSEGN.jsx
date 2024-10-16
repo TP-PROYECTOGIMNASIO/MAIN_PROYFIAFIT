@@ -16,35 +16,22 @@ const HUVISUALLIZARINICIOSEGN = () => {
 
         <div className="grid grid-cols-2 gap-12">
           <div className="text-left">
-            <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Encargado</h3>
-                <h1 className="text-3xl text-center">1 →</h1>
-              </Link>
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Encargado</h3>
-                <h1  className="text-3xl text-center">2 →</h1>
-              </Link>
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Encargado</h3>
-                <h1 className="text-3xl text-center">3 →</h1>
-              </Link>
-            </div>
+          
           </div>
 
           <div className="text-left">
             <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
               <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
                 <h3 className="text-lg text-center">Encargado</h3>
-                <h1 className="text-3xl text-center">4 →</h1>
+                <h1 className="text-3xl text-center">1 →</h1>
               </Link>
               <Link to={"/"}className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
                 <h3 className="text-lg text-center">Encargado</h3>
-                <h1 className="text-3xl text-center">5 →</h1>
+                <h1 className="text-3xl text-center">2 →</h1>
               </Link>
               <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
                 <h3 className="text-lg text-center">Encargado</h3>
-                <h1 className="text-3xl text-center">6 →</h1>
+                <h1 className="text-3xl text-center">3 →</h1>
               </Link>
             </div>
           </div>
