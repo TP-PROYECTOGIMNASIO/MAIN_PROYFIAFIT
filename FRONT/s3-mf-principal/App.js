@@ -14,6 +14,7 @@ import TipoClienteScreen from './register/components/TipoClienteScreen';
 import ClienteRegularScreen from './register/components/ClienteRegularScreen'; 
 import ClienteRegular2Screen from './register/components/ClienteRegular2Screen';
 import ClienteLibreScreen from './register/components/ClienteLibreScreen';
+import CheckInScreen from './screens/CheckInScreen'; // Importando la nueva pantalla
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Footer from './Componentes/Footer';
@@ -41,6 +42,12 @@ export default function App() {
           component={MicroviewScreen} 
           options={{ headerShown: false }} 
         />
+        {/* Nueva pantalla de CheckIn */}
+        <Stack.Screen 
+          name="CheckIn" 
+          component={CheckInScreen}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -51,7 +58,7 @@ function MainStack() {
     <View style={styles.container}>
       <Header />
       <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} options={{ headerShown: false }} />
         <Stack.Screen name="VerificationCode" component={VerificationCodeScreen} options={{ headerShown: false }} />
