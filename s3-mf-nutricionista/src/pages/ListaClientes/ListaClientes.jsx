@@ -141,7 +141,7 @@ const registerMetrics = async () => {
   }
 
   try {
-    const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/metricas-alumno/hu-tp-89?client_id=${selectedClient.client_id}`, {
+    const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/metricas-alumno/hu-tp-89?bm_client=${selectedClient.client_id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
