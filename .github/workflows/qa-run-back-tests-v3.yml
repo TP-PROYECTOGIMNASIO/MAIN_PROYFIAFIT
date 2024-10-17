@@ -1,4 +1,4 @@
-name: Test Workflow
+name: QArunBackTestsV3
 
 on:
   push:
@@ -6,11 +6,22 @@ on:
       - 'QA'
 
 jobs:
-  test-job:
+  acciones_condicionales:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
-      - name: Checkout código
+      - name: Checkout del código
         uses: actions/checkout@v2
 
-      - name: Imprimir mensaje de prueba
-        run: echo "Workflow ejecutado correctamente"
+      - name: Instalar Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Ejecutar pruebas unitarias
+        run: |
+          cd BACK/hu-tp-01-001
+          npm install
+          npm test
