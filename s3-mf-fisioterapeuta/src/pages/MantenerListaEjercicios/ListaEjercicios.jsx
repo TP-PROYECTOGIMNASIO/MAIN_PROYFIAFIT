@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { FaEye } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 const ejerciciosData = [
   { tipo: 'Fortalecimiento', nombre: 'Isométrico', descripcion: 'Ejercicio de fuerza', activo: true },
@@ -12,6 +13,8 @@ const ListaEjercicios = () => {
   const [filtroTipo, setFiltroTipo] = useState('Todas');
   const [mostrarActivos, setMostrarActivos] = useState(true);
   const [ejercicios, setEjercicios] = useState(ejerciciosData);
+
+  const navigate = useNavigate(); // Define el hook useNavigate
 
   const filtrarEjercicios = () => {
     return ejercicios.filter(
@@ -34,8 +37,12 @@ const ListaEjercicios = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="p-4 bg-white shadow-md flex justify-between items-center">
-        <button className="text-gray-700 font-medium">&lt; Regresar</button>
-        <h1 className="text-red-600 text-xl font-bold">LISTA DE EJERCICIOS DE TRATAMIENTO</h1>
+<button
+          className="text-gray-700 font-medium"
+          onClick={() => navigate('/')}  // Agrega la función para retroceder
+        >
+          &lt; Regresar
+        </button>        <h1 className="text-red-600 text-xl font-bold">LISTA DE EJERCICIOS DE TRATAMIENTO</h1>
         <div className="flex flex-col items-end space-y-2">
           
         </div>
@@ -80,10 +87,10 @@ const ListaEjercicios = () => {
                 <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
                   + Registrar Nuevo EJERCICIO
                 </button>
-                <a href="#verTipos" className="text-red-600 flex items-center">
+                <Link to="/tipos-ejercicio" className="text-red-600 flex items-center">
                   <FaEye className="mr-2" />
                   Ver Tipos Ejercicio Tratamiento
-                </a>
+                </Link>
               </div>
             </div>
 

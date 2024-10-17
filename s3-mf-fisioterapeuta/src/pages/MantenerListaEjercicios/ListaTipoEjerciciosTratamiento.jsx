@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 const exercises = [
   {
@@ -21,14 +22,20 @@ const exercises = [
 ];
 
 function ListaTipoEjerciciosTratamiento() {
+  const navigate = useNavigate(); // Define el hook useNavigate
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {/* Header */}
       <header className="bg-white shadow w-full max-w-5xl">
         <div className="flex justify-between items-center py-4 px-6">
-          <button className="text-gray-500 hover:text-gray-700 font-semibold">
-            &lt; Regresar
-          </button>
+
+          <button
+         className="text-gray-500 hover:text-gray-700 font-semibold"
+          onClick={() => navigate('/ListaEjercicios')}  // Agrega la función para retroceder
+        >
+          &lt; Regresar
+        </button>  
           <h1 className="text-2xl font-bold text-red-700 text-center w-full ml-[-50px]">
             LISTA DE TIPOS DE EJERCICIOS DE TRATAMIENTO
           </h1>
