@@ -7,6 +7,8 @@ import './index.css'
 import HUVISUALLIZARINICIOSEGN from './pages/HUVISUALLIZARINICIOSEGN';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ListaClientes from "./pages/ListaClientes/ListaClientes";
+import ListaEjercicios from "./pages/MantenerListaEjercicios/ListaEjercicios";
 
 function App() {
   return (
@@ -16,7 +18,8 @@ function App() {
         <Navbar/>
         <Routes>
           <Route  path="/" element={<HUVISUALLIZARINICIOSEGN />} />
-          
+          <Route  path="/listar-clientes" element={<ListaClientes />} />
+          <Route  path="/ListaEjercicios" element={<ListaEjercicios />} />
         </Routes>
         <Footer/>
         </>
