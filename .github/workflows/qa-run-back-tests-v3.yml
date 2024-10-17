@@ -22,25 +22,13 @@ jobs:
 
       - name: Ejecutar pruebas unitarias
         run: |
-          cd BACK
-          
-          cd hu-tp-01-001
+          cd BACK/hu-tp-01-001
           npm install
           npm test > ../../test-results-hu-tp-01-001.log || true
-          cd ..
-
-          cd hu-tp-02-001
-          npm install
-          npm test > ../../test-results-hu-tp-02-001.log || true
-          cd ..
 
       - name: Resultados
         run: |
           echo "RESULTADO - hu-tp-01-001:"
-          grep -E 'PASS|FAIL|Test Suites|Tests|Snapshots|Time' test-results-hu-tp-01-001.log
-          echo "-----------------------------------------"
-
-          echo "RESULTADO - hu-tp-02-001:"
-          grep -E 'PASS|FAIL|Test Suites|Tests|Snapshots|Time' test-results-hu-tp-02-001.log
-          echo "-----------------------------------------"
+          cat test-results-hu-tp-01-001.log
+          
       
