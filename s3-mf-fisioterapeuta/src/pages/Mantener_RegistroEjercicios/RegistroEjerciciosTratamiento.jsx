@@ -1,4 +1,4 @@
-// src/RegistroEjerciciosTratamiento.jsx
+
 import React, { useState } from 'react';
 
 function RegistroEjerciciosTratamiento() {
