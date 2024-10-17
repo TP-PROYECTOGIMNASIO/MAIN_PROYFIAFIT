@@ -3,7 +3,7 @@ name: QArunBackTests
 on:
   push:
     branches:
-      - QA
+      - 'QA'
 
 jobs:
   acciones_condicionales:
