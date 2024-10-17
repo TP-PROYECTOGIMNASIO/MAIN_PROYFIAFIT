@@ -1,4 +1,4 @@
-// src/ListaTipoEjerciciosTratamiento.jsx
+
 import React from 'react';
 
 const exercises = [

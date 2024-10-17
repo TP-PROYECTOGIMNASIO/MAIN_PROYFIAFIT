@@ -633,6 +633,114 @@ Resources:
             Path: /auth/HU-TP-88
             Method: put
             
+  HuTp89001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-89-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-89
+            Method: post
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-89
+            Method: get    
+    
+  HuTp09001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-09-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /check-in-empleados/hu-tp-09
+            Method: post
+            
+  HuTp13001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-13-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-nutricion/hu-tp-13
+            Method: get
+           
+  HuTp34001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-34-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /api/plan-de-nutricion/hu-tp-34
+            Method: post
+    
+  HuTp40001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-40-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /empleados/HU-TP-40
+            Method: post
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/HU-TP-40
+            Method: get
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /empleados/HU-TP-40
+            Method: put
+    
+  HuTp38001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-38-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /plan-de-tratamiento/HU-TP-38
+            Method: post
+  
+
+            
+            
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   # S3 Buckets for s3-mf-administrador-qa

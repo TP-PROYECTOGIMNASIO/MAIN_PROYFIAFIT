@@ -8,18 +8,21 @@ import HUVISUALLIZARINICIOSEGN from './pages/HUVISUALLIZARINICIOSEGN';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ListaClientes from "./pages/ListaClientes/ListaClientes";
-
+import ListaEjercicios from "./pages/MantenerListaEjercicios/ListaEjercicios";
+import ListaTipoEjercicios from "./pages/MantenerListaEjercicios/ListaTipoEjerciciosTratamiento";
 function App() {
   return (
     <>
       <Router>
         <>
-          <Navbar/>
-          <Routes>
-            <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
-            <Route path="/listar-clientes" element={<ListaClientes />} />
-          </Routes>
-          <Footer/>
+        <Navbar/>
+        <Routes>
+          <Route  path="/" element={<HUVISUALLIZARINICIOSEGN />} />
+          <Route  path="/listar-clientes" element={<ListaClientes />} />
+          <Route  path="/ListaEjercicios" element={<ListaEjercicios />} />
+          <Route  path="/tipos-ejercicio" element={<ListaTipoEjercicios />} />
+        </Routes>
+        <Footer/>
         </>
       </Router>
     </>
@@ -27,4 +30,3 @@ function App() {
 }
 
 export default App;
-
