@@ -26,7 +26,7 @@ jobs:
           npm install
           npm test 2>&1 | tee test-results-hu-tp-01-001.log || true
 
-          cd BACK/hu-tp-02-001
+          cd ../../BACK/hu-tp-02-001
           npm install
           npm test 2>&1 | tee test-results-hu-tp-02-001.log || true
           
