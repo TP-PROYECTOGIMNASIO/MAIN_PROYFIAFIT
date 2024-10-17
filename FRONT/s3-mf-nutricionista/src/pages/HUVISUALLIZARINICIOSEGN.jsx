@@ -1,6 +1,40 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const HUVISUALLIZARINICIOSEGN = () => {
+
+  const [clients, setClients] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchClients = async () => {
+      try {
+        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35');
+        if (!response.ok) {
+          throw new Error('Error en la respuesta de la API');
+        }
+        const data = await response.json();
+        setClients(data);
+      } catch (error) {
+        console.error('Error fetching clients:', error);
+        setClients([]); // Establecer array vacío en caso de error
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchClients();
+  }, []);
+
+  const handlePlanClick = () => {
+    if (clients.length === 0) {
+      alert('No hay clientes disponibles.');
+    } else {
+      navigate('/listar-clientes');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-end p-10 relative">
       <img
@@ -21,18 +55,14 @@ const HUVISUALLIZARINICIOSEGN = () => {
 
           <div className="text-left">
             <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
+            <button 
+                onClick={handlePlanClick}
+                className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg"
+              >
                 <h3 className="text-lg text-center">EMPEZAR PLAN</h3>
                 <h1 className="text-3xl text-center">ALIMENTICIO →</h1>
-              </Link>
-              <Link to={"/"}className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">EMPEZAR </h3>
-                <h1 className="text-3xl text-center">1 →</h1>
-              </Link>
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">EMPEZAR </h3>
-                <h1 className="text-3xl text-center">2 →</h1>
-              </Link>
+              </button>
+
             </div>
           </div>
         </div>

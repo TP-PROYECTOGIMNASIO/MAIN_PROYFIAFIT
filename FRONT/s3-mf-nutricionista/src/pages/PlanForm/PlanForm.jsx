@@ -1,10 +1,32 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+
 
 const PlanForm = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedDay, setSelectedDay] = useState('');
   const [registeredDays, setRegisteredDays] = useState({});
   const [message, setMessage] = useState('');
+  
+  const [namePlan, setNamePlan] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [proteinGr, setProteinGr] = useState('');
+  const [carbohydratesGr, setCarbohydratesGr] = useState('');
+  const [dailyCaloriesKcal, setDailyCaloriesKcal] = useState('');
+
+  /*CODIGO PARA OBTENER EL ID DEL CLIENTE DE LA URL*/ 
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const clientId = params.get('client_id');
+  
+  const [dayData, setDayData] = useState({
+    breakfast: '',
+    lunch: '',
+    dinner: '',
+    notes: ''
+  });
 
   const openModal = (day) => {
     setSelectedDay(day);
@@ -18,7 +40,6 @@ const PlanForm = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Registrar el día como completado
     setRegisteredDays((prevDays) => ({
       ...prevDays,
       [selectedDay]: true,
@@ -26,40 +47,90 @@ const PlanForm = () => {
     closeModal();
   };
 
-  const handleSubmit = () => {
-    const allRegistered = Object.keys(registeredDays).length === 5; // Cambiar a 5 si tienes 5 días
+  const handleSubmit = async () => {
+    if (!clientId) {
+      alert("No se encontró el ID del cliente en la URL.");
+      return;
+    }
+
+    const allRegistered = Object.keys(registeredDays).length === 5;
 
     if (allRegistered) {
       const confirmRegister = window.confirm("¿SEGURO QUE DESEAS REGISTRAR ESTE PLAN?");
       if (confirmRegister) {
-        // Lógica para registrar el plan
-        alert("Plan registrado con éxito!");
-        // Aquí puedes añadir la lógica para navegar a la pantalla principal
-      } //else {
-        // Navegar a la pantalla principal de general plan
-        //alert("Regresando a la pantalla principal.");
-      //}
+        try {
+          const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-nutricion/hu-tp-34", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              client_id: clientId, // Usar el clientId obtenido de la URL
+              name_plan: namePlan,
+              start_date: startDate,
+              end_date: endDate,
+              protein_gr: parseFloat(proteinGr),
+              carbohydrates_gr: parseFloat(carbohydratesGr),
+              daily_calories_kcal: parseInt(dailyCaloriesKcal, 10),
+              days: [
+                {
+                  day_number: 7,
+                  breakfast: "Avena con frutas",
+                  lunch: "Ensalada de pollo",
+                  dinner: "Pescado al horno",
+                  notes: "Mantener la hidratación"
+                },
+                {
+                  day_number: 2,
+                  breakfast: "Yogur con granola",
+                  lunch: "Quinoa con verduras",
+                  dinner: "Pasta integral",
+                  notes: "Incluir proteínas"
+                }
+              ]
+            }),
+          });
+
+          if (response.ok) {
+            alert("Plan registrado con éxito!");
+            setNamePlan('');
+            setStartDate('');
+            setEndDate('');
+            setProteinGr('');
+            setCarbohydratesGr('');
+            setDailyCaloriesKcal('');
+            setDayData({ breakfast: '', lunch: '', dinner: '', notes: '' });
+            setRegisteredDays({});
+            setShowModal(false);
+            setSelectedDay('');
+          } else {
+            alert("Hubo un problema al registrar el plan.");
+          }
+        } catch (error) {
+          console.error("Error al hacer la solicitud POST:", error);
+          alert("Error al conectar con la API.");
+        }
+      }
     } else {
-      setMessage("Aún no has registrado todos los días."); // Mensaje de error
-      setTimeout(() => setMessage(''), 5000); // Limpiar mensaje después de 5 segundos
+      setMessage("Aún no has registrado todos los días.");
+      setTimeout(() => setMessage(''), 5000);
     }
   };
 
   return (
-    <div className="min-h-[82vh] bg-gray-100 flex flex-col items-center justify-center py-4 relative">
+    <div className="min-h-[82.25vh] bg-gray-100 flex flex-col items-center justify-center py-4 relative">
       {/* Botón Regresar */}
-      <button className="absolute top-4 left-4 text-gray-600 text-2xl hover:text-black">
+      <button onClick={() => window.history.back()} className="absolute top-4 left-4 text-gray-600 text-2xl hover:text-black">
         <span>&lt; Regresar</span>
       </button>
 
-      {/* Contenedor Principal Centrando el Formulario */}
+      {/* Contenedor Principal */}
       <div className="w-full max-w-3xl bg-white rounded-lg shadow-md p-8 mx-auto">
-        {/* Encabezado del Formulario */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="font-semibold mb-2 text-[#8c1c13] text-[24px]">SOBRE EL PLAN</h2>
           <button
             className="bg-[#b5121c] text-white py-0 px-4 rounded hover:bg-red-700 text-[24px]"
-            onClick={handleSubmit} // Cambiado para manejar la validación
+            onClick={handleSubmit}
           >
             REGISTRAR
           </button>
@@ -67,76 +138,70 @@ const PlanForm = () => {
 
         {/* Campos del Formulario */}
         <div className="grid grid-cols-3 gap-4 mb-4">
-          {/* Nombre del Plan */}
           <div className="col-span-3 md:col-span-1">
             <label className="block text-gray-700 font-bold mb-2" style={{ fontSize: '20px' }}>Nombre del Plan:</label>
             <input
               type="text"
+              value={namePlan}
+              onChange={(e) => setNamePlan(e.target.value)}
               className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
             />
           </div>
 
-          {/* Fecha de Inicio */}
           <div className="col-span-3 md:col-span-1">
             <label className="block text-gray-700 font-bold mb-2" style={{ fontSize: '20px' }}>Fecha de Inicio:</label>
-            <div className="relative">
-              <input
-                type="date"
-                className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
-              />
-            </div>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
+            />
           </div>
 
-          {/* Fecha de Fin */}
           <div className="col-span-3 md:col-span-1">
             <label className="block text-gray-700 font-bold mb-2" style={{ fontSize: '20px' }}>Fecha de Fin:</label>
-            <div className="relative">
-              <input
-                type="date"
-                className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
-              />
-            </div>
+            <input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
+            />
           </div>
         </div>
 
-        {/* Distribución de Macronutrientes */}
+        {/* Macronutrientes */}
         <h3 className="font-semibold mb-2 text-[#8c1c13] text-[24px]">Distribución de Macronutrientes:</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          {/* Proteínas */}
+        <div className="grid grid-cols-3 gap-4 mb-6">
           <div>
             <label className="block text-[#4b4f57] font-bold mb-2" style={{ fontSize: '20px' }}>Proteínas</label>
             <input
               type="text"
+              value={proteinGr}
+              onChange={(e) => setProteinGr(e.target.value)}
               className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
             />
           </div>
 
-          {/* Carbohidratos */}
           <div>
             <label className="block text-[#4b4f57] font-bold mb-2" style={{ fontSize: '20px' }}>Carbohidratos</label>
             <input
               type="text"
+              value={carbohydratesGr}
+              onChange={(e) => setCarbohydratesGr(e.target.value)}
               className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
             />
           </div>
 
-          {/* Grasas */}
-          <div>
-            <label className="block text-[#4b4f57] font-bold mb-2" style={{ fontSize: '20px' }}>Grasas</label>
-            <input
-              type="text"
-              className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
-            />
-          </div>
-
-          {/* Calorías Diarias */}
           <div>
             <label className="block text-[#4b4f57] font-bold mb-2" style={{ fontSize: '20px' }}>Calorías Diarias</label>
             <input
               type="text"
+              value={dailyCaloriesKcal}
+              onChange={(e) => setDailyCaloriesKcal(e.target.value)}
               className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
             />
           </div>
+          
         </div>
       </div>
 
@@ -152,9 +217,7 @@ const PlanForm = () => {
 
       {/* Contenedor de Botones de Días */}
       <div className="bg-white w-full max-w-3xl p-4 rounded-lg mx-auto shadow-md">
-        {/* Botones de Días en Dos Filas */}
         <div className="flex justify-center gap-4 mb-4">
-          {/* Primera Fila (centrada) */}
           <button 
             onClick={() => openModal('Lunes')} 
             className={`text-white font-semibold text-[24px] py-2 rounded hover:bg-[#8c1c13]`}
@@ -174,8 +237,8 @@ const PlanForm = () => {
             Miércoles
           </button>
         </div>
-        <div className="flex justify-center gap-4 mb-4">
-          {/* Segunda Fila (centrada) */}
+
+        <div className="flex justify-center gap-4">
           <button 
             onClick={() => openModal('Jueves')} 
             className={`text-white font-semibold text-[24px] py-2 rounded hover:bg-[#8c1c13]`}
@@ -191,34 +254,60 @@ const PlanForm = () => {
         </div>
       </div>
 
-      {/* Modal para Registrar el Día */}
+      {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg w-[400px] p-8">
-            <h2 className="text-[#8c1c13] text-[24px] font-bold mb-4 text-center">{selectedDay}</h2>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-[#4b4f57] font-semibold mb-2" style={{ fontSize: '20px' }}>Desayuno</label>
-                <input type="text" className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none" />
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-[400px]">
+          <h2 className="text-[#8c1c13] text-[24px] font-bold mb-4 text-center">{selectedDay}</h2>
+            <form onSubmit={handleRegister}>
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2" style={{ fontSize: '18px' }}>Desayuno:</label>
+                <input
+                  type="text"
+                  value={dayData.breakfast}
+                  onChange={(e) => setDayData({ ...dayData, breakfast: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
+                />
               </div>
-              <div>
-                <label className="block text-[#4b4f57] font-semibold mb-2" style={{ fontSize: '20px' }}>Almuerzo</label>
-                <input type="text" className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none" />
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2" style={{ fontSize: '18px' }}>Almuerzo:</label>
+                <input
+                  type="text"
+                  value={dayData.lunch}
+                  onChange={(e) => setDayData({ ...dayData, lunch: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
+                />
               </div>
-              <div>
-                <label className="block text-[#4b4f57] font-semibold mb-2" style={{ fontSize: '20px' }}>Cena</label>
-                <input type="text" className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none" />
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2" style={{ fontSize: '18px' }}>Cena:</label>
+                <input
+                  type="text"
+                  value={dayData.dinner}
+                  onChange={(e) => setDayData({ ...dayData, dinner: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
+                />
               </div>
-              <div>
-                <label className="block text-[#4b4f57] font-semibold mb-2" style={{ fontSize: '20px' }}>Notas</label>
-                <input type="text" className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none" />
+              <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2" style={{ fontSize: '18px' }}>Notas:</label>
+                <input
+                  type="text"
+                  value={dayData.notes}
+                  onChange={(e) => setDayData({ ...dayData, notes: e.target.value })}
+                  className="w-full px-3 py-2 border rounded-lg bg-gray-200 text-gray-800 focus:outline-none"
+                />
               </div>
-
-              <div className="mt-8 flex justify-center space-x-4">
-                <button onClick={handleRegister} className="bg-[#8c1c13] text-white hover:bg-[#b5121c] py-2 px-4 rounded">
+              <div className="flex justify-center">
+                <button
+                  type="submit"
+                  className="bg-[#b5121c] text-white py-2 px-4 rounded hover:bg-red-700 mr-2"
+                >
                   Registrar
                 </button>
-                <button onClick={closeModal} className="bg-[#4b4f57] hover:bg-[#8c1c13] text-white py-2 px-4 rounded">
+                <button
+                  type="button"
+                  className="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-700"
+                  onClick={closeModal}
+                >
                   Cancelar
                 </button>
               </div>

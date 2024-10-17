@@ -9,9 +9,9 @@ import HUVISUALLIZARINICIOSEGN from "./pages/HUVISUALLIZARINICIOSEGN";
 import TipoProductos from "./pages/tipoProductos/tipoProductos";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-
 import TipoEjercicios from "./pages/tipoEjercicios/tipoEjercicios";
-import Lista_Productos from "../pages/Mantener_Productos/Lista_Productos";
+import Lista_Productos from "./pages/Mantener_Productos/Lista_Productos";
+import Lista_Tipo_Productos from "./pages/ListaTipoProductos/ListaTipoProductos";
 
 function App() {
   const action = useNavigationType();
@@ -51,17 +51,17 @@ function App() {
 
   return (
     <>
-      <Navbar/>
-    <Routes>
-
-      <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
-      <Route path="/tproductos" element={<TipoProductos />} />
-      <Route path="/tejercicios" element={<TipoEjercicios />} />
-      <Route path="/Lista_Productos" element={<Lista_Productos />} />
-
-    </Routes>
-    <Footer/>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
+        <Route path="/tproductos" element={<TipoProductos />} />
+        <Route path="/tejercicios" element={<TipoEjercicios />} />
+        <Route path="/Lista_Productos" element={<Lista_Productos />} />
+        <Route path="/Lista_Tipo_Productos" element={<Lista_Tipo_Productos />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
 export default App;
+
