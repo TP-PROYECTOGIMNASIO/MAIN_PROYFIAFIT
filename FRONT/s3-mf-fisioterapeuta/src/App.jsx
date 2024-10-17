@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ListaClientes from "./pages/ListaClientes/ListaClientes";
 import ListaEjercicios from "./pages/MantenerListaEjercicios/ListaEjercicios";
-
+import ListaTipoEjercicios from "./pages/MantenerListaEjercicios/ListaTipoEjerciciosTratamiento";
 function App() {
   return (
     <>
@@ -20,6 +20,7 @@ function App() {
           <Route  path="/" element={<HUVISUALLIZARINICIOSEGN />} />
           <Route  path="/listar-clientes" element={<ListaClientes />} />
           <Route  path="/ListaEjercicios" element={<ListaEjercicios />} />
+          <Route  path="/tipos-ejercicio" element={<ListaTipoEjercicios />} />
         </Routes>
         <Footer/>
         </>
