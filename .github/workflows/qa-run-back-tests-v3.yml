@@ -24,11 +24,11 @@ jobs:
         run: |
           cd BACK/hu-tp-01-001
           npm install
-          npm test > ../../test-results-hu-tp-01-001.log || true
+          npm test | tee ../../test-results-hu-tp-01-001.log || true
 
       - name: Resultados
         run: |
           echo "RESULTADO - hu-tp-01-001:"
-          cat test-results-hu-tp-01-001.log
+          cat ../../test-results-hu-tp-01-001.log
           
       
