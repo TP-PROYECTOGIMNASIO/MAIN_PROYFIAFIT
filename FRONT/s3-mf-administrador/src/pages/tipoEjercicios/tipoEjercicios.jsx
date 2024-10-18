@@ -9,9 +9,12 @@ export default function tipoEjercicios() {
   return (
     <div className="flex">
       <div className="flex-1 p-4">
-      <Link to="/" className="bg-[#aa1f1d] text-white py-2 px-4 rounded mb-4 inline-block">
-          Regresar
-        </Link>
+            <button
+              onClick={() => window.history.back()}
+              className="text-gray-500 hover:text-gray-700 flex items-center">
+              <i className="fas fa-arrow-left mr-2"></i> Regresar
+            </button>
+            <br></br>
         <h1 className="text-xl font-bold mb-4">SELECCIONAR</h1>
 
         <ExerciseList selectedType={selectedType} />

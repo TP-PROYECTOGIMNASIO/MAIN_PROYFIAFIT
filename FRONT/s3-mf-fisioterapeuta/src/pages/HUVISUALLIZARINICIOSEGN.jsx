@@ -1,9 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { FaChevronRight } from "react-icons/fa";
 
 const HUVISUALLIZARINICIOSEGN = () => {
   const [clients, setClients] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingPlan, setLoadingPlan] = useState(false); // Para el botón Empezar Plan
+  const [loadingRegister, setLoadingRegister] = useState(false); // Para el botón Registrar Ejercicios
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,21 +19,27 @@ const HUVISUALLIZARINICIOSEGN = () => {
         setClients(data);
       } catch (error) {
         console.error('Error fetching clients:', error);
-        setClients([]); // Establecer array vacío en caso de error
-      } finally {
-        setLoading(false);
+        setClients([]);
       }
     };
 
     fetchClients();
   }, []);
 
-  const handlePlanClick = () => {
+  const handlePlanClick = async () => {
     if (clients.length === 0) {
       alert('No hay clientes disponibles.');
     } else {
+      setLoadingPlan(true);
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula un tiempo de carga
       navigate('/listar-clientes');
     }
+  };
+
+  const handleRegisterClick = async () => {
+    setLoadingRegister(true);
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula un tiempo de carga
+    navigate('/ListaEjercicios'); // Cambia la ruta según sea necesario
   };
 
   return (
@@ -50,18 +58,38 @@ const HUVISUALLIZARINICIOSEGN = () => {
         <div className="grid grid-cols-2 gap-12">
           <div className="text-left"></div>
           <div className="text-left">
-            <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
-<button 
+            <div className="flex flex-col gap-4 p-4 rounded-b-lg">
+              <button
                 onClick={handlePlanClick}
-                className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg"
+                className={`bg-gray-100 text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center ${loadingPlan ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={loadingPlan}
               >
-                <h3 className="text-lg text-center">EMPEZAR PLAN</h3>
-                <h1 className="text-3xl text-center">TRATAMIENTO →</h1>
+                <div className="flex flex-col items-start">
+                  <h3 className="text-3xl text-red-600">EMPEZAR PLAN</h3>
+                  <h1 className="text-3xl text-red-600">TRATAMIENTO</h1>
+                </div>
+                {loadingPlan ? (
+                  <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 ml-4"></div>
+                ) : (
+                  <FaChevronRight className="text-red-600 text-3xl ml-4" />
+                )}
               </button>
-              <Link to={"/ListaEjercicios"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">REGISTRAR</h3>
-                <h1 className="text-3xl text-center">EJERCICIOS →</h1>
-              </Link>
+
+              <button
+                onClick={handleRegisterClick}
+                className={`bg-gray-100 text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center ${loadingRegister ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={loadingRegister}
+              >
+                <div className="flex flex-col items-start">
+                  <h3 className="text-3xl text-red-600">REGISTRAR</h3>
+                  <h1 className="text-3xl text-red-600">EJERCICIOS</h1>
+                </div>
+                {loadingRegister ? (
+                  <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 ml-4"></div>
+                ) : (
+                  <FaChevronRight className="text-red-600 text-3xl ml-4" />
+                )}
+              </button>
             </div>
           </div>
         </div>
@@ -71,4 +99,7 @@ const HUVISUALLIZARINICIOSEGN = () => {
 };
 
 export default HUVISUALLIZARINICIOSEGN;
+
+
+
 
