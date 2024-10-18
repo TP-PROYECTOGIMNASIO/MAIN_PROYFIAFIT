@@ -138,11 +138,11 @@ function Lista_Productos() {
           <div className="p-4">
             {/* Botón Regresar */}
             <button
-            onClick={() => window.history.back()}
-            className="absolute top-24 left-4 text-gray-600 text-2xl hover:text-black"
-            >
-          <span>&lt; Regresar</span>
-        </button>
+              onClick={() => window.history.back()}
+              className="text-gray-500 hover:text-gray-700 flex items-center">
+              <i className="fas fa-arrow-left mr-2"></i> Regresar
+            </button>
+   
         <br></br>
         <br></br>
         <br></br>
