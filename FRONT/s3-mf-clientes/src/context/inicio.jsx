@@ -21,7 +21,7 @@ const HomePage = () => {
 
         <section className="flex flex-col space-y-4 sm:w-1/3 items-center mt-8 sm:mt-0 w-full sm:ml-auto sm:mr-8">
           <Link
-            to="/ver-planes"
+            to="/planes"
             className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left"
           >
             <span className="text-sm font-semibold">VER</span>

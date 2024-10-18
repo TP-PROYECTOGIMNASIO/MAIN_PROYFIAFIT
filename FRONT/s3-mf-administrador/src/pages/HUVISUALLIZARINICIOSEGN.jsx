@@ -1,6 +1,17 @@
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate  } from "react-router-dom";
+import { FaChevronRight } from "react-icons/fa"; // Importamos el ícono que usaremos
+import { useState } from 'react';
 const HUVISUALLIZARINICIOSEGN = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState({ empleados: false, t_productos: false, productos: false, clientes: false, t_ejercicios: false, otro: false }); // Estado de carga para cada botón
+
+  const handleNavigation = async (path, type) => {
+    setLoading((prev) => ({ ...prev, [type]: true })); // Cambia el estado a carga para el botón específico
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula un tiempo de carga
+    navigate(path); // Navega a la nueva ruta
+    setLoading((prev) => ({ ...prev, [type]: false })); // Restablece el estado de carga
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-end p-10 relative">
       <img
@@ -9,46 +20,73 @@ const HUVISUALLIZARINICIOSEGN = () => {
         className="absolute left-0 bottom-0 w-full h-full object-cover z-0"
       />
 
-      <div className="w-full max-w-4xl relative z-10"> {/* Añado relative y z-10 */}
+      <div className="w-full max-w-4xl relative z-10">
         <h1 className="text-4xl font-bold mb-12 text-red-600 text-center">
-          Bienvenido Admin!
+          Bienvenido Admin
         </h1>
 
-        <div className="grid grid-cols-2 gap-12">
+        <div className="grid grid-cols-2 gap-0">
           <div className="text-left">
-            <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Administrar</h3>
-                <h1 className="text-3xl text-center">EMPLEADOS →</h1>
-              </Link>
-              <Link to={"/Lista_Tipo_Productos"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Administrar</h3>
-                <h1  className="text-3xl text-center">
-                  T.PRODUCTOS →
-                </h1>
-              </Link>
-              <Link to={"/Lista_Productos"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Administrar</h3>
-                <h1 className="text-3xl text-center">PRODUCTOS →</h1>
-              </Link>
-
+            <div className="flex flex-col gap-4 bg-gray-100 p-4 rounded-b-lg max-w-xs mx-auto">
+              <button className="bg-white text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation('/', 'empleados')}
+                disabled={loading.empleados}>
+                <div className="text-left">
+                  <h3 className="text-lg">Administrar</h3>
+                  <h1 className="text-3xl">EMPLEADOS</h1>
+                </div>
+                <FaChevronRight className="text-red-600 text-3xl" /> {/* Ícono de flecha */}
+                {loading.empleados && <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 mt-2"></div>}
+              </button>
+              <button className="bg-white text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation('/Lista_Tipo_Productos', 't_productos')}
+                disabled={loading.t_productos}>
+                <div className="text-left">
+                  <h3 className="text-lg">Administrar</h3>
+                  <h1 className="text-3xl">T.PRODUCTOS</h1>
+                </div>
+                <FaChevronRight className="text-red-600 text-3xl" />
+                {loading.t_productos && <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 mt-2"></div>}
+              </button>
+              <button className="bg-white text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation('/Lista_Productos', 'productos')} 
+                disabled={loading.productos}>
+                <div>
+                  <h3 className="text-lg">Administrar</h3>
+                  <h1 className="text-3xl">PRODUCTOS</h1>
+                </div>
+                <FaChevronRight className="text-red-600 text-3xl" />
+                {loading.productos && <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 mt-2"></div>}
+              </button>
             </div>
           </div>
 
           <div className="text-left">
-            <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Administrar</h3>
-                <h1 className="text-3xl text-center">CLIENTES →</h1>
-              </Link>
-              <Link to={"/tejercicios"}className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Administrar</h3>
-                <h1 className="text-3xl text-center">T.EJERCICIOS →</h1>
-              </Link>
-              <Link to={"/"} className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg">
-                <h3 className="text-lg text-center">Administrar</h3>
-                <h1 className="text-3xl text-center">OTRO →</h1>
-              </Link>
+            <div className="flex flex-col gap-4 bg-gray-100 p-4 rounded-b-lg max-w-xs mx-auto">
+              <button className="bg-white text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation('/', 'clientes')}
+                disabled={loading.clientes}>
+                <div>
+                  <h3 className="text-lg">Administrar</h3>
+                  <h1 className="text-3xl">CLIENTES</h1>
+                </div>
+                <FaChevronRight className="text-red-600 text-3xl" />
+                {loading.clientes && <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 mt-2"></div>}
+              </button>
+              <button className="bg-white text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation('/tejercicios', 't_ejercicios')}
+                disabled={loading.t_ejercicios}>
+                <div>
+                  <h3 className="text-lg">Administrar</h3>
+                  <h1 className="text-3xl">T.EJERCICIOS</h1>
+                </div>
+                <FaChevronRight className="text-red-600 text-3xl" />
+                {loading.t_ejercicios && <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 mt-2"></div>}
+              </button>
+              <button to={"/"} className="bg-white text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation('/', 'otro')}
+                disabled={loading.otro}>
+                <div>
+                  <h3 className="text-lg">Administrar</h3>
+                  <h1 className="text-3xl">OTRO</h1>
+                </div>
+                <FaChevronRight className="text-red-600 text-3xl" />
+                {loading.otro && <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 mt-2"></div>}
+              </button>
             </div>
           </div>
         </div>

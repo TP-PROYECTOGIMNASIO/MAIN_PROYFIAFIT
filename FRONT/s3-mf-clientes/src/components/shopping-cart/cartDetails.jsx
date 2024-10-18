@@ -54,7 +54,7 @@ const CartDetails = () => {
     return () => {
       document.body.removeChild(script);
     };
-  }, []);
+  });
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
