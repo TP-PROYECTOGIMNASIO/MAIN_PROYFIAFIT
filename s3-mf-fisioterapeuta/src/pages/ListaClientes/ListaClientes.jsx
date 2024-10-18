@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+const API_URL = 'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35'; // Cambia esto por la URL de tu API
+
 const ListaClientes = () => {
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
@@ -12,7 +14,7 @@ const ListaClientes = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35');
+        const response = await fetch(API_URL);
         const data = await response.json();
       
         const uniqueClients = {};
@@ -47,7 +49,7 @@ const ListaClientes = () => {
     
 
     try {
-      const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35?client_id=${client.client_id}`);
+      const response = await fetch(`${API_URL}?client_id=${client.client_id}`);
       const data = await response.json();
       const clientDetails = {
         ...client,
