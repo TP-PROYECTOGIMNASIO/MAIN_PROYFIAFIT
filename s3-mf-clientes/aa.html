@@ -43,7 +43,7 @@
         // Opciones adicionales para el formulario, como el idioma y los métodos de pago permitidos
         Culqi.options({
             lang: "auto",
-            installments: false, // Deshabilitamos la opción de cuotas
+            installments: true, // Deshabilitamos la opción de cuotas
             paymentMethods: {
                 tarjeta: true,
                 yape: true,
@@ -66,6 +66,7 @@
             if (Culqi.token) {  // Si se genera un token correctamente
                 const token = Culqi.token.id;
                 const email = Culqi.token.email;
+                const item_type = "product";
                 const ventaDetails = {
                     email: email,
                     token: token,
