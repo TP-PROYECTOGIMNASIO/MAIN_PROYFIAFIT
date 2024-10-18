@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaChevronLeft } from "react-icons/fa";
 
+const API_URL = 'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35'
+
 const ListaClientes = () => {
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
@@ -9,7 +11,7 @@ const ListaClientes = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMembership, setSelectedMembership] = useState('');
   const [isRegisterMetricsModalOpen, setIsRegisterMetricsModalOpen] = useState(false);
-  const [metricsRegistered, setmetricsRegistered] = useState(false); // Estado para manejar el mensaje de éxito
+  const [isMetricsRegistered, setMetricsRegistered] = useState(false); // Estado para manejar el mensaje de éxito
 
   const [metrics, setMetrics] = useState({
     weight: '',
@@ -23,7 +25,7 @@ const ListaClientes = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35');
+        const response = await fetch(API_URL);
         const data = await response.json();
       
         const uniqueClients = {};
@@ -58,7 +60,7 @@ const ListaClientes = () => {
     
 
     try {
-      const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35?client_id=${client.client_id}`);
+      const response = await fetch(`${API_URL}?client_id=${client.client_id}`);
       const data = await response.json();
       const clientDetails = {
         ...client,
@@ -79,13 +81,22 @@ const ListaClientes = () => {
   const openRegisterMetricsModal = () => {
     setMetrics({ weight: '', height: '', goals: '', imc: '' }); // Resetea las métricas al abrir el modal
     setIsRegisterMetricsModalOpen(true);
-    setmetricsRegistered(false); // Reinicia el estado de éxito
+    setMetricsRegistered(false); // Reinicia el estado de éxito
+  };
+
+  const openExitModal = () => {
+    setMetricsRegistered(true); // Reinicia el estado de éxito
+  };
+
+  const closeExitModal = () => {
+    closeModal();
+    setMetricsRegistered(false);
   };
 
   const closeRegisterMetricsModal = () => {
     setIsRegisterMetricsModalOpen(false);
     setMetrics({ weight: '', height: '', goals: '', imc: '' });
-    setmetricsRegistered(false); // Reinicia el estado de éxito al cerrar el modal
+    setMetricsRegistered(false); // Reinicia el estado de éxito al cerrar el modal
   };
 
   // Handle metric input changes
@@ -159,12 +170,16 @@ const registerMetrics = async () => {
     console.log("Métricas registradas:", result);
     
     // Actualiza el estado para mostrar el mensaje de éxito
-    setmetricsRegistered(true); 
+    
 
     // Cerrar el modal y limpiar los datos después de registrar las métricas
-    closeRegisterMetricsModal(); // Cerrar modal
+     // Cerrar modal
     alert('Métricas registradas con éxito'); // Mensaje de éxito
+    closeRegisterMetricsModal();
+    closeModal();
+    openExitModal();
 
+  
     // Actualizar el cliente seleccionado en el estado (opcional)
     const updatedClient = {
       ...selectedClient,
@@ -225,14 +240,11 @@ const registerMetrics = async () => {
       
       <div className="mb-6 text-center">
         <h2 className="text-4xl font-semibold" style={{ color: '#834044' }}>Lista de Clientes</h2>
-
         <button
             onClick={() => window.history.back()}  className="text-gray-500 hover:text-gray-700 flex items-center" >
           <FaChevronLeft className="text-gray-500 text-sm mr-2" /> {/* Icono de flecha izquierda en color gris */}
           Regresar
         </button>
-
-
 
       </div>
       <div className="flex mb-6 items-center">
@@ -346,54 +358,54 @@ const registerMetrics = async () => {
 
 
               <div className="text-center w-full">
-  <p><strong>Nombre Completo:</strong> {selectedClient.names} {selectedClient.father_last_name} {selectedClient.mother_last_name}</p>
+              <p><strong>Nombre Completo:</strong> {selectedClient.names} {selectedClient.father_last_name} {selectedClient.mother_last_name}</p>
 
-  {/* Verificación de métricas corporales */}
-  {typeof selectedClient.body_metrics === "object" ? (
-    <>
-      <div className="flex justify-around items-center mt-2 space-x-2">
-        <p><strong>Género:</strong> {selectedClient.gender}</p>
-        <p><strong>Peso:</strong> {selectedClient.body_metrics.weight} kg</p>
-      </div>
-      <div className="flex justify-around items-center mt-2 space-x-2">
-        <p><strong>Objetivos Nutricionales:</strong> {selectedClient.body_metrics.goals}</p>
-        <p><strong>Altura:</strong> {selectedClient.body_metrics.height} cm</p>
-      </div>
-      <div className="flex justify-around items-center mt-2 space-x-2">
-        <p><strong>IMC:</strong> {selectedClient.body_metrics.imc}</p>
-      </div>
-      <div className="flex justify-center mt-6">
-        <button 
-          className="bg-red-600 text-white py-2 px-6 rounded-md"
-          onClick={handlePlanAlimenticio}
-        >
-          PLAN ALIMENTICIO
-        </button>
-      </div>
-    </>
-  ) : (
-    <>
-      {/*<p className="mt-4 text-gray-600">{selectedClient.body_metrics}</p>*/}
-       {/* Mensaje alternativo si no hay métricas */}
-       <p className="mt-4 text-gray-600">Aun no cuenta con métricas registradas</p>
-      <div className="flex justify-center mt-6">
-      <button 
+              {/* Verificación de métricas corporales */}
+              {typeof selectedClient.body_metrics === "object" ? (
+                <>
+                  <div className="flex justify-around items-center mt-2 space-x-2">
+                    <p><strong>Género:</strong> {selectedClient.gender}</p>
+                    <p><strong>Peso:</strong> {selectedClient.body_metrics.weight} kg</p>
+                  </div>
+                  <div className="flex justify-around items-center mt-2 space-x-2">
+                    <p><strong>Objetivos Nutricionales:</strong> {selectedClient.body_metrics.goals}</p>
+                    <p><strong>Altura:</strong> {selectedClient.body_metrics.height} cm</p>
+                  </div>
+                  <div className="flex justify-around items-center mt-2 space-x-2">
+                    <p><strong>IMC:</strong> {selectedClient.body_metrics.imc}</p>
+                  </div>
+                  <div className="flex justify-center mt-6">
+                    <button 
                       className="bg-red-600 text-white py-2 px-6 rounded-md"
-                      onClick={openRegisterMetricsModal}
+                      onClick={handlePlanAlimenticio}
                     >
-                      REGISTRAR MÉTRICAS
+                      PLAN ALIMENTICIO
                     </button>
-      </div>
-    </>
-  )}
-</div>
-
-
-
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/*<p className="mt-4 text-gray-600">{selectedClient.body_metrics}</p>*/}
+                  {/* Mensaje alternativo si no hay métricas */}
+                  <p className="mt-4 text-gray-600">Aun no cuenta con métricas registradas</p>
+                  <div className="flex justify-center mt-6">
+                  <button 
+                                  className="bg-red-600 text-white py-2 px-6 rounded-md"
+                                  onClick={openRegisterMetricsModal}
+                                >
+                                  REGISTRAR MÉTRICAS
+                                </button>
+                  </div>
+                </>
+              )}
             </div>
-          </div>
-        </div>
-      )}
+
+
+
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
 {/* Modal para registrar métricas */}
 {isRegisterMetricsModalOpen && (
@@ -497,17 +509,22 @@ const registerMetrics = async () => {
   </div>
 )}
 
-          {metricsRegistered && (
-              <div className="mt-4 text-center">
-                <p className="text-green-600 font-bold">Métricas registradas correctamente</p>
-                <button 
-                  className="bg-blue-600 text-white py-2 px-6 rounded-md mt-4"
-                  onClick={closeModal}
-                >
-                  OK
-                </button>
-              </div>
-            )}
+      {isMetricsRegistered && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-4 rounded-lg shadow-lg max-w-xs w-full"> {/* Cambiado max-w-sm a max-w-xs */}
+            <p className="text-red-600 font-bold text-center">Métricas Registradas Correctamente!</p>
+            <div className="flex justify-center mt-4"> {/* Flexbox para centrar el botón */}
+              <button 
+                className="bg-red-600 text-white py-2 px-4 rounded-md" // Cambiado px-6 a px-4
+                onClick={closeExitModal}
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
 
 
 
