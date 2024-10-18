@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+import { FaChevronRight } from "react-icons/fa";
 const HUVISUALLIZARINICIOSEGN = () => {
 
   const [clients, setClients] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingPlan, setLoadingPlan] = useState(false); // Para el botón Empezar Plan
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,18 +19,18 @@ const HUVISUALLIZARINICIOSEGN = () => {
       } catch (error) {
         console.error('Error fetching clients:', error);
         setClients([]); // Establecer array vacío en caso de error
-      } finally {
-        setLoading(false);
-      }
+      } 
     };
 
     fetchClients();
   }, []);
 
-  const handlePlanClick = () => {
+  const handlePlanClick = async () => {
     if (clients.length === 0) {
       alert('No hay clientes disponibles.');
     } else {
+      setLoadingPlan(true);
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula un tiempo de carga
       navigate('/listar-clientes');
     }
   };
@@ -54,13 +54,21 @@ const HUVISUALLIZARINICIOSEGN = () => {
           </div>
 
           <div className="text-left">
-            <div className="flex flex-col gap-4 bg-white p-4 rounded-b-lg shadow-lg">
-            <button 
+            <div className="flex flex-col gap-4 p-4 rounded-b-lg">
+              <button
                 onClick={handlePlanClick}
-                className="bg-white text-gray-600 border border-red-600 font-semibold py-2 px-4 rounded-lg"
+                className={`bg-white text-gray-600 border border-white-600 font-semibold py-2 px-4 rounded-lg flex justify-between items-center ${loadingPlan ? 'opacity-50 cursor-not-allowed' : ''}`}
+                disabled={loadingPlan}
               >
-                <h3 className="text-lg text-center">EMPEZAR PLAN</h3>
-                <h1 className="text-3xl text-center">ALIMENTICIO →</h1>
+                <div className="flex flex-col items-start">
+                  <h3 className="text-3xl text-red-600">EMPEZAR PLAN</h3>
+                  <h1 className="text-3xl text-red-600">ALIMENTICIO</h1>
+                </div>
+                {loadingPlan ? (
+                  <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6 ml-4"></div>
+                ) : (
+                  <FaChevronRight className="text-red-600 text-3xl ml-4" />
+                )}
               </button>
 
             </div>

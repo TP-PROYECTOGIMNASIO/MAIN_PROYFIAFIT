@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaChevronLeft } from "react-icons/fa";
 
 const ListaClientes = () => {
   const [clients, setClients] = useState([]);
@@ -224,12 +225,14 @@ const registerMetrics = async () => {
       
       <div className="mb-6 text-center">
         <h2 className="text-4xl font-semibold" style={{ color: '#834044' }}>Lista de Clientes</h2>
+
         <button
-            onClick={() => window.history.back()}
-            className="absolute top-32 left-5 text-gray-600 text-2xl hover:text-black"
-            >
-          <span>&lt; Regresar</span>
+            onClick={() => window.history.back()}  className="text-gray-500 hover:text-gray-700 flex items-center" >
+          <FaChevronLeft className="text-gray-500 text-sm mr-2" /> {/* Icono de flecha izquierda en color gris */}
+          Regresar
         </button>
+
+
 
       </div>
       <div className="flex mb-6 items-center">
