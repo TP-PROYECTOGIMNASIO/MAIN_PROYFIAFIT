@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const EmployeeForm = ({ onAddEmployee }) => {
+const EmployeeForm = ({ onClose, onAddEmployee }) => {
   const [formData, setFormData] = useState({
     dni: '',
     nombres: '',
@@ -145,7 +145,7 @@ const EmployeeForm = ({ onAddEmployee }) => {
     <>
       <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
         <div className="bg-white w-[90%] md:w-[40%] rounded-lg shadow-lg p-6 relative">
-          <button onClick={closeModal} className="absolute top-2 right-2 text-gray-500 font-bold text-xl">X</button>
+          <button onClick={onClose} className="absolute top-2 right-2 text-gray-500 font-bold text-xl">X</button>
           <div className="text-center text-xl font-bold text-red-700 mb-4">Agregar Empleado</div>
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
