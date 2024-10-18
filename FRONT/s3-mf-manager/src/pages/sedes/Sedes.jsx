@@ -81,7 +81,7 @@ export default function Sedes() {
                 <div className="flex justify-between w-full mb-4">
                     <button
                         onClick={handleRegresar}
-                        className="text-gray-700 text-[24px] flex items-center gap-2">
+                        className="text-gray-700 text-[20px] flex items-center gap-2">
                         <FaChevronLeft className="text-gray-500 text-sm mr-2" /> {/* Icono de flecha izquierda más pequeño */}
                         Regresar
                     </button>
