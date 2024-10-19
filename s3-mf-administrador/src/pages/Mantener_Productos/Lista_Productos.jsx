@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
-const API_URL = 'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/articulos/hu-tp-87';
 
 function Lista_Productos() {
+  const apiUrl87 = import.meta.env.VITE_APP_API_URL_87;
+
+
   const [showModal, setShowModal] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false); // Nuevo modal para confirmación
@@ -20,48 +22,50 @@ function Lista_Productos() {
   const [selectedStatus, setSelectedStatus] = useState('active'); // Estado para el estado del producto
   const [currentProduct, setCurrentProduct] = useState(null); // Producto seleccionado para confirmación
   const [searchTerm, setSearchTerm] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   // Cargar productos y tipos de productos desde la API
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch(API_URL);
-        if (!response.ok) {
-            throw new Error('Error en la respuesta de la API');
-        }
-        const data = await response.json();
-        if (data && Array.isArray(data.products)) {
-            setProducts(data.products);
-        } else {
-            console.error('Formato inesperado en la respuesta de la API:', data);
-            setProducts([]);
-        }
-    } catch (error) {
-        console.error('Error al obtener los productos:', error);
-    }
-    };
-
-    const fetchProductTypes = async () => {
-      try {
-        const response = await fetch(`${API_URL}?get_product_types=true`);
-        if (!response.ok) {
-            throw new Error('Error en la respuesta de la API');
-        }
-        const data = await response.json();
-        if (data && Array.isArray(data.products)) {
-          setProductTypes(data.products);
-        } else {
-            console.error('Formato inesperado en la respuesta de la API:', data);
-            setProductTypes([]);
-        }
-    } catch (error) {
-        console.error('Error al obtener los tipos de productos:', error);
-    }
-    };
-
     fetchProducts();
     fetchProductTypes();
-  }, []);
+  }, [products]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await fetch(apiUrl87);
+      if (!response.ok) {
+          throw new Error('Error en la respuesta de la API');
+      }
+      const data = await response.json();
+      if (data && Array.isArray(data.products)) {
+          //setProducts(data.products);
+          setProducts(data.products || []);
+      } else {
+          console.error('Formato inesperado en la respuesta de la API:', data);
+          setProducts([]);
+      }
+  } catch (error) {
+      console.error('Error al obtener los productos:', error);
+  }
+  };
+
+  const fetchProductTypes = async () => {
+    try {
+      const response = await fetch(`${apiUrl87}?get_product_types=true`);
+      if (!response.ok) {
+          throw new Error('Error en la respuesta de la API');
+      }
+      const data = await response.json();
+      if (data && Array.isArray(data.products)) {
+        setProductTypes(data.products);
+      } else {
+          console.error('Formato inesperado en la respuesta de la API:', data);
+          setProductTypes([]);
+      }
+  } catch (error) {
+      console.error('Error al obtener los tipos de productos:', error);
+  }
+  };
 
   // Manejar cambio en el formulario
   const handleChange = (e) => {
@@ -74,11 +78,20 @@ function Lista_Productos() {
 
   // Filtrar productos por tipo y estado seleccionado
   const filteredProducts = products.filter(product => {
+    // Verifica si product es válido y tiene las propiedades necesarias
+    if (!product || typeof product.product_name === 'undefined') {
+        return false; // Excluir productos inválidos
+    }
+
     const typeMatch = selectedType ? product.product_type_id === parseInt(selectedType) : true;
     const statusMatch = selectedStatus === 'active' ? product.active : !product.active;
-    const nameMatch = product.product_name.toLowerCase().includes(searchTerm.toLowerCase());
+
+    // Asegúrate de que product_name esté definido antes de llamar a toLowerCase
+    const nameMatch = product.product_name && product.product_name.toLowerCase().includes(searchTerm.toLowerCase());
+
     return typeMatch && statusMatch && nameMatch;
-  });
+});
+
 
   // Manejar el cambio en el tipo de producto seleccionado
   const handleTypeChange = (e) => {
@@ -99,58 +112,73 @@ function Lista_Productos() {
   // Manejar envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true); // Comenzar a cargar
 
-  // Validar que todos los campos estén completos
-  if (!formData.tipoProducto || !formData.nombre || !formData.descripcion || !formData.precio || !formData.imagen) {
-    alert('Por favor, complete todos los campos.');
-    return;
-  }
+      // Validar que todos los campos estén completos
+      if (!formData.tipoProducto || !formData.nombre || !formData.descripcion || !formData.precio || !formData.imagen) {
+        alert('Por favor, complete todos los campos.');
+        setIsLoading(false); // Restablecer a falso
+        return;
+      }
 
-  // Validar el campo de precio
-  if (!isPriceValid(formData.precio)) {
-    alert('Por favor, ingrese un precio válido en Soles (S/.), mayor a 0.');
-    return;
-  }
+      // Validar el campo de precio
+      if (!isPriceValid(formData.precio)) {
+        alert('Por favor, ingrese un precio válido en Soles (S/.), mayor a 0.');
+        setIsLoading(false); // Restablecer a falso
+        return;
+      }
 
-  // Crear FormData para enviar con archivo
-  const formDataToSend = new FormData();
-  formDataToSend.append('product_type_id', formData.tipoProducto);
-  formDataToSend.append('product_name', formData.nombre);
-  formDataToSend.append('description', formData.descripcion);
-  formDataToSend.append('price', formData.precio);
-  formDataToSend.append('file', formData.imagen); // Agregar archivo de imagen
+      // Validar que la imagen esté presente
+      if (!formData.imagen) {
+        alert('Por favor, suba una imagen del producto.');
+        setIsLoading(false); // Restablecer a falso
+        return;
+      }
 
-  try {
-    // Enviar solicitud POST a la API
-    const response = await fetch(API_URL, {
-      method: 'POST',
-      body: formDataToSend, // Enviar FormData
-    });
+      // Crear FormData para enviar con archivo
+      const formDataToSend = new FormData();
+      formDataToSend.append('product_type_id', formData.tipoProducto);
+      formDataToSend.append('product_name', formData.nombre);
+      formDataToSend.append('description', formData.descripcion);
+      formDataToSend.append('price', formData.precio);
+      formDataToSend.append('file', formData.imagen); // Agregar archivo de imagen
 
-    if (!response.ok) {
-      throw new Error('Error al registrar el producto');
-    }
+    try {
+      // Enviar solicitud POST a la API
+      const response = await fetch(apiUrl87, {
+        method: 'POST',
+        body: formDataToSend, // Enviar FormData
+      });
 
-    const newProduct = await response.json();
-    
-    // Actualizar la lista de productos con el nuevo producto
-    setProducts((prevProducts) => [...prevProducts, newProduct]);
+      if (!response.ok) {
+        throw new Error('Error al registrar el producto');
+      }
 
-    // Limpiar los campos del formulario después de la inscripción
-    setFormData({
-      tipoProducto: '',
-      nombre: '',
-      descripcion: '',
-      precio: '',
-      imagen: null,
-    });
+      const newProduct = await response.json();
+      
+      // Actualizar la lista de productos con el nuevo producto
+      setProducts((prevProducts) => [...prevProducts, newProduct]);
 
-    // Mostrar ventana de éxito y cerrar el formulario
-    setShowModal(false);
-    setShowSuccessModal(true);
-  } catch (error) {
-    console.error('Error al enviar los datos del producto:', error);
-  }
+      // Limpiar los campos del formulario después de la inscripción
+      setFormData({
+        tipoProducto: '',
+        nombre: '',
+        descripcion: '',
+        precio: '',
+        imagen: null,
+      });
+
+      // Mostrar ventana de éxito y cerrar el formulario
+      setShowModal(false);
+      setShowSuccessModal(true);
+      } catch (error) {
+        console.error('Error al enviar los datos del producto:', error);
+        // Mostrar alert y cerrar el modal al hacer clic en OK
+        alert('Ocurrió un error al registrar el producto. Por favor, inténtelo de nuevo más tarde.');
+        setShowModal(false); // Cerrar el formulario en caso de error
+      } finally {
+        setIsLoading(false); // Restablecer a falso
+      }
   };
 
   // Manejar cambio de estado del producto
@@ -158,7 +186,7 @@ const toggleProductStatus = async (product_id, currentStatus) => {
   const newStatus = !currentProduct.active; // Invertir el estado actual
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(apiUrl87, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

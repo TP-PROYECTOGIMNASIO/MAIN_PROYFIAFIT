@@ -4,6 +4,9 @@ import ExerciseSidebar from "./ExerciseSidebar";
 import Modal from "./Modal"; // Modal reutilizable
 
 function ExerciseList() {
+  const apiUrl30 = import.meta.env.VITE_APP_API_URL_30;
+
+
   const [exercises, setExercises] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +31,7 @@ function ExerciseList() {
         : "";
 
       const response = await fetch(
-        `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-30?${filterQuery}${statusQuery ? '&' + statusQuery : ''}`
+        `${apiUrl30}?${filterQuery}${statusQuery ? '&' + statusQuery : ''}`
       );
 
       if (!response.ok) {
@@ -66,17 +69,18 @@ function ExerciseList() {
   const toggleExerciseStatus = async () => {
     if (!selectedExercise) return;
 
+    console.log("Ejercicio seleccionado antes de la actualización:", selectedExercise); // Log para verificar
+
     const updatedStatus = !selectedExercise.active; // Cambiamos el estado actual
     const requestBody = {
-      exercise_id: selectedExercise.id, // Asegurarse de que este campo esté correctamente mapeado
+      exercise_id: selectedExercise.exercise_id, // Asegurarse de que este campo esté correctamente mapeado
       active: updatedStatus // Valor booleano (true o false)
     };
 
     console.log("Enviando solicitud PUT con los siguientes datos:", requestBody); // Log para verificar los datos
 
     try {
-      const response = await fetch(
-        `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-30`,
+      const response = await fetch(`${apiUrl30}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -158,7 +162,7 @@ function ExerciseList() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {exercises.length > 0 ? (
             exercises.map((exercise) => (
-              <div key={exercise.id} className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between">
+              <div key={exercise.exercise_id} className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between">
                 <img src={exercise.image_url} alt={exercise.name} className="w-full h-36 object-cover rounded-md mb-4" />
                 <div>
                   <h3 className="text-xl font-bold mb-2">{exercise.name}</h3>

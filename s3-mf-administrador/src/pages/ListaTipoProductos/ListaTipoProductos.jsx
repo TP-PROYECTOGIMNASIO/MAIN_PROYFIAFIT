@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-const API_URL = 'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/productos/hu-tp-84'; // Cambia esto por la URL de tu API
 
 const ListaTipoProductos = () => {
+  const apiUrl84 = import.meta.env.VITE_APP_API_URL_84;
+
+
   const [productTypes, setProductTypes] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProductType, setCurrentProductType] = useState(null);
@@ -21,7 +23,7 @@ const ListaTipoProductos = () => {
 
   const fetchProductTypes = async () => {
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(apiUrl84, {
         method: 'POST', // Cambia a POST para incluir el cuerpo
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +60,7 @@ const ListaTipoProductos = () => {
       };
 
       if (modalMethod === 'create') {
-        response = await fetch(API_URL, {
+        response = await fetch(apiUrl84, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -70,7 +72,7 @@ const ListaTipoProductos = () => {
           }),
         });
       } else if (modalMethod === 'update') {
-        response = await fetch(API_URL, {
+        response = await fetch(apiUrl84, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -103,7 +105,7 @@ const ListaTipoProductos = () => {
   
   const handleDeleteConfirmed = async (id) => {
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(apiUrl84, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
