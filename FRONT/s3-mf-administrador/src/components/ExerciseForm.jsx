@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 
 const ExerciseForm = ({ onSubmit, fetchExercises, closeModal }) => {
+  const apiUrl30 = import.meta.env.VITE_APP_API_URL_30;
+
+  
   const [exercise, setExercise] = useState({
     name: '',
     description: '',
@@ -39,8 +42,7 @@ const ExerciseForm = ({ onSubmit, fetchExercises, closeModal }) => {
     formData.append('image', exercise.image);
 
     try {
-      const response = await fetch(
-        'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-30',
+      const response = await fetch( apiUrl30,
         {
           method: 'POST',
           body: formData,
