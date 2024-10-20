@@ -40,10 +40,21 @@ const PlanForm = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+
+    // Validación de campos
+    if (!dayData.breakfast || !dayData.lunch || !dayData.dinner || !dayData.notes) {
+      alert('Debe Completar los Campos');
+      return;
+    }
+    
     setRegisteredDays((prevDays) => ({
       ...prevDays,
       [selectedDay]: true,
     }));
+
+       // Limpiar los inputs del modal
+       setDayData({ breakfast: '', lunch: '', dinner: '', notes: '' });
+       
     closeModal();
   };
 
