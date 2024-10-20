@@ -6,7 +6,12 @@ const PlanTratamientoSinRegistrar = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Botón de Regresar */}
       <header className="p-4">
-        <button className="text-gray-600 font-semibold text-sm">{'< Regresar'}</button>
+      <button
+      className="text-gray-700 font-medium"
+      onClick={() => window.history.back()}
+    >
+      &lt; Regresar
+    </button>
       </header>
 
       {/* Contenido Principal */}

@@ -37,11 +37,12 @@ const ListaEjercicios = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="p-4 bg-white shadow-md flex justify-between items-center">
-        <button
-          className="text-gray-700 font-medium"
-          onClick={() => navigate('/')}>
-          &lt; Regresar
-        </button>        
+      <button
+      className="text-gray-700 font-medium"
+      onClick={() => window.history.back()}
+    >
+      &lt; Regresar
+    </button>        
         <h1 className="text-red-600 text-xl font-bold">LISTA DE EJERCICIOS DE TRATAMIENTO</h1>
         <div className="flex flex-col items-end space-y-2">
           

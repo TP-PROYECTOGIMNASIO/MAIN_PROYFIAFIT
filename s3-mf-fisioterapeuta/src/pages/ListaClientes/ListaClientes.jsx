@@ -215,12 +215,22 @@ const ListaClientes = () => {
                 </div>
          
                 <div className="flex justify-center mt-6">
-                  <Link to="/PlanTratamientoSinRegistrar" className="bg-red-600 text-white py-2 px-6 rounded-md"
-                    onClick={handlePlanDeTratamiento}
-                  >
+                  <Link to="/PlanTratamientoSinRegistrar" className="bg-red-600 text-white py-2 px-6 rounded-md" >
                     PLAN DE TRATAMIENTO
                   </Link>
                 </div>
+
+
+                {/*
+                <div className="flex justify-center mt-6">
+                  <button 
+                    className="bg-red-600 text-white py-2 px-6 rounded-md"
+                    onClick={handlePlanDeTratamiento}
+                  >
+                    PLAN DE TRATAMIENTO
+                  </button>
+                </div>
+                */ }
               </div>
             </div>
           </div>

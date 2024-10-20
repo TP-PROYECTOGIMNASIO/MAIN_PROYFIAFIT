@@ -31,10 +31,11 @@ function ListaTipoEjerciciosTratamiento() {
         <div className="flex justify-between items-center py-4 px-6">
 
         <button
-         className="text-gray-500 hover:text-gray-700 font-semibold"
-          onClick={() => navigate('/ListaEjercicios')}>
-          &lt; Regresar
-        </button>  
+      className="text-gray-700 font-medium"
+      onClick={() => window.history.back()}
+    >
+      &lt; Regresar
+    </button> 
           <h1 className="text-2xl font-bold text-red-700 text-center w-full ml-[-50px]">
             LISTA DE TIPOS DE EJERCICIOS DE TRATAMIENTO
           </h1>
