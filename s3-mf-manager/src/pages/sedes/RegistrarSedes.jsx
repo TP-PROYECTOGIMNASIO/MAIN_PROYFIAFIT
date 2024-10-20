@@ -4,6 +4,13 @@ import mapaImg from '../../../public/image-56@2x.png'; // Ruta de la imagen
 const RegisterForm = () => {
   const [fileName, setFileName] = useState(''); // Estado para el nombre del archivo
   const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
+  const [distrito, setDistrito] = useState(''); // Estado para el distrito seleccionado
+  const [departamento] = useState('LIMA'); // Estado para el departamento
+  const [provincia] = useState('LIMA'); // Estado para la provincia
+
+  const [modalDistrito, setModalDistrito] = useState(''); // Estado para el distrito en el modal
+  const [modalDepartamento, setModalDepartamento] = useState(''); // Estado para el departamento en el modal
+  const [modalProvincia, setModalProvincia] = useState(''); // Estado para la provincia en el modal
 
   const handleRegresar = () => {
     console.log("Regresar");
@@ -20,6 +27,14 @@ const RegisterForm = () => {
 
   const toggleModal = () => {
     setShowModal(!showModal); // Cambia el estado del modal
+  };
+
+  const handleGeolocalizar = () => {
+    // Actualiza el estado del modal con los valores del formulario
+    setModalDepartamento(departamento);
+    setModalProvincia(provincia);
+    setModalDistrito(distrito);
+    toggleModal(); // Abre el modal
   };
 
   return (
@@ -44,7 +59,7 @@ const RegisterForm = () => {
               <label className="text-[20px] font-bold text-[#4b4f57] w-1/3 text-right pr-4">DEPARTAMENTO</label>
               <input
                 type="text"
-                value="LIMA"
+                value={departamento}
                 readOnly
                 className="p-2 bg-gray-200 rounded w-2/3 text-gray-700"
               />
@@ -54,7 +69,7 @@ const RegisterForm = () => {
               <label className="text-[20px] font-bold text-[#4b4f57] w-1/3 text-right pr-4">PROVINCIA</label>
               <input
                 type="text"
-                value="LIMA"
+                value={provincia}
                 readOnly
                 className="p-2 bg-gray-200 rounded w-2/3 text-gray-700"
               />
@@ -62,9 +77,23 @@ const RegisterForm = () => {
 
             <div className="flex items-center mb-4">
               <label className="text-[20px] font-bold text-[#4b4f57] w-1/3 text-right pr-4">DISTRITO</label>
-              <select className="p-2 bg-gray-200 rounded w-2/3 text-gray-700">
-                <option>Seleccione...</option>
-                {/* Opciones de distritos */}
+              <select 
+                className="p-2 bg-gray-200 rounded w-2/3 text-gray-700"
+                value={distrito}
+                onChange={(e) => setDistrito(e.target.value)} // Actualiza el estado del distrito
+              >
+                <option value="">Seleccione...</option>
+                <option value="Miraflores">Miraflores</option>
+                <option value="San Isidro">San Isidro</option>
+                <option value="La Molina">La Molina</option>
+                <option value="Surco">Surco</option>
+                <option value="San Borja">San Borja</option>
+                <option value="Lince">Lince</option>
+                <option value="Barranco">Barranco</option>
+                <option value="Pueblo Libre">Pueblo Libre</option>
+                <option value="San Miguel">San Miguel</option>
+                <option value="Callao">Callao</option>
+                {/* Agregar más distritos según sea necesario */}
               </select>
             </div>
 
@@ -79,7 +108,7 @@ const RegisterForm = () => {
                 {/* Botón "Geolocalizar" */}
                 <button 
                   className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ml-4"
-                  onClick={toggleModal} // Abre el modal
+                  onClick={handleGeolocalizar} // Abre el modal y llena los campos
                 >
                   GEOLOCALIZAR
                 </button>
@@ -118,46 +147,49 @@ const RegisterForm = () => {
       </div>
 
       {/* Modal de geolocalización */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg w-[60%] h-[80%] relative ">
+            <button
+              onClick={toggleModal}
+              className="absolute top-4 right-4 text-2xl font-bold text-red-600"
+            >
+              &times;
+            </button>
+            <h2 className="text-[24px] font-bold text-center mb-4">GEOLOCALIZAR</h2>
 
-    {showModal && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-    <div className="bg-white p-6 rounded-lg w-[60%] h-[80%] relative ">
-      <button
-        onClick={toggleModal}
-        className="absolute top-4 right-4 text-2xl font-bold text-red-600"
-      >
-        &times;
-      </button>
-      <h2 className="text-[24px] font-bold text-center mb-4">GEOLOCALIZAR</h2>
+            {/* Primera fila de botones con los datos del modal */}
+            <div className="flex justify-center gap-4 mb-4">
+              <button className="bg-gray-300 text-gray-800 px-12 py-3 text-xl rounded">{modalDepartamento}</button>
+              <button className="bg-gray-300 text-gray-800 px-12 py-3 text-xl rounded">{modalProvincia}</button>
+              <button className="bg-gray-300 text-gray-800 px-28 py-3 text-xl rounded">{modalDistrito}</button>
+            </div>
 
-      {/* Primera fila de botones */}
-      <div className="flex justify-center gap-4 mb-4">
-        <button className="bg-gray-300 text-gray-800 px-12 py-3 text-xl rounded">LIMA</button>
-        <button className="bg-gray-300 text-gray-800 px-12 py-3 text-xl rounded">LIMA</button>
-        <button className="bg-gray-300 text-gray-800 px-28 py-3 text-xl rounded">ATE</button>
-      </div>
+            {/* Segunda fila de botones */}
+            <div className="flex justify-center gap-4 mb-5 items-center">
+            <input 
+              type="INPUT" 
 
-      {/* Segunda fila de botones */}
-      <div className="flex justify-center gap-4 mb-5 items-center">
-        <button className="bg-gray-300 text-gray-800 px-28 py-3 text-xl rounded">FIA DATA</button>
-        <button className="bg-[#AC1919] text-white px-5 py-3 text-xl rounded">BUSCAR</button>
-        <button className="bg-[#3C4862] text-white px-5 py-3 text-xl rounded">LIMPIAR</button>
-      </div>
-
-      <div className="flex justify-center">
-        <img 
-          src={mapaImg} 
-          alt="Mapa" 
-          className="object-cover" 
-          style={{ width: '1000px', height: '400px' }} 
-        />
-      </div>
-    </div>
-  </div>
-)}
-
-
-
+              className="bg-gray-300 justify-LEFT text-gray-800 px-28 py-3 text-xl rounded cursor-pointer" 
+              onClick={() => {
+                // Aquí puedes agregar la lógica que deseas ejecutar al hacer clic en el botón
+              }} 
+/>
+              <button className="bg-[#AC1919] text-white px-5 py-3 text-xl rounded">BUSCAR</button>
+              <button className="bg-green-600 text-white px-5 py-3 text-xl rounded">LIMPIAR</button>
+            </div>
+            <div className="flex justify-center">
+              <img 
+                src={mapaImg} 
+                alt="Mapa" 
+                className="object-cover" 
+                style={{ width: '1000px', height: '400px' }} 
+              />
+            </div>
+          </div>
+         
+        </div>
+      )}
     </div>
   );
 };
