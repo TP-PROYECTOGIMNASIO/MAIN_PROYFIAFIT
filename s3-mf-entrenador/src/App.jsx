@@ -6,7 +6,6 @@ import Inicio from "./pages/Inicio/Inicio";
 import Visualizar from "./pages/VisualizarMetricasAlumno/VisualizarMetricasAlumno";
 //import ListarAlumnos from "./pages/VisualizarMetricasAlumno/ListarMetricas/ListaAlumnos";
 import RegistrarMetricas from "./pages/RegistrarMetricasAlumno/registrarMetricas/RegistrarMetricasAlumno";
-import AlumnoCheckin from "./pages/VisualizarMetricasAlumno/Checking-Metricas/AlumnoCheckin";
 import VistaNoRegisrado from "./pages/RegistrarMetricasAlumno/VistaNoRegistradoMetricas/Ir-Registrar-Metrica";
 import ListStudents from "./pages/listStudents/ListStudents";
 //import AsignarAlumno2 from "./pages/asignaralumno/AsignarAlumno2";
@@ -68,7 +67,6 @@ function App() {
         <Route path="/visualizar" element={<Visualizar />} />
         <Route path="/listar-alumnos" element={<ListStudents />} />
         <Route path="/registrar-metricas" element={<RegistrarMetricas />} />
-        <Route path="/alumno-checkin" element={<AlumnoCheckin />} />
         <Route path="/vista-no-registrado" element={<VistaNoRegisrado />} />
         <Route path="/asignar-alumno" element={<AsignarAlumno3 />} />
         <Route path="/planes" element={<Planes />} />
