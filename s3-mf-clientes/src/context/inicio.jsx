@@ -28,7 +28,7 @@ const HomePage = () => {
             <span className="text-lg sm:text-xl font-bold">MIS PLANES</span>
           </Link>
           <Link
-            to="/"
+            to="/ver-metricas"
             className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left"
           >
             <span className="text-sm font-semibold">VER</span>

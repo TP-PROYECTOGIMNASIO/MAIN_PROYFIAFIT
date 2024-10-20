@@ -17,7 +17,7 @@ export default function Navbar() {
     useEffect(() => {
         const fetchStudents = async () => {
             try {
-                const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/alumnos?staff_id=3');
+                const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/alumnos?staff_id=1');
                 if (!response.ok) {
                     throw new Error('Error en la respuesta de la API');
                 }

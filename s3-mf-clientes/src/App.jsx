@@ -9,6 +9,7 @@ import Planes from "./components/PlanesPage";
 import VerPlan from "./components/VerPlan";
 import VerEjercicios from "./components/VerEjercicios";
 import VerNutricion from "./components/VerNutricion";
+import VerMetricas from "./components/VerMetricas/VerMetricas";
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
           <Route path="/ver-plan/:planId" element={<VerPlan />} />
           <Route path="/ver-ejercicios/:diaId" element={<VerEjercicios />} />
           <Route path="/ver-nutricion" element={<VerNutricion />} />
-      
+          <Route path="/ver-metricas" element={<VerMetricas />} />
         </Routes>
         <Footer/>
       </div>
