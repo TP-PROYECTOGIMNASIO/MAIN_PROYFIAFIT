@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 function RegistroEjerciciosTratamiento() {
   const [selectedOption, setSelectedOption] = useState('');
@@ -12,7 +13,8 @@ function RegistroEjerciciosTratamiento() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       {/* Botón de regresar */}
       <div className="w-full max-w-4xl mb-6">
-        <button className="text-gray-500 hover:text-gray-700 font-semibold flex items-center">
+        <button className="text-gray-500 hover:text-gray-700 font-semibold flex items-center"
+            onClick={() => navigate('/')}>
           <span className="mr-2">&lt;</span> Regresar
         </button>
       </div>

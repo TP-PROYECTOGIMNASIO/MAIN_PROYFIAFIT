@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PlanTratamientoSinRegistrar = () => {
   return (
@@ -17,9 +18,16 @@ const PlanTratamientoSinRegistrar = () => {
           <p className="text-gray-500 text-base mt-8">
             Aún no se ha registrado Plan Tratamiento
           </p>
-          <button className="bg-red-700 text-white py-2 px-4 rounded-lg mt-6 hover:bg-red-800 transition duration-300">
+
+          <br>
+          </br>         
+
+          <Link to="/RegistroPlan" className="bg-red-700 text-white py-2 px-4 rounded-lg mt-6 hover:bg-red-800 transition duration-300"
+         
+          >
             GENERAR PLAN TRATAMIENTO
-          </button>
+            
+            </Link>
         </div>
       </main>
     </div>

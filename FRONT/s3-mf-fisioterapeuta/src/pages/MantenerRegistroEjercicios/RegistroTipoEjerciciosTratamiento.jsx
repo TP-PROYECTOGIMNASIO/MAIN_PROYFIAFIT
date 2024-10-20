@@ -1,12 +1,14 @@
 
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 function RegistroTipoEjerciciosTratamiento() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       {/* Botón de regresar */}
       <div className="w-full max-w-md mb-6">
-        <button className="text-gray-500 hover:text-gray-700 font-semibold flex items-center">
+        <button className="text-gray-500 hover:text-gray-700 font-semibold flex items-center"
+            onClick={() => navigate('/ListaTipoEjerciciosTratamiento')}>
           <span className="mr-2">&lt;</span> Regresar
         </button>
       </div>
