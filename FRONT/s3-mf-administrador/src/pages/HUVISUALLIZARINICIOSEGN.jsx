@@ -35,10 +35,9 @@ const HUVISUALLIZARINICIOSEGN = () => {
         <h1 className="text-4xl font-bold mb-12 text-red-600 text-center">
           Bienvenido Admin
         </h1>
-        <div>
-          {/* Resto de la estructura del componente */}
+        {/*<div>
           <h1>Datos recibidos: role: {role} token: {token} username: {username} </h1>
-        </div>
+        </div>*/}
 
         <div className="grid grid-cols-2 gap-0">
           <div className="text-left">

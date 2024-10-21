@@ -12,6 +12,16 @@ const HomePage = () => {
   console.log("role recibido:", role);
   console.log("token recibido:", token);
   console.log("username recibido:", username);
+
+  const [loading, setLoading] = useState({ mis_planes: false, mis_metricas: false, mis_compras: false, mi_suscripcion: false }); // Estado de carga para cada botón
+
+  const handleNavigation = async (path, type) => {
+    setLoading((prev) => ({ ...prev, [type]: true })); // Cambia el estado a carga para el botón específico
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula un tiempo de carga
+    navigate(path); // Navega a la nueva ruta
+    setLoading((prev) => ({ ...prev, [type]: false })); // Restablece el estado de carga
+  };
+
   return (
     <div className="relative flex flex-col min-h-screen">
       {/* Imagen de fondo */}
@@ -28,42 +38,61 @@ const HomePage = () => {
           alt="Imagen de fondo"
           className="absolute top-0 left-0 w-full h-full object-cover z-[-1] pointer-events-none" // Esto permite que los clics pasen a través de la imagen
         />
-        <div>
-          {/* Resto de la estructura del componente */}
+       {/* <div>
           <h1>Datos recibidos: role: {role} token: {token} username: {username} </h1>
-        </div>
+        </div>*/}
 
 
         <section className="flex flex-col space-y-4 sm:w-1/3 items-center mt-8 sm:mt-0 w-full sm:ml-auto sm:mr-8">
-          <Link
-            to="/planes"
-            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left"
-          >
+          <button
+            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
+            onClick={() => handleNavigation('/planes', 'mis_planes')}
+            disabled={loading.mis_planes}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MIS PLANES</span>
-          </Link>
-          <Link
-            to="/ver-metricas"
-            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left"
-          >
+            {loading.mis_planes && (
+              <div className="absolute inset-y-0 right-4 flex items-center">
+                <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6"></div>
+              </div>
+            )} 
+          </button>
+          <button
+            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
+            onClick={() => handleNavigation('/ver-metricas', 'mis_metricas')}
+            disabled={loading.mis_metricas}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MIS MÉTRICAS</span>
-          </Link>
-          <Link
-            to="/"
-            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left"
-          >
+            {loading.mis_metricas && (
+              <div className="absolute inset-y-0 right-4 flex items-center">
+                <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6"></div>
+              </div>
+            )}  
+          </button>
+          <button
+            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
+            onClick={() => handleNavigation('/', 'mis_compras')}
+            disabled={loading.mis_compras}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MIS COMPRAS</span>
-          </Link>
+            {loading.mis_compras && (
+              <div className="absolute inset-y-0 right-4 flex items-center">
+                <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6"></div>
+              </div>
+            )}            
+            </button>
 
-          <Link
-            to="/"
-            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left"
-          >
+          <button
+            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
+            onClick={() => handleNavigation('/', 'mi_suscripcion')}
+            disabled={loading.mi_suscripcion}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MI SUSCRIPCIÓN</span>
-          </Link>
+            {loading.mi_suscripcion && (
+              <div className="absolute inset-y-0 right-4 flex items-center">
+                <div className="animate-spin border-2 border-red-600 border-t-transparent rounded-full h-6 w-6"></div>
+              </div>
+            )}          
+          </button>
         </section>
       </main>
     </div>
