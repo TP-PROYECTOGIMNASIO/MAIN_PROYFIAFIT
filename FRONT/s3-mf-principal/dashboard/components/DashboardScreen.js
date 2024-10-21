@@ -22,7 +22,7 @@ const roleImages = {
 export default function DashboardScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { role } = route.params;
+  const { role, username, token } = route.params;
 
   useEffect(() => {
     const storeRole = async () => {
@@ -40,7 +40,7 @@ export default function DashboardScreen() {
   }, [role]);
 
   const handleNavigateToWeb = () => {
-    navigation.navigate('Microview', { role: role });
+    navigation.navigate('Microview', { role: role, username: username, token: token});
   };
 
   const handleNavigateToUpdatePassword = () => {

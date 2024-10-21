@@ -62,15 +62,15 @@ export default function LoginScreen() {
 
           // Si el usuario tiene el rol de 'cliente' o 'cliente_libre', siempre redirige al Dashboard
           if (userRole === 'cliente' || userRole === 'cliente_libre') {
-            navigation.navigate('Dashboard', { role: userRole, username: username });
+            navigation.navigate('Dashboard', { role: userRole, username: username, token: token });
           }
           // Si el rol es diferente y necesita cambiar la contraseña
           else if (forcePasswordChange !== '1') {
-            navigation.navigate('UpdatePassword', { role: userRole, username: username });
+            navigation.navigate('UpdatePassword', { role: userRole, username: username, token: token });
           }
           // Si no necesita cambiar la contraseña
           else {
-            navigation.navigate('Dashboard', { role: userRole, username: username });
+            navigation.navigate('Dashboard', { role: userRole, username: username, token: token });
           }
 
         } catch (error) {

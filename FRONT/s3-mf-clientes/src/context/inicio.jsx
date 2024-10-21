@@ -1,6 +1,17 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from "react-router-dom";
+import { useState  } from 'react';
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search);  // Verificar que todos los parámetros están presentes
+
+  const role = params.get('role');
+  const token = params.get('token');
+  const username = params.get('username');
+  console.log("role recibido:", role);
+  console.log("token recibido:", token);
+  console.log("username recibido:", username);
   return (
     <div className="relative flex flex-col min-h-screen">
       {/* Imagen de fondo */}
@@ -17,6 +28,10 @@ const HomePage = () => {
           alt="Imagen de fondo"
           className="absolute top-0 left-0 w-full h-full object-cover z-[-1] pointer-events-none" // Esto permite que los clics pasen a través de la imagen
         />
+        <div>
+          {/* Resto de la estructura del componente */}
+          <h1>Datos recibidos: role: {role} token: {token} username: {username} </h1>
+        </div>
 
 
         <section className="flex flex-col space-y-4 sm:w-1/3 items-center mt-8 sm:mt-0 w-full sm:ml-auto sm:mr-8">
@@ -40,6 +55,14 @@ const HomePage = () => {
           >
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MIS COMPRAS</span>
+          </Link>
+
+          <Link
+            to="/"
+            className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left"
+          >
+            <span className="text-sm font-semibold">VER</span>
+            <span className="text-lg sm:text-xl font-bold">MI SUSCRIPCIÓN</span>
           </Link>
         </section>
       </main>
