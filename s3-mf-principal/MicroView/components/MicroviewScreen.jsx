@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
 
 export default function MicroviewScreen() {
   const route = useRoute();
-  const { role } = route.params;
+  const { role, username, token } = route.params;
   const navigation = useNavigation();
   const aleatorio = Math.floor(Math.random() * (7 - 0 + 1)) + 0;
   const navegacion = [
@@ -21,31 +21,40 @@ export default function MicroviewScreen() {
   ];
   var urlNew =""
   if(role === "admin"){
-    urlNew = "https://d9cbdrt9qxc6x.cloudfront.net";
+    urlNew = `https://d9cbdrt9qxc6x.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role ==="cliente"){
-    urlNew = "https://d28sl9jcsu2dh.cloudfront.net/";
+    urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }else if(role==='entrenador'){
-    urlNew = "https://dvnm61x8t41e0.cloudfront.net/";
+    urlNew = `https://dvnm61x8t41e0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }else if(role==='cliente_libre'){
-    urlNew = "https://d28sl9jcsu2dh.cloudfront.net/";
+    urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='instructor'){
-    urlNew = "https://d3matswszdb8p0.cloudfront.net/";
+    urlNew = `https://d3matswszdb8p0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='manager'){
-    urlNew = "https://dlfxmk04c8l4u.cloudfront.net";
+    urlNew = `https://dlfxmk04c8l4u.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role ==='encargado'){
-    urlNew = "https://d33a2p3oofplz1.cloudfront.net/";
+    urlNew = `https://d33a2p3oofplz1.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='fisioterapeuta'){
-    urlNew = "https://d1f9oglz3r6l8a.cloudfront.net/";
+    urlNew = `https://d1f9oglz3r6l8a.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='nutricionista'){
-    urlNew = "https://d27br7ner8n8n5.cloudfront.net/";
-
+    urlNew = `https://d27br7ner8n8n5.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }
+
   const handleNavigateToDashboard = () => {
     navigation.navigate('Dashboard', { role: role });
   };

@@ -1,6 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const HUVISUALLIZARINICIOSEGN = () => {
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search);  // Verificar que todos los parámetros están presentes
+
+  const role = params.get('role');
+  const token = params.get('token');
+  const username = params.get('username');
+  console.log("role recibido:", role);
+  console.log("token recibido:", token);
+  console.log("username recibido:", username);
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-end p-10 relative">
       <img

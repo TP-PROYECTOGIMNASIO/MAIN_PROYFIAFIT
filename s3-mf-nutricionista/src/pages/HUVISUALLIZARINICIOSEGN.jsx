@@ -7,6 +7,16 @@ const HUVISUALLIZARINICIOSEGN = () => {
   const [loadingPlan, setLoadingPlan] = useState(false); // Para el botón Empezar Plan
   const navigate = useNavigate();
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search);  // Verificar que todos los parámetros están presentes
+
+  const role = params.get('role');
+  const token = params.get('token');
+  const username = params.get('username');
+  console.log("role recibido:", role);
+  console.log("token recibido:", token);
+  console.log("username recibido:", username);
+
   useEffect(() => {
     const fetchClients = async () => {
       try {

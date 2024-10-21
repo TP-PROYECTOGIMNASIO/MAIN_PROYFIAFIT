@@ -42,6 +42,9 @@ export default function Navbar() {
         <Link to="/">
           <h1 className="text-[20px] font-bold" style={{ color: "#4B4F57" }}>Inicio</h1>
         </Link>
+        <Link to="/">
+          <h1 className="text-[20px] font-bold" style={{ color: "#4B4F57" }}>Eventos</h1>
+        </Link>
         {/* Cambia Link por un botón para manejar la validación */}
         <button onClick={handleProductsClick} className="text-[20px] font-bold" style={{ color: "#4B4F57" }}>
           Productos
