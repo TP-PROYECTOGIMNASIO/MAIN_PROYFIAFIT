@@ -3,27 +3,38 @@ import { useEffect, useState } from "react";
 
 const CartDetails = () => {
   const { products, totalAmount, removeProduct, addProduct } = useShoppingCart();
-  const [ setCulqiLoaded] = useState(false); // Estado para rastrear si Culqi está cargado
+  const [setCulqiLoaded] = useState(false); // Corrección aquí
 
   // Función para redirigir a aa.html con parámetros
-  const redirectToPage = (item) => {
-    const price = item.price.toFixed(2); // Asegúrate de que el precio esté en el formato correcto
-    const productId = item.product_type_id;
-    const quantity = item.quantity;
-
-    // Construye la URL con los parámetros
-    const url = `/aa.html?price=${price}&item.id=${productId}&quantity=${quantity}`;
+  const redirectToPage = (cart) => {
+    const totalPrice = cart.price.toFixed(2);
     
-    // Redirige a la página con los parámetros
+    // Verifica que cada producto tenga un `product_id` y `quantity`. Si no, lanza un error.
+    const productIds = cart.products.map(product => {
+      if (!product.product_id) {
+        throw new Error(`El producto ${product.name || 'sin nombre'} no tiene un ID definido.`);
+      }
+      return product.product_id;
+    }).join(',');
+
+    const quantities = cart.products.map(product => {
+      if (typeof product.quantity === 'undefined' || product.quantity <= 0) {
+        throw new Error(`El producto ${product.name || 'sin nombre'} tiene una cantidad no válida.`);
+      }
+      return product.quantity;
+    }).join(',');
+
+    // Construye la URL correctamente
+    const url = `/aa.html?price=${totalPrice}&item.id=${productIds}&quantity=${quantities}`;
     window.location.href = url;
   };
-
+  
   const updateQuantity = (productId, quantity) => {
     if (quantity <= 0) {
       removeProduct(productId);
     } else {
       const productToUpdate = products.find(
-        (product) => product.product_type_id === productId
+        (product) => product.product_id === productId
       );
       if (productToUpdate) {
         addProduct(productToUpdate, quantity - productToUpdate.quantity);
@@ -38,8 +49,8 @@ const CartDetails = () => {
 
     script.onload = () => {
       if (window.Culqi) {
-        window.Culqi.publicKey = 'pk_test_1e3464ded7850f8c'; // Llave pública
-        setCulqiLoaded(true); // Indicar que el script de Culqi se ha cargado
+        window.Culqi.publicKey = 'pk_test_1e3464ded7850f8c';
+        setCulqiLoaded(true);  // Corrección aquí
       } else {
         console.error("Culqi no está definido después de cargar el script.");
       }
@@ -54,7 +65,7 @@ const CartDetails = () => {
     return () => {
       document.body.removeChild(script);
     };
-  });
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-100 p-8">
@@ -66,7 +77,7 @@ const CartDetails = () => {
             ) : (
               products.map((item) => (
                 <div
-                  key={item.product_type_id}
+                  key={item.product_id}
                   className="flex justify-between items-center mt-6 pt-6 border-t"
                 >
                   <div className="flex items-center">
@@ -92,7 +103,7 @@ const CartDetails = () => {
                       <button
                         onClick={() =>
                           updateQuantity(
-                            item.product_type_id,
+                            item.product_id,
                             item.quantity - 1
                           )
                         }
@@ -109,7 +120,7 @@ const CartDetails = () => {
                       <button
                         onClick={() =>
                           updateQuantity(
-                            item.product_type_id,
+                            item.product_id,
                             item.quantity + 1
                           )
                         }
@@ -125,7 +136,7 @@ const CartDetails = () => {
                     </div>
                     <div>
                       <button
-                        onClick={() => removeProduct(item.product_type_id)}
+                        onClick={() => removeProduct(item.product_id)}
                         className="text-red-500 text-xs font-bold"
                       >
                         <i className="fa fa-trash"></i>
@@ -138,26 +149,26 @@ const CartDetails = () => {
           </div>
 
           <div className="md:w-2/5 bg-gray-200 p-5">
-          <div className="p-5">
-          <h3 className="text-xl font-bold border-b pb-2">Resumen</h3>
-    <div className="flex justify-between mt-4">
-      <span>Subtotal:</span>
-      <span>S/. {totalAmount.toFixed(2)}</span>
-    </div>
-    <div className="flex justify-between mt-4">
-      <span>Total:</span>
-      <span>S/. {totalAmount.toFixed(2)}</span>
-    </div>
-    
-    {/* Botón de pago único para todos los productos */}
-    <button
-      onClick={() => redirectToPage({ price: totalAmount, products })} // Puedes ajustar según necesites
-      className="w-full py-3 mt-6 bg-red-600 hover:bg-red-700 rounded text-white text-xs font-semibold"
-    >
-      PAGAR
-    </button>
-  </div>
-</div>
+            <div className="p-5">
+              <h3 className="text-xl font-bold border-b pb-2">Resumen</h3>
+              <div className="flex justify-between mt-4">
+                <span>Subtotal:</span>
+                <span>S/. {totalAmount.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between mt-4">
+                <span>Total:</span>
+                <span>S/. {totalAmount.toFixed(2)}</span>
+              </div>
+
+              {/* Botón de pago único para todos los productos */}
+              <button
+                onClick={() => redirectToPage({ price: totalAmount, products })}
+                className="w-full py-3 mt-6 bg-red-600 hover:bg-red-700 rounded text-white text-xs font-semibold"
+              >
+                PAGAR
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

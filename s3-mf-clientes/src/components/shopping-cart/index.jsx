@@ -16,7 +16,7 @@ export default function ShoppingCart() {
       <div className="grid gap-y-3 py-3">
         {products.map((product) => (
           <div
-            key={product.product_type_id}
+            key={product.product_id}
             className="flex gap-x-4 items-center"
           >
             <img src={product.image_url} alt={product.name} className="w-12" />
@@ -32,7 +32,7 @@ export default function ShoppingCart() {
             <div>
               <button
                 className="bg-red-600 hover:bg-red-800 text-white hover:text-slate-200 rounded-full p-2"
-                onClick={() => removeProduct(product.product_type_id)}
+                onClick={() => removeProduct(product.product_id)}
               >
                 <TrashIcon />
               </button>

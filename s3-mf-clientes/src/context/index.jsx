@@ -21,7 +21,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const addProduct = useCallback((newProduct, quantity = 1) => {
     setProducts((prevProducts) => {
       const existingProductIndex = prevProducts.findIndex(
-        (product) => product.product_type_id === newProduct.product_type_id
+        (product) => product.product_id === newProduct.product_id
       );
 
       if (existingProductIndex >= 0) {
@@ -37,7 +37,7 @@ export const ShoppingCartProvider = ({ children }) => {
   const removeProduct = useCallback((productId) => {
     setProducts((prevProducts) => {
       return prevProducts.filter(
-        (product) => product.product_type_id !== productId
+        (product) => product.product_id !== productId
       );
     });
   }, []);
