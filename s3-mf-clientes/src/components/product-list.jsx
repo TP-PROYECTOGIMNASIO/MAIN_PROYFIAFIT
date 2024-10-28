@@ -9,7 +9,7 @@ export default function ProductList() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Todas");
-  const [searchTerm, setSearchTerm] = useState(""); 
+  const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState([]);
 
   // Función para verificar si un producto ya está en el carrito
@@ -37,6 +37,7 @@ export default function ProductList() {
         setDataProducts(data);
         setLoading(false);
 
+        // Obtiene las categorías únicas de los productos
         const uniqueCategories = [
           "Todas",
           ...new Set(data.map((product) => product.category)),
@@ -51,11 +52,13 @@ export default function ProductList() {
     fetchProducts();
   }, []);
 
-  // Filtrar productos según la categoría seleccionada y el término de búsqueda
+  // Filtrar productos según la categoría seleccionada, el término de búsqueda y si están activos
   const filteredProducts = dataProducts
-    .filter((product) =>
-      (selectedCategory === "Todas" || product.category === selectedCategory) &&
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    .filter(
+      (product) =>
+        product.active && // Filtra productos que estén activos
+        (selectedCategory === "Todas" || product.category === selectedCategory) &&
+        product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
   if (loading) {
@@ -103,39 +106,47 @@ export default function ProductList() {
           Catálogo de productos
         </h1>
 
-        {filteredProducts.map((product) => (
-  <div
-    key={product.product_id} // Cambiado a product_id para ser único
-    className="rounded-lg border bg-gray-400/10 flex flex-col h-full"
-  >
-    <img
-      src={product.image_url}
-      alt={product.name}
-      className="w-full h-48 object-contain bg-white mx-auto cursor-pointer"
-      onClick={() => openModal(product)}
-    />
-    <div className="flex flex-col flex-grow gap-y-4 px-4 py-6">
-      <h1 className="font-medium">{product.name}</h1>
-      <p className="text-sm line-clamp-3">{product.description}</p>
-      <span className="font-medium">$ {product.price}</span>
-      <button
-        className="bg-red-700 hover:bg-green-800 text-slate-200 mt-auto font-medium border rounded-lg px-4 py-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-200"
-        onClick={() => {
-      if (!checkAvailableToAddCart(product.product_id)) {
-      addProduct(product);
-      }
-    }}
-  disabled={checkAvailableToAddCart(product.product_id)}
->
-  Agregar al carrito
-</button>
-    </div>
-  </div>
-))}
+        {filteredProducts.length > 0 ? (
+          filteredProducts.map((product) => (
+            <div
+              key={product.product_id}
+              className="rounded-lg border bg-gray-400/10 flex flex-col h-full"
+            >
+              <img
+                src={product.image_url}
+                alt={product.name}
+                className="w-full h-48 object-contain bg-white mx-auto cursor-pointer"
+                onClick={() => openModal(product)}
+              />
+              <div className="flex flex-col flex-grow gap-y-4 px-4 py-6">
+                <h1 className="font-medium">{product.name}</h1>
+                <p className="text-sm line-clamp-3">{product.description}</p>
+                <span className="font-medium">$ {product.price}</span>
+                <button
+                  className="bg-red-700 hover:bg-green-800 text-slate-200 mt-auto font-medium border rounded-lg px-4 py-2 disabled:bg-gray-200 disabled:text-gray-400 disabled:hover:bg-gray-200"
+                  onClick={() => {
+                    // Asegurarse de agregar el producto correcto al carrito
+                    if (!checkAvailableToAddCart(product.product_id)) {
+                      addProduct(product);
+                    }
+                  }}
+                  disabled={checkAvailableToAddCart(product.product_id)} // Desactivar si ya está en el carrito
+                >
+                  {checkAvailableToAddCart(product.product_id) ? "Agregado" : "Agregar al carrito"}
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="lg:col-span-3 text-xl text-gray-500">
+            No hay productos disponibles en esta categoría.
+          </p>
+        )}
       </div>
 
-      {isModalOpen && (
-        <Modal product={selectedProduct} closeModal={closeModal} />
+      {/* Modal de detalles de productos */}
+      {isModalOpen && selectedProduct && (
+        <Modal product={selectedProduct} onClose={closeModal} />
       )}
     </div>
   );
