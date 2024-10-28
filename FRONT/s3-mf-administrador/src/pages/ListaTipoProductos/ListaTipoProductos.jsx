@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 const ListaTipoProductos = () => {
   const apiUrl84 = import.meta.env.VITE_APP_API_URL_84;
+
+  const location = useLocation(); // Obtener la ubicación actual
+
+  // Obtener los parámetros de búsqueda de la ubicación actual
+  const params = new URLSearchParams(location.search);
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Lista de Tipo de Productos:", role);
+  console.log("token recibido en Lista de Tipo de Productos:", token);
+  console.log("username recibido en Lista de Tipo de Productos:", username);
+
+  // Construir la URL con los parámetros
+  const baseUrl = "/";
+  const paramsString = `?role=${role}&token=${token}&username=${username}`;
 
 
   const [productTypes, setProductTypes] = useState([]);
