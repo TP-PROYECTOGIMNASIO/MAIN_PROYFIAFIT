@@ -1,17 +1,59 @@
 import { Link, useNavigate  } from "react-router-dom";
-import { useState  } from 'react';
-
+import { useEffect, useState } from "react"; // Asegúrate de incluir React, useEffect y useState
 const HomePage = () => {
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
   const navigate = useNavigate();
-  const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros:", window.location.search);  // Verificar que todos los parámetros están presentes
 
-  const role = params.get('role');
-  const token = params.get('token');
-  const username = params.get('username');
-  console.log("role recibido:", role);
-  console.log("token recibido:", token);
-  console.log("username recibido:", username);
+  const [user, setUser] = useState({});
+ 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Visualizar inicio clientes:", role);
+  console.log("token recibido en Visualizar inicio clientes:", token);
+  console.log("username recibido en Visualizar inicio clientes:", username);
+
+  
+
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos:", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
+
 
   const [loading, setLoading] = useState({ mis_planes: false, mis_metricas: false, mis_compras: false, mi_suscripcion: false }); // Estado de carga para cada botón
 
@@ -38,15 +80,11 @@ const HomePage = () => {
           alt="Imagen de fondo"
           className="absolute top-0 left-0 w-full h-full object-cover z-[-1] pointer-events-none" // Esto permite que los clics pasen a través de la imagen
         />
-       {/* <div>
-          <h1>Datos recibidos: role: {role} token: {token} username: {username} </h1>
-        </div>*/}
-
 
         <section className="flex flex-col space-y-4 sm:w-1/3 items-center mt-8 sm:mt-0 w-full sm:ml-auto sm:mr-8">
           <button
             className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
-            onClick={() => handleNavigation('/planes', 'mis_planes')}
+            onClick={() => handleNavigation(`/planes?role=${role}&token=${token}&username=${username}`, 'mis_planes')}
             disabled={loading.mis_planes}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MIS PLANES</span>
@@ -58,7 +96,7 @@ const HomePage = () => {
           </button>
           <button
             className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
-            onClick={() => handleNavigation('/ver-metricas', 'mis_metricas')}
+            onClick={() => handleNavigation(`/ver-metricas?role=${role}&token=${token}&username=${username}`, 'mis_metricas')}
             disabled={loading.mis_metricas}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MIS MÉTRICAS</span>
@@ -70,7 +108,7 @@ const HomePage = () => {
           </button>
           <button
             className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
-            onClick={() => handleNavigation('/', 'mis_compras')}
+            onClick={() => handleNavigation(`/?role=${role}&token=${token}&username=${username}`, 'mis_compras')}
             disabled={loading.mis_compras}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MIS COMPRAS</span>
@@ -83,7 +121,7 @@ const HomePage = () => {
 
           <button
             className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
-            onClick={() => handleNavigation('/', 'mi_suscripcion')}
+            onClick={() => handleNavigation(`/?role=${role}&token=${token}&username=${username}`, 'mi_suscripcion')}
             disabled={loading.mi_suscripcion}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MI SUSCRIPCIÓN</span>

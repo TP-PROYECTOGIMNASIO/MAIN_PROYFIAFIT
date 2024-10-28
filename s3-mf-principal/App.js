@@ -22,7 +22,6 @@ import Header from './Componentes/Header';
 
 import Toast from 'react-native-toast-message'; 
 import { MicroviewScreen } from './MicroView';
-import Dashboard from './Componentes/inicio';
 
 const Stack = createStackNavigator();
 
@@ -73,7 +72,7 @@ function MainStack() {
         <Stack.Screen name="ClienteLibreScreen" component={ClienteLibreScreen} options={{ headerShown: false }}/>  
         <Stack.Screen name="UpdatePassword" component={UpdatePassword} options={{ headerShown: false }} />     
         <Stack.Screen name="CheckIn" component={CheckInScreen} options={{ headerShown: false }} />
- 
+
       </Stack.Navigator>
       <Footer />
       <Toast />

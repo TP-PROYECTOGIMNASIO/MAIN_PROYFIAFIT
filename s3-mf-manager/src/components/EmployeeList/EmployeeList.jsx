@@ -19,6 +19,58 @@ const EmployeeList = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const navigate = useNavigate(); // Inicializa useNavigate
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+
+  const [user, setUser] = useState({});
+ 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en EmployeeList:", role);
+  console.log("token recibido en EmployeeList:", token);
+  console.log("username recibido en EmployeeList:", username);
+
+  
+
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos:", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
+
 
   useEffect(() => {
     const fetchEmployees = async () => {
@@ -136,7 +188,7 @@ const EmployeeList = () => {
   };
 
   const handleBackClick = () => {
-    navigate('/'); // Redirige a ManagerPage
+    navigate(`/?role=${role}&token=${token}&username=${username}`); // Redirige a ManagerPage
   };
 
   return (

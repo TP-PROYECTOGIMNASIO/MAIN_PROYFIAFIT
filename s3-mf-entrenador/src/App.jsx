@@ -3,7 +3,6 @@ import { Routes, Route, useNavigationType, useLocation } from "react-router-dom"
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Inicio from "./pages/Inicio/Inicio";
-import Visualizar from "./pages/VisualizarMetricasAlumno/VisualizarMetricasAlumno";
 //import ListarAlumnos from "./pages/VisualizarMetricasAlumno/ListarMetricas/ListaAlumnos";
 import RegistrarMetricas from "./pages/RegistrarMetricasAlumno/registrarMetricas/RegistrarMetricasAlumno";
 import VistaNoRegisrado from "./pages/RegistrarMetricasAlumno/VistaNoRegistradoMetricas/Ir-Registrar-Metrica";
@@ -64,7 +63,6 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Inicio />} />
-        <Route path="/visualizar" element={<Visualizar />} />
         <Route path="/listar-alumnos" element={<ListStudents />} />
         <Route path="/registrar-metricas" element={<RegistrarMetricas />} />
         <Route path="/vista-no-registrado" element={<VistaNoRegisrado />} />

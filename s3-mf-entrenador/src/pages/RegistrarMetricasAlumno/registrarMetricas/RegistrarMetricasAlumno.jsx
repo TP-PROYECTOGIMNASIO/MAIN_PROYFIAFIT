@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FaArrowLeft as ArrowLeftIcon } from 'react-icons/fa';
 
@@ -7,6 +7,59 @@ const RegistrarMetricasAlumno = () => {
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
     const clientId = searchParams.get('client_id');
+    
+    const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+    const apiUrl22 = import.meta.env.VITE_APP_API_URL_22;
+
+    const [user, setUser] = useState({});
+   
+    const params = new URLSearchParams(window.location.search);
+    console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+    
+    const role = params.get("role");
+    const token = params.get("token");
+    const username = params.get("username");
+    console.log("role recibido en Visualizar inicio:", role);
+    console.log("token recibido en Visualizar inicio:", token);
+    console.log("username recibido en Visualizar inicio:", username);
+  
+    
+  
+    useEffect(() => {
+      if (token && username) {
+        console.log("Datos recibidos:", { role, token, username });
+        fetchUserName();
+      }
+    }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+  
+    const fetchUserName = async () => {
+      try {
+        const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+  
+        if (!response.ok) {
+          throw new Error("Error en la respuesta de la API");
+        }
+  
+        const data = await response.json();
+        console.log("Respuesta de la API:", data);
+  
+        if (Array.isArray(data)) {
+          if (data.length > 0) {
+            setUser(data[0]);
+          } else {
+            console.error("El array está vacío");
+            setUser({});
+          }
+        } else if (data && typeof data === "object") {
+          setUser(data);
+        } else {
+          console.error("Formato inesperado en la respuesta de la API:", data);
+          setUser({});
+        }
+      } catch (error) {
+        console.error("Error al obtener la información del usuario", error);
+      }
+    };
 
     const [formData, setFormData] = useState({
         height: "",
@@ -63,7 +116,7 @@ const RegistrarMetricasAlumno = () => {
 
             console.log("Datos a enviar:", JSON.stringify(bodyData, null, 2));
 
-            const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/metricas-alumno/hu-tp-22', {
+            const response = await fetch(`${apiUrl22}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +129,7 @@ const RegistrarMetricasAlumno = () => {
 
             if (response.ok) {
                 alert('Métricas registradas con éxito');
-                navigate(`/vista-no-registrado?client_id=${clientId}`);
+                navigate(`/vista-no-registrado?client_id=${clientId}&role=${role}&token=${token}&username=${username}`);
             } else {
                 throw new Error(responseData.error || 'Error al registrar las métricas');
             }
@@ -90,7 +143,7 @@ const RegistrarMetricasAlumno = () => {
     return (
         <div className="flex flex-col items-center w-full min-h-screen p-4 bg-gray-100">
             <div className="flex items-center justify-between w-full mb-4 sm:mb-6">
-                <Link to={`/vista-no-registrado?client_id=${clientId}`}>
+                <Link to={`/vista-no-registrado?client_id=${clientId}&role=${role}&token=${token}&username=${username}`}>
                     <ArrowLeftIcon className="w-6 h-6 sm:w-8 sm:h-8 text-gray-600" />
                 </Link>
             </div>
