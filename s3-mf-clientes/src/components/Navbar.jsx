@@ -95,7 +95,7 @@ export default function Navbar() {
         <Link to={`/?role=${role}&token=${token}&username=${username}`}>
           <h1 className="text-[20px] font-bold" style={{ color: "#4B4F57" }}>Inicio</h1>
         </Link>
-        <Link to={`/?role=${role}&token=${token}&username=${username}`}>
+        <Link to={`/Eventos?role=${role}&token=${token}&username=${username}`}>
           <h1 className="text-[20px] font-bold" style={{ color: "#4B4F57" }}>Eventos</h1>
         </Link>
         {/* Cambia Link por un botón para manejar la validación */}
