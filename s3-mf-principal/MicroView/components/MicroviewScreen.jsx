@@ -11,49 +11,49 @@ export default function MicroviewScreen() {
 
   var urlNew =""
   if(role === "admin"){
-    //urlNew = `https://d9cbdrt9qxc6x.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d9cbdrt9qxc6x.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role ==="cliente"){
-    //urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }else if(role==='entrenador'){
-    //urlNew = `https://dvnm61x8t41e0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://dvnm61x8t41e0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }else if(role==='cliente_libre'){
-    //urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='instructor'){
-    //urlNew = `https://d3matswszdb8p0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d3matswszdb8p0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='manager'){
-    //urlNew = `https://dlfxmk04c8l4u.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://dlfxmk04c8l4u.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role ==='encargado'){
-    //urlNew = `https://d33a2p3oofplz1.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d33a2p3oofplz1.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role ==='encargado_eventos'){
-    //urlNew = `https://d33a2p3oofplz1.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d33a2p3oofplz1.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role ==='encargado_gimnasios'){
-    //urlNew = `https://d33a2p3oofplz1.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d33a2p3oofplz1.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='fisioterapeuta'){
-    //urlNew = `https://d1f9oglz3r6l8a.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d1f9oglz3r6l8a.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='nutricionista'){
-    //urlNew = `https://d27br7ner8n8n5.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d27br7ner8n8n5.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }else if(role==='recepcionista'){
-    //urlNew = `https://d2ts7snh3o8l3c.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    urlNew = `https://d2ts7snh3o8l3c.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }
 
   
