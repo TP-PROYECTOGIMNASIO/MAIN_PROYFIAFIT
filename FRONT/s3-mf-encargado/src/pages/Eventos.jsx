@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import EventoCard from "./Eventoscard";
 import { FaMapMarkerAlt, FaUsers, FaCalendarAlt, FaCheckCircle, FaRegSadCry } from 'react-icons/fa';
 
-// Importamos las imágenes desde la carpeta assets
 import imagen1 from "../assets/image1.png";
 import imagen2 from "../assets/image2.png";
 import imagen3 from "../assets/image3.png";
@@ -13,66 +12,55 @@ const eventos = [
     titulo: "Reto Fitness Total",
     sede: "Santa Anita",
     foro: 15,
-    imagen: imagen1, // Imagen importada
+    imagen: imagen1,
   },
   {
     id: 2,
     titulo: "Maratón de Spinning",
     sede: "Santa Anita",
     foro: 20,
-    imagen: imagen2, // Imagen importada
+    imagen: imagen2,
   },
   {
     id: 3,
     titulo: "Clase Magistral de Yoga",
     sede: "Santa Anita",
     foro: 15,
-    imagen: imagen3, // Imagen importada
+    imagen: imagen3,
   },
 ];
 
 function Modal({ evento, onClose, onAccept, onReject }) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg overflow-hidden max-w-lg w-full">
-        {/* Encabezado rojo con el botón de cierre alineado a la derecha */}
+      <div className="bg-white rounded-lg overflow-hidden w-[800px]">
         <div className="bg-[#B5121C] p-4 flex justify-between items-center">
           <span className="text-white text-lg font-bold"></span>
           <button onClick={onClose} className="text-white text-lg font-bold">X</button>
         </div>
-
-        {/* Contenido del modal */}
-        <div className="p-6">
+        <div className="p-2">
           <div className="flex">
-            {/* Imagen en la parte izquierda */}
-            <img src={evento.imagen} className="w-full h-full w-1/3 mr-4" alt={evento.titulo} />
-            
-            {/* Contenido en la parte derecha */}
+            <img src={evento.imagen} className="w-full h-46 w-1/3 mr-4" alt={evento.titulo} />
             <div className="w-2/3">
               <h2 className="text-xl font-bold">{evento.titulo}</h2>
               <p className="text-[#B5121C] mb-2"><strong>Descripción:</strong></p>
               <p>Un reto de varias semanas en el que los participantes tienen que superar diferentes desafíos de entrenamiento. Ideal para incrementar el compromiso y la motivación.</p>
-              
               <p className="text-[#B5121C] mb-2"><strong>Requerimiento:</strong></p>
               <p>Se necesitará de 2 entrenadores y equipo de sonido.</p>
-              
               <p className="flex items-center mb-2">
                 <FaMapMarkerAlt className="mr-1 text-[#B5121C]" />
                 <strong className="text-[#B5121C]">Sede:</strong> {evento.sede}
               </p>
-              
               <p className="flex items-center mb-2">
                 <FaUsers className="mr-1 text-[#B5121C]" />
                 <strong className="text-[#B5121C]">Foro disponible:</strong> {evento.foro}
               </p>
-              
               <p className="flex items-center mb-4">
                 <FaCalendarAlt className="mr-1 text-[#B5121C]" />
                 <strong className="text-[#B5121C]">Fecha:</strong> 20/10/2024 5:00 pm
               </p>
             </div>
           </div>
-
           <div className="flex justify-end mt-4">
             <button className="bg-[#B5121C] text-white px-4 py-2 rounded-lg mr-2" onClick={onAccept}>
               Aceptar
@@ -86,7 +74,6 @@ function Modal({ evento, onClose, onAccept, onReject }) {
     </div>
   );
 }
-
 
 function ConfirmationModal({ onClose }) {
   return (
@@ -125,16 +112,16 @@ export default function Eventos() {
   const TabButton = ({ label }) => (
     <button
       onClick={() => setTab(label)}
-      className={`px-4 py-2 rounded-lg ${
-        tab === label ? "bg-red-600 text-white" : "bg-gray-200 text-gray-600"
-      }`}
+      className={`px-4 py-2 rounded-lg ${tab === label ? "bg-red-600 text-white" : "bg-gray-200 text-gray-600"}`}
     >
       {label === "aprobados" ? "EVENTOS APROBADOS" : "SOLICITUDES DE EVENTOS"}
     </button>
   );
 
   const handleCardClick = (evento) => {
-    setSelectedEvento(evento);
+    if (tab === "solicitudes") {
+      setSelectedEvento(evento);
+    }
   };
 
   const eventosAMostrar = tab === "solicitudes" ? eventos.slice(0, 2) : eventos;
