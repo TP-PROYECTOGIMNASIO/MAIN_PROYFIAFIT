@@ -8,37 +8,37 @@ const events = [
     title: "Reto Fitness Total",
     location: "Sede Santa Anita",
     slots: "15",
-    img: "plan_tratamiento.png"
+    img: "/fondo_evento_1.jpeg"
   },
   {
     title: "Maratón de Spinning",
     location: "Sede La Molina",
     slots: "20",
-    img: "ruta/de/imagen2.png"
+    img: "/fondo_evento_2.jpeg"
   },
   {
     title: "Clase Magistral de Yoga",
     location: "Sede Santa Anita",
     slots: "15",
-    img: "ruta/de/imagen3.png"
+    img: "/fondo_evento_3.jpeg"
   },
   {
     title: "Entrenamiento Funcional",
     location: "Sede San Isidro",
     slots: "10",
-    img: "ruta/de/imagen4.png"
+    img: "/fondo_evento_1.jpeg"
   },
   {
     title: "Zumba Party",
     location: "Sede Barranco",
     slots: "25",
-    img: "ruta/de/imagen5.png"
+    img: "/fondo_evento_2.jpeg"
   },
   {
     title: "Pilates Avanzado",
     location: "Sede Miraflores",
     slots: "12",
-    img: "ruta/de/imagen6.png"
+    img: "/fondo_evento_3.jpeg"
   }
 ];
 

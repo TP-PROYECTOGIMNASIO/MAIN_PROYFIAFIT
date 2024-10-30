@@ -4,7 +4,7 @@ const Banner = () => {
   return (
     <section className="relative w-full h-[400px]">
       <img 
-        src="ruta/de/tu/imagen-de-fondo.png" 
+        src="/fondo_evento.jpeg" 
         alt="Fondo" 
         className="w-full h-full object-cover" 
       />
