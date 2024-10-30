@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ConfirmModal from './ConfirmModal';
 
 const CreateMembershipModal = ({ onClose, onAddMembership }) => {
   const [name, setName] = useState('');
-  const [description , setDescription ] = useState('');
+  const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const navigate = useNavigate();
 
   const handleAddClick = () => {
     if (!name || !description || !price) {
@@ -17,12 +19,24 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
     setShowConfirmation(true); // Mostrar el modal de confirmación
   };
 
+  const handlePriceChange = (e) => {
+    const value = e.target.value;
+
+    // Verificar si el precio es negativo
+    if (value < 0) {
+      setErrorMessage('El precio no puede ser negativo.');
+    } else {
+      setErrorMessage('');
+      setPrice(value);
+    }
+  };
+
   const handleConfirm = () => {
     const newMembership = {
       id: Date.now(),
       name,
       price,
-      description, // te falta tomar la membresia, tienes que obtenerla  del formualrio sno esta defininda
+      description,
       isEnabled: true,
     };
 
@@ -37,6 +51,12 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
     setPrice('');
     setErrorMessage('');
     setShowConfirmation(false); // Cerrar el modal de confirmación
+  };
+
+  const handleCancel = () => {
+    resetFields(); // Limpiar los campos
+    navigate('/membresias'); // Redirige a la vista principal de membresías
+    onClose(); // Asegúrate de cerrar el modal
   };
 
   return (
@@ -75,7 +95,7 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
             className="w-full p-2 border rounded"
             type="number"
             value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={handlePriceChange} // Usar la función de validación
           />
         </div>
 
@@ -91,7 +111,7 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
         <ConfirmModal
           isOpen={showConfirmation}
           onConfirm={handleConfirm}
-          onCancel={resetFields} // Cancelar la confirmación
+          onCancel={handleCancel} // Usa la nueva función para cancelar
         />
       </div>
     </div>
@@ -99,4 +119,7 @@ const CreateMembershipModal = ({ onClose, onAddMembership }) => {
 };
 
 export default CreateMembershipModal;
+
+
+
 
