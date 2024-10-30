@@ -12,6 +12,8 @@ import VerEjercicios from "./components/VerEjercicios";
 import VerNutricion from "./components/VerNutricion";
 import VerMetricas from "./components/VerMetricas/VerMetricas";
 import PagoExitoso from "./components/PagoExitoso";
+import VerTratamiento from "./components/PlanTratamiento/VerTratamiento";
+import DetalleTratamiento from "./components/PlanTratamiento/DetalleTratamiento"
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/ver-plan/:planId" element={<VerPlan />} />
           <Route path="/ver-ejercicios/:diaId" element={<VerEjercicios />} />
           <Route path="/ver-nutricion" element={<VerNutricion />} />
+          <Route path="/ver-tratamiento" element={<VerTratamiento />} />
+          <Route path="/ver-tratamiento/detalle-tratamiento" element={<DetalleTratamiento />} />
           <Route path="/ver-metricas" element={<VerMetricas />} />
           <Route path="/payment-success" element={<PagoExitoso />} />
         </Routes>
