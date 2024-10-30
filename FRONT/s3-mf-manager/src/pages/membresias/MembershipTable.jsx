@@ -16,7 +16,7 @@ const MembershipTable = ({ memberships, setMemberships, onDisableMembership }) =
       {memberships.length > 0 ? (
           memberships.map((membership) => (
             <button
-              key={membership.id}
+              key={membership.membership_id}
               className="bg-red-600 text-white py-2 px-8 rounded text-sm font-bold w-80 hover:bg-red-500 transition duration-200"
               onClick={() => handleMembershipClick(membership)}
             >
