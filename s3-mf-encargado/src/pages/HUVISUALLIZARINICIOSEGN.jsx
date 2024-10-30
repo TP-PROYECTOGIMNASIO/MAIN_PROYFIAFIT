@@ -127,7 +127,7 @@ const HUVISUALLIZARINICIOSEGN = () => {
 
             {role === 'encargado_gimnasios' && (
               <div className="flex flex-col gap-4 bg-gray-100 p-4 rounded-b-lg max-w-xs mx-auto">
-                <button className="bg-[#B5121C] text-white border border-[#B5121C] font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation(`/?role=${role}&token=${token}&username=${username}`, 'gestionar_eventos')}
+                <button className="bg-[#B5121C] text-white border border-[#B5121C] font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation(`/eventos?role=${role}&token=${token}&username=${username}`, 'gestionar_eventos')}
                   disabled={loading.gestionar_eventos}>
                   <div className="text-left">
                     <h3 className="text-lg">GESTIONAR</h3>
