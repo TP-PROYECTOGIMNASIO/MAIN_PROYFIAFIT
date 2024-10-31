@@ -10,6 +10,60 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
   const [staffId] = useState(4); // Staff ID, you can change it as needed
   const navigate = useNavigate(); // Hook for navigation
 
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const apiUrl25 = import.meta.env.VITE_APP_API_URL_25;
+
+  const [user, setUser] = useState({});
+ 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Asignar Alumno 3:", role);
+  console.log("token recibido en Asignar Alumno 3:", token);
+  console.log("username recibido en Asignar Alumno 3:", username);
+
+  
+
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos:", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
+
+
   // Open the modal automatically when the component loads
   useEffect(() => {
     setModalVisible(true); // Show the modal when the component mounts
@@ -18,7 +72,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
   // Handle modal closing and redirect to "/"
   const handleClose = () => {
     setModalVisible(false); // Close the modal
-    navigate("/"); // Redirect to the main page
+    navigate(`/?role=${role}&token=${token}&username=${username}`); // Redirect to the main page
   };
 
   const handleSearch = async () => {
@@ -29,7 +83,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
 
     try {
       const response = await fetch(
-        `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-25?document=${dni}`
+        `${apiUrl25}?document=${dni}`
       );
       const data = await response.json();
 
@@ -55,7 +109,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
 
     try {
       const response = await fetch(
-        `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-25`,
+        `${apiUrl25}`,
         {
           method: "PATCH",
           headers: {

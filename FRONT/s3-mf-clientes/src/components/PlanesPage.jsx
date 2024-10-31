@@ -61,7 +61,7 @@ const PlanesPage = () => {
           <button
             style={{ backgroundColor: '#BFB6B8' }} // Estilo en línea para el color de fondo
             className="p-12 md:p-16 rounded-lg flex flex-col items-center justify-center hover:bg-gray-400 transition"
-            onClick={() => handleNavigation('/', 'treatment')}
+            onClick={() => handleNavigation('/ver-tratamiento', 'treatment')}
             disabled={loading.treatment}
           >
             <img src="/plan_tratamiento.png" alt="Plan de Tratamiento" className="h-24 mb-8" />

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import {
   Routes,
   Route,
@@ -6,7 +6,6 @@ import {
   useLocation,
 } from "react-router-dom";
 import HUVISUALLIZARINICIOSEGN from "./pages/HUVISUALLIZARINICIOSEGN";
-import TipoProductos from "./pages/tipoProductos/tipoProductos";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import TipoEjercicios from "./pages/tipoEjercicios/tipoEjercicios";
@@ -54,7 +53,6 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HUVISUALLIZARINICIOSEGN />} />
-        <Route path="/tproductos" element={<TipoProductos />} />
         <Route path="/tejercicios" element={<TipoEjercicios />} />
         <Route path="/Lista_Productos" element={<Lista_Productos />} />
         <Route path="/Lista_Tipo_Productos" element={<Lista_Tipo_Productos />} />

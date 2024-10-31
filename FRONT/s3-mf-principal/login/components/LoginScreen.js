@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Importar AsyncStorage
 import styles from './styles';
 
 // Función para decodificar base64url
@@ -32,12 +33,44 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
 
-  const handleLogin = () => {
+  useEffect(() => {
+    // Verificar si el usuario ya está autenticado
+    const checkAuthentication = async () => {
+      const token = await AsyncStorage.getItem('token');
+      if (token) {
+        // Si hay un token, decodifícalo y redirige al Dashboard
+        try {
+          const decodedPayload = parseJwt(token);
+          const userRole = decodedPayload['custom:role'];
+
+          // Verifica si el usuario necesita cambiar la contraseña
+          const forcePasswordChange = decodedPayload['custom:forcePasswordChange'];
+          console.log('Force Password Change:', forcePasswordChange);
+
+          if (userRole === 'cliente' || userRole === 'cliente_libre') {
+            navigation.navigate('Dashboard', { role: userRole, token: token, username: username });
+          } else if (forcePasswordChange !== '1') {
+            navigation.navigate('UpdatePassword', { role: userRole, token: token, username: username });
+          } else {
+            navigation.navigate('Dashboard', { role: userRole, token: token, username: username });
+          }
+
+        } catch (error) {
+          console.error('Error al decodificar el token:', error.message);
+          // Si hay un error, puedes redirigir a la pantalla de inicio de sesión
+        }
+      }
+    };
+
+    checkAuthentication();
+  }, []); // Solo se ejecuta una vez al cargar el componente
+
+  const handleLogin = async () => {
     axios.post('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/auth/hu-tp-01', {
       username,
       password,
     })
-    .then(response => {
+    .then(async response => {
       console.log('Respuesta completa de la API:', response);
       console.log('Datos de la API:', response.data);
 
@@ -60,17 +93,19 @@ export default function LoginScreen() {
           const forcePasswordChange = decodedPayload['custom:forcePasswordChange'];
           console.log('Force Password Change:', forcePasswordChange);
 
-          // Si el usuario tiene el rol de 'cliente' o 'cliente_libre', siempre redirige al Dashboard
+          // Almacena el token en AsyncStorage
+          await AsyncStorage.setItem('token', token);
+          await AsyncStorage.setItem('username', username); // Almacena el nombre de usuario
+          await AsyncStorage.setItem('role', userRole); // Almacena el nombre de usuario
+
+
+          // Redirige según el rol del usuario
           if (userRole === 'cliente' || userRole === 'cliente_libre') {
-            navigation.navigate('Dashboard', { role: userRole, username: username });
-          }
-          // Si el rol es diferente y necesita cambiar la contraseña
-          else if (forcePasswordChange !== '1') {
-            navigation.navigate('UpdatePassword', { role: userRole, username: username });
-          }
-          // Si no necesita cambiar la contraseña
-          else {
-            navigation.navigate('Dashboard', { role: userRole, username: username });
+            navigation.navigate('Dashboard', { role: userRole, token: token, username: username });
+          } else if (forcePasswordChange !== '1') {
+            navigation.navigate('UpdatePassword', { role: userRole, token: token, username: username });
+          } else {
+            navigation.navigate('Dashboard', { role: userRole, token: token, username: username });
           }
 
         } catch (error) {

@@ -1,20 +1,72 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const API_URL = 'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35'; // Cambia esto por la URL de tu API
-
 const ListaClientes = () => {
+  const apiUrl35 = import.meta.env.VITE_APP_API_URL_35;
+
   const [clients, setClients] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedMembership, setSelectedMembership] = useState('');
+
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
   const navigate = useNavigate();
+
+  const [user, setUser] = useState({});
+ 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Visualizar inicio:", role);
+  console.log("token recibido en Visualizar inicio:", token);
+  console.log("username recibido en Visualizar inicio:", username);
+
+  
+
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos:", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
 
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch(API_URL);
+        const response = await fetch(apiUrl35);
         const data = await response.json();
       
         const uniqueClients = {};
@@ -49,7 +101,7 @@ const ListaClientes = () => {
     
 
     try {
-      const response = await fetch(`${API_URL}?client_id=${client.client_id}`);
+      const response = await fetch(`${apiUrl35}?client_id=${client.client_id}`);
       const data = await response.json();
       const clientDetails = {
         ...client,
@@ -69,7 +121,7 @@ const ListaClientes = () => {
 
   const handlePlanDeTratamiento = () => {
     if (selectedClient) {
-      navigate(`/PlanDeTratamiento?client_id=${selectedClient.client_id}`);
+      navigate(`/PlanDeTratamiento?client_id=${selectedClient.client_id}&role=${role}&token=${token}&username=${username}`);
     }
   };
 
@@ -215,6 +267,14 @@ const ListaClientes = () => {
                 </div>
          
                 <div className="flex justify-center mt-6">
+                  <Link to={`/PlanTratamientoSinRegistrar?role=${role}&token=${token}&username=${username}`} className="bg-red-600 text-white py-2 px-6 rounded-md" >
+                    PLAN DE TRATAMIENTO
+                  </Link>
+                </div>
+
+
+                {/*
+                <div className="flex justify-center mt-6">
                   <button 
                     className="bg-red-600 text-white py-2 px-6 rounded-md"
                     onClick={handlePlanDeTratamiento}
@@ -222,6 +282,7 @@ const ListaClientes = () => {
                     PLAN DE TRATAMIENTO
                   </button>
                 </div>
+                */ }
               </div>
             </div>
           </div>

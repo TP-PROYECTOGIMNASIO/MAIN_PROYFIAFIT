@@ -1,11 +1,17 @@
 import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PlanTratamientoSinRegistrar = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Botón de Regresar */}
       <header className="p-4">
-        <button className="text-gray-600 font-semibold text-sm">{'< Regresar'}</button>
+      <button
+      className="text-gray-700 font-medium"
+      onClick={() => window.history.back()}
+    >
+      &lt; Regresar
+    </button>
       </header>
 
       {/* Contenido Principal */}
@@ -17,9 +23,16 @@ const PlanTratamientoSinRegistrar = () => {
           <p className="text-gray-500 text-base mt-8">
             Aún no se ha registrado Plan Tratamiento
           </p>
-          <button className="bg-red-700 text-white py-2 px-4 rounded-lg mt-6 hover:bg-red-800 transition duration-300">
+
+          <br>
+          </br>         
+
+          <Link to="/RegistroPlan" className="bg-red-700 text-white py-2 px-4 rounded-lg mt-6 hover:bg-red-800 transition duration-300"
+         
+          >
             GENERAR PLAN TRATAMIENTO
-          </button>
+            
+            </Link>
         </div>
       </main>
     </div>

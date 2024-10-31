@@ -1,10 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const MembershipDetailModal = ({ isOpen, onClose, membership, onDisableMembership }) => {
-  const [detail, setDetail] = useState(membership ? membership.detail : '');
-  const [price, setPrice] = useState(membership ? membership.price : '');
-  const [isEnabled, setIsEnabled] = useState(membership ? membership.isEnabled : true);
+const MembershipDetailModal = ({ isOpen, onClose, membership, onDisableMembership, onSaveMembership }) => {
+  const [detail, setDetail] = useState('');
+  const [price, setPrice] = useState('');
+  const [isEnabled, setIsEnabled] = useState(true);
   const [showConfirmation, setShowConfirmation] = useState(false);
+
+  useEffect(() => {
+    if (membership) {
+      setDetail(membership.detail);
+      setPrice(membership.price);
+      setIsEnabled(membership.isEnabled);
+    }
+  }, [membership]);
 
   if (!isOpen || !membership) return null;
 
@@ -13,15 +21,24 @@ const MembershipDetailModal = ({ isOpen, onClose, membership, onDisableMembershi
   };
 
   const handleConfirmToggle = () => {
-    const updatedMembership = { ...membership, isEnabled: false }; // Marca como inactiva
-    console.log(membership.membership_id, membership.active)
+    const updatedMembership = { ...membership, isEnabled: false };
     onDisableMembership(membership.membership_id, membership.active);
     setShowConfirmation(false);
-    onClose(); // Cierra el modal
+    onClose();
   };
 
   const handleCancelToggle = () => {
     setShowConfirmation(false);
+  };
+
+  const handleSaveChanges = () => {
+    const updatedMembership = {
+      ...membership,
+      detail,
+      price,
+    };
+    onSaveMembership(updatedMembership); // Guardar los cambios
+    onClose(); // Cerrar el modal
   };
 
   return (
@@ -39,17 +56,27 @@ const MembershipDetailModal = ({ isOpen, onClose, membership, onDisableMembershi
 
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Detalle:</label>
-          <textarea value={detail} onChange={(e) => setDetail(e.target.value)} className="w-full border border-gray-300 rounded p-2" rows={3} />
+          <textarea
+            value={detail}
+            onChange={(e) => setDetail(e.target.value)}
+            className="w-full border border-gray-300 rounded p-2"
+            rows={3}
+          />
         </div>
 
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Precio:</label>
-          <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="w-full border border-gray-300 rounded p-2" />
+          <input
+            type="number"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            className="w-full border border-gray-300 rounded p-2"
+          />
         </div>
 
         <button
           onClick={toggleEnabled}
-          className={`w-full py-2 rounded text-black font-bold ${isEnabled ? 'bg-green-600 hover:bg-green-500' : 'bg-gray-600 hover:bg-gray-500'}`}
+          className={`w-full py-2 rounded text-white font-bold ${isEnabled ? 'bg-green-600 hover:bg-green-500' : 'bg-gray-600 hover:bg-gray-500'}`}
         >
           {isEnabled ? 'Deshabilitar' : 'Habilitar'}
         </button>
@@ -57,10 +84,10 @@ const MembershipDetailModal = ({ isOpen, onClose, membership, onDisableMembershi
         {/* Mensaje de Confirmación */}
         {showConfirmation && (
           <div className="mt-4">
-            <p>¿Seguro que deseas deshabilitar esta membresía?</p>
+            <p>¿Seguro que deseas habilitar esta membresía?</p>
             <div className="flex justify-center mt-2">
-              <button onClick={handleConfirmToggle} className="bg-green-600 text-black py-2 px-4 rounded">Sí</button>
-              <button onClick={handleCancelToggle} className="bg-gray-600 text-black py-2 px-4 rounded">No</button>
+              <button onClick={handleConfirmToggle} className="bg-green-600 text-white py-2 px-4 rounded mr-2">Sí</button>
+              <button onClick={handleCancelToggle} className="bg-gray-600 text-white py-2 px-4 rounded">No</button>
             </div>
           </div>
         )}
@@ -70,19 +97,3 @@ const MembershipDetailModal = ({ isOpen, onClose, membership, onDisableMembershi
 };
 
 export default MembershipDetailModal;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,9 +1,27 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ExerciseForm from "./ExerciseForm";
 import ExerciseSidebar from "./ExerciseSidebar";
 import Modal from "./Modal"; // Modal reutilizable
+import { Link, useLocation } from "react-router-dom";
 
 function ExerciseList() {
+  const apiUrl30 = import.meta.env.VITE_APP_API_URL_30;
+
+  const location = useLocation(); // Obtener la ubicación actual
+
+  // Obtener los parámetros de búsqueda de la ubicación actual
+  const params = new URLSearchParams(location.search);
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Lista de Ejercicios:", role);
+  console.log("token recibido en Lista de Ejercicios:", token);
+  console.log("username recibido en Lista de Ejercicios:", username);
+
+  // Construir la URL con los parámetros
+  const baseUrl = "/";
+  const paramsString = `?role=${role}&token=${token}&username=${username}`;
+
   const [exercises, setExercises] = useState([]);
   const [selectedFilters, setSelectedFilters] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,21 +36,22 @@ function ExerciseList() {
   const fetchExercises = async () => {
     try {
       const filterQuery = selectedFilters.length
-        ? selectedFilters.map(id => `exercise_type_id=${id}`).join("&")
+        ? selectedFilters.map((id) => `exercise_type_id=${id}`).join("&")
         : "";
 
-      const statusQuery = filterStatus === "habilitados" 
-        ? "active=true" 
-        : filterStatus === "deshabilitados" 
-        ? "active=false" 
-        : "";
+      const statusQuery =
+        filterStatus === "habilitados"
+          ? "active=true"
+          : filterStatus === "deshabilitados"
+          ? "active=false"
+          : "";
 
       const response = await fetch(
-        `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-30?${filterQuery}${statusQuery ? '&' + statusQuery : ''}`
+        `${apiUrl30}?${filterQuery}${statusQuery ? "&" + statusQuery : ""}`
       );
 
       if (!response.ok) {
-        throw new Error('Error en la solicitud');
+        throw new Error("Error en la solicitud");
       }
 
       const result = await response.json();
@@ -44,9 +63,9 @@ function ExerciseList() {
   };
 
   const handleFilterClick = (typeId) => {
-    setSelectedFilters(prevFilters =>
+    setSelectedFilters((prevFilters) =>
       prevFilters.includes(typeId)
-        ? prevFilters.filter(id => id !== typeId)
+        ? prevFilters.filter((id) => id !== typeId)
         : [...prevFilters, typeId]
     );
   };
@@ -57,7 +76,10 @@ function ExerciseList() {
 
   // Abrir modal de confirmación para habilitar/deshabilitar
   const confirmToggleExercise = (exercise) => {
-    console.log('Ejercicio seleccionado para habilitar/deshabilitar:', exercise); // Log para ver el ejercicio
+    console.log(
+      "Ejercicio seleccionado para habilitar/deshabilitar:",
+      exercise
+    ); // Log para ver el ejercicio
     setSelectedExercise(exercise);
     setConfirmationModalOpen(true); // Abre el modal de confirmación
   };
@@ -66,23 +88,28 @@ function ExerciseList() {
   const toggleExerciseStatus = async () => {
     if (!selectedExercise) return;
 
+    console.log(
+      "Ejercicio seleccionado antes de la actualización:",
+      selectedExercise
+    ); // Log para verificar
+
     const updatedStatus = !selectedExercise.active; // Cambiamos el estado actual
     const requestBody = {
-      exercise_id: selectedExercise.id, // Asegurarse de que este campo esté correctamente mapeado
-      active: updatedStatus // Valor booleano (true o false)
+      exercise_id: selectedExercise.exercise_id, // Asegurarse de que este campo esté correctamente mapeado
+      active: updatedStatus, // Valor booleano (true o false)
     };
 
-    console.log("Enviando solicitud PUT con los siguientes datos:", requestBody); // Log para verificar los datos
+    console.log(
+      "Enviando solicitud PUT con los siguientes datos:",
+      requestBody
+    ); // Log para verificar los datos
 
     try {
-      const response = await fetch(
-        `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-30`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(requestBody) // Convertimos el objeto a JSON
-        }
-      );
+      const response = await fetch(`${apiUrl30}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody), // Convertimos el objeto a JSON
+      });
 
       const data = await response.json();
       console.log("Respuesta de la API:", data);
@@ -96,7 +123,6 @@ function ExerciseList() {
 
       setConfirmationModalOpen(false); // Cerrar el modal de confirmación
       setSelectedExercise(null); // Limpiar selección
-
     } catch (error) {
       console.error("Error updating exercise status:", error);
     }
@@ -107,10 +133,15 @@ function ExerciseList() {
       <ExerciseSidebar onSelectType={handleFilterClick} />
 
       <div className="flex-1 ml-4">
-        <h1 className="text-[#aa1f1d] text-3xl font-bold text-center mb-4">EJERCICIOS REGISTRADOS</h1>
+        <h1 className="text-[#aa1f1d] text-3xl font-bold text-center mb-4">
+          EJERCICIOS REGISTRADOS
+        </h1>
 
         <div className="flex justify-end items-center mb-4 space-x-2">
-          <button onClick={toggleModal} className="bg-[#aa1f1d] text-white px-4 py-2 rounded">
+          <button
+            onClick={toggleModal}
+            className="bg-[#aa1f1d] text-white px-4 py-2 rounded"
+          >
             + Registrar nuevo ejercicio
           </button>
 
@@ -127,7 +158,10 @@ function ExerciseList() {
 
         {isModalOpen && (
           <Modal onClose={toggleModal}>
-            <ExerciseForm fetchExercises={fetchExercises} closeModal={toggleModal} />
+            <ExerciseForm
+              fetchExercises={fetchExercises}
+              closeModal={toggleModal}
+            />
           </Modal>
         )}
 
@@ -135,7 +169,11 @@ function ExerciseList() {
         {confirmationModalOpen && (
           <Modal onClose={() => setConfirmationModalOpen(false)}>
             <div className="p-6 text-center">
-              <p>¿Está seguro de que desea {selectedExercise?.active ? 'deshabilitar' : 'habilitar'} este ejercicio?</p>
+              <p>
+                ¿Está seguro de que desea{" "}
+                {selectedExercise?.active ? "deshabilitar" : "habilitar"} este
+                ejercicio?
+              </p>
               <div className="mt-4 flex justify-center space-x-4">
                 <button
                   onClick={toggleExerciseStatus}
@@ -158,8 +196,15 @@ function ExerciseList() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {exercises.length > 0 ? (
             exercises.map((exercise) => (
-              <div key={exercise.id} className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between">
-                <img src={exercise.image_url} alt={exercise.name} className="w-full h-36 object-cover rounded-md mb-4" />
+              <div
+                key={exercise.exercise_id}
+                className="bg-white shadow-md rounded-lg p-4 flex flex-col justify-between"
+              >
+                <img
+                  src={exercise.image_url}
+                  alt={exercise.name}
+                  className="w-full h-36 object-cover rounded-md mb-4"
+                />
                 <div>
                   <h3 className="text-xl font-bold mb-2">{exercise.name}</h3>
                   <p className="text-gray-700 mb-4">{exercise.description}</p>
@@ -168,12 +213,15 @@ function ExerciseList() {
                   onClick={() => confirmToggleExercise(exercise)} // Llama al modal de confirmación
                   className="mt-auto bg-[#ac3c34] text-white px-4 py-2 rounded"
                 >
-                  {exercise.active ? 'Deshabilitar' : 'Habilitar'} {/* Cambia el texto según el estado */}
+                  {exercise.active ? "Deshabilitar" : "Habilitar"}{" "}
+                  {/* Cambia el texto según el estado */}
                 </button>
               </div>
             ))
           ) : (
-            <p className="text-center text-gray-700">No hay ejercicios disponibles.</p>
+            <p className="text-center text-gray-700">
+              No hay ejercicios disponibles.
+            </p>
           )}
         </div>
       </div>

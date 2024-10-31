@@ -37,12 +37,13 @@ const ListaEjercicios = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col">
       <header className="p-4 bg-white shadow-md flex justify-between items-center">
-<button
-          className="text-gray-700 font-medium"
-          onClick={() => navigate('/')}  // Agrega la función para retroceder
-        >
-          &lt; Regresar
-        </button>        <h1 className="text-red-600 text-xl font-bold">LISTA DE EJERCICIOS DE TRATAMIENTO</h1>
+      <button
+      className="text-gray-700 font-medium"
+      onClick={() => window.history.back()}
+    >
+      &lt; Regresar
+    </button>        
+        <h1 className="text-red-600 text-xl font-bold">LISTA DE EJERCICIOS DE TRATAMIENTO</h1>
         <div className="flex flex-col items-end space-y-2">
           
         </div>
@@ -84,9 +85,9 @@ const ListaEjercicios = () => {
                 </select>
               </div>
               <div className="flex flex-col items-end space-y-2">
-                <button className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                <Link to="/RegistroEjerciciosTratamiento"  className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
                   + Registrar Nuevo EJERCICIO
-                </button>
+                </Link>
                 <Link to="/tipos-ejercicio" className="text-red-600 flex items-center">
                   <FaEye className="mr-2" />
                   Ver Tipos Ejercicio Tratamiento
@@ -129,10 +130,6 @@ const ListaEjercicios = () => {
           </div>
         </div>
       </main>
-
-      <footer className="bg-black text-white text-center py-4">
-        <p>Copyright 2024</p>
-      </footer>
     </div>
   );
 };

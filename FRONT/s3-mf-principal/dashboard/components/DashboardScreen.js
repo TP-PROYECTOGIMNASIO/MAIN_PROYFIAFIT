@@ -10,41 +10,50 @@ const roleImages = {
   cliente: require('../assets/interfaz_clientes.jpeg'),
   cliente_libre: require('../assets/interfaz_clientes.jpeg'),
   encargado: require('../assets/interfaz_encargado.jpeg'),
+  encargado_eventos: require('../assets/interfaz_encargado_eventos.jpeg'),
+  encargado_gimnasios: require('../assets/interfaz_encargado_gimnasios.jpeg'),
   entrenador: require('../assets/interfaz_entrenador.jpeg'),
   fisioterapeuta: require('../assets/interfaz_fisioterapeuta.jpeg'),
   manager: require('../assets/interfaz_manager.jpeg'),
   nutricionista: require('../assets/interfaz_nutricionista.jpeg'),
-  instructor: require('../assets/background.png'),
-  recepcionista: require('../assets/background.png'),
+  instructor: require('../assets/interfaz_instructor.jpeg'),
+  recepcionista: require('../assets/interfaz_recepcionista.jpeg'),
+  principal: require('../assets/background.png'),
   // Agrega más roles e imágenes según sea necesario
 };
 
 export default function DashboardScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { role } = route.params;
+  const { role, username, token } = route.params;
 
   useEffect(() => {
-    const storeRole = async () => {
+    const retrieveUserData = async () => {
       try {
-        await AsyncStorage.setItem('userRole', role);
-        console.log('Role guardado en AsyncStorage:', role);
+        const storedUsername = await AsyncStorage.getItem('username');
+        const storedRole = await AsyncStorage.getItem('role');
+        const storedToken = await AsyncStorage.getItem('token');
+  
+        if (storedUsername && storedRole && storedToken) {
+          console.log('Datos recuperados:', { storedUsername, storedRole, storedToken });
+          navigation.navigate('Dashboard', { role: storedRole, token: storedToken, username: storedUsername });
+
+          // Actualiza el estado o lo que necesites hacer con estos datos
+        }
       } catch (error) {
-        console.error('Error al guardar el role en AsyncStorage:', error);
+        console.error('Error al recuperar datos de AsyncStorage:', error);
       }
     };
-
-    if (role) {
-      storeRole();
-    }
-  }, [role]);
+  
+    retrieveUserData();
+  }, []);
 
   const handleNavigateToWeb = () => {
-    navigation.navigate('Microview', { role: role });
+    navigation.navigate('Microview', { role: role, token: token, username: username});
   };
 
   const handleNavigateToUpdatePassword = () => {
-    navigation.navigate('UpdatePassword', { role });
+    navigation.navigate('UpdatePassword', { role: role, token: token, username: username});
   };
 
   // Función para obtener la imagen del rol
@@ -53,7 +62,7 @@ export default function DashboardScreen() {
   };
 
   const handleNavigateToCheckIn = () => {
-    navigation.navigate('CheckIn', { role });
+    navigation.navigate('CheckIn', { role: role, token: token, username: username});
   };
 
   return (

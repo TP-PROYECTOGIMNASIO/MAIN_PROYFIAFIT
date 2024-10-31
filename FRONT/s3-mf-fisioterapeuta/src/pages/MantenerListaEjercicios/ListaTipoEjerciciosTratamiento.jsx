@@ -30,12 +30,12 @@ function ListaTipoEjerciciosTratamiento() {
       <header className="bg-white shadow w-full max-w-5xl">
         <div className="flex justify-between items-center py-4 px-6">
 
-          <button
-         className="text-gray-500 hover:text-gray-700 font-semibold"
-          onClick={() => navigate('/ListaEjercicios')}  // Agrega la función para retroceder
-        >
-          &lt; Regresar
-        </button>  
+        <button
+      className="text-gray-700 font-medium"
+      onClick={() => window.history.back()}
+    >
+      &lt; Regresar
+    </button> 
           <h1 className="text-2xl font-bold text-red-700 text-center w-full ml-[-50px]">
             LISTA DE TIPOS DE EJERCICIOS DE TRATAMIENTO
           </h1>
@@ -48,9 +48,9 @@ function ListaTipoEjerciciosTratamiento() {
             <option>Inactivos</option>
           </select>
 
-          <button className="bg-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
+          <Link to="/RegistroTipoEjerciciosTratamiento" className="bg-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
             <span className="mr-2 text-xl">+</span> Registrar Nuevo Tipo
-          </button>
+          </Link>
         </div>
       </header>
 

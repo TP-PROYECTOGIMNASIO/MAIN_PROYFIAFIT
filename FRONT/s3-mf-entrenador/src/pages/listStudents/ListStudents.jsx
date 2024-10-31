@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const ListStudents = () => {
   const [students, setStudents] = useState([]);
@@ -8,20 +8,84 @@ const ListStudents = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/alumnos?staff_id=3');
-        const data = await response.json();
-        console.log('Datos obtenidos de la API:', data);
-        setStudents(data);
-      } catch (error) {
-        console.error('Error fetching students:', error);
-      }
-    };
+  const [loading, setLoading] = useState(true);
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const apiUrl26 = import.meta.env.VITE_APP_API_URL_26;
+  const apiUrl27 = import.meta.env.VITE_APP_API_URL_27;
 
-    fetchStudents();
-  }, []);
+    const location = useLocation(); // Obtener la ubicación actual
+    const [user, setUser] = useState({});
+
+    // Obtener los parámetros de búsqueda de la ubicación actual
+    const params = new URLSearchParams(location.search);
+    const role = params.get("role");
+    const token = params.get("token");
+    const username = params.get("username");
+    console.log("role recibido en ListStudens:", role);
+    console.log("token recibido en ListStudens:", token);
+    console.log("username recibido en ListStudens:", username);
+
+
+    // Construir la URL con los parámetros
+    const baseUrl = "/";
+    const paramsString = `?role=${role}&token=${token}&username=${username}`;
+
+    useEffect(() => {
+        if (token && username) {
+          console.log("Datos recibidos:", { role, token, username });
+          fetchUserName();
+        }
+      }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+    
+      const fetchUserName = async () => {
+        try {
+          const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+    
+          if (!response.ok) {
+            throw new Error("Error en la respuesta de la API");
+          }
+    
+          const data = await response.json();
+          console.log("Respuesta de la API:", data);
+    
+          if (Array.isArray(data)) {
+            if (data.length > 0) {
+              setUser(data[0]);
+            } else {
+              console.error("El array está vacío");
+              setUser({});
+            }
+          } else if (data && typeof data === "object") {
+            setUser(data);
+          } else {
+            console.error("Formato inesperado en la respuesta de la API:", data);
+            setUser({});
+          }
+        } catch (error) {
+          console.error("Error al obtener la información del usuario", error);
+        }
+      };
+
+      useEffect(() => {
+        const fetchStudents = async () => {
+            if (user.id) {
+                try {
+                    const response = await fetch(`${apiUrl26}?staff_id=${user.id}`);
+                    if (!response.ok) throw new Error('Error en la respuesta de la API');
+                    const data = await response.json();
+                    setStudents(data);
+                    console.log("Estudiantes obtenidos:", data); // Imprimir información de los estudiantes
+                } catch (error) {
+                    console.error('Error fetching students:', error);
+                    setStudents([]); // Asegúrate de que se establezca un array vacío en caso de error
+                } finally {
+                    setLoading(false);
+                }
+            }
+        };
+
+        fetchStudents();
+    }, [user.id]);
 
   const openModal = (student) => {
     setSelectedStudent(student);
@@ -41,7 +105,7 @@ const ListStudents = () => {
 
   const handlePlanEntrenamientoClick = async () => {
     try {
-      const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-27?client_id=${selectedStudent.client_id}`, {
+      const response = await fetch(`${apiUrl27}?client_id=${selectedStudent.client_id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -57,9 +121,9 @@ const ListStudents = () => {
         // Guardar el training_plan_id en localStorage si existe
         localStorage.setItem('trainingPlanId', trainingPlanData.training_plan.training_plan_id);
         console.log('Plan ID:', trainingPlanData.training_plan.training_plan_id);
-        navigate(`/TrainingPlanOk?client_id=${selectedStudent.client_id}`);
+        navigate(`/TrainingPlanOk?client_id=${selectedStudent.client_id}&role=${role}&token=${token}&username=${username}`);
       } else {
-        navigate(`/Trainingplan?client_id=${selectedStudent.client_id}`); 
+        navigate(`/Trainingplan?client_id=${selectedStudent.client_id}&role=${role}&token=${token}&username=${username}`); 
       }
     } catch (error) {
       console.error('Error fetching training plan:', error);
@@ -102,6 +166,8 @@ const ListStudents = () => {
       </div>
 
       <div className="overflow-x-auto">
+      {loading && <p>Cargando estudiantes...</p>} {/* Mensaje de carga */}
+
         <table className="min-w-full bg-white border border-gray-300">
           <thead className="bg-gray-200 text-gray-600">
             <tr>
@@ -174,7 +240,8 @@ const ListStudents = () => {
               <div className="flex-1 flex flex-col mr-4">
                 <button className="bg-[#b31b20] text-white py-2 px-4 rounded-md mb-2">HORARIO</button>
                 <div className="flex justify-center w-full">
-                  <Link to={'/vista-no-registrado'} className="bg-[#b31b20] text-white py-2 px-4 rounded-md w-full text-center">MÉTRICAS</Link>
+                  <Link to={`/vista-no-registrado?client_id=${selectedStudent.client_id}&role=${role}&token=${token}&username=${username}`} className="bg-[#b31b20] text-white py-2 px-4 rounded-md w-full text-center"> MÉTRICAS
+                  </Link>
                 </div>
               </div>
               <div className="flex-1 flex flex-col">

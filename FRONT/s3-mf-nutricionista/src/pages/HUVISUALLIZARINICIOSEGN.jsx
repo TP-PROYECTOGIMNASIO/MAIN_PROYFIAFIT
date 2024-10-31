@@ -5,12 +5,65 @@ const HUVISUALLIZARINICIOSEGN = () => {
 
   const [clients, setClients] = useState([]);
   const [loadingPlan, setLoadingPlan] = useState(false); // Para el botón Empezar Plan
+  
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const apiUrl35 = import.meta.env.VITE_APP_API_URL_35;
   const navigate = useNavigate();
+
+  const [user, setUser] = useState({});
+ 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Visualizar inicio nutricionista:", role);
+  console.log("token recibido en Visualizar inicio nutricionista:", token);
+  console.log("username recibido en Visualizar inicio nutricionista:", username);
+
+  
+
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos:", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
 
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35');
+        const response = await fetch(apiUrl35);
         if (!response.ok) {
           throw new Error('Error en la respuesta de la API');
         }
@@ -31,7 +84,7 @@ const HUVISUALLIZARINICIOSEGN = () => {
     } else {
       setLoadingPlan(true);
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula un tiempo de carga
-      navigate('/listar-clientes');
+      navigate(`/listar-clientes?role=${role}&token=${token}&username=${username}`);
     }
   };
 
