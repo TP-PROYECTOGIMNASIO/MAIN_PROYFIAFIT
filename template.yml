@@ -738,7 +738,6 @@ Resources:
             Path: /plan-de-tratamiento/HU-TP-38
             Method: post
 
-
   HuTp74001:
     Type: AWS::Serverless::Function
     Properties:
@@ -754,7 +753,6 @@ Resources:
             Path: /empleados/hu-tp-74
             Method: get
 
-  
   HuTp39001:
     Type: AWS::Serverless::Function
     Properties:
@@ -769,8 +767,7 @@ Resources:
           Properties:
             Path: /plan-de-tratamiento/HU-TP-39
             Method: get
- 
-            
+
   HuTp50001:
     Type: AWS::Serverless::Function
     Properties:
@@ -791,7 +788,6 @@ Resources:
             Path: /eventos/hu-tp-50
             Method: put
 
-
   HuTp21001:
     Type: AWS::Serverless::Function
     Properties:
@@ -810,8 +806,7 @@ Resources:
           Type: Api
           Properties:
             Path: /membresias/hu-tp-21
-            Method: post
-
+            Method: post            
 
   HuTp09001:
     Type: AWS::Serverless::Function
