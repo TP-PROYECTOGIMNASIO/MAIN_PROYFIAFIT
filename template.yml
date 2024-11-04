@@ -750,7 +750,7 @@ Resources:
       BucketName: s3-mf-administrador-qa
       OwnershipControls:
         Rules:
-          - ObjectOw  nership: BucketOwnerPreferred
+          - ObjectOwnership: BucketOwnerPreferred
       CorsConfiguration: 
         CorsRules:
           - AllowedOrigins:
