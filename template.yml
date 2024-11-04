@@ -448,21 +448,6 @@ Resources:
           Properties:
             Path: /empleados/hu-tp-73
             Method: post
-  
-  HuTp74001:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: BACK/hu-tp-74-001
-      Handler: index.handler
-      Runtime: nodejs20.x
-      Architectures:
-        - x86_64
-      Events:
-        ApiGet:
-          Type: Api
-          Properties:
-            Path: /empleados/hu-tp-74
-            Method: get
 
   HuTp75001:
     Type: AWS::Serverless::Function
@@ -652,22 +637,7 @@ Resources:
           Properties:
             Path: /metricas-alumno/hu-tp-89
             Method: get    
-    
-  HuTp09001: 
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: BACK/hu-tp-09-001
-      Handler: index.handler
-      Runtime: nodejs20.x
-      Architectures:
-        - x86_64
-      Events:
-        ApiPost:
-          Type: Api
-          Properties:
-            Path: /check-in-empleados/hu-tp-09
-            Method: post
-            
+             
   HuTp13001: 
     Type: AWS::Serverless::Function
     Properties:
