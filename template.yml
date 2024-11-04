@@ -708,9 +708,41 @@ Resources:
             Path: /plan-de-tratamiento/HU-TP-38
             Method: post
 
+  HuTp09001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-09-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /check-in-empleados/hu-tp-09
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /check-in-empleados/hu-tp-09
+            Method: post
 
-
-            
+  HuTp74001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-74-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-74
+            Method: get
+  
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
   # S3 Buckets for s3-mf-administrador-qa
