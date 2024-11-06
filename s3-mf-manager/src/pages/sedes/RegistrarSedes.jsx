@@ -145,7 +145,7 @@ const RegisterForm = () => {
     formData.append('files', blob, fileName);
 
     try {
-      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/planilla-por-sedes/hu-tp-76', {
+      const response = await fetch('VITE_APP_API_URL_76', {
         method: 'POST',
         body: formData,
       });
@@ -193,6 +193,8 @@ const RegisterForm = () => {
                 <option value="">Seleccione...</option>
                 <option value="Miraflores">Miraflores</option>
                 <option value="San Isidro">San Isidro</option>
+                <option value="Miraflores">La Molina</option>
+                <option value="San Isidro">Los Oliivos</option>
                 {/* Otros distritos */}
               </select>
             </div>
