@@ -5,6 +5,17 @@ const PlanesPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState({ training: false, nutrition: false, treatment: false }); // Estado de carga para cada botón
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en VER MIS PLANES:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en VER MIS PLANES clientes:", role);
+  console.log("token recibido en VER MIS PLANES clientes:", token);
+  console.log("username recibido en VER MIS PLANES clientes:", username);
+
+
   const handleNavigation = async (path, type) => {
     setLoading((prev) => ({ ...prev, [type]: true })); // Cambia el estado a carga para el botón específico
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Simula un tiempo de carga
@@ -39,7 +50,7 @@ const PlanesPage = () => {
           <button
             style={{ backgroundColor: '#BFB6B8' }} // Estilo en línea para el color de fondo
             className="p-12 md:p-16 rounded-lg flex flex-col items-center justify-center hover:bg-gray-400 transition"
-            onClick={() => handleNavigation('/ver-planes', 'training')}
+            onClick={() => handleNavigation(`/ver-planes?role=${role}&token=${token}&username=${username}`, 'training')}
             disabled={loading.training}
           >
             <img src="/plan_entrenamiento.png" alt="Plan de Entrenamiento" className="h-24 mb-8" />
@@ -50,7 +61,7 @@ const PlanesPage = () => {
           <button
             style={{ backgroundColor: '#BFB6B8' }} // Estilo en línea para el color de fondo
             className="p-12 md:p-16 rounded-lg flex flex-col items-center justify-center hover:bg-gray-400 transition"
-            onClick={() => handleNavigation('/ver-nutricion', 'nutrition')}
+            onClick={() => handleNavigation(`/ver-nutricion?role=${role}&token=${token}&username=${username}`, 'nutrition')}
             disabled={loading.nutrition}
           >
             <img src="/plan_nutricion.png" alt="Plan de Nutrición" className="h-24 mb-8" />
@@ -61,7 +72,7 @@ const PlanesPage = () => {
           <button
             style={{ backgroundColor: '#BFB6B8' }} // Estilo en línea para el color de fondo
             className="p-12 md:p-16 rounded-lg flex flex-col items-center justify-center hover:bg-gray-400 transition"
-            onClick={() => handleNavigation('/ver-tratamiento', 'treatment')}
+            onClick={() => handleNavigation(`/ver-tratamiento?role=${role}&token=${token}&username=${username}`, 'treatment')}
             disabled={loading.treatment}
           >
             <img src="/plan_tratamiento.png" alt="Plan de Tratamiento" className="h-24 mb-8" />

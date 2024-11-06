@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import ExerciseSidebar from "../../components/ExerciseSidebar";
-import ExerciseList from "../../components/ExerciseList";
+import ExerciseSidebar from "../../pages/tipoEjercicios/ExerciseSidebar";
+import ExerciseList from "../../pages/tipoEjercicios/ExerciseList";
 
 export default function tipoEjercicios() {
   const [selectedType, setSelectedType] = useState(1);

@@ -24,6 +24,16 @@ const exercises = [
 function ListaTipoEjerciciosTratamiento() {
   const navigate = useNavigate(); // Define el hook useNavigate
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Lista Tipo de Ejercicios de Tratamiento:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Lista Tipo de Ejercicios de Tratamiento:", role);
+  console.log("token recibido en Lista Tipo de Ejercicios de Tratamiento:", token);
+  console.log("username recibido en Lista Tipo de Ejercicios de Tratamiento:", username);
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {/* Header */}
@@ -48,7 +58,7 @@ function ListaTipoEjerciciosTratamiento() {
             <option>Inactivos</option>
           </select>
 
-          <Link to="/RegistroTipoEjerciciosTratamiento" className="bg-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
+          <Link to={`/RegistroTipoEjerciciosTratamiento?role=${role}&token=${token}&username=${username}`} className="bg-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center">
             <span className="mr-2 text-xl">+</span> Registrar Nuevo Tipo
           </Link>
         </div>

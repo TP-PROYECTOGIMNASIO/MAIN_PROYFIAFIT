@@ -8,18 +8,35 @@ function VerMetricas() {
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
   ];
+  const apiUrl14 = import.meta.env.VITE_APP_API_URL_14;
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  const clienteId = params.get("clienteId");
+  console.log("role recibido en Ver Metricas clientes:", role);
+  console.log("token recibido en Ver Metricas clientes:", token);
+  console.log("username recibido en Ver Metricas clientes:", username);
+  console.log("clienteId recibido en Ver Metricas clientes:", clienteId);
+
   useEffect(() => {
     const fetchMetricas = async () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/metricas-alumno/hu-tp-14?client_id=2&month=${mesActual}`);
+        const response = await fetch(`${apiUrl14}?client_id=${clienteId}&month=${mesActual}`);
         if (!response.ok) {
           throw new Error('Error en la respuesta del servidor');
         }
         const data = await response.json();
         setMetricas(data);
       } catch (err) {
+        // Mostrar el error en la consola
+        console.error("Error:", err);
+        
         setError('No cuenta con métricas registradas');
         setMetricas(null);
       } finally {

@@ -3,14 +3,28 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom'; // Importa useNavigate
 
 function RegistroTipoEjerciciosTratamiento() {
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Registro de Tipo de Ejercicios de Tratamiento:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Registro de Tipo de Ejercicios de Tratamiento:", role);
+  console.log("token recibido en Registro de Tipo de Ejercicios de Tratamiento:", token);
+  console.log("username recibido en Registro de Tipo de Ejercicios de Tratamiento:", username);
+
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       {/* Botón de regresar */}
       <div className="w-full max-w-md mb-6">
-        <button className="text-gray-500 hover:text-gray-700 font-semibold flex items-center"
-            onClick={() => navigate('/ListaTipoEjerciciosTratamiento')}>
-          <span className="mr-2">&lt;</span> Regresar
-        </button>
+      <button
+      className="text-gray-700 font-medium"
+      onClick={() => window.history.back()}
+    >
+      &lt; Regresar
+    </button> 
       </div>
 
       {/* Formulario de registro */}

@@ -11,6 +11,17 @@ export default function ProductList() {
   const [selectedCategory, setSelectedCategory] = useState("Todas");
   const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState([]);
+  const apiUrl17 = import.meta.env.VITE_APP_API_URL_17;
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Lista de Productos:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Lista de Productos clientes:", role);
+  console.log("token recibido en Lista de Productos clientes:", token);
+  console.log("username recibido en Lista de Productos clientes:", username);
 
   // Función para verificar si un producto ya está en el carrito
   const checkAvailableToAddCart = (productId) => {
@@ -31,7 +42,7 @@ export default function ProductList() {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/productos/hu-tp-17"
+          `${apiUrl17}`
         );
         const data = await response.json();
         setDataProducts(data);

@@ -29,14 +29,14 @@ const ListaClientes = () => {
   const [user, setUser] = useState({});
  
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  console.log("Todos los parámetros en Lista de clientes de nutricionista:", window.location.search); // Verificar que todos los parámetros están presentes
   
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
-  console.log("role recibido en Visualizar inicio:", role);
-  console.log("token recibido en Visualizar inicio:", token);
-  console.log("username recibido en Visualizar inicio:", username);
+  console.log("role recibido en Lista de clientes de nutricionista:", role);
+  console.log("token recibido en Lista de clientes de nutricionista:", token);
+  console.log("username recibido en Lista de clientes de nutricionista:", username);
 
   
 

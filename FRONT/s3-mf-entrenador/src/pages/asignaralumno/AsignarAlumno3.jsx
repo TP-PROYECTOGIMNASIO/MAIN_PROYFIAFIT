@@ -16,14 +16,14 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
   const [user, setUser] = useState({});
  
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  console.log("Todos los parámetros en Asignar Alumno 3 entrenador:", window.location.search); // Verificar que todos los parámetros están presentes
   
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
-  console.log("role recibido en Asignar Alumno 3:", role);
-  console.log("token recibido en Asignar Alumno 3:", token);
-  console.log("username recibido en Asignar Alumno 3:", username);
+  console.log("role recibido en Asignar Alumno 3 entrenador:", role);
+  console.log("token recibido en Asignar Alumno 3 entrenador:", token);
+  console.log("username recibido en Asignar Alumno 3 entrenador:", username);
 
   
 

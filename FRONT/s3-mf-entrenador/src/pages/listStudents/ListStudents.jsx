@@ -13,17 +13,18 @@ const ListStudents = () => {
   const apiUrl26 = import.meta.env.VITE_APP_API_URL_26;
   const apiUrl27 = import.meta.env.VITE_APP_API_URL_27;
 
-    const location = useLocation(); // Obtener la ubicación actual
     const [user, setUser] = useState({});
 
     // Obtener los parámetros de búsqueda de la ubicación actual
-    const params = new URLSearchParams(location.search);
+    const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en ListStudens entrenador:", window.location.search); // Verificar que todos los parámetros están presentes
+
     const role = params.get("role");
     const token = params.get("token");
     const username = params.get("username");
-    console.log("role recibido en ListStudens:", role);
-    console.log("token recibido en ListStudens:", token);
-    console.log("username recibido en ListStudens:", username);
+    console.log("role recibido en ListStudens entrenador:", role);
+    console.log("token recibido en ListStudens entrenador:", token);
+    console.log("username recibido en ListStudens entrenador:", username);
 
 
     // Construir la URL con los parámetros

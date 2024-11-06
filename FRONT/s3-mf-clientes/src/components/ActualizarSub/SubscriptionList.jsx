@@ -9,12 +9,71 @@ const SubscriptionList = () => {
   const [loading, setLoading] = useState(true); // Estado de carga
   const [error, setError] = useState(null); // Estado de errores
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const apiUrl21 = import.meta.env.VITE_APP_API_URL_21;
+
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  const clienteId = params.get("clienteId");
+  console.log("role recibido en Lista de Suscripcion clientes:", role);
+  console.log("token recibido en Lista de Suscripcion clientes:", token);
+  console.log("username recibido en Lista de Suscripcion clientes:", username);
+  console.log("clienteId recibido en Lista de Suscripcion clientes:", clienteId);
+
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos:", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
 
   // Obtener las suscripciones desde la API
   useEffect(() => {
-    fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/membresias/hu-tp-21?client_id=1')
+    // Asegúrate de que user.id esté disponible antes de hacer la solicitud
+    if (!user.id) {
+      return; // Si user.id no está disponible, no hacemos nada
+    }
+  
+    // Realizar la solicitud para obtener las suscripciones
+    fetch(`${apiUrl21}?client_id=1`)
       .then(response => {
         if (!response.ok) {
+          // Si la respuesta no es correcta, lanza un error
           return response.json().then(errorData => {
             throw new Error(errorData.message || 'Error al obtener suscripciones');
           });
@@ -22,39 +81,44 @@ const SubscriptionList = () => {
         return response.json();
       })
       .then(data => {
-        console.log('Datos de la API:', data); // Verificar qué datos están llegando
+        console.log('Datos de la API:', data); // Verifica qué datos están llegando
+  
+        // Si no se encontraron suscripciones, muestra un error
         if (data.length === 0) {
           throw new Error('No se encontraron suscripciones para este cliente');
         }
-
+  
         // Filtrar suscripción activa
         const active = data.find(sub => sub.status === 'activo');
-        
+  
         // Filtrar suscripciones pasadas (canceladas o vencidas)
         const past = data.filter(sub => {
           const endDate = new Date(sub.membership_end_date);
           const isExpired = endDate < new Date(); // Si la fecha de vencimiento ya pasó
           return sub.status === 'cancelado' || isExpired;
         });
-
+  
+        // Actualiza el estado con las suscripciones
         setSubscriptions(data);
         setActiveSubscription(active);
         setPastSubscriptions(past);
-        setLoading(false); // Finalizamos el estado de carga
+        setLoading(false); // Finaliza el estado de carga
       })
       .catch(error => {
+        // Si ocurre un error, actualiza el estado con el mensaje de error
         setError(error.message);
-        setLoading(false); // Finalizamos el estado de carga en caso de error
+        setLoading(false); // Finaliza el estado de carga en caso de error
         console.error('Error al obtener suscripciones:', error);
       });
-  }, []);
+  }, [user.id]); // Dependencia en `user.id` para que se ejecute cuando esté disponible
+  
 
   // Manejar el click en el botón de actualizar suscripción
   const handleUpdateClick = () => {
     if (activeSubscription) {
       setShowModal(true); // Mostrar modal si hay una suscripción activa
     } else {
-      navigate('/sub-update'); // Redirigir si no hay suscripción activa
+      navigate(`/sub-update?role=${role}&token=${token}&username=${username}&clienteId=${user.id}`); // Redirigir si no hay suscripción activa
     }
   };
 
