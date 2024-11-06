@@ -28,5 +28,5 @@ function App() {
     </>
   )
 }
-
+<Route  path="/registrar_evento" element={<RegistrarEvento />} />
 export default App

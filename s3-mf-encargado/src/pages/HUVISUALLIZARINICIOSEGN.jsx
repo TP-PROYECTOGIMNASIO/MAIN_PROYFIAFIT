@@ -113,7 +113,7 @@ const HUVISUALLIZARINICIOSEGN = () => {
           <div className="text-left">
             {role === 'encargado_eventos' && (
               <div className="flex flex-col gap-4 bg-gray-100 p-4 rounded-b-lg max-w-xs mx-auto">
-                <button className="bg-[#B5121C] text-white border border-[#B5121C] font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation(`/?role=${role}&token=${token}&username=${username}`, 'registrar_evento')}
+                <button className="bg-[#B5121C] text-white border border-[#B5121C] font-semibold py-2 px-4 rounded-lg flex justify-between items-center" onClick={() => handleNavigation(`/registrar_evento?role=${role}&token=${token}&username=${username}`, 'registrar_evento')}
                   disabled={loading.registrar_evento}>
                   <div className="text-left">
                     <h3 className="text-lg">REGISTRA UN</h3>
