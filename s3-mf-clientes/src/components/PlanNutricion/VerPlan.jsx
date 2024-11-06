@@ -7,14 +7,25 @@ const VerPlan = () => {
   const { planId } = useParams();
 
   const [dias, setDias] = useState([]);
- 
+  const apiUrl11 = import.meta.env.VITE_APP_API_URL_11;
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Ver Plan:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Ver Plan clientes:", role);
+  console.log("token recibido en Ver Plan clientes:", token);
+  console.log("username recibido en Ver Plan clientes:", username);
+
   useEffect(() => {
 
     const fetchDias = async () => {
 
       try {
 
-        const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-11?planId=${planId}`);
+        const response = await fetch(`${apiUrl11}?planId=${planId}`);
 
         if (!response.ok) {
 
@@ -75,7 +86,7 @@ const VerPlan = () => {
 
               className="bg-gradient-to-r from-gray-700 to-gray-500 text-white text-lg font-semibold px-6 py-4 rounded-lg shadow-md hover:shadow-lg transition duration-300 transform hover:-translate-y-1"
 
-              onClick={() => window.location.href = `/ver-ejercicios/${dia.day}`}
+              onClick={() => window.location.href = `/ver-ejercicios/${dia.day}?role=${role}&token=${token}&username=${username}`}
 >
 
               Día {dia.day}

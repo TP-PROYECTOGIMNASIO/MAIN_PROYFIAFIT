@@ -8,14 +8,24 @@ const PlanNutricion = () => {
   const [currentDietPlan, setCurrentDietPlan] = useState(null);
   const [selectedDietPlan, setSelectedDietPlan] = useState(null);
   const navigate = useNavigate();
-  const location = useLocation();
+  const apiUrl35 = import.meta.env.VITE_APP_API_URL_35;
+  const apiUrl36 = import.meta.env.VITE_APP_API_URL_36;
 
-  const params = new URLSearchParams(location.search);
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Plan de Nutricion nutricionista:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Plan de Nutricion nutricionista:", role);
+  console.log("token recibido en Plan de Nutricion nutricionista:", token);
+  console.log("username recibido en Plan de Nutricion nutricionista:", username);
+
   const clientId = params.get('client_id');
 
   useEffect(() => {
     if (clientId) {
-      fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-35?client_id=${clientId}`)
+      fetch(`${apiUrl35}?client_id=${clientId}`)
         .then(response => response.json())
         .then(data => {
           if (data.client) {
@@ -24,7 +34,7 @@ const PlanNutricion = () => {
         })
         .catch(error => console.error('Error al obtener los datos del cliente:', error));
 
-      fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-nutricion/hu-tp-36?showAll=true')
+      fetch(`${apiUrl36}?showAll=true`)
         .then(response => response.json())
         .then(plans => {
           const clientPlans = plans.filter(plan => plan.client_id === parseInt(clientId));
@@ -48,12 +58,12 @@ const PlanNutricion = () => {
   };
 
   const handleGeneratePlan = () => {
-    navigate(`/Plan-Form?client_id=${clientId}`);
+    navigate(`/Plan-Form?client_id=${clientId}&role=${role}&token=${token}&username=${username}`);
   };
 
   const handleVisualizarPlan = () => {
     if (selectedDietPlan) {
-      navigate(`/visualizar-plan?client_id=${clientId}&plan_id=${selectedDietPlan.diet_plan_id}`);
+      navigate(`/visualizar-plan?client_id=${clientId}&plan_id=${selectedDietPlan.diet_plan_id}&role=${role}&token=${token}&username=${username}`);
     } else {
       alert("Por favor, selecciona un plan alimenticio.");
     }
@@ -62,7 +72,7 @@ const PlanNutricion = () => {
   return (
     <div className="flex justify-center items-center min-h-[82vh] bg-gray-100 px-4">
       <div className="bg-white shadow-md rounded-lg p-8 relative w-full max-w-md lg:max-w-lg flex flex-col justify-center">
-        <Link to="/listar-clientes" className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-xl font-bold">
+        <Link to={`/listar-clientes?role=${role}&token=${token}&username=${username}`} className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-xl font-bold">
           X
         </Link>
 

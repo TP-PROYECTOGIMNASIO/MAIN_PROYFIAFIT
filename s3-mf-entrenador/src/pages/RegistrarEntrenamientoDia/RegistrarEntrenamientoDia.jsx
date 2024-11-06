@@ -10,6 +10,17 @@ export default function RegistroEntrenamientoDia() {
     const [NdiaSeleccionado, NsetDiaSeleccionado] = useState('');
     const [NombreMuscular, setNombreMusuclar] = useState('');
     const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
+    const apiUrl28 = import.meta.env.VITE_APP_API_URL_28;
+
+    const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Registrar Entrenamiento:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Registrar Entrenamiento:", role);
+  console.log("token recibido en Registrar Entrenamiento:", token);
+  console.log("username recibido en Registrar Entrenamiento:", username);
 
     useEffect(() => {
         const NdiaGuardado = localStorage.getItem('NdiaSeleccionado');
@@ -30,7 +41,7 @@ export default function RegistroEntrenamientoDia() {
         const obtenerGruposMusculares = async () => {
             try {
                 const response = await fetch(
-                    'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-28?exerciseTypes=1'
+                    `${apiUrl28}?exerciseTypes=1`
                 );
                 const data = await response.json();
                 setGruposMusculares(data);
@@ -45,7 +56,7 @@ export default function RegistroEntrenamientoDia() {
     const obtenerEjerciciosPorGrupoMuscular = async (grupoId) => {
         try {
             const response = await fetch(
-                `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-28?exercise_type_id=${grupoId}`
+                `${apiUrl28}?exercise_type_id=${grupoId}`
             );
             const data = await response.json();
             setEjercicios(data.map(ejercicio => ({
@@ -71,7 +82,7 @@ export default function RegistroEntrenamientoDia() {
             localStorage.setItem('diaSeleccionado', diaSeleccionado);
             localStorage.setItem('gruposMusculares', NombreMuscular);
             console.log("llegue ", NombreMuscular);
-            navigate('/registro-entrenamiento');
+            navigate(`/registro-entrenamiento?role=${role}&token=${token}&username=${username}`);
         } else {
             alert('Por favor, asegúrate de ingresar repeticiones y series mayores a cero.');
         }

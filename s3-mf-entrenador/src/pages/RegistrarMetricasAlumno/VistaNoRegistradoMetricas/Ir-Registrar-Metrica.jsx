@@ -20,7 +20,7 @@ const VistaNoRegistrado = () => {
   const [user, setUser] = useState({});
 
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  console.log("Todos los parámetros en Ir Registrar Metricas:", window.location.search); // Verificar que todos los parámetros están presentes
 
   const role = params.get("role");
   const token = params.get("token");
@@ -92,7 +92,7 @@ const VistaNoRegistrado = () => {
             if (metricsData && metricsData.length > 0) {
               setMetrics(metricsData[0]);
             } else {
-              //setError("No se encontraron métricas para este estudiante.");
+              setError("No se encontraron métricas para este estudiante.");
               setMetrics(null); // No se encontraron métricas, establecemos como null
 
             }

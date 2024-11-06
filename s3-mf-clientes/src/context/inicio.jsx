@@ -96,7 +96,7 @@ const HomePage = () => {
           </button>
           <button
             className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
-            onClick={() => handleNavigation(`/ver-metricas?role=${role}&token=${token}&username=${username}`, 'mis_metricas')}
+            onClick={() => handleNavigation(`/ver-metricas?role=${role}&token=${token}&username=${username}&clienteId=${user.id}`, 'mis_metricas')}
             disabled={loading.mis_metricas}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MIS MÉTRICAS</span>
@@ -121,7 +121,7 @@ const HomePage = () => {
 
           <button
             className="bg-white text-red-600 p-4 rounded-md shadow-md w-full sm:w-3/4 max-w-xs sm:max-w-md flex flex-col items-start text-left relative"
-            onClick={() => handleNavigation(`/?role=${role}&token=${token}&username=${username}`, 'mi_suscripcion')}
+            onClick={() => handleNavigation(`/sub-list?role=${role}&token=${token}&username=${username}&clienteId=${user.id}`, 'mi_suscripcion')}
             disabled={loading.mi_suscripcion}>
             <span className="text-sm font-semibold">VER</span>
             <span className="text-lg sm:text-xl font-bold">MI SUSCRIPCIÓN</span>

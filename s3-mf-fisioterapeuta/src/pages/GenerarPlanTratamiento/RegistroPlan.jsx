@@ -8,6 +8,16 @@ const RegistroPlan = () => {
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Registro de Plan:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Registro de Plan:", role);
+  console.log("token recibido en Registro de Plan:", token);
+  console.log("username recibido en Registro de Plan:", username);
+
   // Función para mostrar la modal.
   const handleShowModal = () => {
     setShowModal(true);

@@ -2,12 +2,63 @@ import { useState, useEffect } from 'react';
  
 const PlanesEntrenamiento = () => {
   const [planes, setPlanes] = useState([]);
-  const clienteId = 1; // Debes obtener este ID dinámicamente según el cliente
- 
+  const apiUrl11 = import.meta.env.VITE_APP_API_URL_11;
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const [user, setUser] = useState({});
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Planes de Entrenamiento:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Planes de Entrenamiento clientes:", role);
+  console.log("token recibido en Planes de Entrenamiento clientes:", token);
+  console.log("username recibido en Planes de Entrenamiento clientes:", username);
+
+useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos:", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
+
+
   useEffect(() => {
     const fetchPlanes = async () => {
       try {
-        const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-11?clientId=${clienteId}`);
+        if (!user.id) return; // Evita la llamada si user.id no está disponible
+
+        const response = await fetch(`${apiUrl11}?clientId=${user.id}`);
         if (!response.ok) {
           throw new Error('Error al obtener los planes');
         }
@@ -19,10 +70,10 @@ const PlanesEntrenamiento = () => {
     };
  
     fetchPlanes();
-  }, [clienteId]);
+  }, [user.id]);
  
   const handleNavigate = (planId) => {
-    window.location.href = `/ver-plan/${planId}`;
+    window.location.href = `/ver-plan/${planId}?role=${role}&token=${token}&username=${username}`;
   };
  
   // Función para retroceder a la página anterior

@@ -4,11 +4,22 @@ import { useParams } from 'react-router-dom';
 const VerEjercicios = () => {
   const { diaId } = useParams();
   const [ejercicios, setEjercicios] = useState([]);
+  const apiUrl11 = import.meta.env.VITE_APP_API_URL_11;
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Ver Ejercicios:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Ver Ejercicios clientes:", role);
+  console.log("token recibido en Ver Ejercicios clientes:", token);
+  console.log("username recibido en Ver Ejercicios clientes:", username);
 
   useEffect(() => {
     const fetchEjercicios = async () => {
       try {
-        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-11?diaId=${diaId}');
+        const response = await fetch(`${apiUrl11}?diaId=${diaId}`);
         if (!response.ok) {
           throw new Error('Error al obtener los ejercicios');
         }

@@ -16,9 +16,19 @@ const DietPlanDetail = () => {
   const clientId = queryParams.get('client_id');
   const [dietPlan, setDietPlan] = useState(null);
   const navigate = useNavigate(); // Para manejar la navegación del botón "Regresar"
+  const apiUrl36 = import.meta.env.VITE_APP_API_URL_36;
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en DietPlanDetail:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en DietPlanDetail:", role);
+  console.log("token recibido en DietPlanDetail:", token);
+  console.log("username recibido en DietPlanDetail:", username);
 
   useEffect(() => {
-    fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-nutricion/hu-tp-36?dietPlanId=${dietPlanId}`)
+    fetch(`${apiUrl36}?dietPlanId=${dietPlanId}`)
       .then(response => response.json())
       .then(data => setDietPlan(data))
       .catch(error => console.error('Error fetching diet plan details:', error));

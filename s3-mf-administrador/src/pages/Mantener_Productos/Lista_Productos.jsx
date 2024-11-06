@@ -42,7 +42,7 @@ function Lista_Productos() {
   useEffect(() => {
     fetchProducts();
     fetchProductTypes();
-  }, [products]);
+  }, []);
 
   const fetchProducts = async () => {
     try {
@@ -175,7 +175,9 @@ function Lista_Productos() {
       });
 
       if (!response.ok) {
-        throw new Error("Error al registrar el producto");
+        // Si la respuesta no es exitosa, lanza un error con detalles adicionales
+        const errorMessage = await response.text(); // o response.json() dependiendo del formato de error
+        throw new Error(`Error al registrar el producto: ${errorMessage}`);
       }
 
       const newProduct = await response.json();
@@ -199,7 +201,7 @@ function Lista_Productos() {
       console.error("Error al enviar los datos del producto:", error);
       // Mostrar alert y cerrar el modal al hacer clic en OK
       alert(
-        "Ocurrió un error al registrar el producto. Por favor, inténtelo de nuevo más tarde."
+        `Ocurrió un error al registrar el producto. Por favor, inténtelo de nuevo más tarde. ${error.message}`
       );
       setShowModal(false); // Cerrar el formulario en caso de error
     } finally {
@@ -342,9 +344,9 @@ function Lista_Productos() {
                 className="p-6 bg-white rounded-lg shadow-md"
               >
                 <img
-                  src={product.image_url}
-                  alt={product.product_name}
-                  className="w-full h-40 object-cover mb-4"
+              src={product.image_url}
+              alt={product.product_name}
+              className="w-full h-40 object-cover mb-4"
                 />
                 <h3 className="text-lg font-semibold text-gray-800">
                   {product.product_name}
@@ -362,6 +364,7 @@ function Lista_Productos() {
               </div>
             ))}
           </div>
+
         </main>
       </div>
 
@@ -465,6 +468,7 @@ function Lista_Productos() {
                   className="w-full p-2 border border-gray-300 rounded-lg"
                   value={formData.precio}
                   onChange={handleChange}
+                  min="0"  // No permite números negativos
                 />
               </div>
               <div>
