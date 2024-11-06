@@ -16,6 +16,16 @@ const ListaEjercicios = () => {
 
   const navigate = useNavigate(); // Define el hook useNavigate
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Lista de Ejercicios:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Lista de Ejercicios:", role);
+  console.log("token recibido en Lista de Ejercicios:", token);
+  console.log("username recibido en Lista de Ejercicios:", username);
+
   const filtrarEjercicios = () => {
     return ejercicios.filter(
       (ejercicio) =>
@@ -85,10 +95,10 @@ const ListaEjercicios = () => {
                 </select>
               </div>
               <div className="flex flex-col items-end space-y-2">
-                <Link to="/RegistroEjerciciosTratamiento"  className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
+                <Link to={`/RegistroEjerciciosTratamiento?role=${role}&token=${token}&username=${username}`} className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700">
                   + Registrar Nuevo EJERCICIO
                 </Link>
-                <Link to="/tipos-ejercicio" className="text-red-600 flex items-center">
+                <Link to={`/tipos-ejercicio?role=${role}&token=${token}&username=${username}`} className="text-red-600 flex items-center">
                   <FaEye className="mr-2" />
                   Ver Tipos Ejercicio Tratamiento
                 </Link>

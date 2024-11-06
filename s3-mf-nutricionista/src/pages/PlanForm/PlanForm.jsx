@@ -16,11 +16,20 @@ const PlanForm = () => {
   const [dailyCaloriesKcal, setDailyCaloriesKcal] = useState('');
 
   /*CODIGO PARA OBTENER EL ID DEL CLIENTE DE LA URL*/ 
-  const location = useLocation();
-
-  const params = new URLSearchParams(location.search);
+  const params = new URLSearchParams(window.location.search);
   const clientId = params.get('client_id');
+  const apiUrl34 = import.meta.env.VITE_APP_API_URL_34;
+
   
+  console.log("Todos los parámetros en Plan Form nutricionista:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Plan Form nutricionista:", role);
+  console.log("token recibido en Plan Form nutricionista:", token);
+  console.log("username recibido en Plan Form nutricionista:", username);
+
   const [dayData, setDayData] = useState({
     breakfast: '',
     lunch: '',
@@ -70,7 +79,7 @@ const PlanForm = () => {
       const confirmRegister = window.confirm("¿SEGURO QUE DESEAS REGISTRAR ESTE PLAN?");
       if (confirmRegister) {
         try {
-          const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-nutricion/hu-tp-34", {
+          const response = await fetch(apiUrl34, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

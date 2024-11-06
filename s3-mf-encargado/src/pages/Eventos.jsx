@@ -109,6 +109,19 @@ export default function Eventos() {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showRejection, setShowRejection] = useState(false);
 
+  const params = new URLSearchParams(window.location.search);
+  console.log(
+    "Todos los parámetros en Gestionar Evento encargado de gymnasios:",
+    window.location.search
+  ); // Verificar que todos los parámetros están presentes
+
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Gestionar Evento encargado de gymnasios:", role);
+  console.log("token recibido en Gestionar Evento encargado de gymnasios:", token);
+  console.log("username recibido en Gestionar Evento encargado de gymnasios:", username);
+
   const TabButton = ({ label }) => (
     <button
       onClick={() => setTab(label)}

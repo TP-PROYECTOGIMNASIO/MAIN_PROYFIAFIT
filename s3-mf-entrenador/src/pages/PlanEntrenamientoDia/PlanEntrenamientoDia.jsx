@@ -36,8 +36,18 @@ export default function PlanEntrenamientoDia() {
     const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
     const navigate = useNavigate();
 
+    const params = new URLSearchParams(window.location.search);
+    console.log("Todos los parámetros en Plan Entrenamiento por dia:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+    const role = params.get("role");
+    const token = params.get("token");
+    const username = params.get("username");
+    console.log("role recibido en Plan Entrenamiento por dia:", role);
+    console.log("token recibido en Plan Entrenamiento por dia:", token);
+    console.log("username recibido en Plan Entrenamiento por dia:", username);
+
     const handleRegistrar = () => {
-        navigate('/registrar-entrenamiento');
+        navigate(`/registrar-entrenamiento?role=${role}&token=${token}&username=${username}`);
     };
 
     const handleRegresar = () => {
@@ -67,7 +77,7 @@ export default function PlanEntrenamientoDia() {
         localStorage.setItem('diaSeleccionado', dia);
         localStorage.setItem('NdiaSeleccionado', diaNumero);
 
-        navigate('/registrar-entrenamiento');
+        navigate(`/registrar-entrenamiento?role=${role}&token=${token}&username=${username}`);
         setDiaSeleccionado(dia);
     };
 

@@ -6,10 +6,23 @@ const UpdateSubscriptionForm = () => {
   const [selectedMembership, setSelectedMembership] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+  const apiUrl21 = import.meta.env.VITE_APP_API_URL_21;
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  const clienteId = params.get("clienteId");
+  console.log("role recibido en Actualizando de Suscripcion clientes:", role);
+  console.log("token recibido en Actualizando de Suscripcion clientes:", token);
+  console.log("username recibido en Actualizando de Suscripcion clientes:", username);
+  console.log("clienteId recibido en Actualizando de Suscripcion clientes:", clienteId);
 
   // Obtener membresías desde el API
   useEffect(() => {
-    fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/membresias/hu-tp-21')
+    fetch(`${apiUrl21}`)
       .then(response => response.json())
       .then(data => setMemberships(data))
       .catch(error => console.error('Error al obtener membresías:', error));
@@ -34,7 +47,7 @@ const UpdateSubscriptionForm = () => {
       const price = selectedPlan.price;
 
       // Redirigir a pagoSub.html con los parámetros necesarios (membership_id y price)
-      window.location.href = `/pagoSub.html?membership_id=${selectedMembership}&price=${price}`;
+      window.location.href = `/pagoSub.html?membership_id=${selectedMembership}&price=${price}&role=${role}&token=${token}&username=${username}&clienteId=${clienteId}`;
     }
   };
 

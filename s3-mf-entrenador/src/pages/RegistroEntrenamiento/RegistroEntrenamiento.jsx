@@ -10,6 +10,16 @@ const RegistroEntrenamiento = () => {
   const [clientId, setClientId] = useState(''); // Estado para almacenar el client_id
   const [trainingPlanId, setTrainingPlanId] = useState(null); // Estado para almacenar el trainingPlanId con valor inicial null
   const navigate = useNavigate();
+  const apiUrl28 = import.meta.env.VITE_APP_API_URL_28;
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Registro Entrenamiento:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Registro Entrenamiento:", role);
+  console.log("token recibido en Registro Entrenamiento:", token);
+  console.log("username recibido en Registro Entrenamiento:", username);
 
   useEffect(() => {
     try {
@@ -74,7 +84,7 @@ const RegistroEntrenamiento = () => {
     console.log('Payload con ejercicios y trainingPlanId:', payload);
 
     try {
-      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-28', {
+      const response = await fetch(`${apiUrl28}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +99,7 @@ const RegistroEntrenamiento = () => {
         // Almacenar el día guardado en localStorage y redirigir a la página PlanEntrenamientoPorDia
         localStorage.setItem('diaGuardado', NdiaSeleccionado); // Guardar día en localStorage
         alert('Plan de entrenamiento guardado con éxito!');
-        navigate('/PlanEntrenamientoDia'); // Redirigir a PlanEntrenamientoPorDia
+        navigate(`/PlanEntrenamientoDia?role=${role}&token=${token}&username=${username}`); // Redirigir a PlanEntrenamientoPorDia
       } else {
         console.error('Error al guardar el plan de entrenamiento:', response.statusText);
         alert('Error al guardar el plan de entrenamiento.');

@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 const SubscriptionDetails = ({ clientMembershipId }) => {
   const [details, setDetails] = useState(null);
   const [error, setError] = useState('');
+  const apiUrl21 = import.meta.env.VITE_APP_API_URL_21;
 
   useEffect(() => {
-    fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/membresias/hu-tp-21?client_membership_id=${clientMembershipId}`)
+    fetch(`${apiUrl21}?client_membership_id=${clientMembershipId}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('No se encontraron detalles de la suscripción');
