@@ -109,7 +109,7 @@ export default function RegistroEntrenamientoDia() {
             )
         );
     };
-
+  
     return (
         <div className="min-h-screen bg-[#f3f4f7] p-4 flex flex-col">
             <div className="flex flex-col mb-4">
@@ -157,20 +157,23 @@ export default function RegistroEntrenamientoDia() {
                     {diaSeleccionado}
                 </p>
             </div>
-
+                        
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 {Array.isArray(ejercicios) && ejercicios.map((ejercicio, index) => (
                     <div key={index} className="border p-4 rounded-lg bg-white shadow-md">
                         <div className="flex flex-col items-center">
-                            <img
-                                src={ejercicio.image_url}
-                                alt={ejercicio.name}
-                                className="w-full h-36 object-cover rounded mb-4"
 
-                                /*className="w-full h-auto object-cover rounded mb-4"*/
-                            />
+                   
+                  
+                        <video 
+                            src={ejercicio.video_url} // Cambia 'image_url' por el campo que tenga la URL del video
+                            controls
+                            className="w-full h-36 object-cover rounded mb-4"
+                        >
+                            Tu navegador no soporta la reproducción de videos.
+                        </video>
 
-
+                    
                             <h4 className="text-lg font-bold text-red-700 mb-2">
                                 {ejercicio.name}
                             </h4>
