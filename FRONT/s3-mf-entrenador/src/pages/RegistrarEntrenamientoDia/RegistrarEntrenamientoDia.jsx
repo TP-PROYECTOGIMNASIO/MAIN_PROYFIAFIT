@@ -10,6 +10,17 @@ export default function RegistroEntrenamientoDia() {
     const [NdiaSeleccionado, NsetDiaSeleccionado] = useState('');
     const [NombreMuscular, setNombreMusuclar] = useState('');
     const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
+    const apiUrl28 = import.meta.env.VITE_APP_API_URL_28;
+
+    const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Registrar Entrenamiento:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Registrar Entrenamiento:", role);
+  console.log("token recibido en Registrar Entrenamiento:", token);
+  console.log("username recibido en Registrar Entrenamiento:", username);
 
     useEffect(() => {
         const NdiaGuardado = localStorage.getItem('NdiaSeleccionado');
@@ -30,7 +41,7 @@ export default function RegistroEntrenamientoDia() {
         const obtenerGruposMusculares = async () => {
             try {
                 const response = await fetch(
-                    'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-28?exerciseTypes=1'
+                    `${apiUrl28}?exerciseTypes=1`
                 );
                 const data = await response.json();
                 setGruposMusculares(data);
@@ -45,7 +56,7 @@ export default function RegistroEntrenamientoDia() {
     const obtenerEjerciciosPorGrupoMuscular = async (grupoId) => {
         try {
             const response = await fetch(
-                `https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-28?exercise_type_id=${grupoId}`
+                `${apiUrl28}?exercise_type_id=${grupoId}`
             );
             const data = await response.json();
             setEjercicios(data.map(ejercicio => ({
@@ -71,7 +82,7 @@ export default function RegistroEntrenamientoDia() {
             localStorage.setItem('diaSeleccionado', diaSeleccionado);
             localStorage.setItem('gruposMusculares', NombreMuscular);
             console.log("llegue ", NombreMuscular);
-            navigate('/registro-entrenamiento');
+            navigate(`/registro-entrenamiento?role=${role}&token=${token}&username=${username}`);
         } else {
             alert('Por favor, asegúrate de ingresar repeticiones y series mayores a cero.');
         }
@@ -98,7 +109,7 @@ export default function RegistroEntrenamientoDia() {
             )
         );
     };
-
+  
     return (
         <div className="min-h-screen bg-[#f3f4f7] p-4 flex flex-col">
             <div className="flex flex-col mb-4">
@@ -146,20 +157,23 @@ export default function RegistroEntrenamientoDia() {
                     {diaSeleccionado}
                 </p>
             </div>
-
+                        
             <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 {Array.isArray(ejercicios) && ejercicios.map((ejercicio, index) => (
                     <div key={index} className="border p-4 rounded-lg bg-white shadow-md">
                         <div className="flex flex-col items-center">
-                            <img
-                                src={ejercicio.image_url}
-                                alt={ejercicio.name}
-                                className="w-full h-36 object-cover rounded mb-4"
 
-                                /*className="w-full h-auto object-cover rounded mb-4"*/
-                            />
+                   
+                  
+                        <video 
+                            src={ejercicio.video_url} // Cambia 'image_url' por el campo que tenga la URL del video
+                            controls
+                            className="w-full h-36 object-cover rounded mb-4"
+                        >
+                            Tu navegador no soporta la reproducción de videos.
+                        </video>
 
-
+                    
                             <h4 className="text-lg font-bold text-red-700 mb-2">
                                 {ejercicio.name}
                             </h4>

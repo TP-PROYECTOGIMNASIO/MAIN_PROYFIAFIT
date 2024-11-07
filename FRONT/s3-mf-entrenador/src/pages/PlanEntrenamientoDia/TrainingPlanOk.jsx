@@ -8,6 +8,18 @@ const TrainingPlanOk = () => {
   const [clientId, setClientId] = useState(null);
   const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
 
+  const apiUrl27 = import.meta.env.VITE_APP_API_URL_27;
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en TrainingPlanOk de entrenador:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en TrainingPlanOk de entrenador:", role);
+  console.log("token recibido en TrainingPlanOk de entrenador:", token);
+  console.log("username recibido en TrainingPlanOk de entrenador:", username);
+
   // Función para hacer fetch de los datos
   const fetchData = async (url) => {
     try {
@@ -30,12 +42,12 @@ const TrainingPlanOk = () => {
   // Fetch el plan de entrenamiento
   const fetchTrainingPlan = async (id) => {
     if (id) {
-      const data = await fetchData(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-entrenamiento/hu-tp-27?client_id=${id}`);
+      const data = await fetchData(`${apiUrl27}?client_id=${id}`);
       setTrainingPlan(data);
       console.log('Training Plan:', data);
       localStorage.setItem('clientId', id);
       localStorage.setItem('diaSeleccionado', 'Día 1');
-      navigate('/PlanEntrenamientoDia', { state: { clientId: id, trainingPlan: data } });
+      navigate(`/PlanEntrenamientoDia?role=${role}&token=${token}&username=${username}`, { state: { clientId: id, trainingPlan: data } });
     } else {
       console.error('No hay clientId.');
     }
@@ -110,7 +122,7 @@ const TrainingPlanOk = () => {
         <button
           className="w-full text-white py-2 lg:py-3 rounded-lg hover:bg-red-800 transition-colors"
           style={{ backgroundColor: '#b5121c' }}
-          onClick={() => navigate('/PlanEntrenamientoDia')}
+          onClick={() => navigate(`/PlanEntrenamientoDia?role=${role}&token=${token}&username=${username}`)}
         >
           GENERAR PLAN DE ENTRENAMIENTO
         </button>

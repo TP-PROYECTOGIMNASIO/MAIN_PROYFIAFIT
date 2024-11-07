@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate  } from "react-router-dom";
 import EventCard from './EventCard';
 import EventDetailModal from './EventDetailModal';
 import Banner from './Banner'; // Importa el componente Banner
@@ -45,6 +46,16 @@ const events = [
 const EventList = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedEvent, setSelectedEvent] = useState(null); // Nuevo estado para manejar el modal
+  
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Lista de Eventos clientes:", role);
+  console.log("token recibido en Lista de Eventos clientes:", token);
+  console.log("username recibido en Lista de Eventos clientes:", username);
 
   const nextEvent = () => {
     setCurrentIndex((prevIndex) =>

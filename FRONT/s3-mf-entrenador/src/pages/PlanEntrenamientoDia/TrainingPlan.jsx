@@ -5,6 +5,16 @@ const TrainingPlan = () => {
   const [studentName, setStudentName] = useState('');
   const navigate = useNavigate();
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Training Plan de Entrenador:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Training Plan de Entrenador:", role);
+  console.log("token recibido en Training Plan de Entrenador:", token);
+  console.log("username recibido en Training Plan de Entrenador:", username);
+
   useEffect(() => {
     // Recuperar el nombre del alumno desde localStorage
     const storedStudentName = localStorage.getItem('selectedStudentName');
@@ -14,13 +24,13 @@ const TrainingPlan = () => {
   }, []);
 
   const handleGeneratePlan = () => {
-    navigate('/PlanEntrenamientoDia');
+    navigate(`/PlanEntrenamientoDia?role=${role}&token=${token}&username=${username}`);
   };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
       <div className="bg-white shadow-md rounded-lg p-8 relative w-full max-w-md lg:max-w-lg flex flex-col justify-center min-h-[300px]">
-        <Link to="/listar-alumnos" className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-xl font-bold">
+        <Link to={`/listar-alumnos?role=${role}&token=${token}&username=${username}`} className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-xl font-bold">
           X
         </Link>
 
@@ -36,7 +46,7 @@ const TrainingPlan = () => {
         <div className="text-center text-3xl text-gray-600 bg-gray-100 p-4 rounded-lg mb-6">
           <p className="inline-block">No se encuentra plan </p>
           <p className="inline-block">de entrenamiento </p>
-          <p className="inline-block">asignado </p>
+          <p className="inline-block"> asignado </p>
         </div>
 
         <button 

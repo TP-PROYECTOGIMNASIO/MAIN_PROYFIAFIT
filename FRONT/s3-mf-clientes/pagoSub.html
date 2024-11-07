@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página de Pago - Membresía</title>
+  <!-- Cargar la librería de Culqi -->
+  <script src="https://checkout.culqi.com/js/v4"></script>
+</head>
+
+<body>
+  <h1>Pagar Membresía del Gym</h1>
+
+  <script>
+    // Función para obtener parámetros de la URL
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    // Obtener parámetros de la URL
+    const membershipId = getQueryParam('membership_id');
+    const price = getQueryParam('price') || '1000'; // Precio predeterminado de 1000 si no se pasa en la URL
+
+    // Inicializar la clave pública de Culqi
+    Culqi.publicKey = 'pk_test_1e3464ded7850f8c';  // Clave pública de prueba de Culqi
+
+    // Configuración de Culqi
+    Culqi.settings({
+      title: 'Fia Fit',
+      currency: 'PEN',
+      amount: parseInt(price) * 100,  // Precio en céntimos (multiplicado por 100)
+    });
+
+    Culqi.options({
+      lang: "auto",
+      installments: true,  // Habilitar la opción de cuotas
+      paymentMethods: {
+        tarjeta: true,       // Permitir pago con tarjeta
+        yape: true,          // Permitir pago con Yape
+        bancaMovil: true,    // Permitir pago con banca móvil
+        agente: true,        // Permitir pago en agentes bancarios
+        billetera: true,     // Permitir pago con billeteras electrónicas
+        cuotealo: true,      // Permitir la opción de Cuotealo
+      },
+      style: {
+        logo: "https://s4.aconvert.com/convert/p3r68-cdx67/aale4-nm7pc.webp",  // Logo del Gym
+      }
+    });
+
+    // Abrir el formulario de Culqi
+    Culqi.open();
+
+    // Función que se ejecuta después de que Culqi procesa el pago
+    function culqi() {
+      if (Culqi.token) {  // Si Culqi genera un token de pago
+        const token = Culqi.token.id;
+        const email = Culqi.token.email;
+
+        // Detalles del pago y de la membresía
+        const ventaDetails = {
+          client_id: 1,  // Suponiendo que el client_id es 1, cámbialo según sea necesario
+          membership_id: membershipId,  // ID de la membresía seleccionada
+          payment_frequency_months: 3,  // Frecuencia de pago (puedes ajustarlo según el plan)
+          email: email,
+          token: token
+        };
+
+        console.log('Detalles de la venta: ', ventaDetails);
+
+        // Enviar los detalles del pago a la API para actualizar la membresía
+        fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/membresias/hu-tp-21", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(ventaDetails)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Respuesta de la API: ', data);
+          if (data.message === 'Pago y suscripción completados exitosamente') {
+            alert('Pago realizado y membresía actualizada correctamente.');
+            // Redirigir a la página de éxito
+            window.location.href = '/payment-success';
+          } else {
+            alert('Error al actualizar la membresía.');
+          }
+        })
+        .catch(error => {
+          console.error('Error en la solicitud:', error);
+          alert('Hubo un error con el pago o al actualizar la membresía.');
+        });
+      } else {
+        // Si no hay token, mostrar el mensaje de error de Culqi
+        console.log(Culqi.error);
+        alert(Culqi.error.user_message);
+      }
+    }
+  </script>
+
+</body>
+
+</html>

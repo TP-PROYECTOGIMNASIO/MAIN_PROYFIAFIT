@@ -7,7 +7,7 @@ const Inicio = () => {
   const [user, setUser] = useState({});
  
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  console.log("Todos los parámetros en inicio entrenador:", window.location.search); // Verificar que todos los parámetros están presentes
   
   const role = params.get("role");
   const token = params.get("token");

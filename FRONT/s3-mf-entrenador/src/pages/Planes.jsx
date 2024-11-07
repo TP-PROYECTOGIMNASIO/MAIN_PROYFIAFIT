@@ -7,6 +7,15 @@ import PlanEntrenamientoDia from '../pages/PlanEntrenamientoDia/PlanEntrenamient
 
 function Planes() {
   const [step, setStep] = useState('initial');
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Planes:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Planes:", role);
+  console.log("token recibido en Planes:", token);
+  console.log("username recibido en Planes:", username);
 
   const handleGeneratePlan = () => {
     setStep('selection');

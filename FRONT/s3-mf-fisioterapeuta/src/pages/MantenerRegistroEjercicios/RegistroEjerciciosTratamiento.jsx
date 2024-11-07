@@ -9,13 +9,23 @@ function RegistroEjerciciosTratamiento() {
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Para navegar entre rutas
 
-  const apiUrl = 'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/HU-TP-40';
+  const apiUrl40 = import.meta.env.VITE_APP_API_URL_40;
+
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Registro de Ejercicios de Tratamiento:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Registro de Ejercicios de Tratamiento:", role);
+  console.log("token recibido en Registro de Ejercicios de Tratamiento:", token);
+  console.log("username recibido en Registro de Ejercicios de Tratamiento:", username);
 
   // Método GET para obtener los tipos de ejercicios
   useEffect(() => {
     const fetchExerciseTypes = async () => {
       try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch(apiUrl40, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ method: 'readtype' }), // Envío del método en el cuerpo de la solicitud
@@ -84,12 +94,12 @@ function RegistroEjerciciosTratamiento() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
       {/* Botón de regresar */}
       <div className="w-full max-w-4xl mb-6">
-        <button
-          className="text-gray-500 hover:text-gray-700 font-semibold flex items-center"
-          onClick={() => navigate('/')}
-        >
-          <span className="mr-2">&lt;</span> Regresar
-        </button>
+      <button
+      className="text-gray-700 font-medium"
+      onClick={() => window.history.back()}
+    >
+      &lt; Regresar
+    </button> 
       </div>
 
       {/* Contenedor principal */}

@@ -2,6 +2,15 @@ import React from 'react';
 
 const DetalleTratamiento = () => {
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Detalle Tratamiento:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Detalle Tratamiento clientes:", role);
+  console.log("token recibido en Detalle Tratamiento clientes:", token);
+  console.log("username recibido en Detalle Tratamiento clientes:", username);
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100">

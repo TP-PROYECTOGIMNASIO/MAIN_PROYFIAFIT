@@ -11,6 +11,8 @@ export default function Navbar() {
   const navigate = useNavigate(); // Cambiado a useNavigate
 
   const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const apiUrl17 = import.meta.env.VITE_APP_API_URL_17;
+
   const location = useLocation(); // Obtener la ubicación actual
   const [user, setUser] = useState({});
   // Obtener los parámetros de búsqueda de la ubicación actual
@@ -66,7 +68,7 @@ export default function Navbar() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/productos/hu-tp-17");
+        const response = await fetch(`${apiUrl17}`);
         const data = await response.json();
         setIsDataLoaded(data && data.length > 0); // Verifica si hay datos
       } catch (error) {
