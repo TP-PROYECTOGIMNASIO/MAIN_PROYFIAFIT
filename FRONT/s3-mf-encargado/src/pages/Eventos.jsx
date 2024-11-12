@@ -108,12 +108,13 @@ export default function Eventos() {
   const [selectedEvento, setSelectedEvento] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [showRejection, setShowRejection] = useState(false);
+  const [startDate, setStartDate] = useState("");
 
   const params = new URLSearchParams(window.location.search);
   console.log(
     "Todos los parámetros en Gestionar Evento encargado de gymnasios:",
     window.location.search
-  ); // Verificar que todos los parámetros están presentes
+  );
 
   const role = params.get("role");
   const token = params.get("token");
@@ -146,12 +147,17 @@ export default function Eventos() {
           <TabButton label="aprobados" />
           <TabButton label="solicitudes" />
         </div>
-        <div className="flex justify-end">
-          <button className="bg-gray-200 px-4 py-2 rounded-lg flex items-center space-x-2" style={{ marginRight: "300px" }}>
-            <span>Filtrar por Fecha</span>
-            <FaCalendarAlt className="text-red-600" />
-          </button>
-        </div>
+        <div className="col-span-3 md:col-span-1 flex items-center space-x-4" style={{ marginLeft: "187px" }}>
+  <label className="bg-gray-200 px-4 py-2 rounded-lg">Filtrar por fecha:</label>
+  <input
+    type="date"
+    value={startDate}
+    onChange={(e) => setStartDate(e.target.value)}
+    className="px-3 py-2 border rounded-lg bg-gray-200 text-black focus:outline-none" // Cambia el texto del input a gris
+    style={{ colorScheme: "#B5121C" }} // Cambia el color del ícono del calendario en algunos navegadores
+  />
+</div>
+
       </div>
 
       <div className="max-w-5xl mx-auto">

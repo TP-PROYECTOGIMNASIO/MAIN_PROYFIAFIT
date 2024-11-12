@@ -163,10 +163,10 @@ export default function RegistroEntrenamientoDia() {
                     <div key={index} className="border p-4 rounded-lg bg-white shadow-md">
                         <div className="flex flex-col items-center">
 
-                   
+                        {console.log("URL del video:", ejercicio.image_url)}
                   
                         <video 
-                            src={ejercicio.video_url} // Cambia 'image_url' por el campo que tenga la URL del video
+                            src={ejercicio.image_url} // Cambia 'image_url' por el campo que tenga la URL del video
                             controls
                             className="w-full h-36 object-cover rounded mb-4"
                         >
