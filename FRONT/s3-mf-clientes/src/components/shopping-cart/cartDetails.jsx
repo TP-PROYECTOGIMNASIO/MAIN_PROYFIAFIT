@@ -6,18 +6,18 @@ const CartDetails = () => {
   const [setCulqiLoaded] = useState(false); // Corrección aquí
   const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros en Ver nutricion:", window.location.search); // Verificar que todos los parámetros están presentes
+  console.log("Todos los parámetros en CartDetails:", window.location.search); // Verificar que todos los parámetros están presentes
   const [user, setUser] = useState({});
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
-  console.log("role recibido en Ver nutricion clientes:", role);
-  console.log("token recibido en Ver nutricion clientes:", token);
-  console.log("username recibido en Ver nutricion clientes:", username);
+  console.log("role recibido en CartDetails clientes:", role);
+  console.log("token recibido en CartDetails clientes:", token);
+  console.log("username recibido en CartDetails clientes:", username);
 
   useEffect(() => {
     if (token && username) {
-      console.log("Datos recibidos en Ver nutricion :", { role, token, username });
+      console.log("Datos recibidos en CartDetails :", { role, token, username });
       fetchUserName();
     }
 
