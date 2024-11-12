@@ -1,43 +1,46 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const DetalleTratamiento = () => {
+  const location = useLocation();
+  const { plan, token } = location.state || {};
 
-  const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros en Detalle Tratamiento:", window.location.search); // Verificar que todos los parámetros están presentes
-  
-  const role = params.get("role");
-  const token = params.get("token");
-  const username = params.get("username");
-  console.log("role recibido en Detalle Tratamiento clientes:", role);
-  console.log("token recibido en Detalle Tratamiento clientes:", token);
-  console.log("username recibido en Detalle Tratamiento clientes:", username);
+  const [sessions, setSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (plan && token) {
+      setSessions(plan.sessions || []);
+      setLoading(false);
+    }
+  }, [plan, token]);
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gray-100">
-       {/* Botón de Regresar */}
-       <header className="w-full max-w-2xl p-4">
-        <button
-          className="text-gray-700 font-medium"
-          onClick={() => window.history.back()}
-        >
+      <div className="w-full flex justify-start p-2">
+      <button className="text-gray-500 text-lg flex items-center ml-4" onClick={() => window.history.back()}>
           &lt; Regresar
         </button>
-      </header>
+        </div>
 
       <div className="w-full max-w-3xl bg-white p-6 mt-6 rounded-lg shadow-md">
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-bold text-gray-700">PLAN DE TRATAMIENTO</h2>
-          <span className="text-sm text-red-600">Fecha Elaborada: 20/10/2024</span>
+          <span className="text-sm text-red-600">Fecha de Elaboración: {new Date(plan?.created_at).toLocaleDateString()}</span>
         </div>
 
         <div className="mt-4">
           <h3 className="text-lg font-bold text-red-600">Diagnóstico:</h3>
-          <div className="mt-2 p-4 bg-gray-200 rounded-md"></div>
+          <div className="mt-2 p-4 bg-gray-200 rounded-md">
+            {plan?.diagnosis || 'No disponible'}
+          </div>
         </div>
 
         <div className="mt-4">
-          <h3 className="text-lg font-bold text-red-600">Indicaciones:</h3>
-          <div className="mt-2 p-4 bg-gray-200 rounded-md"></div>
+          <h3 className="text-lg font-bold text-red-600">Instrucciones:</h3>
+          <div className="mt-2 p-4 bg-gray-200 rounded-md">
+            {plan?.instructions || 'No disponible'}
+          </div>
         </div>
 
         <div className="mt-6">
@@ -51,13 +54,24 @@ const DetalleTratamiento = () => {
               </tr>
             </thead>
             <tbody>
-              {/* Aquí puedes mapear las sesiones para mostrarlas */}
-              <tr>
-                <td className="p-2">1</td>
-                <td className="p-2">Ejercicio 1</td>
-                <td className="p-2">20/10/2024</td>
-                <td className="p-2">10:00 AM</td>
-              </tr>
+              {loading ? (
+                <tr>
+                  <td colSpan="4" className="text-center p-4">Cargando detalles...</td>
+                </tr>
+              ) : sessions.length > 0 ? (
+                sessions.map((session, index) => (
+                  <tr key={index}>
+                    <td className="p-2">{session.sessions_number}</td>
+                    <td className="p-2">{session.exercise?.name || 'No disponible'}</td>
+                    <td className="p-2">{new Date(session.session_date).toLocaleDateString()}</td>
+                    <td className="p-2">{session.session_time}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="text-center p-4">No hay sesiones disponibles.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>
@@ -67,3 +81,4 @@ const DetalleTratamiento = () => {
 };
 
 export default DetalleTratamiento;
+  

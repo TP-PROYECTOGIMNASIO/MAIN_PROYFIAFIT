@@ -11,26 +11,26 @@ export default function MicroviewScreen() {
 
   var urlNew =""
   if(role === "admin"){
-    urlNew = `https://d9cbdrt9qxc6x.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `https://d9cbdrt9qxc6x.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role ==="cliente"){
-    urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }else if(role==='entrenador'){
-    urlNew = `https://dvnm61x8t41e0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `https://dvnm61x8t41e0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
   }else if(role==='cliente_libre'){
     urlNew = `https://d28sl9jcsu2dh.cloudfront.net?role=${role}&token=${token}&username=${username}`;
     //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='instructor'){
-    urlNew = `https://d3matswszdb8p0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+   // urlNew = `https://d3matswszdb8p0.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role==='manager'){
-    urlNew = `https://dlfxmk04c8l4u.cloudfront.net?role=${role}&token=${token}&username=${username}`;
-    //urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
+    //urlNew = `https://dlfxmk04c8l4u.cloudfront.net?role=${role}&token=${token}&username=${username}`;
+    urlNew = `http://localhost:5173?role=${role}&token=${token}&username=${username}`;
 
   }else if(role ==='encargado'){
     urlNew = `https://d33a2p3oofplz1.cloudfront.net?role=${role}&token=${token}&username=${username}`;
