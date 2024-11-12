@@ -7,18 +7,18 @@ const SubscriptionDetails = ({ clientMembershipId }) => {
   const [error, setError] = useState('');
   const apiUrl21 = import.meta.env.VITE_APP_API_URL_21;
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros en Ver nutricion:", window.location.search); // Verificar que todos los parámetros están presentes
+  console.log("Todos los parámetros en Suscripcion Details:", window.location.search); // Verificar que todos los parámetros están presentes
   
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
-  console.log("role recibido en Ver nutricion clientes:", role);
-  console.log("token recibido en Ver nutricion clientes:", token);
-  console.log("username recibido en Ver nutricion clientes:", username);
+  console.log("role recibido en Suscripcion Details clientes:", role);
+  console.log("token recibido en Suscripcion Details clientes:", token);
+  console.log("username recibido en Suscripcion Details clientes:", username);
 
   useEffect(() => {
     if (token && username) {
-      console.log("Datos recibidos en Ver nutricion :", { role, token, username });
+      console.log("Datos recibidos en Suscripcion Details :", { role, token, username });
       fetchUserName();
     }
   }, [role, token, username]); // Dependencias del useEffect
