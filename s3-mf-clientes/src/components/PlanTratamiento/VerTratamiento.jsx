@@ -1,108 +1,138 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const VerTratamiento = () => {
-  const [tratamientos, setTratamientos] = useState([]); // Lista de tratamientos
   const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const apiUrlTratamiento = import.meta.env.VITE_APP_API_URL_90;
+
   const navigate = useNavigate();
-  const clientId = 1; // ID del cliente (puedes ajustar según el cliente autenticado)
+  const location = useLocation();
 
   const [user, setUser] = useState({});
+  const [tratamiento, setTratamiento] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedPlanType, setSelectedPlanType] = useState("last_plan");
 
-  const apiUrl90 = import.meta.env.VITE_APP_API_URL_90;
-
-  const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros en Ver Tratamiento:", window.location.search); // Verificar que todos los parámetros están presentes
-  
+  const params = new URLSearchParams(location.search);
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
-  console.log("role recibido en Ver Tratamiento clientes:", role);
-  console.log("token recibido en Ver Tratamiento clientes:", token);
-  console.log("username recibido en Ver Tratamiento clientes:", username);
+
   useEffect(() => {
     if (token && username) {
-      console.log("Datos recibidos:", { role, token, username });
       fetchUserName();
     }
-  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+  }, [token, username]);
 
   const fetchUserName = async () => {
     try {
-      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
-
-      if (!response.ok) {
-        throw new Error("Error en la respuesta de la API");
-      }
+      const url = `${apiUrlUSERNAME}?username=${encodeURIComponent(username)}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
 
       const data = await response.json();
-      console.log("Respuesta de la API:", data);
-
-      if (Array.isArray(data)) {
-        if (data.length > 0) {
-          setUser(data[0]);
-        } else {
-          console.error("El array está vacío");
-          setUser({});
-        }
-      } else if (data && typeof data === "object") {
-        setUser(data);
-      } else {
-        console.error("Formato inesperado en la respuesta de la API:", data);
-        setUser({});
-      }
+      setUser(Array.isArray(data) && data.length > 0 ? data[0] : data);
     } catch (error) {
-      console.error("Error al obtener la información del usuario", error);
+      console.error("Error al obtener la información del usuario:", error);
     }
   };
 
   useEffect(() => {
-    // Obtener todos los planes del cliente
-    fetch(`${apiUrl90}?clientId=${clientId}&view=all_previous_plans`)
-      .then((res) => res.json())
-      .then((data) => setTratamientos(data))
-      .catch((err) => console.error(err));
-  }, [clientId]);
-  
-  
+    if (user.id) {
+      fetchTratamiento(user.id, selectedPlanType);
+    }
+  }, [user.id, selectedPlanType]);
 
-  const handleVisualizarPlan = (treatmentId) => {
-    navigate(`/ver-tratamiento/detalle-tratamiento?role=${role}&token=${token}&username=${username}`);
+  const fetchTratamiento = async (clientId, planType) => {
+    try {
+      setLoading(true);
+      
+      const apiURL = `${apiUrlTratamiento}?clientId=${encodeURIComponent(clientId)}&view=${encodeURIComponent(planType)}`;
+      const response = await fetch(apiURL, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+
+      const data = await response.json();
+      setTratamiento(planType === "last_plan" ? [data] : data);
+    } catch (error) {
+      console.error("Error al obtener el tratamiento:", error);
+      setTratamiento([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleVisualizarPlan = (plan) => {
+    navigate(`/ver-tratamiento/detalle-tratamiento`, {
+      state: { plan, role, token, username }
+    });
+  };
+
+  const handlePlanTypeChange = (event) => {
+    setSelectedPlanType(event.target.value);
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center bg-gray-50">
-      {/* Botón de Regresar */}
-      <header className="w-full max-w-2xl p-4">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+      {/* Botón Regresar */}
+      <div className="w-full flex justify-start p-2">
         <button
-          className="text-gray-700 font-medium"
-          onClick={() => window.history.back()}
+          className="text-gray-500 text-lg flex items-center ml-4"
+          onClick={() => navigate(-1)}
         >
-          &lt; Regresar
+          <span className="mr-4 text-2xl">&lt;</span>
+          Regresar
         </button>
-      </header>
+      </div>
 
-      <div className="w-full max-w-2xl bg-white p-6 mt-6 rounded-lg shadow-md">
+      <div className="w-full max-w-2xl bg-white p-6 mt-6 rounded-lg shadow-md mx-auto">
         <h1 className="text-2xl font-bold text-center text-red-600 mb-4">
-          PLANES DE TRATAMIENTO
+          PLAN DE TRATAMIENTO
         </h1>
-        <p className="text-center text-gray-700">Nombre del Alumno</p>
+        <p className="text-center text-gray-700">
+          {`${user.names || ''} ${user.father_last_name || ''} ${user.mother_last_name || ''}`}
+        </p>
+
+        {/* Combo box alineado a la derecha */}
+        <div className="flex justify-end mt-2">
+          <select
+            className="border border-gray-300 rounded-md p-2 text-gray-700"
+            style={{ background: '#D9D9D9' }}
+            value={selectedPlanType}
+            onChange={handlePlanTypeChange}
+          >
+            <option value="last_plan">Último Plan</option>
+            <option value="all_previous_plans">Planes Anteriores</option>
+          </select>
+        </div>
 
         <div className="mt-6">
-          {tratamientos.length === 0 ? (
-            <p className="text-center text-gray-700">No hay planes de tratamiento disponibles.</p>
-          ) : (
-            tratamientos.map((tratamiento) => (
-              <div key={tratamiento.treatment_plan_id} className="mt-4 bg-gray-200 p-4 rounded-md flex justify-between items-center">
-                <p className="font-semibold">Plan: {new Date(tratamiento.created_at).toLocaleDateString()}</p>
+          {loading ? (
+            <p className="text-center text-gray-700">Cargando plan de tratamiento...</p>
+          ) : tratamiento.length > 0 ? (
+            tratamiento.map((plan) => (
+              <div key={plan.treatment_plan_id} className="mt-4 bg-gray-200 p-4 rounded-md flex justify-between items-center" style={{ background: '#D9D9D9' }}>
+                <p className="text-gray-700">Plan Tratamiento - {new Date(plan.created_at).toLocaleDateString()}</p>
                 <button
-                  className="bg-blue-500 text-white py-2 px-4 rounded-md"
-                  onClick={() => handleVisualizarPlan(tratamiento.treatment_plan_id)}
+                  className="text-white py-2 px-4 rounded-md"
+                  style={{ background: '#3C4862' }}
+                  onClick={() => handleVisualizarPlan(plan)}
                 >
-                  Visualizar Tratamiento
+                  Visualizar Plan Tratamiento
                 </button>
               </div>
             ))
+          ) : (
+            <p className="text-center text-gray-700">No hay planes de tratamiento disponibles.</p>
           )}
         </div>
       </div>

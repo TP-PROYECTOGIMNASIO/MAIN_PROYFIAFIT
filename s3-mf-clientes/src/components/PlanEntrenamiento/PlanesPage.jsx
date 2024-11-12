@@ -5,6 +5,7 @@ const PlanesPage = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState({ training: false, nutrition: false, treatment: false }); // Estado de carga para cada botón
 
+  const apiUrlTratamiento = import.meta.env.VITE_APP_API_URL_90;
   const params = new URLSearchParams(window.location.search);
   console.log("Todos los parámetros en VER MIS PLANES:", window.location.search); // Verificar que todos los parámetros están presentes
   

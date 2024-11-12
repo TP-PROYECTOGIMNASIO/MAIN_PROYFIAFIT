@@ -1,78 +1,52 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import for navigation
+import { useNavigate } from "react-router-dom";
 
 const AsignarAlumno3 = ({ isOpen, title }) => {
   const [view, setView] = useState("asignar");
-  const [dni, setDni] = useState(""); // Store the entered DNI
-  const [clienteData, setClienteData] = useState([]); // Initialize as an array
-  const [modalVisible, setModalVisible] = useState(isOpen); // Internal control of the modal
-  const [clientId, setClientId] = useState(null); // Store the client ID
-  const [staffId] = useState(4); // Staff ID, you can change it as needed
-  const navigate = useNavigate(); // Hook for navigation
+  const [dni, setDni] = useState("");
+  const [clienteData, setClienteData] = useState([]);
+  const [modalVisible, setModalVisible] = useState(isOpen);
+  const [clientId, setClientId] = useState(null);
+  const [staffId, setStaffId] = useState(null); // ID del staff que se obtiene desde la API
+  const navigate = useNavigate();
 
   const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
   const apiUrl25 = import.meta.env.VITE_APP_API_URL_25;
 
   const [user, setUser] = useState({});
- 
+
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros en Asignar Alumno 3 entrenador:", window.location.search); // Verificar que todos los parámetros están presentes
-  
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
-  console.log("role recibido en Asignar Alumno 3 entrenador:", role);
-  console.log("token recibido en Asignar Alumno 3 entrenador:", token);
-  console.log("username recibido en Asignar Alumno 3 entrenador:", username);
-
-  
 
   useEffect(() => {
     if (token && username) {
-      console.log("Datos recibidos:", { role, token, username });
       fetchUserName();
     }
-  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+  }, [role, token, username]);
 
   const fetchUserName = async () => {
     try {
       const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
-
-      if (!response.ok) {
-        throw new Error("Error en la respuesta de la API");
-      }
+      if (!response.ok) throw new Error("Error en la respuesta de la API");
 
       const data = await response.json();
-      console.log("Respuesta de la API:", data);
-
-      if (Array.isArray(data)) {
-        if (data.length > 0) {
-          setUser(data[0]);
-        } else {
-          console.error("El array está vacío");
-          setUser({});
-        }
-      } else if (data && typeof data === "object") {
-        setUser(data);
-      } else {
-        console.error("Formato inesperado en la respuesta de la API:", data);
-        setUser({});
-      }
+      const userData = Array.isArray(data) && data.length > 0 ? data[0] : data;
+      setUser(userData);
+      setStaffId(userData.id); // Asigna el ID del staff desde la respuesta de la API
     } catch (error) {
-      console.error("Error al obtener la información del usuario", error);
+      console.error("Error al obtener la información del usuario:", error);
     }
   };
 
-
-  // Open the modal automatically when the component loads
   useEffect(() => {
-    setModalVisible(true); // Show the modal when the component mounts
+    setModalVisible(true);
   }, []);
 
-  // Handle modal closing and redirect to "/"
   const handleClose = () => {
-    setModalVisible(false); // Close the modal
-    navigate(`/?role=${role}&token=${token}&username=${username}`); // Redirect to the main page
+    setModalVisible(false);
+    navigate(`/?role=${role}&token=${token}&username=${username}`);
   };
 
   const handleSearch = async () => {
@@ -82,19 +56,16 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
     }
 
     try {
-      const response = await fetch(
-        `${apiUrl25}?document=${dni}`
-      );
+      const response = await fetch(`${apiUrl25}?document=${dni}`);
       const data = await response.json();
 
       if (response.ok) {
-        setClienteData(Array.isArray(data) ? data : [data]); // Ensure it's an array
-        setClientId(data[0].client_id); // Assuming client ID is in data[0].client_id
-        setView("cliente"); // Change to the client view
-        console.log("API Response:", data);
+        setClienteData(Array.isArray(data) ? data : [data]);
+        setClientId(data[0].client_id);
+        setView("cliente");
       } else {
         alert("Cliente no encontrado.");
-        setClienteData([]); // Clear the state if the client is not found
+        setClienteData([]);
       }
     } catch (error) {
       alert("Error al buscar el cliente: " + error.message);
@@ -102,41 +73,38 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
   };
 
   const handleAssign = async () => {
-    if (!clientId) {
-      alert("No se ha encontrado un cliente para asignar.");
+    if (!clientId || !staffId) {
+      console.log("No se ha encontrado un cliente o staff para asignar.");
       return;
     }
 
     try {
-      const response = await fetch(
-        `${apiUrl25}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            client_id: clientId,
-            staff_id: staffId,
-          }),
-        }
-      );
+      const response = await fetch(apiUrl25, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          client_id: clientId,
+          staff_id: staffId,
+        }),
+      });
 
       const result = await response.json();
 
       if (response.ok) {
-        alert(result.body.message); // Success message
-        setView("terminada"); // Change to the "completed" view
+        console.log(result.message);
+        setView("terminada");
       } else {
-        alert(result.body.message); // Error message
+        console.log(result.message);
       }
     } catch (error) {
-      alert("Error al asignar el cliente: " + error.message);
+      console.log("Error al asignar el cliente:", error.message);
     }
   };
 
   if (!modalVisible) {
-    return null; // Don't render anything if the modal is not visible
+    return null;
   }
 
   return (
@@ -147,7 +115,7 @@ const AsignarAlumno3 = ({ isOpen, title }) => {
           <h2 className="text-2xl font-semibold">{title}</h2>
           <button
             className="text-gray-500 hover:text-gray-700 focus:outline-none"
-            onClick={handleClose} // Close and redirect when "X" is clicked
+            onClick={handleClose}
           >
             ✖
           </button>
