@@ -1,10 +1,37 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const EventDetailModal = ({ event, onClose }) => {
   const [isRegistered, setIsRegistered] = useState(false);
+  const [error, setError] = useState(null); // Para manejar errores
 
-  const handleRegister = () => {
-    setIsRegistered(true);
+  const handleRegister = async () => {
+    try {
+      // Usa la variable de entorno para la URL de la API
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}`,
+        {
+          event_Id: event.id,       // Ajusta estos campos según los requerimientos de la API
+          eventName: event.title,   // Ajusta según sea necesario
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json', // Asegúrate de que el tipo de contenido sea correcto
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setIsRegistered(true); // Indica que la inscripción fue exitosa
+        setError(null); // Reinicia el error en caso de éxito
+      } else {
+        console.error("Respuesta inesperada de la API:", response);
+        setError("La inscripción no pudo completarse. Verifica los detalles.");
+      }
+    } catch (err) {
+      console.error("Error al inscribirse en el evento:", err);
+      setError("Hubo un error al realizar la inscripción. Inténtalo de nuevo."); // Configura un mensaje de error
+    }
   };
 
   const handleClose = () => {
@@ -66,10 +93,26 @@ const EventDetailModal = ({ event, onClose }) => {
           </div>
         </div>
       )}
+
+      {error && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-sm w-full text-center shadow-lg">
+            <h2 className="text-xl font-bold mb-4 text-red-600">Error</h2>
+            <p>{error}</p>
+            <button 
+              onClick={() => setError(null)} 
+              className="bg-red-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-red-700 transition duration-200"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
 
 export default EventDetailModal;
+
 
 
