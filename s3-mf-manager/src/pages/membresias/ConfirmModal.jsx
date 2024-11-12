@@ -18,7 +18,7 @@ const ConfirmModal = ({ isOpen, onConfirm, onCancel }) => {
         <p className="mb-4">¿Seguro que deseas registrar esta membresía?</p>
         <div className="flex justify-center space-x-4">
           <button
-            className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+            className="bg-red-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
             onClick={onConfirm} // Asegúrate de que esta función también maneje la lógica que necesitas
           >
             Sí
