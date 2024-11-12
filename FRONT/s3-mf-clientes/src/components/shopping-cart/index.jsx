@@ -7,9 +7,35 @@ export default function ShoppingCart() {
   const { products, removeProduct, totalAmount, clearShoppingCart } =
     useShoppingCart();
   const navigate = useNavigate(); // Hook para navegar a otras rutas
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const [user, setUser] = useState({});
+  const params = new URLSearchParams(window.location.search);
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+        useEffect(() => {
+      if (token && username) {
+      fetchUserName();
+    }
+      }, [role, token, username]);
+
+      const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+      const data = await response.json();
+      if (Array.isArray(data) && data.length > 0) {
+        setUser(data[0]);
+      } else {
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
+
 
   if (products.length === 0) return <EmptyShoppingCart />;
-
   return (
     <div className="bg-white p-4 rounded-lg border shadow-lg">
       {/* Productos en el carrito */}
