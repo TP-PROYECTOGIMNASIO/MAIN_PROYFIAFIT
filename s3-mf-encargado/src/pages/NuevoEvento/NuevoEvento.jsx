@@ -26,6 +26,27 @@ function NuevoEvento() {
         aforo: 15,
         imagen: "/image1.png",
       },
+      {
+        id: 1,
+        nombre: "Reto Fitness Total",
+        sede: "Sede Santa Anita",
+        aforo: 15,
+        imagen: "/image2.png",
+      },
+      {
+        id: 1,
+        nombre: "Reto Fitness Total",
+        sede: "Sede Santa Anita",
+        aforo: 15,
+        imagen: "/image3.png",
+      },
+      {
+        id: 1,
+        nombre: "Reto Fitness Total",
+        sede: "Sede Santa Anita",
+        aforo: 15,
+        imagen: "/image4.png",
+      },
     ],
     pendientes: [
       {
@@ -43,7 +64,14 @@ function NuevoEvento() {
         imagen: "/image3.png",
       },
     ],
-    rechazados: [],
+    rechazados: [{
+      id: 4,
+      nombre: "Clase Magistral de Yoga",
+      sede: "Sede Santa Anita",
+        aforo: 25,
+        imagen: "/image1.png",
+      },
+    ],
   };
 
   return (
