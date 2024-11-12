@@ -124,7 +124,7 @@ export default function PlanEntrenamientoDia() {
                         </button>
                     ))}
                 </div>
-            </div>
+            </div> amor 
             <Modal isOpen={modalOpen} onClose={closeModal} />
         </div>
     );

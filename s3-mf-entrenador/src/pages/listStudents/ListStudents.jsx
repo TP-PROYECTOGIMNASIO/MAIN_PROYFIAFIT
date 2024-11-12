@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
+//Definicion del componente ListStudents y declaracion de estado
 const ListStudents = () => {
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
@@ -8,12 +9,14 @@ const ListStudents = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
+  //Estados para manejo de carha y variables de API
   const [loading, setLoading] = useState(true);
   const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
   const apiUrl26 = import.meta.env.VITE_APP_API_URL_26;
   const apiUrl27 = import.meta.env.VITE_APP_API_URL_27;
 
-    const [user, setUser] = useState({});
+  //Estado user y obtencion de parámetros de URL:
+  const [user, setUser] = useState({});
 
     // Obtener los parámetros de búsqueda de la ubicación actual
     const params = new URLSearchParams(window.location.search);
@@ -27,10 +30,11 @@ const ListStudents = () => {
     console.log("username recibido en ListStudens entrenador:", username);
 
 
-    // Construir la URL con los parámetros
+    // Construcción de la URL base para redirecciones
     const baseUrl = "/";
     const paramsString = `?role=${role}&token=${token}&username=${username}`;
 
+    //useEffect para obtener datos del usuario al carga el componente
     useEffect(() => {
         if (token && username) {
           console.log("Datos recibidos:", { role, token, username });
@@ -38,6 +42,7 @@ const ListStudents = () => {
         }
       }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
     
+      //Funcion fetchUserName obtener datos de usuario desde la API
       const fetchUserName = async () => {
         try {
           const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
@@ -67,6 +72,7 @@ const ListStudents = () => {
         }
       };
 
+    // useEffect para obtener lista de estudiantes cuando user.id cambia    
       useEffect(() => {
         const fetchStudents = async () => {
             if (user.id) {
@@ -88,6 +94,7 @@ const ListStudents = () => {
         fetchStudents();
     }, [user.id]);
 
+    //Funciones para abrir y cerrar el modal
   const openModal = (student) => {
     setSelectedStudent(student);
     setIsModalOpen(true);
@@ -104,6 +111,7 @@ const ListStudents = () => {
     setSelectedStudent(null);
   };
 
+  //Función handlePlanEntrenamientoClick gestionar plan de entrenamiento
   const handlePlanEntrenamientoClick = async () => {
     try {
       const response = await fetch(`${apiUrl27}?client_id=${selectedStudent.client_id}`, {
@@ -116,7 +124,7 @@ const ListStudents = () => {
 
       const trainingPlanData = await response.json();
       
-      if (trainingPlanData.training_plan) {
+      if (trainingPlanData.training_plan?.training_plan_id) {
         console.log('Plan de entrenamiento encontrado:', trainingPlanData);
 
         // Guardar el training_plan_id en localStorage si existe
@@ -127,14 +135,16 @@ const ListStudents = () => {
         navigate(`/Trainingplan?client_id=${selectedStudent.client_id}&role=${role}&token=${token}&username=${username}`); 
       }
     } catch (error) {
-      console.error('Error fetching training plan:', error);
+      console.error('Error al traer training plan:', error);
     }
   };
 
+  //Filtrado estudiantes según el término de búsqueda
   const filteredStudents = students.filter((student) =>
     student.nombres.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  //Estructura del JSX para la interfaz
   return (
     <div className="bg-white shadow-md rounded p-8 m-8">
       <div className="text-center mb-6">
@@ -203,6 +213,7 @@ const ListStudents = () => {
         </table>
       </div>
 
+      {/*Condicional para renderizar el modal*/}      
       {isModalOpen && selectedStudent && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg w-[600px] h-auto p-6 relative flex flex-col">
