@@ -62,10 +62,12 @@ export default function MicroviewScreen() {
     navigation.navigate('Dashboard', { role: role, token: token, username: username });
   };
 
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.backButton} onPress={handleNavigateToDashboard}>
-        <Icon name="arrow-back" size={24} color="black" /> {/* Cambia el nombre del ícono según sea necesario */}
+      <TouchableOpacity style={styles.backButton} onPress={handleNavigateToDashboard}
+      >
+        { /*<Icon name="arrow-back" size={24} color="black" /> Cambia el nombre del ícono según sea necesario */}
         <Text style={styles.backButtonText}> Dashboard</Text>
       </TouchableOpacity>
       
@@ -94,8 +96,9 @@ const styles = StyleSheet.create({
   },
   backButton: {
     position: 'absolute',
-    top: 200,
-    left: 10,
+    top: 20,  // Ajusta el valor según cuán arriba quieras que esté el botón
+    left: '30%',  // Centra horizontalmente el botón
+    transform: [{ translateX: -30 }],  // Alinea el botón en el centro
     zIndex: 1,
     padding: 10,
     borderRadius: 5,
@@ -103,8 +106,11 @@ const styles = StyleSheet.create({
     alignItems: 'center', // Centra verticalmente los elementos dentro del botón
   },
   backButtonText: {
-    color: 'black',
+    color: "#4B4F57",
     fontWeight: 'bold',
     marginLeft: 5, // Agrega un margen entre el ícono y el texto
+    fontFamily: 'Roboto', // Aplica Roboto
+    fontSize: 20, // Tamaño de 20 px
+
   },
 });

@@ -13,6 +13,7 @@ export default function ProductList() {
   const [categories, setCategories] = useState([]);
   const apiUrl17 = import.meta.env.VITE_APP_API_URL_17;
   const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const [user, setUser] = useState({});
 
   const params = new URLSearchParams(window.location.search);
   console.log("Todos los parámetros en Lista de Productos:", window.location.search); // Verificar que todos los parámetros están presentes
