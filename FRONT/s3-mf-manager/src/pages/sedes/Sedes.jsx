@@ -7,6 +7,9 @@ export default function Sedes() {
     const [sedes, setSedes] = useState([]);
     const [filter, setFilter] = useState('all');
     const [isLoading, setIsLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedSede, setSelectedSede] = useState(null);
+    const [newStatus, setNewStatus] = useState(null);
     const apiUrl77 = import.meta.env.VITE_APP_API_URL_77;
     const apiUrl78 = import.meta.env.VITE_APP_API_URL_78;
 
@@ -74,11 +77,26 @@ export default function Sedes() {
     };
 
     const handleSedeStatusChange = (index, newStatus) => {
+        setSelectedSede(index);
+        setNewStatus(newStatus);
+        setShowModal(true);
+    };
+
+    const confirmStatusChange = () => {
         setSedes(prevSedes => {
             const updatedSedes = [...prevSedes];
-            updatedSedes[index].active = newStatus === "Activo";
+            updatedSedes[selectedSede].active = newStatus === "Activo";
             return updatedSedes;
         });
+        setShowModal(false);
+        setSelectedSede(null);
+        setNewStatus(null);
+    };
+
+    const cancelStatusChange = () => {
+        setShowModal(false);
+        setSelectedSede(null);
+        setNewStatus(null);
     };
 
     return (
@@ -161,6 +179,29 @@ export default function Sedes() {
                     </div>
                 )}
             </div>
+
+            {showModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75">
+                    <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+                        <h2 className="text-xl font-semibold mb-4">Confirmar cambio de estado</h2>
+                        <p>¿Estás seguro de que deseas cambiar el estado de esta sede a <strong>{newStatus}</strong>?</p>
+                        <div className="mt-6 flex justify-center gap-4">
+                            <button
+                                className="bg-[#b5121c] text-white py-2 px-4 rounded"
+                                onClick={confirmStatusChange}
+                            >
+                                Confirmar
+                            </button>
+                            <button
+                                className="bg-gray-400 text-white py-2 px-4 rounded"
+                                onClick={cancelStatusChange}
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
