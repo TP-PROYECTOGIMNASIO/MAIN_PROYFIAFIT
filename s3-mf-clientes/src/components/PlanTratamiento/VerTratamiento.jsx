@@ -72,7 +72,7 @@ const VerTratamiento = () => {
   };
 
   const handleVisualizarPlan = (plan) => {
-    navigate(`/ver-tratamiento/detalle-tratamiento`, {
+    navigate(`/ver-tratamiento/detalle-tratamiento?role=${role}&token=${token}&username=${username}`, {
       state: { plan, role, token, username }
     });
   };

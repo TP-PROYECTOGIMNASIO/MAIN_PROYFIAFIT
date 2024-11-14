@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import * as Location from 'expo-location';
 import ModalLoading from '../components/ModalLoading';
 import ModalSuccess from '../components/ModalSuccess';
 import ModalError from '../components/ModalError';
+import { VITE_APP_API_URL_09, VITE_APP_API_URL_USERNAME, VITE_APP_API_URL_01 } from '@env';
 
 const CheckInScreen = () => {
   const [loading, setLoading] = useState(false);
@@ -11,6 +13,60 @@ const CheckInScreen = () => {
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isCheckInDone, setIsCheckInDone] = useState(false);
+  const apiUrl09 = VITE_APP_API_URL_09;
+
+  const apiUrlUSERNAME = VITE_APP_API_URL_USERNAME;
+
+  const [user, setUser] = useState({});
+   // Obtén los parámetros de la ruta
+   const route = useRoute();
+  const navigation = useNavigation();
+  const { role, username, token } = route.params || {};
+  console.log("Todos los parámetros en CheckInScreen en el principal:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+
+  console.log("role recibido en CheckInScreen en el principal:", role);
+  console.log("token recibido en CheckInScreen en el principal:", token);
+  console.log("username recibido en CheckInScreen en el principal:", username);
+
+  useEffect(() => {
+    if (role && username && token) {
+      console.log("Datos recibidos en CheckInScreen en el principal:", { role, token, username });
+      fetchUserName();
+    } else {
+      console.error('No se recibieron datos de usuario en CheckInScreen en el principal');
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API USERNAME en CheckInScreen en el principal:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
+
 
   // Función para calcular la distancia entre dos coordenadas en metros
   const getDistanceFromLatLonInMeters = (lat1, lon1, lat2, lon2) => {
@@ -54,6 +110,14 @@ const CheckInScreen = () => {
   const handleCheckIn = async () => {
     console.log('Intentando realizar el check-in...');
     
+     // Verificar que el ID del usuario esté disponible
+    if (!user || !user.id) {
+      console.error('No se encontró el ID del usuario. No se puede proceder con el check-in.');
+      setErrorMessage('Error al obtener los datos del usuario.');
+      setError(true);
+      return;
+    }
+
     // Solicitar permisos de ubicación
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
@@ -97,7 +161,7 @@ const CheckInScreen = () => {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            employee_id: 1, // ID del empleado para pruebas
+            employee_id: 1, // user.id, Usa el ID del usuario aquí
             latitude: latitude,
             longitude: longitude,
           }),

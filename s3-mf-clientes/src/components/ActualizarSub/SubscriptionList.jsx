@@ -15,7 +15,7 @@ const SubscriptionList = () => {
 
 
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  console.log("Todos los parámetros en Lista de Suscripcion clientes:", window.location.search); // Verificar que todos los parámetros están presentes
   
   const role = params.get("role");
   const token = params.get("token");
@@ -28,7 +28,7 @@ const SubscriptionList = () => {
 
   useEffect(() => {
     if (token && username) {
-      console.log("Datos recibidos:", { role, token, username });
+      console.log("Datos recibidos en Lista de Suscripcion clientes:", { role, token, username });
       fetchUserName();
     }
   }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
@@ -42,7 +42,7 @@ const SubscriptionList = () => {
       }
 
       const data = await response.json();
-      console.log("Respuesta de la API:", data);
+      console.log("Respuesta de la API en Lista de Suscripcion clientes:", data);
 
       if (Array.isArray(data)) {
         if (data.length > 0) {
@@ -70,7 +70,7 @@ const SubscriptionList = () => {
     }
   
     // Realizar la solicitud para obtener las suscripciones
-    fetch(`${apiUrl21}?client_id=1`)
+    fetch(`${apiUrl21}?client_id=${user.id}`)
       .then(response => {
         if (!response.ok) {
           // Si la respuesta no es correcta, lanza un error
@@ -127,7 +127,15 @@ const SubscriptionList = () => {
   }
 
   if (error) {
-    return <p>Error: {error}</p>;
+    return (
+      <p>
+        <br />
+        Error: {error}
+        <br /><br />
+        Por favor, intenta nuevamente más tarde.
+        <br /><br />
+      </p>
+    );
   }
 
   return (

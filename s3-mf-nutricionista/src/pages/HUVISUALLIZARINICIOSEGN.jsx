@@ -40,7 +40,7 @@ const HUVISUALLIZARINICIOSEGN = () => {
       }
 
       const data = await response.json();
-      console.log("Respuesta de la API:", data);
+      console.log("Respuesta de la API USERNAME:", data);
 
       if (Array.isArray(data)) {
         if (data.length > 0) {

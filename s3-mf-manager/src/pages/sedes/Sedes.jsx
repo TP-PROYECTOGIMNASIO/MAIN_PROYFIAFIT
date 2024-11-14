@@ -13,12 +13,22 @@ export default function Sedes() {
     const apiUrl77 = import.meta.env.VITE_APP_API_URL_77;
     const apiUrl78 = import.meta.env.VITE_APP_API_URL_78;
 
+    const params = new URLSearchParams(window.location.search);
+    console.log("Todos los parámetros en Sedes Manager:", window.location.search); // Verificar que todos los parámetros están presentes
+    
+    const role = params.get("role");
+    const token = params.get("token");
+    const username = params.get("username");
+    console.log("role recibido en Sedes Manager:", role);
+    console.log("token recibido en Sedes Manager:", token);
+    console.log("username recibido en Sedes Manager:", username);
+
     const handleRegresar = () => {
         navigate(-1);
     };
 
     const handleRegistrarSede = () => {
-        navigate('/registrar-sedes');
+        navigate(`/registrar-sedes?role=${role}&token=${token}&username=${username}`);
     };
 
     const validateApiResponse = (data) => {

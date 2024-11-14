@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, ImageBackground, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,7 +25,8 @@ const roleImages = {
 export default function DashboardScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const { role, username, token } = route.params;
+  const { role, username, token } = route.params || {}; // Inicializamos los valores en caso estén vacíos
+  const [userData, setUserData] = useState(null); // Estado para guardar los datos de usuario
 
   useEffect(() => {
     const retrieveUserData = async () => {
@@ -33,9 +34,12 @@ export default function DashboardScreen() {
         const storedUsername = await AsyncStorage.getItem('username');
         const storedRole = await AsyncStorage.getItem('role');
         const storedToken = await AsyncStorage.getItem('token');
-  
+
         if (storedUsername && storedRole && storedToken) {
-          console.log('Datos recuperados:', { storedUsername, storedRole, storedToken });
+          setUserData({ role: storedRole, token: storedToken, username: storedUsername });
+          console.log('Datos recuperado en Dashboard en el principal:', { storedUsername, storedRole, storedToken });
+
+          
           navigation.navigate('Dashboard', { role: storedRole, token: storedToken, username: storedUsername });
 
           // Actualiza el estado o lo que necesites hacer con estos datos
@@ -44,25 +48,37 @@ export default function DashboardScreen() {
         console.error('Error al recuperar datos de AsyncStorage:', error);
       }
     };
-  
+
     retrieveUserData();
   }, []);
 
   const handleNavigateToWeb = () => {
-    navigation.navigate('Microview', { role: role, token: token, username: username});
+    if (userData) {
+      navigation.navigate('Microview', userData);
+    } else {
+      console.error('Datos de usuario no disponibles para la navegación a Microview');
+    }
   };
 
   const handleNavigateToUpdatePassword = () => {
-    navigation.navigate('UpdatePassword', { role: role, token: token, username: username});
+    if (userData) {
+      navigation.navigate('UpdatePassword', userData);
+    } else {
+      console.error('Datos de usuario no disponibles para la navegación a UpdatePassword');
+    }
+  };
+
+  const handleNavigateToCheckIn = () => {
+    if (userData) {
+      navigation.navigate('CheckIn', userData);
+    } else {
+      console.error('Datos de usuario no disponibles para la navegación a CheckIn');
+    }
   };
 
   // Función para obtener la imagen del rol
   const getRoleImage = (role) => {
     return roleImages[role] || require('../assets/background.png'); // Imagen por defecto si el rol no coincide
-  };
-
-  const handleNavigateToCheckIn = () => {
-    navigation.navigate('CheckIn', { role: role, token: token, username: username});
   };
 
   return (
@@ -72,14 +88,14 @@ export default function DashboardScreen() {
         style={styles.backgroundImage}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <Text style={styles.title}>Bienvenido {role}, Selecciona un Módulo para Iniciar</Text>
+          <Text style={styles.title}>Bienvenido {userData?.role || role}, Selecciona un Módulo para Iniciar</Text>
           
           <View style={styles.cardContainer}>
             {/* Tarjeta 1: Interfaz Principal */}
             <TouchableOpacity style={styles.card} >
               <View style={styles.cardHeader}></View>
               <ImageBackground
-                source={getRoleImage(role)} // Usar la función para obtener la imagen
+                source={getRoleImage(userData?.role || role)} // Usar la función para obtener la imagen
                 style={styles.cardImage}
               />
               <Text style={styles.cardTitle}>Interfaz Principal</Text>
@@ -89,7 +105,7 @@ export default function DashboardScreen() {
             </TouchableOpacity>
   
             {/* Tarjeta 2: Check-in - Se muestra solo si el rol no es cliente o cliente_libre */}
-            {role !== 'cliente' && role !== 'cliente_libre' && (
+            {(userData?.role || role) !== 'cliente' && (userData?.role || role) !== 'cliente_libre' && (
               <TouchableOpacity style={styles.card} >
                 <View style={styles.cardHeader}></View>
                 <ImageBackground
@@ -120,5 +136,4 @@ export default function DashboardScreen() {
       </ImageBackground>
     </View>
   );
-  
 }

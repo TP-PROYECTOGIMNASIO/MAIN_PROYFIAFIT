@@ -101,6 +101,16 @@ export default function Eventos() {
   // Define navigate using useNavigate hook
   const navigate = useNavigate();
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Evento encargado de gimnasios:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Evento encargado de gimnasios:", role);
+  console.log("token recibido en Evento encargado de gimnasios:", token);
+  console.log("username recibido en Evento encargado de gimnasios:", username);
+
   useEffect(() => {
     fetchEventos();
   }, []);

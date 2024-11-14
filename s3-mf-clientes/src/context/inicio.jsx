@@ -7,7 +7,7 @@ const HomePage = () => {
   const [user, setUser] = useState({});
  
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
+  console.log("Todos los parámetros en Visualizar inicio clientes:", window.location.search); // Verificar que todos los parámetros están presentes
   
   const role = params.get("role");
   const token = params.get("token");
@@ -34,7 +34,7 @@ const HomePage = () => {
       }
 
       const data = await response.json();
-      console.log("Respuesta de la API:", data);
+      console.log("Respuesta de la API USERNAME:", data);
 
       if (Array.isArray(data)) {
         if (data.length > 0) {
