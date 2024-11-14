@@ -4,11 +4,57 @@ import { useEffect, useState } from "react";
 const CartDetails = () => {
   const { products, totalAmount, removeProduct, addProduct } = useShoppingCart();
   const [setCulqiLoaded] = useState(false); // Corrección aquí
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en CartDetails:", window.location.search); // Verificar que todos los parámetros están presentes
+  const [user, setUser] = useState({});
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en CartDetails clientes:", role);
+  console.log("token recibido en CartDetails clientes:", token);
+  console.log("username recibido en CartDetails clientes:", username);
 
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos en CartDetails :", { role, token, username });
+      fetchUserName();
+    }
+
+    const fetchUserName = async () => {
+      try {
+        const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+  
+        if (!response.ok) {
+          throw new Error("Error en la respuesta de la API");
+        }
+  
+        const data = await response.json();
+        console.log("Respuesta de la API:", data);
+  
+        if (Array.isArray(data)) {
+          if (data.length > 0) {
+            setUser(data[0]);
+          } else {
+            console.error("El array está vacío");
+            setUser({});
+          }
+        } else if (data && typeof data === "object") {
+          setUser(data);
+        } else {
+          console.error("Formato inesperado en la respuesta de la API:", data);
+          setUser({});
+        }
+      } catch (error) {
+        console.error("Error al obtener la información del usuario", error);
+      }
+    };
+  
+  }, [role, token, username]); // Dependencias del useEffect
   // Función para redirigir a aa.html con parámetros
   const redirectToPage = (cart) => {
     const totalPrice = cart.price.toFixed(2);
-    
+  
     // Verifica que cada producto tenga un `product_id` y `quantity`. Si no, lanza un error.
     const productIds = cart.products.map(product => {
       if (!product.product_id) {

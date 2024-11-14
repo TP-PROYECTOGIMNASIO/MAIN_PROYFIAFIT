@@ -84,9 +84,9 @@ const MembershipDetailModal = ({ isOpen, onClose, membership, onDisableMembershi
         {/* Mensaje de Confirmación */}
         {showConfirmation && (
           <div className="mt-4">
-            <p>¿Seguro que deseas habilitar esta membresía?</p>
+            <p>¿Seguro que deseas deshabilitar esta membresía?</p>
             <div className="flex justify-center mt-2">
-              <button onClick={handleConfirmToggle} className="bg-green-600 text-white py-2 px-4 rounded mr-2">Sí</button>
+              <button onClick={handleConfirmToggle} className="bg-red-600 text-white py-2 px-4 rounded mr-2">Sí</button>
               <button onClick={handleCancelToggle} className="bg-gray-600 text-white py-2 px-4 rounded">No</button>
             </div>
           </div>

@@ -12,7 +12,7 @@ const MembershipPage = () => {
   useEffect(() => {
     const fetchMemberships = async () => {
       try {
-        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/membresias/hu-tp-79');
+        const response = await fetch(import.meta.env.VITE_API_URL_GET); // Usar la variable de entorno para obtener las membresías
         const data = await response.json();
 
         if (response.ok) {
@@ -30,8 +30,8 @@ const MembershipPage = () => {
 
   const handleAddMembership = async (newMembership) => {
     try {
-      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/membresias/hu-tp-78', {
-        method: 'POST',
+      const response = await fetch(import.meta.env.VITE_API_URL_POST, {
+        method: 'POST', // Usar el enlace de la variable de entorno para agregar una nueva membresía
         headers: {
           'Content-Type': 'application/json',
         },
@@ -50,35 +50,10 @@ const MembershipPage = () => {
     }
   };
 
-  const handleFetchMemberships = async () => {
-    try {
-      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/membresias/hu-tp-78', {
-        method: 'GET', // Cambiamos el método a GET
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      // Verificamos si la respuesta es exitosa
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error fetching memberships');
-      }
-  
-      const memberships = await response.json();
-      setMemberships(memberships); // Actualizamos el estado con las membresías obtenidas
-    } catch (error) {
-      console.error('Error fetching memberships:', error);
-    }
-  };
-  
-
   const handleUpdateMembership = async (id, action) => {
     try {
-      console.log("id",id)
-      console.log("action",action)
-      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/membresias/hu-tp-79', {
-        method: 'PUT',
+      const response = await fetch(import.meta.env.VITE_API_URL_GET, {
+        method: 'PUT', // Usar el enlace de la variable de entorno para actualizar una membresía
         headers: {
           'Content-Type': 'application/json',
         },
@@ -91,7 +66,6 @@ const MembershipPage = () => {
       }
 
       const updatedMembership = await response.json();
-      console.log(updatedMembership)
       setMemberships((prevMemberships) => prevMemberships.map(membership =>
         membership.membership_id === updatedMembership.membership.membership_id ? updatedMembership.membership : membership
       ));
@@ -115,11 +89,11 @@ const MembershipPage = () => {
   return (
     <div className="p-8">
       <div className="flex justify-between items-center mb-8">
-            <button
-              onClick={() => window.history.back()}
-              className="text-gray-500 hover:text-gray-700 flex items-center">
-              <i className="fas fa-arrow-left mr-2"></i> Regresar
-            </button>
+        <button
+          onClick={() => window.history.back()}
+          className="text-black-500 hover:text-gray-700 flex items-center">
+          <i className="fas fa-arrow-left mr-2"></i> Regresar
+        </button>
 
         <button
           onClick={() => setIsCreateModalOpen(true)}
@@ -162,7 +136,6 @@ const MembershipPage = () => {
           <p><strong>Nombre:</strong> {selectedMembership.name}</p>
           <p><strong>Precio:</strong> {selectedMembership.price}</p>
           <p><strong>Estado:</strong> {selectedMembership.active ? 'Activa' : 'Inactiva'}</p>
-          {/* Aquí puedes agregar más detalles según lo necesites */}
           <button
             onClick={() => handleDisableMembership(selectedMembership.membership_id, selectedMembership.active)}
             className="bg-red-600 text-white py-2 px-4 mt-4 rounded"

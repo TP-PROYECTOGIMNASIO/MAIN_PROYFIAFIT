@@ -32,6 +32,9 @@ const ListaTipoProductos = () => {
   const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
   const [productTypeToDelete, setProductTypeToDelete] = useState(null);
 
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState('');
+
   useEffect(() => {
     fetchProductTypes();
   }, []);
@@ -65,6 +68,15 @@ const ListaTipoProductos = () => {
   const closeModal = () => {
     setIsModalOpen(false);
     setCurrentProductType(null);
+  };
+
+  const openConfirmationModal = (action) => {
+    if (action === 'create') {
+      setConfirmationMessage('Tipo de producto registrado con éxito.');
+    } else if (action === 'update') {
+      setConfirmationMessage('Tipo de producto actualizado con éxito.');
+    }
+    setIsConfirmOpen(true); // Mostrar el modal de confirmación
   };
 
   const handleSave = async (productType) => {
@@ -104,6 +116,7 @@ const ListaTipoProductos = () => {
       const data = await response.json();
       if (response.ok) {
         fetchProductTypes(); // Refrescar la lista después de guardar
+        openConfirmationModal(modalMethod); // Mostrar modal de confirmación
       } else {
         console.error('Error saving product type:', data.message);
       }
@@ -181,13 +194,20 @@ const ListaTipoProductos = () => {
       {/* Product Table */}
       <ProductTable productTypes={filteredProductTypes} openEditModal={openModal} confirmDelete={confirmDelete} />
         {/* Confirm Delete Modal */}
-{isConfirmDeleteOpen && (
-  <ConfirmDeleteModal
-    onClose={() => setIsConfirmDeleteOpen(false)}
-    onConfirm={handleDeleteConfirmed}
-    productType={productTypeToDelete}
-  />
-)}
+      {isConfirmDeleteOpen && (
+        <ConfirmDeleteModal
+          onClose={() => setIsConfirmDeleteOpen(false)}
+          onConfirm={handleDeleteConfirmed}
+          productType={productTypeToDelete}
+        />
+      )}
+
+      {isConfirmOpen && (
+        <ConfirmationModal
+          message={confirmationMessage}
+          onClose={() => setIsConfirmOpen(false)}
+        />
+      )}
 
       {/* Product Modal */}
       {isModalOpen && (
@@ -354,6 +374,24 @@ const ConfirmDeleteModal = ({ onClose, onConfirm, productType }) => {
       </div>
     );
   };
+
+  const ConfirmationModal = ({ message, onClose }) => {
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="bg-white rounded-lg p-6 w-96">
+          <h2 className="text-red-700 text-xl font-bold text-center mb-4">
+            {message}
+          </h2>
+          <div className="flex justify-center">
+            <button onClick={onClose} className="bg-red-700 text-white py-2 px-4 rounded hover:bg-red-800">
+              Aceptar
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+  
   
 
 export default ListaTipoProductos;

@@ -12,6 +12,8 @@ export default function ProductList() {
   const [searchTerm, setSearchTerm] = useState("");
   const [categories, setCategories] = useState([]);
   const apiUrl17 = import.meta.env.VITE_APP_API_URL_17;
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const [user, setUser] = useState({});
 
   const params = new URLSearchParams(window.location.search);
   console.log("Todos los parámetros en Lista de Productos:", window.location.search); // Verificar que todos los parámetros están presentes
@@ -23,6 +25,40 @@ export default function ProductList() {
   console.log("token recibido en Lista de Productos clientes:", token);
   console.log("username recibido en Lista de Productos clientes:", username);
 
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos en Ver nutricion :", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]);
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
   // Función para verificar si un producto ya está en el carrito
   const checkAvailableToAddCart = (productId) => {
     return Boolean(products.find((product) => product.product_id === productId));
