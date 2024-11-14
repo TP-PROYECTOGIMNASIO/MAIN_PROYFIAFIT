@@ -1,78 +1,57 @@
-import { useState } from "react";
-import { Link } from "react-router-dom"; // Importa Link para la navegación
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 function NuevoEvento() {
   const [activeTab, setActiveTab] = useState("aprobados");
+  const [eventos, setEventos] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const apiUrl49 = import.meta.env.VITE_APP_API_URL_49;
 
   const params = new URLSearchParams(window.location.search);
-  console.log(
-    "Todos los parámetros en Registrar Evento encargado:",
-    window.location.search
-  ); // Verificar que todos los parámetros están presentes
-
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
-  console.log("role recibido en Registrar Evento encargado:", role);
-  console.log("token recibido en Registrar Evento encargado:", token);
-  console.log("username recibido en Registrar Evento encargado:", username);
+  
+  const fetchEventos = async (method) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(apiUrl49, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ method })
+      });
 
-  const eventos = {
-    aprobados: [
-      {
-        id: 1,
-        nombre: "Reto Fitness Total",
-        sede: "Sede Santa Anita",
-        aforo: 15,
-        imagen: "/image1.png",
-      },
-      {
-        id: 1,
-        nombre: "Reto Fitness Total",
-        sede: "Sede Santa Anita",
-        aforo: 15,
-        imagen: "/image2.png",
-      },
-      {
-        id: 1,
-        nombre: "Reto Fitness Total",
-        sede: "Sede Santa Anita",
-        aforo: 15,
-        imagen: "/image3.png",
-      },
-      {
-        id: 1,
-        nombre: "Reto Fitness Total",
-        sede: "Sede Santa Anita",
-        aforo: 15,
-        imagen: "/image4.png",
-      },
-    ],
-    pendientes: [
-      {
-        id: 2,
-        nombre: "Maratón de Spinning",
-        sede: "Sede La Molina",
-        aforo: 20,
-        imagen: "/image2.png",
-      },
-      {
-        id: 3,
-        nombre: "Clase Magistral de Yoga",
-        sede: "Sede Santa Anita",
-        aforo: 25,
-        imagen: "/image3.png",
-      },
-    ],
-    rechazados: [{
-      id: 4,
-      nombre: "Clase Magistral de Yoga",
-      sede: "Sede Santa Anita",
-        aforo: 25,
-        imagen: "/image1.png",
-      },
-    ],
+      if (!response.ok) {
+        throw new Error('Error al cargar los eventos');
+      }
+
+      const data = await response.json();
+      setEventos(data.events || []);
+    } catch (err) {
+      console.error('Error:', err);
+      setError('Error al cargar los eventos');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    const methodMap = {
+      aprobados: 'readApproved',
+      pendientes: 'readPending',
+      rechazados: 'readRejected'
+    };
+    
+    fetchEventos(methodMap[activeTab]);
+  }, [activeTab]);
+
+  if (loading) return <div className="text-center p-4">Cargando...</div>;
+  if (error) return <div className="text-center text-red-600 p-4">{error}</div>;
 
   return (
     <div className="container mx-auto p-4">
@@ -120,17 +99,19 @@ function NuevoEvento() {
 
       {/* Grid de eventos */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {eventos[activeTab].map((evento) => (
-          <div key={evento.id} className="rounded-lg overflow-hidden shadow-lg">
+        {eventos.map((evento) => (
+          <div key={evento.event_id} className="rounded-lg overflow-hidden shadow-lg">
             <img
-              src={evento.imagen}
-              alt={evento.nombre}
+              src={evento.image_url}
+              alt={evento.name}
               className="w-full h-48 object-cover"
             />
             <div className="p-4 bg-white">
-              <h3 className="text-xl font-bold">{evento.nombre}</h3>
-              <p className="text-gray-600">{evento.sede}</p>
-              <p className="text-red-600">Aforo disponible: {evento.aforo}</p>
+              <h3 className="text-xl font-bold">Nombre: {evento.name}</h3>
+              <p className="text-gray-600">Descripción: {evento.description}</p>
+              <p className="text-red-600">Aforo: {evento.capacity}</p>
+              <p className="text-gray-600">Sede: {evento.sede}</p>
+              <p className="text-gray-500">Fecha: {new Date(evento.event_date).toLocaleDateString()}</p>
             </div>
           </div>
         ))}
