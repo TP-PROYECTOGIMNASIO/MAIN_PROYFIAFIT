@@ -7,20 +7,87 @@ const PlanTratamientoSinRegistrar = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [month, setMonth] = useState(''); // Estado para el filtro de mes
-  const clientId = 1;
+  
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const apiUrl35 = import.meta.env.VITE_APP_API_URL_35;
 
   const params = new URLSearchParams(window.location.search);
   console.log("Todos los parámetros en Plan Tratamiento Sin Registrar:", window.location.search); // Verificar que todos los parámetros están presentes
-  
+  const [user, setUser] = useState({});
+  const [alumnoDetalle, setAlumnoDetalle] = useState({});
+
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
+  const clientId = params.get("clientId");
   console.log("role recibido en Plan Tratamiento Sin Registrar:", role);
   console.log("token recibido en Plan Tratamiento Sin Registrar:", token);
   console.log("username recibido en Plan Tratamiento Sin Registrar:", username);
+  console.log("clientId recibido en Plan Tratamiento Sin Registrar:", clientId);
+
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos en Plan Tratamiento Sin Registrar:", { role, token, username, clientId });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  useEffect(() => {
+    if (clientId) {
+      fetchUserDetails(clientId); // Llamar a la API de empleados con el clientId
+    }
+  }, [clientId]); // Solo depende de clientId
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API USERNAME");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API USERNAME en Plan de Tratamiento sin registrar:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API USERNAME:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
+
+  const fetchUserDetails = async (clientId) => {
+    try {
+      const response = await fetch(apiUrl35);
+      if (!response.ok) throw new Error("Error al obtener los detalles del empleado.");
+      const data = await response.json();
+      const userDetails = data.users.find(user => user.client_id === parseInt(clientId)); // Filtramos por el clientId
+
+      if (userDetails) {
+        setAlumnoDetalle(userDetails); // Guardamos la información completa del usuario
+      } else {
+        console.error("Usuario no encontrado.");
+      }
+    } catch (error) {
+      console.error("Error al obtener los detalles del empleado:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchPlanesTratamiento = async () => {
+      if (!clientId) return; // Esperar a que el `user.id` esté disponible
+
       setLoading(true);
       try {
         const url = month
@@ -43,7 +110,8 @@ const PlanTratamientoSinRegistrar = () => {
     };
 
     fetchPlanesTratamiento();
-  }, [month]);
+  }, [month, clientId]);  // Asegúrate de que `user.id` esté disponible antes de la solicitud
+
 
   const handleMonthChange = (e) => setMonth(e.target.value);
   const handleCloseModal = () => {
@@ -73,7 +141,7 @@ const PlanTratamientoSinRegistrar = () => {
       <main className="flex-grow flex justify-center items-center">
         <div className="bg-white p-10 rounded-lg shadow-lg text-center w-full max-w-lg space-y-4">
           <h1 className="text-red-700 font-semibold text-xl">PLAN DE TRATAMIENTO</h1>
-          <h2 className="text-gray-500 font-medium">Nombre del Alumno</h2>
+          <h2 className="text-gray-500 font-medium">Nombre del Alumno: {alumnoDetalle.names}</h2>
 
           <select
             value={month}
@@ -165,7 +233,7 @@ const PlanTratamientoSinRegistrar = () => {
 
           <div className="mt-10">
             <Link
-              to={`/RegistroPlan?role=${role}&token=${token}&username=${username}`}
+              to={`/RegistroPlan?clientId=${clientId}&role=${role}&token=${token}&username=${username}`}
               className="bg-red-700 text-white py-2 px-4 rounded-lg mt-4 hover:bg-red-800 transition duration-300"
             >
               GENERAR PLAN TRATAMIENTO

@@ -10,9 +10,14 @@ function NuevoEvento() {
   const apiUrl49 = import.meta.env.VITE_APP_API_URL_49;
 
   const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Nuevo Evento encargado:", window.location.search); // Verificar que todos los parámetros están presentes
+  
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
+  console.log("role recibido en Nuevo Evento encargado:", role);
+  console.log("token recibido en Nuevo Evento encargado:", token);
+  console.log("username recibido en Nuevo Evento encargado:", username);
   
   const fetchEventos = async (method) => {
     setLoading(true);

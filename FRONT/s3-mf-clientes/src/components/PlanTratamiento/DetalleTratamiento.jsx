@@ -5,6 +5,15 @@ const DetalleTratamiento = () => {
   const location = useLocation();
   const { plan, token } = location.state || {};
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Detalle Tratamiento clientes:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+
+  const username = params.get("username");
+  console.log("role recibido en Detalle Tratamiento clientes:", role);
+  console.log("username recibido en Detalle Tratamiento clientes:", username);
+
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
 

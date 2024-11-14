@@ -13,12 +13,17 @@ const RegistroPlan = () => {
   const apiUrl = 'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-tratamiento/HU-TP-38';
 
   const params = new URLSearchParams(window.location.search);
-  const client_id = params.get("client_id");
+  const clientId = params.get("clientId");
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
 
-  console.log("Parámetros recibidos:", { role, token, username, client_id });
+  console.log("role recibido en Registro Plan fisioterapeuta:", role);
+  console.log("token recibido en Registro Plan fisioterapeuta:", token);
+  console.log("username recibido en Registro Plan fisioterapeuta:", username);
+  console.log("clientId recibido en Registro Plan fisioterapeuta:", clientId);
+
+  console.log("Parámetros recibidos en Registro Plan fisioterapeuta:", { role, token, username, clientId });
 
   // Función para mostrar la modal
   const handleShowModal = () => {
@@ -57,7 +62,7 @@ const RegistroPlan = () => {
     }
 
     const requestBody = {
-      client_id: Number(client_id),
+      client_id: Number(clientId),
       diagnosis,
       instructions,
     };

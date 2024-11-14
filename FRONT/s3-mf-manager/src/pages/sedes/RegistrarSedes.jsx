@@ -19,6 +19,15 @@ const RegisterForm = () => {
   const [isMapReady, setIsMapReady] = useState(false);
   const navigate = useNavigate();
 
+  const params = new URLSearchParams(window.location.search);
+  console.log("Todos los parámetros en Registrar Sedes:", window.location.search); // Verificar que todos los parámetros están presentes
+  
+  const role = params.get("role");
+  const token = params.get("token");
+  const username = params.get("username");
+  console.log("role recibido en Registrar Sedes:", role);
+  console.log("token recibido en Registrar Sedes:", token);
+  console.log("username recibido en Registrar Sedes:", username);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
