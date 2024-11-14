@@ -14,7 +14,7 @@ export default function EventosCard({ evento }) {
     <div className="bg-white rounded-lg shadow-lg overflow-hidden w-110 h-102 relative">
       {/* Imagen del evento */}
       <img 
-        src={imageSrc} 
+        src={evento.image_url} 
         alt={evento.titulo} 
         className="w-full h-48 object-cover" 
         onError={handleImageError} // Llamamos a handleImageError si la imagen falla
