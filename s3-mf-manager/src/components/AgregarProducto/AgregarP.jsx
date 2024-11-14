@@ -1,7 +1,8 @@
 import './AgregarP.css';
 import { useState, useEffect } from 'react';
 import ListaCompras from '../ListaCompras/ListaCompras';
-export default function AgregarP({ reportId }) {
+
+export default function AgregarP({ reportId, onReturn }) {
   const [nombreProducto, setNombreProducto] = useState("");
   const [tipoProducto, setTipoProducto] = useState("");
   const [fechaCompra, setFechaCompra] = useState("");
@@ -11,12 +12,10 @@ export default function AgregarP({ reportId }) {
   const [sede, setSede] = useState("");
   const [vista, setVista] = useState(false);
   const [productData, setProductData] = useState([]);
-
   const [tiposProducto, setTiposProducto] = useState([]);
   const [productos, setProductos] = useState([]);
   const [sedes, setSedes] = useState([]);
 
-  // Función para obtener los tipos de productos
   const obtenerTiposProducto = async () => {
     try {
       const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/compras/hu-tp-61", {
@@ -34,7 +33,6 @@ export default function AgregarP({ reportId }) {
     }
   };
 
-  // Función para obtener productos según el tipo seleccionado
   const obtenerProductosPorTipo = async (tipoId) => {
     try {
       const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/compras/hu-tp-61", {
@@ -52,7 +50,6 @@ export default function AgregarP({ reportId }) {
     }
   };
 
-  // Función para obtener las sedes con los atributos correctos
   const obtenerSedes = async () => {
     try {
       const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/compras/hu-tp-61", {
@@ -81,35 +78,15 @@ export default function AgregarP({ reportId }) {
     }
   }, [tipoProducto]);
 
-  const handleNombreChange = (event) => {
-    setNombreProducto(event.target.value);
-  };
+  const handleNombreChange = (event) => setNombreProducto(event.target.value);
+  const handleTipoChange = (event) => setTipoProducto(event.target.value);
+  const handleFechaChange = (event) => setFechaCompra(event.target.value);
+  const handlePrecioChange = (event) => setPrecioTotal(event.target.value);
+  const handleCantidadChange = (event) => setCantidadComprada(event.target.value);
+  const handleBoletaChange = (event) => setBoletaCompra(event.target.files[0]?.name || "");
+  const handleSedeChange = (event) => setSede(event.target.value);
 
-  const handleTipoChange = (event) => {
-    setTipoProducto(event.target.value);
-  };
-
-  const handleFechaChange = (event) => {
-    setFechaCompra(event.target.value);
-  };
-
-  const handlePrecioChange = (event) => {
-    setPrecioTotal(event.target.value);
-  };
-
-  const handleCantidadChange = (event) => {
-    setCantidadComprada(event.target.value);
-  };
-
-  const handleBoletaChange = (event) => {
-    setBoletaCompra(event.target.files[0]?.name || "");
-  };
-
-  const handleSedeChange = (event) => {
-    setSede(event.target.value);
-  };
-
-  const handleGuardar = async () => {
+  const handleGuardarProducto = async () => {
     const productDataToSend = {
       action: "almacenarTemporalmente",
       products: [
@@ -136,19 +113,39 @@ export default function AgregarP({ reportId }) {
         setVista(true);
         setProductData((prevData) => [...prevData, { ...productDataToSend, report_product_id: result.report_product_id }]);
       } else {
-        console.error("Error al guardar productos temporalmente:", result);
         alert(`Error al guardar productos: ${result.error}`);
       }
     } catch (error) {
-      console.error("Error en la llamada a la API:", error);
       alert("Error en la llamada a la API. Por favor, intente nuevamente.");
     }
   };
 
-  const guardarP = async () => {
-    handleGuardar();
-  };
+  const handleGuardarInforme = async () => {
+    if (productData.length === 0) {
+      alert("Para guardar un Informe debe registrar algún producto.");
+      return;
+    }
 
+    const confirmarGuardado = window.confirm("¿Estás seguro de guardar el Informe?");
+    if (!confirmarGuardado) return;
+
+    try {
+      const response = await fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/compras/hu-tp-61", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "guardarInforme", reportId }),
+      });
+
+      if (response.ok) {
+        alert("Se guardó el informe correctamente");
+        onReturn(); // Regresa a la ventana anterior
+      } else {
+        alert("Error al guardar el informe");
+      }
+    } catch (error) {
+      alert("Error al intentar guardar el informe. Por favor, intente nuevamente.");
+    }
+  };
   return (
     <div className="containerGenerarAP">
       <div className="app">
@@ -161,7 +158,7 @@ export default function AgregarP({ reportId }) {
           />
         ) : (
           <div className="form-containerAP">
-            <h2>Agregar Producto</h2>
+            <h2>Agregar Productosss</h2>
             <div className="form-groupAP">
               <div className="row">
                 <div className="column">
@@ -169,9 +166,7 @@ export default function AgregarP({ reportId }) {
                   <select id="tipoProducto" value={tipoProducto} onChange={handleTipoChange}>
                     <option value="">Selecciona un tipo</option>
                     {tiposProducto.map((tipo) => (
-                      <option key={tipo.id} value={tipo.id}>
-                        {tipo.name}
-                      </option>
+                      <option key={tipo.id} value={tipo.id}>{tipo.name}</option>
                     ))}
                   </select>
                 </div>
@@ -180,9 +175,7 @@ export default function AgregarP({ reportId }) {
                   <select id="nombreProducto" value={nombreProducto} onChange={handleNombreChange}>
                     <option value="">Selecciona un producto</option>
                     {productos.map((producto) => (
-                      <option key={producto.id} value={producto.id}>
-                        {producto.name}
-                      </option>
+                      <option key={producto.id} value={producto.id}>{producto.name}</option>
                     ))}
                   </select>
                 </div>
@@ -192,22 +185,11 @@ export default function AgregarP({ reportId }) {
               <div className="row">
                 <div className="column">
                   <label htmlFor="fechaCompra">Fecha de Compra</label>
-                  <input
-                    type="date"
-                    id="fechaCompra"
-                    value={fechaCompra}
-                    onChange={handleFechaChange}
-                  />
+                  <input type="date" id="fechaCompra" value={fechaCompra} onChange={handleFechaChange} />
                 </div>
                 <div className="column">
                   <label htmlFor="cantidadComprada">Cantidad Comprada</label>
-                  <input
-                    type="number"
-                    id="cantidadComprada"
-                    placeholder="Cantidad"
-                    value={cantidadComprada}
-                    onChange={handleCantidadChange}
-                  />
+                  <input type="number" id="cantidadComprada" placeholder="Cantidad" value={cantidadComprada} onChange={handleCantidadChange} />
                 </div>
               </div>
             </div>
@@ -215,13 +197,7 @@ export default function AgregarP({ reportId }) {
               <div className="row">
                 <div className="column">
                   <label htmlFor="precioTotal">Precio Total</label>
-                  <input
-                    type="number"
-                    id="precioTotal"
-                    placeholder="Precio"
-                    value={precioTotal}
-                    onChange={handlePrecioChange}
-                  />
+                  <input type="number" id="precioTotal" placeholder="Precio" value={precioTotal} onChange={handlePrecioChange} />
                 </div>
                 <div className="column">
                   <label htmlFor="boletaCompra">Boleta de Compra</label>
@@ -234,19 +210,19 @@ export default function AgregarP({ reportId }) {
                 <div className="column">
                   <label htmlFor="sede">Sede</label>
                   <select id="sede" value={sede} onChange={handleSedeChange}>
-                    <option value="">Seleccionar sede</option>
+                    <option value="">Selecciona una sede</option>
                     {sedes.map((sede) => (
-                      <option key={sede.id} value={sede.id}>
-                        {sede.name}
-                      </option>
+                      <option key={sede.id} value={sede.id}>{sede.name}</option>
                     ))}
                   </select>
                 </div>
               </div>
             </div>
-            <button type="button" className="btn-guardar" onClick={guardarP}>
-              Guardar
-            </button>
+            <div className="form-buttonsAP">
+              <button onClick={handleGuardarProducto}>Guardar Producto</button>
+              <button onClick={handleGuardarInforme}>Guardar Informe</button>
+              <button onClick={onReturn}>Regresar</button>
+            </div>
           </div>
         )}
       </div>

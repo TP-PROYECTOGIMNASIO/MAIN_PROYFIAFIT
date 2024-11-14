@@ -118,7 +118,9 @@ export default function VisualizarInforme() {
           value={searchTerm}
           onChange={handleSearch}
         />
+        
       </div>
+     
 
       <div className="cTabla">
         <table>
