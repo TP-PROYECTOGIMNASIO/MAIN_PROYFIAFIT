@@ -106,7 +106,7 @@ const NutritionPlan = () => {
 
         {/* Mostrar contenido según el estado del plan */}
         {!plan ? (
-          <div className="text-center text-gray-600">Loading...</div>
+          <div className="text-center text-gray-600">Parece que no hay plan de nutrición por eso se demora en cargar, intentalo de nuevo mas tarde...</div>
         ) : plan.message ? (
           <div className="text-center text-gray-600 text-lg">
             {plan.message}

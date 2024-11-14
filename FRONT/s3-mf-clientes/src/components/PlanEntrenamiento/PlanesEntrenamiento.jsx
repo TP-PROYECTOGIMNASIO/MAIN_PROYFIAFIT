@@ -13,6 +13,9 @@ const PlanesEntrenamiento = () => {
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
+  console.log("role recibido en Planes Entrenamiento clientes:", role);
+  console.log("token recibido en Planes Entrenamiento clientes:", token);
+  console.log("username recibido en Planes Entrenamiento clientes:", username);
 
   // Obtener el nombre del usuario
   useEffect(() => {

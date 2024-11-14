@@ -1,6 +1,6 @@
 import './RegistrarC.css';
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegistrarCompra() {
   const [nombreProducto, setNombreProducto] = useState("");
@@ -14,6 +14,7 @@ export default function RegistrarCompra() {
   const [tiposProducto, setTiposProducto] = useState([]);
   const [productos, setProductos] = useState([]);
   const [sedes, setSedes] = useState([]);
+  const navigate = useNavigate();
 
   const obtenerTiposProducto = async () => {
     try {
@@ -130,7 +131,6 @@ export default function RegistrarCompra() {
           },
         ]);
 
-        // Limpiar los campos después de agregar el producto
         setNombreProducto("");
         setTipoProducto("");
         setFechaCompra("");
@@ -149,24 +149,33 @@ export default function RegistrarCompra() {
   };
 
   const handleSaveProducts = async () => {
-    try {
-      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/compras/hu-tp-61', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          action: 'guardarInforme',
-        }),
-      });
+    if (productData.length === 0) {
+      alert("Para guardar un informe debe agregar al menos un producto.");
+      return;
+    }
 
-      const result = await response.json();
-      alert(result.message); // Mostrar mensaje de confirmación
-    } catch (error) {
-      console.error('Error al guardar productos:', error);
+    if (window.confirm("¿Seguro que quiere guardar el Informe?")) {
+      try {
+        const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/compras/hu-tp-61', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            action: 'guardarInforme',
+          }),
+        });
+
+        const result = await response.json();
+        alert(result.message); // Mostrar mensaje de confirmación
+        alert("Se guardó correctamente el Informe");
+        navigate(-1); // Redirige a la ruta deseada
+      } catch (error) {
+        console.error('Error al guardar productos:', error);
+        alert("Error al guardar el informe. Por favor, intente nuevamente.");
+      }
     }
   };
-
   return (
     <div className='containerCRP'>
     <div className="buttonHead">

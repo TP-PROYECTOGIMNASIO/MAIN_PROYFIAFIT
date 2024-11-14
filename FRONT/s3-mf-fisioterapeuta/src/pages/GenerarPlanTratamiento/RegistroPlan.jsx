@@ -3,47 +3,93 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const RegistroPlan = () => {
   const [showModal, setShowModal] = useState(false);
-  const [sesiones, setSesiones] = useState([]); // Estado para almacenar las sesiones.
+  const [sesiones, setSesiones] = useState([]); // Estado para almacenar las sesiones
   const [ejercicio, setEjercicio] = useState('');
   const [fecha, setFecha] = useState('');
   const [hora, setHora] = useState('');
+  const [diagnosis, setDiagnosis] = useState(''); // Estado para el diagnóstico
+  const [instructions, setInstructions] = useState(''); // Estado para las instrucciones
+
+  const apiUrl = 'https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-tratamiento/HU-TP-38';
 
   const params = new URLSearchParams(window.location.search);
-  console.log("Todos los parámetros en Registro de Plan:", window.location.search); // Verificar que todos los parámetros están presentes
-  
+  const clientId = params.get("clientId");
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
-  console.log("role recibido en Registro de Plan:", role);
-  console.log("token recibido en Registro de Plan:", token);
-  console.log("username recibido en Registro de Plan:", username);
 
-  // Función para mostrar la modal.
+  console.log("role recibido en Registro Plan fisioterapeuta:", role);
+  console.log("token recibido en Registro Plan fisioterapeuta:", token);
+  console.log("username recibido en Registro Plan fisioterapeuta:", username);
+  console.log("clientId recibido en Registro Plan fisioterapeuta:", clientId);
+
+  console.log("Parámetros recibidos en Registro Plan fisioterapeuta:", { role, token, username, clientId });
+
+  // Función para mostrar la modal
   const handleShowModal = () => {
     setShowModal(true);
   };
 
-  // Función para cerrar la modal.
+  // Función para cerrar la modal
   const handleCloseModal = () => {
     setShowModal(false);
-    setEjercicio(''); // Limpiar los campos.
+    setEjercicio('');
     setFecha('');
     setHora('');
   };
 
-  // Función para registrar la sesión
+  // Función para registrar la sesión en la tabla de sesiones
   const handleRegistrarSesion = () => {
     if (ejercicio && fecha && hora) {
       const nuevaSesion = {
-        id: sesiones.length + 1, // Incrementa el número de sesión
+        id: sesiones.length + 1,
         ejercicio,
         fecha,
         hora,
       };
-      setSesiones([...sesiones, nuevaSesion]); // Agrega la nueva sesión al estado
-      handleCloseModal(); // Cierra el modal y limpia los campos
+      setSesiones([...sesiones, nuevaSesion]);
+      handleCloseModal();
     } else {
       alert('Por favor, completa todos los campos.');
+    }
+  };
+
+  // Función para enviar el plan de tratamiento a la API
+  const handleRegistrarPlan = async () => {
+    if (!diagnosis || !instructions) {
+      alert("Por favor, completa el diagnóstico y las indicaciones.");
+      return;
+    }
+
+    const requestBody = {
+      client_id: Number(clientId),
+      diagnosis,
+      instructions,
+    };
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert("Plan de tratamiento registrado con éxito.");
+        setDiagnosis('');
+        setInstructions('');
+        setSesiones([]);
+      } else {
+        console.error("Error al registrar el plan:", result.message);
+        alert("Hubo un problema al registrar el plan. Inténtelo de nuevo.");
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+      alert("Error en la solicitud. Verifique su conexión.");
     }
   };
 
@@ -51,21 +97,23 @@ const RegistroPlan = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Botón de Regresar */}
       <header className="p-4">
-      <button
-      className="text-gray-700 font-medium"
-      onClick={() => window.history.back()}
-    >
-      &lt; Regresar
-    </button>
+        <button
+          className="text-gray-700 font-medium"
+          onClick={() => window.history.back()}
+        >
+          &lt; Regresar
+        </button>
       </header>
 
       {/* Contenido Principal */}
       <main className="flex-grow flex flex-col justify-center items-center">
-        {/* Contenedor Blanco */}
         <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-2xl space-y-6">
           {/* Registrar Button */}
           <div className="flex justify-end">
-            <button className="bg-red-700 text-white py-2 px-4 rounded-lg hover:bg-red-800 transition duration-300">
+            <button
+              className="bg-red-700 text-white py-2 px-4 rounded-lg hover:bg-red-800 transition duration-300"
+              onClick={handleRegistrarPlan} // Agregar plan de tratamiento al API
+            >
               REGISTRAR
             </button>
           </div>
@@ -78,6 +126,8 @@ const RegistroPlan = () => {
             <textarea
               className="w-full h-24 p-3 bg-gray-200 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"
               placeholder="Escribe el diagnóstico..."
+              value={diagnosis}
+              onChange={(e) => setDiagnosis(e.target.value)}
             />
           </div>
 
@@ -89,6 +139,8 @@ const RegistroPlan = () => {
             <textarea
               className="w-full h-24 p-3 bg-gray-200 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-red-500 resize-none"
               placeholder="Escribe las indicaciones..."
+              value={instructions}
+              onChange={(e) => setInstructions(e.target.value)}
             />
           </div>
 
@@ -162,23 +214,17 @@ const RegistroPlan = () => {
                   <option value="Ejercicio 1">Ejercicio 1</option>
                   <option value="Ejercicio 2">Ejercicio 2</option>
                   <option value="Ejercicio 3">Ejercicio 3</option>
-                  {/* Agregar más opciones aquí */}
                 </select>
               </div>
 
               <div>
                 <label className="block text-gray-700">Fecha Disponible</label>
-                <div className="relative">
-                  <input
-                    type="date"
-                    className="w-full p-3 bg-gray-200 rounded-lg border border-gray-300 focus:outline-none"
-                    value={fecha}
-                    onChange={(e) => setFecha(e.target.value)}
-                  />
-                  <span className="absolute right-3 top-3 text-gray-500">
-                    <i className="fas fa-calendar"></i>
-                  </span>
-                </div>
+                <input
+                  type="date"
+                  className="w-full p-3 bg-gray-200 rounded-lg border border-gray-300 focus:outline-none"
+                  value={fecha}
+                  onChange={(e) => setFecha(e.target.value)}
+                />
               </div>
 
               <div>
@@ -192,7 +238,6 @@ const RegistroPlan = () => {
                   <option value="08:00">08:00</option>
                   <option value="09:00">09:00</option>
                   <option value="10:00">10:00</option>
-                  {/* Agregar más opciones aquí */}
                 </select>
               </div>
             </div>

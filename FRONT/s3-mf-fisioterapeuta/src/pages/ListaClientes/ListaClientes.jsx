@@ -39,11 +39,11 @@ const ListaClientes = () => {
       const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
 
       if (!response.ok) {
-        throw new Error("Error en la respuesta de la API");
+        throw new Error("Error en la respuesta de la API username");
       }
 
       const data = await response.json();
-      console.log("Respuesta de la API:", data);
+      console.log("Respuesta de la API username:", data);
 
       if (Array.isArray(data)) {
         if (data.length > 0) {
@@ -267,7 +267,7 @@ const ListaClientes = () => {
                 </div>
          
                 <div className="flex justify-center mt-6">
-                  <Link to={`/PlanTratamientoSinRegistrar?role=${role}&token=${token}&username=${username}`} className="bg-red-600 text-white py-2 px-6 rounded-md" >
+                  <Link to={`/PlanTratamientoSinRegistrar?clientId=${selectedClient.client_id}&role=${role}&token=${token}&username=${username}`} className="bg-red-600 text-white py-2 px-6 rounded-md" >
                     PLAN DE TRATAMIENTO
                   </Link>
                 </div>
