@@ -1,0 +1,87 @@
+[
+    {
+      "event_id": 7,
+      "image_url": "https://s3-alpha-sig.figma.com/img/f06a/6346/f92615f446ed4453f2125f1ff40f36e1?Expires=1732492800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=URSqaYuvK2AvdvAFzvj8Z~5h9TqGkmxehEYsoFwGMxxN9lXuaPGsYdqGQqm1TY3SRxDVCnxLDLODMToDGGffgCnCdGb12zU4-2LP5GDoPEGgp~LW6~ZY1twi8PTimhR-YS3x57CHG2RKyaJdip9y5FxBme6j6FGJQa~DuE5zJ9lIaFHN0sTxkVMRzjnTsxxio74TsLviPbhYJ7iVLegdxb7X2qMv-0ps-QjQPUOS-llNoV0~ZrJFT~kuqS1TM8Q584xofNoGubM6-TiDpNhDZW4gt7NtWP31IByghE1EcqbRThjEUIHSeEWvKfzGTqxcmkV06TCZroU~-kaBQPdKNQ__",
+      "name": "Evento zz",
+      "description": "Descripción zz",
+      "event_date": "2024-11-15",
+      "schedule": null,
+      "capacity": 1,
+      "location_id": 1,
+      "requirements": "zz",
+      "approved": true,
+      "created_at": "2024-11-12 09:49:11.716",
+      "updated_at": "2024-11-12 09:49:11.716"
+    },
+    {
+      "event_id": 3,
+      "image_url": "https://www.runfit.es/wp-content/uploads/2022/07/CrossFit_resize.jpg",
+      "name": "Evento de Yoga",
+      "description": "Una sesión de yoga para principiantes.",
+      "event_date": "2024-11-15",
+      "schedule": null,
+      "capacity": 30,
+      "location_id": 1,
+      "requirements": "Llevar esterilla de yoga",
+      "approved": true,
+      "created_at": "2024-11-04 22:03:39.038",
+      "updated_at": "2024-11-04 22:03:39.038"
+    },
+    {
+      "event_id": 1,
+      "image_url": "https://www.runfit.es/wp-content/uploads/2021/10/Spinning-Mujeres-y-hombres-en-clase.jpg",
+      "name": "Reto Fitness Total",
+      "description": "Un reto de varias semanas en el que los participantes tienen que superar diferentes desafios",
+      "event_date": "2024-11-15",
+      "schedule": "06:00:00",
+      "capacity": 15,
+      "location_id": 1,
+      "requirements": "2 entrenadores y equipo de sonido",
+      "approved": null,
+      "created_at": "2024-10-28 01:07:39.765",
+      "updated_at": "2024-10-28 01:07:39.765"
+    },
+    {
+      "event_id": 2,
+      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuzsWnLdAs59i0esTGNAFviiR9AbwepMD27Q&s",
+      "name": "Maraton de Spinning",
+      "description": "Reto de semanas de arduo trabajo para lograr objetivos",
+      "event_date": "2024-12-05",
+      "schedule": "09:30:00",
+      "capacity": 20,
+      "location_id": 2,
+      "requirements": "1 entrenador",
+      "approved": null,
+      "created_at": "2024-10-28 01:15:13.305",
+      "updated_at": "2024-11-11 22:18:28.374"
+    },
+    {
+      "event_id": 4,
+      "image_url": "",
+      "name": "Clase de Yoga al Aire Libre",
+      "description": "Una clase de yoga para principiantes en el parque central.",
+      "event_date": "2024-11-20",
+      "schedule": null,
+      "capacity": 20,
+      "location_id": 1,
+      "requirements": "Llevar esterilla de yoga y agua",
+      "approved": true,
+      "created_at": "2024-11-04 23:29:29.818",
+      "updated_at": "2024-11-04 23:29:29.818"
+    },
+    {
+      "event_id": 6,
+      "image_url": "https://s3-alpha-sig.figma.com/img/55a4/1ed4/2472db4e383cf429436a949199726b50?Expires=1732492800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=WZBbqvIrC7nhEy3xxqZSH28LHlqLDFwb5zfAKLdh72CvjlFHvbecMHrxuHvqVS75iMkcSwMAO9NZvyg6BALnleKTd4EgCqkfGFjLA7F5413MvAA8~zdmbS0zEaOnnyw1~aRzEGDgAOkdkqCYM6jUrEaqEyCabmXBYGK7~U4wVlitOLfvWUf24T8cJ5vefcwTqrS4yhtnjaiNtAjIsxIYkZe4HKa7Nct8IeaZKw3gGSQgjtGqriSaciMaUJ-wZiwuEGKDrcvq9~wI3-HgDWD1wn7kNBA6~NHKkQ61LKltxgnaeqBqZ1WaIZ9teMzDI4ySuQF38i225NHlh80mEwgfQw__",
+      "name": "Evento xx",
+      "description": "Descripción xx",
+      "event_date": "2024-11-13",
+      "schedule": null,
+      "capacity": 12,
+      "location_id": 1,
+      "requirements": "10",
+      "approved": true,
+      "created_at": "2024-11-12 09:46:42.159",
+      "updated_at": "2024-11-12 09:46:42.159"
+    }
+  ]
+  

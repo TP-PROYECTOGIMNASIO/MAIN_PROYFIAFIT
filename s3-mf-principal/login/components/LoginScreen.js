@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage'; // Importar AsyncStorage
 import styles from './styles';
+import { VITE_APP_API_URL_09, VITE_APP_API_URL_USERNAME, VITE_APP_API_URL_01 } from '@env';
 
 // Función para decodificar base64url
 function base64UrlDecode(base64Url) {
@@ -32,6 +33,7 @@ export default function LoginScreen() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigation = useNavigation();
+  const apiUrl01 = VITE_APP_API_URL_01;
 
   useEffect(() => {
     // Verificar si el usuario ya está autenticado
@@ -66,7 +68,7 @@ export default function LoginScreen() {
   }, []); // Solo se ejecuta una vez al cargar el componente
 
   const handleLogin = async () => {
-    axios.post('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/auth/hu-tp-01', {
+    axios.post(apiUrl01, {
       username,
       password,
     })

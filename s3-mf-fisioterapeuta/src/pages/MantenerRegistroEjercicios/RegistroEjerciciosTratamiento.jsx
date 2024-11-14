@@ -6,10 +6,12 @@ function RegistroEjerciciosTratamiento() {
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [exerciseTypes, setExerciseTypes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState('');
   const navigate = useNavigate(); // Para navegar entre rutas
 
-  const apiUrl40 = import.meta.env.VITE_APP_API_URL_40;
+  const apiUrl40 = "https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/plan-de-tratamiento/HU-TP-40"; // URL de la API
 
   const params = new URLSearchParams(window.location.search);
   console.log("Todos los parámetros en Registro de Ejercicios de Tratamiento:", window.location.search); // Verificar que todos los parámetros están presentes
@@ -25,22 +27,20 @@ function RegistroEjerciciosTratamiento() {
   useEffect(() => {
     const fetchExerciseTypes = async () => {
       try {
-        const response = await fetch(apiUrl40, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ method: 'readtype' }), // Envío del método en el cuerpo de la solicitud
-        });
-        const data = await response.json();
 
-        // Verifica si la respuesta es correcta
-        if (response.ok && data.statusCode === 200) {
-          setExerciseTypes(data.body.exercises); // Almacena los tipos de ejercicios
-        } else {
-          throw new Error(data.body.message || 'Error al obtener los tipos de ejercicios');
+        const response = await fetch(
+          apiUrl40
+        );
+        if (!response.ok) {
+          throw new Error('Hubo un problema al obtener los datos');
         }
+
+        const data = await response.json(); // Convertimos la respuesta en formato JSON
+        setExerciseTypes(data.exerciseTypes); // Guardamos los tipos de ejercicios en el estado
+        setLoading(false); // Indicamos que los datos han terminado de cargar
       } catch (error) {
-        console.error('Error al obtener los tipos de ejercicios:', error);
-        setError('Error al obtener tipos de ejercicios');
+        setError('Hubo un problema al obtener los datos.'); // Manejo de errores
+        setLoading(false); // Terminamos la carga
       }
     };
 
@@ -57,7 +57,7 @@ function RegistroEjerciciosTratamiento() {
     }
 
     try {
-      const response = await fetch(apiUrl, {
+      const response = await fetch(apiUrl40, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

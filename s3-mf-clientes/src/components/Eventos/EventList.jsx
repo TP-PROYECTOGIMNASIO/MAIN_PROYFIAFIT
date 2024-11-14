@@ -1,52 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate  } from "react-router-dom";
 import EventCard from './EventCard';
 import EventDetailModal from './EventDetailModal';
-import Banner from './Banner'; // Importa el componente Banner
-
-const events = [
-  {
-    title: "Reto Fitness Total",
-    location: "Sede Santa Anita",
-    slots: "15",
-    img: "/fondo_evento_1.jpeg"
-  },
-  {
-    title: "Maratón de Spinning",
-    location: "Sede La Molina",
-    slots: "20",
-    img: "/fondo_evento_2.jpeg"
-  },
-  {
-    title: "Clase Magistral de Yoga",
-    location: "Sede Santa Anita",
-    slots: "15",
-    img: "/fondo_evento_3.jpeg"
-  },
-  {
-    title: "Entrenamiento Funcional",
-    location: "Sede San Isidro",
-    slots: "10",
-    img: "/fondo_evento_1.jpeg"
-  },
-  {
-    title: "Zumba Party",
-    location: "Sede Barranco",
-    slots: "25",
-    img: "/fondo_evento_2.jpeg"
-  },
-  {
-    title: "Pilates Avanzado",
-    location: "Sede Miraflores",
-    slots: "12",
-    img: "/fondo_evento_3.jpeg"
-  }
-];
+import Banner from './Banner';
 
 const EventList = () => {
+  const [events, setEvents] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedEvent, setSelectedEvent] = useState(null); // Nuevo estado para manejar el modal
-  
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const apiUrlUSERNAME = import.meta.env.VITE_APP_API_URL_USERNAME;
+  const [user, setUser] = useState({});
+
   const params = new URLSearchParams(window.location.search);
   console.log("Todos los parámetros:", window.location.search); // Verificar que todos los parámetros están presentes
   
@@ -56,6 +19,51 @@ const EventList = () => {
   console.log("role recibido en Lista de Eventos clientes:", role);
   console.log("token recibido en Lista de Eventos clientes:", token);
   console.log("username recibido en Lista de Eventos clientes:", username);
+
+  useEffect(() => {
+    if (token && username) {
+      console.log("Datos recibidos:", { role, token, username });
+      fetchUserName();
+    }
+  }, [role, token, username]); // Dependencias del useEffect // Dependencia de `navigate` // Dependencia de `token` y `username` para volver a ejecutar si estos cambian
+
+  const fetchUserName = async () => {
+    try {
+      const response = await fetch(`${apiUrlUSERNAME}?username=${username}`);
+
+      if (!response.ok) {
+        throw new Error("Error en la respuesta de la API");
+      }
+
+      const data = await response.json();
+      console.log("Respuesta de la API:", data);
+
+      if (Array.isArray(data)) {
+        if (data.length > 0) {
+          setUser(data[0]);
+        } else {
+          console.error("El array está vacío");
+          setUser({});
+        }
+      } else if (data && typeof data === "object") {
+        setUser(data);
+      } else {
+        console.error("Formato inesperado en la respuesta de la API:", data);
+        setUser({});
+      }
+    } catch (error) {
+      console.error("Error al obtener la información del usuario", error);
+    }
+  };
+
+
+  useEffect(() => {
+    // Cargar los eventos desde el archivo JSON
+    fetch('/events.json')
+      .then(response => response.json())
+      .then(data => setEvents(data))
+      .catch(error => console.error("Error al cargar los eventos:", error));
+  }, []);
 
   const nextEvent = () => {
     setCurrentIndex((prevIndex) =>
@@ -70,23 +78,20 @@ const EventList = () => {
   };
 
   const openModal = (event) => {
-    setSelectedEvent(event); // Abrir el modal con el evento seleccionado
+    setSelectedEvent(event);
   };
 
   const closeModal = () => {
-    setSelectedEvent(null); // Cerrar el modal
+    setSelectedEvent(null);
   };
 
-  // Obtener los eventos a mostrar según el índice actual
   const displayedEvents = events.slice(currentIndex, currentIndex + 3);
 
   return (
     <section className="relative p-4">
-      {/* Agrega el Banner al inicio de la sección */}
       <Banner />
 
       <div className="flex items-center justify-between mt-4">
-        {/* Botón para ir al evento anterior */}
         <button 
           onClick={prevEvent} 
           className="text-red-600 text-5xl font-bold focus:outline-none"
@@ -94,21 +99,19 @@ const EventList = () => {
           {"<"}
         </button>
 
-        {/* Eventos actuales mostrados */}
         <div className="flex justify-center items-center space-x-4">
-          {displayedEvents.map((event, index) => (
-            <div key={index} onClick={() => openModal(event)}>
+          {displayedEvents.map((event) => (
+            <div key={event.event_id} onClick={() => openModal(event)}>
               <EventCard 
-                title={event.title} 
-                location={event.location} 
-                slots={event.slots} 
-                img={event.img} 
+                title={event.name} 
+                location={`Sede ${event.location_id}`} 
+                slots={event.capacity} 
+                img={event.image_url || '/fondo.png'} 
               />
             </div>
           ))}
         </div>
 
-        {/* Botón para ir al siguiente evento */}
         <button 
           onClick={nextEvent} 
           className="text-red-600 text-5xl font-bold focus:outline-none"
@@ -117,9 +120,8 @@ const EventList = () => {
         </button>
       </div>
 
-      {/* Modal de Detalles del Evento */}
-      <EventDetailModal event={selectedEvent} onClose={closeModal} />
-    </section>
+      <EventDetailModal event={selectedEvent} onClose={closeModal} user={user} />
+      </section>
   );
 };
 

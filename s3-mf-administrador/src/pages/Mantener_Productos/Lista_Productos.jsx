@@ -197,6 +197,8 @@ function Lista_Productos() {
       // Mostrar ventana de éxito y cerrar el formulario
       setShowModal(false);
       setShowSuccessModal(true);
+      // Refrescar lista de productos después de registrar un nuevo producto
+      fetchProducts();
     } catch (error) {
       console.error("Error al enviar los datos del producto:", error);
       // Mostrar alert y cerrar el modal al hacer clic en OK
