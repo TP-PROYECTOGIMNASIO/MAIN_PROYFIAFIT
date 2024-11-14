@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
-
+import { useNavigate } from 'react-router-dom';
 const RegisterForm = () => {
   const [fileName, setFileName] = useState('');
   const [fileData, setFileData] = useState(null);
@@ -17,6 +17,8 @@ const RegisterForm = () => {
   const [modalProvincia, setModalProvincia] = useState('');
   const [modalDepartamento, setModalDepartamento] = useState('');
   const [isMapReady, setIsMapReady] = useState(false);
+  const navigate = useNavigate();
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -161,13 +163,16 @@ const RegisterForm = () => {
     }
   };
   
-
+  const handleRegresar = () => {
+    navigate(-1);
+};
 
   return (
     <div className="min-h-[82.23vh] bg-[#f3f4f7] p-4 flex flex-col">
       <div className="flex flex-col mb-4">
         <div className="flex justify-between w-full mb-4">
-          <button className="text-gray-700 text-[24px] flex items-center gap-2">
+          <button className="text-gray-700 text-[24px] flex items-center gap-2" onClick={handleRegresar}>
+          
             <span>&lt;</span> Regresar
           </button>
           <button className="bg-red-600 text-white text-[24px] py-2 px-4 rounded" onClick={handleRegistrar}>
