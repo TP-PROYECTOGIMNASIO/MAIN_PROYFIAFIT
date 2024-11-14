@@ -18,12 +18,17 @@ const EmployeeForm = ({ onClose, onAddEmployee }) => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
-  const [loading, setLoading] = useState(false); // Nuevo estado para controlar la carga
+  const [loading, setLoading] = useState(false);
+
+  const [genders, setGenders] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const [locations, setLocations] = useState([]);
 
   const closeModal = () => {
     setModalVisible(false);
   };
 
+  // Function to handle input change
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -33,6 +38,7 @@ const EmployeeForm = ({ onClose, onAddEmployee }) => {
     }
   };
 
+  // Function to handle file change
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file && file.type === 'application/pdf') {
@@ -43,8 +49,9 @@ const EmployeeForm = ({ onClose, onAddEmployee }) => {
     }
   };
 
+  // Function to fetch data based on DNI
   const handleSearch = async (dni) => {
-    setLoading(true); // Activar el estado de carga
+    setLoading(true);
     try {
       const response = await fetch(`https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-73?document=${dni}`);
       const data = await response.json();
@@ -64,10 +71,11 @@ const EmployeeForm = ({ onClose, onAddEmployee }) => {
       setModalMessage('Error al buscar los datos por DNI');
       setModalVisible(true);
     } finally {
-      setLoading(false); // Desactivar el estado de carga al finalizar
+      setLoading(false);
     }
   };
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -86,9 +94,9 @@ const EmployeeForm = ({ onClose, onAddEmployee }) => {
     formDataToSend.append('city', formData.ciudad);
     formDataToSend.append('district', formData.distrito);
     formDataToSend.append('address', formData.direccion);
-    formDataToSend.append('gender_id', formData.genero === 'Masculino' ? '7' : '8');
-    formDataToSend.append('rol_id', formData.rol === 'Entrenador' ? '1' : '2');
-    formDataToSend.append('location_id', formData.sede === 'La Molina' ? '2' : '1');
+    formDataToSend.append('gender_id', formData.genero);
+    formDataToSend.append('role_id', formData.rol);
+    formDataToSend.append('location_id', formData.sede);
     formDataToSend.append('contract_url', formData.contrato);
 
     try {
@@ -100,7 +108,7 @@ const EmployeeForm = ({ onClose, onAddEmployee }) => {
       if (response.ok) {
         setModalMessage('Empleado se registró correctamente');
         setModalVisible(true);
-        onAddEmployee(formData); // Llama a la función para agregar el nuevo empleado
+        onAddEmployee(formData);
         setFormData({
           dni: '',
           nombres: '',
@@ -128,187 +136,171 @@ const EmployeeForm = ({ onClose, onAddEmployee }) => {
     }
   };
 
-  // Prevent body scrolling when modal is open
+  // Fetching gender, role, and location data on component mount
   useEffect(() => {
-    if (modalVisible) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-
-    return () => {
-      document.body.style.overflow = 'unset'; // Reset overflow on unmount
+    const fetchGenders = async () => {
+      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-73?gender=1');
+      const data = await response.json();
+      setGenders(data);
     };
-  }, [modalVisible]);
 
+    const fetchRoles = async () => {
+      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-73?roles=1');
+      const data = await response.json();
+      setRoles(data);
+    };
+
+    const fetchLocations = async () => {
+      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/empleados/hu-tp-73?locations=1');
+      const data = await response.json();
+      setLocations(data);
+    };
+
+    fetchGenders();
+    fetchRoles();
+    fetchLocations();
+  }, []);
+
+  // Render the form
   return (
     <>
-      <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-        <div className="bg-white w-[90%] md:w-[40%] rounded-lg shadow-lg p-6 relative">
-          <button onClick={onClose} className="absolute top-2 right-2 text-gray-500 font-bold text-xl">X</button>
-          <div className="text-center text-xl font-bold text-red-700 mb-4">Agregar Empleado</div>
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+        <div className="bg-white p-4 rounded-lg shadow-lg w-full max-w-4xl">
+          <button
+            onClick={closeModal}
+            className="absolute top-2 right-2 text-xl font-bold text-gray-600 hover:text-gray-900"
+          >
+            X
+          </button>
+          <h2 className="text-2xl font-bold mb-4">Formulario de Empleado</h2>
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="relative">
+            <div className="grid grid-cols-3 gap-4">
+              {/* Column 1 */}
+              <div className="flex flex-col">
                 <label>DNI</label>
                 <input
                   type="text"
                   name="dni"
                   value={formData.dni}
                   onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
+                  maxLength={8}
                   required
                 />
-                {loading && (
-                  <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-                    <div className="w-4 h-4 border-4 border-red-500 border-t-transparent rounded-full animate-spin"></div>
-                  </div>
-                )}
-              </div>
-
-              <div>
                 <label>Nombres</label>
                 <input
                   type="text"
                   name="nombres"
                   value={formData.nombres}
                   onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
                   required
                 />
-              </div>
-
-              <div>
-                <label>Correo</label>
-                <input
-                  type="email"
-                  name="correo"
-                  value={formData.correo}
-                  onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
-                />
-              </div>
-
-              <div>
                 <label>Primer Apellido</label>
                 <input
                   type="text"
                   name="primerApellido"
                   value={formData.primerApellido}
                   onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
+                  required
+                />
+                <label>Correo</label>
+                <input
+                  type="email"
+                  name="correo"
+                  value={formData.correo}
+                  onChange={handleInputChange}
                   required
                 />
               </div>
 
-              <div>
+              {/* Column 2 */}
+              <div className="flex flex-col">
                 <label>Segundo Apellido</label>
                 <input
                   type="text"
                   name="segundoApellido"
                   value={formData.segundoApellido}
                   onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
                 />
-              </div>
-
-              <div>
                 <label>Dirección</label>
                 <input
                   type="text"
                   name="direccion"
                   value={formData.direccion}
                   onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
                 />
-              </div>
-
-              <div>
                 <label>Ciudad</label>
                 <input
                   type="text"
                   name="ciudad"
                   value={formData.ciudad}
                   onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
                 />
-              </div>
-
-              <div>
                 <label>Distrito</label>
                 <input
                   type="text"
                   name="distrito"
                   value={formData.distrito}
                   onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
                 />
               </div>
 
-              <div>
+              {/* Column 3 */}
+              <div className="flex flex-col">
                 <label>Género</label>
-                <select
-                  name="genero"
-                  value={formData.genero}
-                  onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
-                >
-                  <option value="">Seleccione</option>
-                  <option value="Masculino">Masculino</option>
-                  <option value="Femenino">Femenino</option>
+                <select name="genero" value={formData.genero} onChange={handleInputChange}>
+                  <option value="">Seleccione género</option>
+                  {genders.map((gender) => (
+                    <option key={gender.gender_id} value={gender.gender_id}>{gender.gender}</option>
+                  ))}
                 </select>
-              </div>
 
-              <div>
-                <label>Sede</label>
-                <select
-                  name="sede"
-                  value={formData.sede}
-                  onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
-                >
-                  <option value="">Seleccione</option>
-                  <option value="La Molina">La Molina</option>
-                  <option value="San Isidro">San Isidro</option>
-                </select>
-              </div>
-
-              <div>
                 <label>Rol</label>
-                <select
-                  name="rol"
-                  value={formData.rol}
-                  onChange={handleInputChange}
-                  className="border rounded-lg w-full p-2 mt-1"
-                >
-                  <option value="">Seleccione</option>
-                  <option value="Entrenador">Entrenador</option>
-                  <option value="Encargado">Encargado</option>
+                <select name="rol" value={formData.rol} onChange={handleInputChange}>
+                  <option value="">Seleccione rol</option>
+                  {roles.map((role) => (
+                    <option key={role.role_id} value={role.role_id}>{role.name}</option>
+                  ))}
                 </select>
-              </div>
 
-              <div>
-                <label>Contrato (PDF)</label>
+                <label>Sede</label>
+                <select name="sede" value={formData.sede} onChange={handleInputChange}>
+                  <option value="">Seleccione sede</option>
+                  {locations.map((location) => (
+                    <option key={location.location_id} value={location.location_id}>{location.name}</option>
+                  ))}
+                </select>
+
+                <label>Contrato</label>
                 <input
                   type="file"
-                  accept=".pdf"
+                  accept="application/pdf"
                   onChange={handleFileChange}
-                  className="border rounded-lg w-full p-2 mt-1"
                 />
               </div>
             </div>
-            <button type="submit" className="bg-red-700 text-white rounded-lg py-2 mt-4 w-full">Agregar</button>
-          </form>
-          {modalVisible && (
-            <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
-              <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-                <h2 className="text-lg font-bold text-red-700">{modalMessage}</h2>
-                <button onClick={closeModal} className="mt-4 bg-red-700 text-white rounded-lg py-2 px-4">Cerrar</button>
-              </div>
+
+            {/* Submit Button */}
+            <div className="mt-4">
+              <button
+                type="submit"
+                className="bg-[#ca130c] text-white py-2 px-4 rounded hover:bg-red-700 transition-colors duration-300"
+              >
+                Registrar
+              </button>
             </div>
-          )}
+          </form>
         </div>
       </div>
+
+      {/* Modal */}
+      {modalVisible && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-4 rounded-lg shadow-lg w-96">
+            <p>{modalMessage}</p>
+            <button onClick={closeModal} className="mt-4 bg-gray-300 px-4 py-2 rounded">Cerrar</button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
