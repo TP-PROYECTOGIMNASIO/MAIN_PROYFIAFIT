@@ -5,10 +5,6 @@ import ModalLoading from '../components/ModalLoading';
 import ModalSuccess from '../components/ModalSuccess';
 import ModalError from '../components/ModalError';
 
-// Coordenadas del gimnasio
-const gymLatitude = -12.142037346806207;
-const gymLongitude = -76.99589251328662;
-
 const CheckInScreen = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -34,6 +30,26 @@ const CheckInScreen = () => {
     return deg * (Math.PI / 180);
   };
 
+  // Función para obtener las coordenadas de los gimnasios
+  const fetchGymsCoordinates = async () => {
+    try {
+      console.log("Realizando solicitud a la API de gimnasios...");
+      const response = await fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/check-in-empleados/hu-tp-09');
+      
+      if (!response.ok) {
+        console.error(`Error en la respuesta de la API: ${response.status} - ${response.statusText}`);
+        throw new Error(`Error en la API de gimnasios: ${response.status} ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      console.log("Datos recibidos de la API de gimnasios:", data); // Verificar la estructura de la respuesta
+      return Array.isArray(data) ? data : []; // Asegurarse de devolver un array
+    } catch (error) {
+      console.error("Error al obtener las coordenadas de los gimnasios:", error.message);
+      throw new Error('No se pudo obtener las coordenadas de los gimnasios');
+    }
+  };
+
   // Función para manejar el Check-In
   const handleCheckIn = async () => {
     console.log('Intentando realizar el check-in...');
@@ -42,27 +58,39 @@ const CheckInScreen = () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
       setErrorMessage('Permiso de ubicación denegado');
+      console.log("Permiso de ubicación denegado por el usuario.");
       setError(true);
       return;
     }
 
-    setLoading(true); // Establece loading solo después de que se concede el permiso
+    console.log("Permiso de ubicación concedido.");
+    setLoading(true);
 
-    // Obtener la ubicación actual
-    let location;
     try {
-      location = await Location.getCurrentPositionAsync({});
+      // Obtener las coordenadas de los gimnasios
+      const gyms = await fetchGymsCoordinates();
+      
+      // Verificar que gyms sea un array
+      if (!Array.isArray(gyms) || gyms.length === 0) {
+        throw new Error("La respuesta de gimnasios no es un array válido o está vacía.");
+      }
+
+      // Obtener la ubicación actual
+      const location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
-      console.log('Posición obtenida:', { latitude, longitude });
+      console.log('Ubicación actual del usuario:', { latitude, longitude });
 
-      // Calcular la distancia entre la ubicación actual y el gimnasio
-      const distance = getDistanceFromLatLonInMeters(latitude, longitude, gymLatitude, gymLongitude);
-      console.log('Distancia calculada:', distance);
+      // Verificar si el usuario está dentro de 15 metros de algún gimnasio
+      const isWithinRange = gyms.some(gym => {
+        const distance = getDistanceFromLatLonInMeters(latitude, longitude, gym.latitude, gym.longitude);
+        console.log(`Distancia al gimnasio (${gym.latitude}, ${gym.longitude}):`, distance);
+        return distance <= 15;
+      });
 
-      if (distance <= 15) {
-        console.log('Dentro del rango de 15 metros, realizando el check-in...');
+      if (isWithinRange) {
+        console.log('Dentro del rango de 15 metros de un gimnasio, procediendo con el check-in...');
 
-        // Llamada a la API usando fetch
+        // Llamada a la API usando fetch para realizar el check-in
         fetch('https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/check-in-empleados/hu-tp-09', {
           method: 'POST',
           headers: {
@@ -74,9 +102,15 @@ const CheckInScreen = () => {
             longitude: longitude,
           }),
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            console.error(`Error en la respuesta de check-in: ${response.status} - ${response.statusText}`);
+            throw new Error("No se pudo completar el check-in.");
+          }
+          return response.json();
+        })
         .then(data => {
-          console.log('Respuesta del servidor:', data);
+          console.log('Respuesta del servidor al realizar check-in:', data);
           setLoading(false);
 
           if (data.message === 'Check-in realizado exitosamente.') {
@@ -88,21 +122,21 @@ const CheckInScreen = () => {
           }
         })
         .catch(err => {
-          console.error('Error al hacer la solicitud:', err);
+          console.error('Error al hacer la solicitud de check-in:', err);
           setLoading(false);
           setErrorMessage('No se pudo realizar el check-in. Intenta nuevamente.');
           setError(true);
         });
       } else {
-        console.log('Fuera del rango permitido, check-in no realizado.');
+        console.log('Fuera del rango permitido de los gimnasios, check-in no realizado.');
         setLoading(false);
-        setErrorMessage('No estás dentro del rango permitido para realizar el check-in (15 metros).');
+        setErrorMessage('No estás dentro del rango permitido de 15 metros de ningún gimnasio.');
         setError(true);
       }
     } catch (error) {
-      console.error('Error al obtener la ubicación:', error);
+      console.error('Error en el proceso de check-in:', error);
       setLoading(false);
-      setErrorMessage('No se pudo obtener la ubicación.');
+      setErrorMessage(error.message);
       setError(true);
     }
   };
