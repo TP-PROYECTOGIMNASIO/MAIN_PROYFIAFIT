@@ -1,0 +1,1229 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  sam-app
+
+  Sample SAM Template for sam-app
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+
+  HuTp01001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-01-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /auth/hu-tp-01
+            Method: post
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /auth/hu-tp-01
+            Method: put
+
+  HuTp02001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-02-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPatch:
+          Type: Api
+          Properties:
+            Path: /aut/hu-tp-02
+            Method: patch
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /auth/hu-tp-02
+            Method: put
+
+  HuTp04001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-04
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-04
+            Method: post
+
+  HuTp04002:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-002
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPatch:
+          Type: Api
+          Properties:
+            Path: /clientes/hu-tp-04
+            Method: patch
+
+  HuTp04003:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-003
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPostHU04003:
+          Type: Api
+          Properties:
+            Path: /clientes/HU-04-003
+            Method: post
+
+  HuTp04004:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-004
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPostLibre:
+          Type: Api
+          Properties:
+            Path: /clientes/cliente-libre
+            Method: post
+
+  HuTp04005:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-04-005
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGetDetalle:
+          Type: Api
+          Properties:
+            Path: /clientes/detalle
+            Method: get
+
+  HuTp11001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-11-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-11
+            Method: get
+  HuTp14001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-14-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-14
+            Method: get
+
+  HuTp17001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-17-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-17
+            Method: get
+
+  HuTp18001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-18-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /ventas/hu-tp-18
+            Method: post          
+
+  HuTp22001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-22-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-22
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-22
+            Method: post
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-22
+            Method: put
+            
+  HuTp23001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-23-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGetAlumno:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-23/alumno
+            Method: get
+        ApiGetBodyMetric:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-23/bodymetric
+            Method: get
+        ApiGetDetailsClient:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-23/detailsClient
+            Method: get
+            
+  HuTp25001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-25-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-25
+            Method: get
+        ApiPatch:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-25
+            Method: patch
+  
+  HuTp26001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-26-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /alumnos
+            Method: get
+      
+  HuTp27001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-27-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-27
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-27
+            Method: post
+  HuTp28001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-28-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-28
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-28
+            Method: post
+
+  HuTp30001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-30-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-30
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-30
+            Method: post
+        ApiDelete:
+          Type: Api
+          Properties:
+            Path: /plan-de-entrenamiento/hu-tp-30
+            Method: delete
+
+  HuTp61001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-61-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /compras/hu-tp-61
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /compras/hu-tp-61
+            Method: post
+
+  HuTp62001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-62-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /compras/hu-tp-62
+            Method: post 
+
+  HuTp67001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-67-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGetFindById:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/findById
+            Method: get
+        ApiGetFindProduct:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/findproduct
+            Method: get
+        ApiGetLocations:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/locations
+            Method: get
+        ApiGetWithoutLocations:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/withoutlocations
+            Method: get
+        ApiGetTypeProduct:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/typeproduct
+            Method: get
+        ApiPutAssignLocation:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-67/asgnlocation
+            Method: put
+
+  HuTp68001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-68-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGetViewDetails:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-68/viewdetails
+            Method: get
+
+  HuTp73001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-73-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-73
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-73
+            Method: post
+
+  HuTp74001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-74-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-74
+            Method: get
+
+  HuTp75001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-75-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /empleados/hu-tp-75
+            Method: put
+
+  HuTp76001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-76-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /planilla-por-sedes/hu-tp-76
+            Method: post
+
+  HuTp77001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-77-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /planilla-por-sedes/hu-tp-77
+            Method: get
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /planilla-por-sedes/hu-tp-77
+            Method: put
+            
+  HuTp78001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-78-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-78
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-78
+            Method: post
+
+  HuTp79001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-79-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-79
+            Method: get
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-79
+            Method: put
+
+  HuTp84001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-84-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-84
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-84
+            Method: post
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-84
+            Method: put
+        ApiDelete:
+          Type: Api
+          Properties:
+            Path: /productos/hu-tp-84
+            Method: delete        
+
+  HuTp87001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-87-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /articulos/hu-tp-87
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /articulos/hu-tp-87
+            Method: post
+        ApiPatch:
+          Type: Api
+          Properties:
+            Path: /articulos/hu-tp-87
+            Method: patch
+        ApiDelete:
+          Type: Api
+          Properties:
+            Path: /articulos/hu-tp-87
+            Method: delete
+
+  HuTp88001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-88-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /auth/HU-TP-88
+            Method: post
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /auth/HU-TP-88
+            Method: put
+            
+  HuTp89001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-89-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-89
+            Method: post
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /metricas-alumno/hu-tp-89
+            Method: get    
+             
+  HuTp13001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-13-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-nutricion/hu-tp-13
+            Method: get
+
+  HuTp09001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-09-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /check-in-empleados/hu-tp-09
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /check-in-empleados/hu-tp-09
+            Method: post
+           
+  HuTp34001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-34-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /api/plan-de-nutricion/hu-tp-34
+            Method: post
+    
+  HuTp40001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-40-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /empleados/HU-TP-40
+            Method: post
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /empleados/HU-TP-40
+            Method: get
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /empleados/HU-TP-40
+            Method: put
+    
+  HuTp38001: 
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-38-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /plan-de-tratamiento/HU-TP-38
+            Method: post
+
+  HuTp39001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-39-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-tratamiento/HU-TP-39
+            Method: get
+
+  HuTp50001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-50-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /eventos/hu-tp-50
+            Method: get
+        ApiPut:
+          Type: Api
+          Properties:
+            Path: /eventos/hu-tp-50
+            Method: put
+
+  HuTp21001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-21-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-21
+            Method: get
+        ApiPost:
+          Type: Api
+          Properties:
+            Path: /membresias/hu-tp-21
+            Method: post 
+
+  HuTp90001:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: BACK/hu-tp-90-001
+      Handler: index.handler
+      Runtime: nodejs20.x
+      Architectures:
+        - x86_64
+      Events:
+        ApiGet:
+          Type: Api
+          Properties:
+            Path: /plan-de-tratamiento/hu-tp-90
+            Method: get
+
+            
+
+#FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+  # S3 Buckets for s3-mf-administrador-qa
+  MicrofrontBucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-administrador-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket1CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket1Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket1
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-administrador-qa/*"
+            Principal: "*"
+
+# S3 Buckets for s3-mf-clientes-qa
+  MicrofrontBucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-clientes-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket2CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket2Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket2
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-clientes-qa/*"
+            Principal: "*"
+
+# S3 Bucket for s3-mf-entrenador-qa
+  MicrofrontBucket3:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-entrenador-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket3CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket3Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket3
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-entrenador-qa/*"
+            Principal: "*"
+
+# S3 Bucket for s3-mf-manager-qa
+  MicrofrontBucket4:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-manager-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket4CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket4Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket4
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-manager-qa/*"
+            Principal: "*"
+
+# S3 Bucket for s3-mf-principal-qa
+  MicrofrontBucket5:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-principal-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket5CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket5Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket5
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-principal-qa/*"
+            Principal: "*"
+
+# S3 Bucket for s3-mf-recepcionista-qa
+  MicrofrontBucket6:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-recepcionista-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket6CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket6Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket6
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-recepcionista-qa/*"
+            Principal: "*"
+
+# S3 Bucket for s3-mf-instructor-qa
+  MicrofrontBucket7:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-instructor-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket7CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket7Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket7
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-instructor-qa/*"
+            Principal: "*"
+ 
+# S3 Bucket for s3-mf-fisioterapeuta-qa
+  MicrofrontBucket8:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-fisioterapeuta-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket8CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket8Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket8
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-fisioterapeuta-qa/*"
+            Principal: "*"
+
+# S3 Bucket for s3-mf-nutricionista-qa
+  MicrofrontBucket9:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-nutricionista-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket9CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket9Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket9
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-nutricionista-qa/*"
+            Principal: "*"
+
+# S3 Bucket for s3-mf-encargado-qa
+  MicrofrontBucket10:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-encargado-qa
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket10CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket10Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket10
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-encargado-qa/*"
+            Principal: "*"

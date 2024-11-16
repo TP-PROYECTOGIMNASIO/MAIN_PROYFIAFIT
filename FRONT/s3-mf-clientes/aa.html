@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Pago</title>
+    <!-- Cargar la librería de Culqi -->
+    <script src="https://checkout.culqi.com/js/v4"></script>
+</head>
+<body>
+    <h1>Página de Pago</h1>
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Obtener parámetros de la URL
+        const precio = getQueryParam('price') || '1000';  // Valor predeterminado 1000 si no hay parámetro
+        const ids = getQueryParam('item.id');
+        const cantidades = getQueryParam('quantity');
+
+        // Verifica si los valores están bien definidos
+        if (!ids || !cantidades) {
+            alert("Error: los parámetros de producto no están definidos correctamente.");
+            throw new Error("Faltan parámetros de producto.");
+        }
+
+        const idArray = ids.split(',');  // Si son varios IDs
+        const cantidadArray = cantidades.split(',');
+
+        // Inicializar la clave pública de Culqi
+        Culqi.publicKey = 'pk_test_1e3464ded7850f8c';
+
+        // Configuración de Culqi
+        Culqi.settings({
+            title: 'Fia Fit',
+            currency: 'PEN',
+            amount: parseInt(precio) * 100,  // Precio en céntimos
+        });
+
+        Culqi.options({
+            lang: "auto",
+            installments: true,
+            paymentMethods: {
+                tarjeta: true,
+                yape: true,
+                bancaMovil: true,
+                agente: true,
+                billetera: true,
+                cuotealo: true,
+            },
+            style: {
+                logo: "https://s4.aconvert.com/convert/p3r68-cdx67/aale4-nm7pc.webp",
+            }
+        });
+
+        // Se abre el formulario de Culqi
+        Culqi.open();
+
+        // Esperar a que el proceso de Culqi finalice antes de ejecutar `culqi()`
+        function culqi() {
+            if (Culqi.token) {  // Si hay un token
+                const token = Culqi.token.id;
+                const email = Culqi.token.email;
+                const item_type = "product";
+                const ventaDetails = {
+                    email: email,
+                    token: token,
+                    item_type: item_type,
+                    items: idArray.map((id, index) => ({
+                        product_id: id,
+                        quantity: cantidadArray[index] || 1  // Asegura una cantidad válida
+                    }))
+                };
+
+                console.log('Detalles de la venta: ', ventaDetails);
+
+                // Enviar los detalles de la venta a la API de backend
+                fetch("https://3zn8rhvzul.execute-api.us-east-2.amazonaws.com/api/ventas/hu-tp-18", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(ventaDetails)
+                })
+                .then(response => {
+                    console.log("Respuesta de la API sin procesar: ", response);
+
+                    if (!response.ok) {
+                        throw new Error("Error en la respuesta de la API");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Respuesta de la API procesada: ', data);
+
+                    // Aquí verificamos el mensaje de la API
+                    if (data.message === 'Solicitud enviada a SUNAT con éxito' && data.data.status === 'PENDIENTE') {
+                        // Redirigir a la nueva página con los detalles del pago
+                        const paymentDetails = {
+                            cardNumber: Culqi.token.card_number, // Asegúrate de que esta propiedad exista
+                            email: email,
+                            receiptNumber: '1232', // Suponiendo que esta propiedad existe
+                            currency: 'PEN',
+                            amount: parseInt(precio)
+                        };
+
+                        // Guardar los detalles en localStorage antes de redirigir
+                        localStorage.setItem('paymentDetails', JSON.stringify(paymentDetails));
+
+                        // Redirigir a la página de detalles
+                        window.location.href = '/payment-success'; // Cambia esto a la ruta que necesites
+                    } else {
+                        alert('Hubo un problema con el pago');
+                        console.error('Detalles del error: ', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud o en la respuesta: ', error);
+                    alert('Hubo un error con el pago.');
+                });
+            } else {
+                // Si no hay un token, mostramos el mensaje de error de Culqi
+                console.log(Culqi.error);
+                alert(Culqi.error.user_message);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  font-family: inherit;
+}
+
+.body {
+  font-family: inherit;
+}
+.containerCRP{
+  background-image: url('../../../public/fondoIniciarSesion.png'); /* Cambia la ruta a tu imagen */
+  background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
+}
+
+.containerRP {
+  height: 85%; /* Ajustar al 90% del contenedor padre */
+  width: 95%;
+  color: #333;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffffb9;
+  border-radius: 8px;
+  
+}
+
+.containerRP h2 {
+  font-size: 50px;
+  color: #cc0000;
+  margin-top: 0;
+  font-weight: 500;
+  margin-bottom: 15px; 
+}
+
+.form-containerAP {
+  width: 100%;
+}
+
+.form-groupAP {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  width: 100%;
+  align-items: center;
+}
+
+.form-groupAP label {
+  text-align: left;
+  font-size: 1.1rem;
+  margin-bottom: 0.25rem;
+}
+
+.form-groupAP input,
+.form-groupAP select {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 4px;
+  background-color: #dfdfdf;
+  color: #858585;
+  font-size: 1rem;
+  width: 300px;
+  max-width: 400px;
+  height: 50px;
+}
+
+.btn-guardarP {
+  background-color: #B60707;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px; /* Espacio superior */
+}
+
+.buttonHead {
+  text-align: left; /* Alinear a la izquierda */
+  margin-bottom: 20px; /* Espacio inferior */
+}
+
+.buttonRegresar {
+  font-weight: bold; /* Negrita para el texto */
+  font-size: 1.2rem;
+  padding-left: 20px; /* Aumentar tamaño de letra */
+}
+
+.containerListaC {
+  width: 100%;
+  align-self: flex-start; /* Alinear al inicio */
+}
+
+.containerListaC h2 {
+  font-size: 50px;
+}
+
+.table {  
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 10px 12px; /* Reducir padding */
+  text-align: left; /* Alinear a la izquierda */
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #DFE0E1;
+  color: #4B4F57;
+  height: 40px; /* Mantener altura para el encabezado */
+  
+}
+
+.table td {
+  vertical-align: top; /* Alinear el contenido de las celdas al principio */
+  height: 40px; /* Eliminar altura fija */
+  width: auto;
+}
+
+.table-body-container {
+  height: 476px; /* Ajustar altura del contenedor */
+  overflow-y: auto; /* Scroll vertical */
+  width: 100%;
+}
+
+.table-body {
+  display: table-row-group; /* Mantener el comportamiento de tabla */
+}
+
+.table .text-center {
+  text-align: center;
+}

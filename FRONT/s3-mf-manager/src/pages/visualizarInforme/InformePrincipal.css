@@ -1,0 +1,151 @@
+#root {
+  
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+    font-family: inherit;
+  }
+  .body{
+    font-family: inherit;
+  }
+  .containerGenerar{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  .form-container {
+    width: 100%;
+    
+  }
+  h2{
+    font-size: 50px;
+    color: #cc0000;
+    margin-top: 0;
+  }
+    .btnAgregarP {
+      
+        background-color: #dc3545;
+        color: #fff;
+        height: 50px;
+        width: 200px  ;
+        font-size: 20px;
+        margin-top: 25px;
+    
+    }
+  
+  .containerAgregarP{
+    align-items: center;
+  }
+  .app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    
+    border-radius: 8px;
+    color: #000;
+    
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+    width: 100%;
+    align-items: center;
+    height: 90px;
+   
+  }
+  
+  .form-group label {
+    text-align: left;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    background-color: #dfdfdf   ;
+    color: #858585 ;
+    font-size: 1rem;
+    width: 300px;
+      max-width: 400px;
+      font-family: inherit;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+  }
+  
+  .btn {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  
+  .btn:hover {
+    background-color: #cc0000;
+  }
+  
+  @media (max-width: 767px) {
+    .app {
+      padding: 1rem;
+    }
+  
+    .form-group {
+      margin-bottom: 1rem;
+    }
+  
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 4px;
+      background-color: #f5f5f5;
+      color: #333;
+      font-size: 1rem;
+      width: 100px;
+      max-width: 400px;
+      box-sizing:border-box;
+    }
+  
+    .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    padding: 20px;
+  }
+  .column label{
+     font-size: 25px;
+     font-weight: normal;
+  }
