@@ -818,11 +818,11 @@ Resources:
 
 #FRONT -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  # S3 Buckets for s3-mf-administrador-prod
+  # S3 Buckets for s3-mf-administrador-qa
   MicrofrontBucket1:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-administrador-prod
+      BucketName: s3-mf-administrador-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -856,14 +856,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-administrador-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-administrador-qa/*"
             Principal: "*"
 
-# S3 Buckets for s3-mf-clientes-prod
+# S3 Buckets for s3-mf-clientes-qa
   MicrofrontBucket2:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-clientes-prod
+      BucketName: s3-mf-clientes-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -897,14 +897,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-clientes-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-clientes-qa/*"
             Principal: "*"
 
-# S3 Bucket for s3-mf-entrenador-prod
+# S3 Bucket for s3-mf-entrenador-qa
   MicrofrontBucket3:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-entrenador-prod
+      BucketName: s3-mf-entrenador-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -938,14 +938,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-entrenador-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-entrenador-qa/*"
             Principal: "*"
 
-# S3 Bucket for s3-mf-manager-prod
+# S3 Bucket for s3-mf-manager-qa
   MicrofrontBucket4:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-manager-prod
+      BucketName: s3-mf-manager-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -979,14 +979,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-manager-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-manager-qa/*"
             Principal: "*"
 
-# S3 Bucket for s3-mf-principal-prod
+# S3 Bucket for s3-mf-principal-qa
   MicrofrontBucket5:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-principal-prod
+      BucketName: s3-mf-principal-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -1020,14 +1020,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-principal-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-principal-qa/*"
             Principal: "*"
 
-# S3 Bucket for s3-mf-recepcionista-prod
+# S3 Bucket for s3-mf-recepcionista-qa
   MicrofrontBucket6:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-recepcionista-prod
+      BucketName: s3-mf-recepcionista-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -1061,14 +1061,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-recepcionista-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-recepcionista-qa/*"
             Principal: "*"
 
-# S3 Bucket for s3-mf-instructor-prod
+# S3 Bucket for s3-mf-instructor-qa
   MicrofrontBucket7:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-instructor-prod
+      BucketName: s3-mf-instructor-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -1102,14 +1102,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-instructor-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-instructor-qa/*"
             Principal: "*"
  
-# S3 Bucket for s3-mf-fisioterapeuta-prod
+# S3 Bucket for s3-mf-fisioterapeuta-qa
   MicrofrontBucket8:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-fisioterapeuta-prod
+      BucketName: s3-mf-fisioterapeuta-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -1143,14 +1143,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-fisioterapeuta-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-fisioterapeuta-qa/*"
             Principal: "*"
 
-# S3 Bucket for s3-mf-nutricionista-prod
+# S3 Bucket for s3-mf-nutricionista-qa
   MicrofrontBucket9:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-nutricionista-prod
+      BucketName: s3-mf-nutricionista-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -1184,14 +1184,14 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-nutricionista-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-nutricionista-qa/*"
             Principal: "*"
 
-# S3 Bucket for s3-mf-encargado-prod
+# S3 Bucket for s3-mf-encargado-qa
   MicrofrontBucket10:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: s3-mf-encargado-prod
+      BucketName: s3-mf-encargado-qa
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -1225,5 +1225,5 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::s3-mf-encargado-prod/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-encargado-qa/*"
             Principal: "*"
