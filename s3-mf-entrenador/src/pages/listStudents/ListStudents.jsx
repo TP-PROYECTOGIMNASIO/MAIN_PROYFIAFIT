@@ -203,21 +203,81 @@ const ListStudents = () => {
 
                 <td className="border-t py-2 px-4">
                   <button
-                    className="text-white bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded"
-                    onClick={() => {
-                      openModal(student); // Abre el modal y guarda el estudiante seleccionado
-                      handlePlanEntrenamientoClick(); // Llama a la función para manejar el plan de entrenamiento
-                    }}
+                    className="text-white py-2 px-6 rounded-md"
+                    style={{ backgroundColor: '#b31b20' }}
+                    onClick={() => openModal(student)}
                   >
                     Expandir
                   </button>
                 </td>
 
+                
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+{/*Condicional para renderizar el modal*/}      
+{isModalOpen && selectedStudent && (
+        <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-white rounded-lg w-[600px] h-auto p-6 relative flex flex-col">
+            <button
+              className="absolute top-2 right-4 text-black text-2xl"
+              style={{ backgroundColor: 'transparent', border: 'none' }}
+              onClick={closeModal}
+            >
+              &times;
+            </button>
+            <div className="flex items-start mb-4">
+              <div className="mr-6 flex items-center justify-center mt-2">
+                <div className="w-24 h-24 bg-white flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-24 h-24 text-red-600"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2" />
+                    <path d="M8 14h8v6H8z" stroke="currentColor" strokeWidth="2" />
+                  </svg>
+                </div>
+              </div>
+              <div className="flex-1 text-black">
+                <p className="mb-2"><strong>Nombres:</strong> {selectedStudent.nombres}</p>
+                <p className="mb-2"><strong>Género:</strong> {selectedStudent.genero || 'No disponible'}</p>
+                <p className="mb-2"><strong>Entrenador:</strong> {selectedStudent.entrenador || 'N/A'}</p>
+                <p className="mb-2"><strong>Sede:</strong> {selectedStudent.sede}</p>
+                <p className="mb-2"><strong>Membresía:</strong> {selectedStudent.membresia || 'No disponible'}</p>
+                <p><strong>Rango:</strong> {selectedStudent.rango}</p>
+              </div>
+            </div>
+            <div className="flex">
+              <div className="flex-1 flex flex-col mr-4">
+                <button className="bg-[#b31b20] text-white py-2 px-4 rounded-md mb-2">HORARIO</button>
+                <div className="flex justify-center w-full">
+                  <Link to={`/vista-no-registrado?client_id=${selectedStudent.client_id}&role=${role}&token=${token}&username=${username}`} className="bg-[#b31b20] text-white py-2 px-4 rounded-md w-full text-center"> MÉTRICAS
+                  </Link>
+                </div>
+              </div>
+              <div className="flex-1 flex flex-col">
+                <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2">PLAN ALIMENTICIO</button>
+                <button className="bg-gray-700 text-white py-2 px-4 rounded-md mb-2" onClick={handlePlanEntrenamientoClick}>PLAN DE ENTRENAMIENTO</button>
+                <button className="bg-gray-700 text-white py-2 px-4 rounded-md">REPORTE DE FISIOTERAPIA</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
+
+
+
+
+
     </div>
   );
 };

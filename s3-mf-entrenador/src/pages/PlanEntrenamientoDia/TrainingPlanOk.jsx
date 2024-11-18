@@ -73,11 +73,9 @@ const TrainingPlanOk = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
       <div className="bg-white shadow-md rounded-lg p-8 relative w-full max-w-md lg:max-w-lg flex flex-col justify-center min-h-[300px]">
-        <Link
-          to="/"
-          className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-xl font-bold"
-        >
-          X
+        <Link to={`/listar-alumnos?role=${role}&token=${token}&username=${username}`} className="absolute top-4 right-4 text-gray-500 hover:text-red-600 text-xl font-bold">
+        X
+                  
         </Link>
 
         <h2 className="text-2xl lg:text-3xl font-semibold text-center mb-4" style={{ color: '#8c1c13' }}>
