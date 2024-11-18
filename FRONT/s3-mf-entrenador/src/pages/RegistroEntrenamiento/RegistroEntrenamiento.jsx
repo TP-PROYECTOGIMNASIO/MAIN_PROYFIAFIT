@@ -5,23 +5,19 @@ const RegistroEntrenamiento = () => {
   const [ejercicios, setEjercicios] = useState([]);
   const [NdiaSeleccionado, setDiaSeleccionado] = useState('');
   const [diaSeleccionado, setDiaSeleccionadoState] = useState('');
-  const [grupoSeleccionadoNombre, setGrupoSeleccionadoNombre] = useState(''); // Estado para el nombre del grupo muscular
-  const [studentName, setStudentName] = useState(''); // Estado para el nombre del alumno
-  const [clientId, setClientId] = useState(''); // Estado para almacenar el client_id
-  const [trainingPlanId, setTrainingPlanId] = useState(null); // Estado para almacenar el trainingPlanId con valor inicial null
+  const [grupoSeleccionadoNombre, setGrupoSeleccionadoNombre] = useState('');
+  const [studentName, setStudentName] = useState('');
+  const [clientId, setClientId] = useState('');
+  const [trainingPlanId, setTrainingPlanId] = useState(null);
   const navigate = useNavigate();
   const apiUrl28 = import.meta.env.VITE_APP_API_URL_28;
   const params = new URLSearchParams(window.location.search);
-
   const role = params.get("role");
   const token = params.get("token");
   const username = params.get("username");
 
-  console.log("role recibido en Registro Entrenamiento:", role);
-  console.log("token recibido en Registro Entrenamiento:", token);
-  console.log("username recibido en Registro Entrenamiento:", username);
-
   useEffect(() => {
+    // Cargar los datos de localStorage
     try {
       const diaGuardado = localStorage.getItem('NdiaSeleccionado');
       setDiaSeleccionado(diaGuardado);
@@ -34,25 +30,21 @@ const RegistroEntrenamiento = () => {
         setEjercicios(JSON.parse(storedEjercicios));
       }
 
-      // Recuperar el grupo muscular
       const storedGrupoMuscular = localStorage.getItem('gruposMusculares');
       if (storedGrupoMuscular) {
-        setGrupoSeleccionadoNombre(storedGrupoMuscular); // Aquí se establece como cadena
+        setGrupoSeleccionadoNombre(storedGrupoMuscular);
       }
 
-      // Recuperar el nombre del alumno
       const storedStudentName = localStorage.getItem('selectedStudentName');
       if (storedStudentName) {
-        setStudentName(storedStudentName); // Asignar el nombre del alumno
+        setStudentName(storedStudentName);
       }
 
-      // Recuperar el client_id del alumno
       const storedClientId = localStorage.getItem('selectedClientId');
       if (storedClientId) {
-        setClientId(storedClientId); // Asignar el client_id
+        setClientId(parseInt(storedClientId, 10)); // Parse as integer
       }
 
-      // Recuperar el trainingPlanId del plan de entrenamiento
       const storedTrainingPlanId = localStorage.getItem('trainingPlanId');
       setTrainingPlanId(storedTrainingPlanId ? parseInt(storedTrainingPlanId, 10) : null);
     } catch (error) {
@@ -60,30 +52,42 @@ const RegistroEntrenamiento = () => {
     }
   }, []);
 
-  // Manejo del grupo muscular
   const focus = grupoSeleccionadoNombre || 'Sin grupo muscular';
 
   const handleSave = async () => {
+    // Validar si el ID del cliente es correcto
+    const clientIdInt = parseInt(clientId, 10);
+    if (isNaN(clientIdInt)) {
+      alert('El ID del cliente no es válido.');
+      return;
+    }
+
+    // Obtener los días previamente guardados en localStorage
+    let diasGuardados = JSON.parse(localStorage.getItem('diasGuardados')) || []; // Definir o inicializar si no existe
+
+    // Verificar si el día ya ha sido registrado
+    if (diasGuardados.includes(NdiaSeleccionado)) {
+      alert('Este día ya ha sido registrado.');
+      return; // No continuar con el registro si el día ya está guardado
+    }
+
     // Crear el payload con los datos
     const payload = {
-      client_id: clientId,
+      client_id: clientIdInt,
       name: "Plan de Entrenamiento 6",
       description: "Descripcion de la membresia",
-      day: parseInt(NdiaSeleccionado, 10),
+      day: NdiaSeleccionado,
       focus: focus,
       exercises: ejercicios.map((ejercicio) => ({
         exercise_id: ejercicio.exercise_id,
         sets: ejercicio.series,
         reps: ejercicio.repeticiones,
       })),
+      ...(trainingPlanId && { training_plan_id: trainingPlanId }),
     };
 
-    // Si el trainingPlanId es null o no existe, agregar el training_plan_id = 1
-    if (trainingPlanId) {
-      payload.training_plan_id =trainingPlanId;
-    }
-
-    console.log('Payload con ejercicios y trainingPlanId:', payload);
+    // Imprimir el payload para verificar qué datos se están enviando
+    console.log('Payload a enviar:', payload);
 
     try {
       const response = await fetch(`${apiUrl28}`, {
@@ -93,24 +97,36 @@ const RegistroEntrenamiento = () => {
         },
         body: JSON.stringify(payload),
       });
-
+    
       if (response.ok) {
         const result = await response.json();
         console.log('Plan de entrenamiento guardado con éxito:', result);
-
-        // Almacenar el día guardado en localStorage y redirigir a la página PlanEntrenamientoPorDia
-        localStorage.setItem('diaGuardado', NdiaSeleccionado); // Guardar día en localStorage
+    
+        // Agregar el día a la lista de días registrados en localStorage
+        diasGuardados.push(NdiaSeleccionado);
+        localStorage.setItem('diasGuardados', JSON.stringify(diasGuardados)); // Guardar los días actualizados en localStorage
+    
+        // Redirigir y mostrar mensaje
         alert('Plan de entrenamiento guardado con éxito!');
-        navigate(`/PlanEntrenamientoDia?role=${role}&token=${token}&username=${username}`); // Redirigir a PlanEntrenamientoPorDia
+        navigate(`/PlanEntrenamientoDia?role=${role}&token=${token}&username=${username}`);
       } else {
-        console.error('Error al guardar el plan de entrenamiento:', response.statusText);
-        alert('Error al guardar el plan de entrenamiento.');
+        // Obtener detalles del error
+        const errorDetails = await response.json();
+        console.log('Detalles del error:', errorDetails);
+    
+        // Verificar si el error es debido a un conflicto
+        if (response.status === 409 || (errorDetails.message && errorDetails.message.includes('plan already exists'))) {
+          alert(`Ya existe un plan para el día ${NdiaSeleccionado} en este plan de entrenamiento.`);
+        } else {
+          alert('hola. Verifica la consola para más detalles.');
+        }
       }
     } catch (error) {
       console.error('Error en la solicitud:', error);
       alert('Error en la solicitud al servidor.');
     }
   };
+    
 
   const handleRegresar = () => {
     navigate(-1);
