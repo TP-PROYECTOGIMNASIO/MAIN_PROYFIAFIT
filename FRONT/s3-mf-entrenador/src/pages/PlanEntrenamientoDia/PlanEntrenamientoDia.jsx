@@ -57,6 +57,9 @@ export default function PlanEntrenamientoDia() {
     useEffect(() => {
         const diaGuardado = localStorage.getItem('diaSeleccionado');
         const storedStudentName = localStorage.getItem('selectedStudentName'); // Recuperar el nombre del alumno
+        const storedClientId = parseInt(localStorage.getItem('selectedClientId'), 10);
+        console.log("Client ID recuperado como número:", storedClientId);
+    
         setDiaSeleccionado(diaGuardado || '');
         setStudentName(storedStudentName || 'Nombre del Alumno'); // Asignar el nombre del alumno
     }, []);
@@ -124,7 +127,9 @@ export default function PlanEntrenamientoDia() {
                         </button>
                     ))}
                 </div>
+
             </div>  
+
             <Modal isOpen={modalOpen} onClose={closeModal} />
         </div>
     );
