@@ -23,7 +23,7 @@ function Modal({ evento, onClose, onAccept, onReject }) {
             <img
               src={evento.image_url}
               onError={handleImageError}
-              className="w-full h-46 w-1/2 mr-4"
+              className="w-256 h-46 w-1/3 mr-4"
               alt={evento.titulo}
             />
             <div className="w-2/3">
